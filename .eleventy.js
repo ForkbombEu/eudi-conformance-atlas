@@ -57,6 +57,7 @@ module.exports = function (eleventyConfig) {
       includes: "_includes",
       data: "_data",
     },
+    pathPrefix: "/eudi-conformance-atlas/",
     templateFormats: ["njk", "md", "html"],
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",

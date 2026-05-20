@@ -9,10 +9,11 @@
 
   if (!container) return;
 
-  // Parse embedded data
+  // Parse embedded data and path prefix
   var dataScript = document.getElementById("tree-data");
   if (!dataScript) return;
   var data = JSON.parse(dataScript.textContent);
+  var pathPrefix = container.dataset.pathPrefix || "/eudi-conformance-atlas/";
 
   var documents = data.documents;
   var groups = data.groups;
@@ -79,7 +80,7 @@
               title: doc.name,
               docType: doc.type,
               summary: doc.summary,
-              url: "/documents/" + doc.id + "/",
+              url: pathPrefix + "documents/" + doc.id + "/",
               officialUrl: doc.url,
             });
           }

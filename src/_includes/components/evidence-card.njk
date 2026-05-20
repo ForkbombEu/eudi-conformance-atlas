@@ -1,6 +1,6 @@
 {% macro evidenceCard(claim) %}
 <article class="card evidence-card">
-  <h4><a href="/evidence/{{ claim.slug }}">{{ claim.title }}</a></h4>
+  <h4><a href="{{ ('/evidence/' + claim.slug + '/') | url }}">{{ claim.title }}</a></h4>
   <div class="evidence-slug">{{ claim.slug }}</div>
   {% if claim.description %}
   <p class="evidence-desc">{{ claim.description }}</p>

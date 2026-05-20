@@ -4,7 +4,7 @@
 <article class="card doc-card">
   <div class="doc-card-top">
     <div>
-      <h4><a href="/documents/{{ doc.id }}">{{ doc.name }}</a></h4>
+      <h4><a href="{{ ('/documents/' + doc.id + '/') | url }}">{{ doc.name }}</a></h4>
       <span class="doc-id">{{ doc.id }}</span>
     </div>
     {{ sourceBadge(doc.type) }}

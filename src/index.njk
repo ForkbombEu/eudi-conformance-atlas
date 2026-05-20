@@ -14,8 +14,8 @@ pageScript: search.js
     <h1>EUDI Trust &<br>Conformance Atlas</h1>
     <p>A community-maintained map of EUDI Wallet law, implementing acts, ARF requirements, WE BUILD trust work, and conformance-evidence mappings.</p>
     <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3);">
-      <a href="/map" class="btn btn-primary btn-lg">Explore the map</a>
-      <a href="/documents" class="btn btn-outline btn-lg">Browse documents</a>
+      <a href="{{ '/map/' | url }}" class="btn btn-primary btn-lg">Explore the map</a>
+      <a href="{{ '/documents/' | url }}" class="btn btn-outline btn-lg">Browse documents</a>
     </div>
   </div>
 </section>
@@ -23,7 +23,7 @@ pageScript: search.js
 <div class="page-content">
   <div class="container">
     <div class="disclaimer">
-      <strong>Disclaimer:</strong> This is an unofficial navigation resource, not legal advice, not certification. Official sources always prevail. Maintained by <strong>Credimi / Forkbomb BV</strong> under the NGI TRUSTCHAIN programme.
+      <strong>Disclaimer:</strong> This is an unofficial navigation resource, not legal advice, not certification. Official sources always prevail. Maintained by <strong>Credimi / Forkbomb BV</strong>.
     </div>
 
     {{ sectionHeader("Find documents, evidence claims, and references", documents.totalCount + evidence.totalCount) }}
@@ -36,19 +36,19 @@ pageScript: search.js
 
     <div id="default-content">
       <div style="margin-top: var(--space-6);">
-        {{ sectionHeader("Quick links", null, "/documents") }}
+        {{ sectionHeader("Quick links", null, "/documents/") }}
       </div>
 
       <div class="card-grid card-grid-3 mb-8">
-        <a href="/map" class="card" style="text-decoration:none;">
+        <a href="{{ '/map/' | url }}" class="card" style="text-decoration:none;">
           <h4 style="color:var(--fg);">Map <span aria-hidden="true">↗</span></h4>
           <p class="text-sm text-muted">Interactive tree of documents, groups, and evidence claims.</p>
         </a>
-        <a href="/documents" class="card" style="text-decoration:none;">
+        <a href="{{ '/documents/' | url }}" class="card" style="text-decoration:none;">
           <h4 style="color:var(--fg);">Documents <span aria-hidden="true">↗</span><span class="count-chip">{{ documents.totalCount }}</span></h4>
           <p class="text-sm text-muted">Legal acts, implementing regulations, ARF, WE BUILD, and more.</p>
         </a>
-        <a href="/evidence" class="card" style="text-decoration:none;">
+        <a href="{{ '/evidence/' | url }}" class="card" style="text-decoration:none;">
           <h4 style="color:var(--fg);">Evidence Claims <span aria-hidden="true">↗</span><span class="count-chip">{{ evidence.totalCount }}</span></h4>
           <p class="text-sm text-muted">Reproducible conformance evidence claims with official references.</p>
         </a>
@@ -65,7 +65,7 @@ pageScript: search.js
           <p style="font-size:var(--fs-sm);color:var(--fg-muted);margin-bottom:var(--space-3);">{{ route.why_this_route }}</p>
           <div style="display:flex;flex-wrap:wrap;gap:var(--space-1);">
             {% for docId in route.documents %}
-            <span class="badge badge-neutral font-mono">{{ docId }}</span>
+            <a href="{{ ('/documents/' + docId + '/') | url }}" class="badge badge-neutral font-mono" style="text-decoration:none;">{{ docId }}</a>
             {% endfor %}
           </div>
         </div>
@@ -73,7 +73,7 @@ pageScript: search.js
       </div>
 
       <div style="margin-top: var(--space-6);">
-        {{ sectionHeader("Recent documents", documents.recentDocuments.length, "/documents") }}
+        {{ sectionHeader("Recent documents", documents.recentDocuments.length, "/documents/") }}
       </div>
 
       <div class="card-grid card-grid-2 mb-8">
@@ -84,7 +84,7 @@ pageScript: search.js
     </div>
 
     <div style="margin-top: var(--space-4); text-align: center;">
-      <a href="https://github.com/forkbombeu/eudi-conformance-atlas" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
+      <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/src/index.njk" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
     </div>
   </div>
 </div>

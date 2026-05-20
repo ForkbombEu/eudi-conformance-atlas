@@ -2,21 +2,22 @@
   <div class="footer-inner">
     <div class="footer-content">
       <div class="footer-brand">
-        <h5 style="color:white;font-size:var(--fs-xs);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:var(--space-3);">EUDI TRUST & CONFORMANCE ATLAS</h5>
-        <p>A community-maintained map of EUDI Wallet law, implementing acts, ARF requirements, WE BUILD trust work, and conformance-evidence mappings. Lightly maintained by Credimi / Forkbomb.</p>
+        <p class="text-sm" style="color: rgba(255,255,255,0.7); max-width: 360px; line-height: 1.6;">
+          An open, community-maintained map of EUDI Wallet law, implementing acts, ARF requirements, WE BUILD trust work, and conformance evidence.
+        </p>
       </div>
       <div class="footer-links">
         <div class="footer-col">
           <h5>Explore</h5>
-          <a href="/map">Map</a>
-          <a href="/documents">Documents</a>
-          <a href="/evidence">Evidence</a>
+          <a href="{{ '/map/' | url }}">Map</a>
+          <a href="{{ '/documents/' | url }}">Documents</a>
+          <a href="{{ '/evidence/' | url }}">Evidence</a>
         </div>
         <div class="footer-col">
           <h5>Resources</h5>
-          <a href="/data">Data</a>
-          <a href="/about">About</a>
-          <a href="/contribute">Contribute</a>
+          <a href="{{ '/data/' | url }}">Data</a>
+          <a href="{{ '/about/' | url }}">About</a>
+          <a href="{{ '/contribute/' | url }}">Contribute</a>
         </div>
         <div class="footer-col">
           <h5>Official</h5>
@@ -28,6 +29,6 @@
     </div>
   </div>
   <div class="footer-sub-bar">
-    Proudly developed by ForkBomb BV · Amsterdam · NGI TRUSTCHAIN
+    Proudly developed by ForkBomb BV
   </div>
 </footer>

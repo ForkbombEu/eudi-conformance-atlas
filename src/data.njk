@@ -25,7 +25,7 @@ description: Raw machine-readable data files — YAML, JSON — that power the E
         <h4 style="font-size: var(--fs-md); font-weight: 700; margin-bottom: var(--space-2);">EUDI Documents Map</h4>
         <p class="text-sm text-muted" style="margin-bottom: var(--space-3);">{{ documents.totalCount }} documents, {{ documents.groups.length }} logical groups, {{ documents.routes.length }} reading routes. Version {{ documents.version }}.</p>
         <div style="display: flex; gap: var(--space-2);">
-          <a href="/data/eudi-documents-map.yaml" class="btn btn-outline btn-sm" download>Download YAML</a>
+          <a href="{{ '/data/eudi-documents-map.yaml' | url }}" class="btn btn-outline btn-sm" download>Download YAML</a>
           <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/eudi-documents-map.yaml" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">View on GitHub</a>
         </div>
       </div>
@@ -34,7 +34,7 @@ description: Raw machine-readable data files — YAML, JSON — that power the E
         <h4 style="font-size: var(--fs-md); font-weight: 700; margin-bottom: var(--space-2);">Evidence Claims Registry</h4>
         <p class="text-sm text-muted" style="margin-bottom: var(--space-3);">{{ evidence.totalCount }} evidence claims across {{ evidence.profiles.length }} profiles. Version {{ evidence.registryVersion }}.</p>
         <div style="display: flex; gap: var(--space-2);">
-          <a href="/data/evidence-claims-registry.yaml" class="btn btn-outline btn-sm" download>Download YAML</a>
+          <a href="{{ '/data/evidence-claims-registry.yaml' | url }}" class="btn btn-outline btn-sm" download>Download YAML</a>
           <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/evidence-claims-registry.yaml" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">View on GitHub</a>
         </div>
       </div>
@@ -43,7 +43,7 @@ description: Raw machine-readable data files — YAML, JSON — that power the E
         <h4 style="font-size: var(--fs-md); font-weight: 700; margin-bottom: var(--space-2);">Conformance Result Schema</h4>
         <p class="text-sm text-muted" style="margin-bottom: var(--space-3);">JSON Schema (draft 2020-12) for normalized Credimi conformance evidence results. Version 0.2.</p>
         <div style="display: flex; gap: var(--space-2);">
-          <a href="/data/conformance-result.schema.json" class="btn btn-outline btn-sm" download>Download JSON</a>
+          <a href="{{ '/data/conformance-result.schema.json' | url }}" class="btn btn-outline btn-sm" download>Download JSON</a>
           <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/conformance-result.schema.json" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">View on GitHub</a>
         </div>
       </div>
@@ -52,7 +52,7 @@ description: Raw machine-readable data files — YAML, JSON — that power the E
         <h4 style="font-size: var(--fs-md); font-weight: 700; margin-bottom: var(--space-2);">Trust Helper Backlog</h4>
         <p class="text-sm text-muted" style="margin-bottom: var(--space-3);">Architecture decisions and feature backlog for Credimi trust-helper implementation. Version 0.2.</p>
         <div style="display: flex; gap: var(--space-2);">
-          <a href="/data/trust-helper-backlog.md" class="btn btn-outline btn-sm">View Markdown</a>
+          <a href="{{ '/data/trust-helper-backlog.md' | url }}" class="btn btn-outline btn-sm">View Markdown</a>
           <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/trust-helper-backlog.md" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">View on GitHub</a>
         </div>
       </div>
