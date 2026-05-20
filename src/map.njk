@@ -1,0 +1,42 @@
+---
+layout: base.njk
+title: Map
+pageScript: tree.js
+---
+{% from "components/search-box.njk" import searchBox %}
+
+<section class="hero" style="padding: var(--space-8) 0;">
+  <div class="hero-inner">
+    <p class="eyebrow">INTERACTIVE MAP</p>
+    <h1 style="font-size: var(--fs-2xl);">EUDI document map</h1>
+    <p style="font-size: var(--fs-base);">Expand, collapse, search, and filter the EUDI document landscape. Click any document to see details and related evidence claims.</p>
+  </div>
+</section>
+
+<div class="page-content">
+  <div class="container">
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> This is an unofficial navigation resource. Official sources always prevail.
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 300px; gap: var(--space-6);">
+      <div>
+        <div style="margin-bottom: var(--space-4);">
+          {{ searchBox("tree-search", "Filter tree:") }}
+        </div>
+        <div class="tree-container" id="tree-container"></div>
+      </div>
+      <div id="tree-side-panel" style="display:none;">
+        <div class="card" id="tree-detail-card"></div>
+      </div>
+    </div>
+
+    <div style="margin-top: var(--space-4); text-align: center;">
+      <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/src/map.njk" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
+    </div>
+  </div>
+</div>
+
+<script id="tree-data" type="application/json">
+{{ documents | toJson | safe }}
+</script>

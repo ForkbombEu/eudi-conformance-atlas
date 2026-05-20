@@ -1,0 +1,25 @@
+{% macro evidenceCard(claim) %}
+<article class="card evidence-card">
+  <h4><a href="/evidence/{{ claim.slug }}">{{ claim.title }}</a></h4>
+  <div class="evidence-slug">{{ claim.slug }}</div>
+  {% if claim.description %}
+  <p class="evidence-desc">{{ claim.description }}</p>
+  {% endif %}
+  <div class="evidence-meta">
+    {% if claim.actor %}
+    <span class="badge badge-wallet">{{ claim.actor }}</span>
+    {% endif %}
+    {% if claim.domain %}
+    <span class="badge badge-neutral">{{ claim.domain }}</span>
+    {% endif %}
+    {% if claim.profile %}
+    <span class="badge badge-neutral">{{ claim.profile.title }}</span>
+    {% endif %}
+    {% if claim.default_status %}
+    {% for status in claim.default_status %}
+    <span class="badge badge-verifier">{{ status }}</span>
+    {% endfor %}
+    {% endif %}
+  </div>
+</article>
+{% endmacro %}

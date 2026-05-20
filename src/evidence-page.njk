@@ -1,0 +1,178 @@
+---
+layout: base.njk
+pagination:
+  data: evidence.claims
+  size: 1
+  alias: claim
+  addAllPagesToCollections: true
+permalink: "/evidence/{{ claim.slug }}/index.html"
+eleventyComputed:
+  title: "{{ claim.title }}"
+  description: "{{ claim.description }}"
+---
+
+<section class="hero" style="padding: var(--space-8) 0;">
+  <div class="hero-inner">
+    <p class="eyebrow">EVIDENCE CLAIM</p>
+    <h1 style="font-size: var(--fs-2xl);">{{ claim.title }}</h1>
+    <div style="display: flex; gap: var(--space-3); align-items: center; margin-top: var(--space-3);">
+      <span class="font-mono text-sm text-muted">{{ claim.slug }}</span>
+      {% if claim.internal_id %}
+      <span class="font-mono text-xs text-muted">Internal ID: {{ claim.internal_id }}</span>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<div class="page-content">
+  <div class="container">
+
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> This is an evidence claim, not an official requirement. It "maps to", "supports", and "relates to" official references. It does not "certify" or "prove compliance."
+    </div>
+
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-8);">
+      <div>
+        <div class="detail-section">
+          <h3>Description</h3>
+          <p style="font-size: var(--fs-md); line-height: 1.6;">{{ claim.description or 'No description available.' }}</p>
+        </div>
+
+        {% if claim.official_references %}
+        <div class="detail-section">
+          <h3>Official references</h3>
+
+          {% if claim.official_references.legal and claim.official_references.legal.length > 0 %}
+          <h4 style="font-size: var(--fs-sm); font-weight: 600; margin-bottom: var(--space-2);">Legal references</h4>
+          <ul class="ref-list" style="margin-bottom: var(--space-4);">
+            {% for ref in claim.official_references.legal %}
+            <li class="ref-item">
+              <div class="ref-source">{{ ref.source }}</div>
+              {% if ref.article %}<div class="ref-detail"><strong>Article:</strong> {{ ref.article }}</div>{% endif %}
+              {% if ref.recital_or_article %}<div class="ref-detail"><strong>Recital/Article:</strong> {{ ref.recital_or_article }}</div>{% endif %}
+              {% if ref.short %}<div class="ref-detail">{{ ref.short }}</div>{% endif %}
+              {% if ref.url %}<div class="ref-detail"><a href="{{ ref.url }}" target="_blank" rel="noopener">View source ↗</a></div>{% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+
+          {% if claim.official_references.arf and claim.official_references.arf.length > 0 %}
+          <h4 style="font-size: var(--fs-sm); font-weight: 600; margin-bottom: var(--space-2);">ARF references</h4>
+          <ul class="ref-list" style="margin-bottom: var(--space-4);">
+            {% for ref in claim.official_references.arf %}
+            <li class="ref-item">
+              <div class="ref-source">{{ ref.harmonized_id or ref.index }}</div>
+              {% if ref.short %}<div class="ref-detail">{{ ref.short }}</div>{% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+
+          {% if claim.official_references.webuild and claim.official_references.webuild.length > 0 %}
+          <h4 style="font-size: var(--fs-sm); font-weight: 600; margin-bottom: var(--space-2);">WE BUILD references</h4>
+          <ul class="ref-list">
+            {% for ref in claim.official_references.webuild %}
+            <li class="ref-item">
+              <div class="ref-source">{{ ref.use_case_id }}: {{ ref.name }}</div>
+              {% if ref.path %}<div class="ref-detail">{{ ref.path }}</div>{% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        {% if claim.evidence_contribution_types and claim.evidence_contribution_types.length > 0 %}
+        <div class="detail-section">
+          <h3>Evidence contribution types</h3>
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+            {% for ect in claim.evidence_contribution_types %}
+            <span class="badge badge-neutral">{{ ect }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        {% if claim.expected_artifacts and claim.expected_artifacts.length > 0 %}
+        <div class="detail-section">
+          <h3>Expected artifacts</h3>
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+            {% for art in claim.expected_artifacts %}
+            <span class="badge badge-technical">{{ art }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        {% if claim.limitations and claim.limitations.length > 0 %}
+        <div class="detail-section">
+          <h3>Limitations</h3>
+          <ul style="padding-left: var(--space-5); font-size: var(--fs-sm); color: var(--fg-muted); line-height: 1.8;">
+            {% for lim in claim.limitations %}
+            <li>{{ lim }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+
+      <aside>
+        <div class="card" style="margin-bottom: var(--space-4);">
+          <h4 style="font-size: var(--fs-md); font-weight: 700; margin-bottom: var(--space-4);">Details</h4>
+          <dl class="dl">
+            {% if claim.profile %}
+            <dt>Profile</dt>
+            <dd>{{ claim.profile.title }}</dd>
+            <dt>Actor under test</dt>
+            <dd><span class="badge badge-wallet">{{ claim.profile.actor_under_test }}</span></dd>
+            {% endif %}
+            {% if claim.actor %}
+            <dt>Actor</dt>
+            <dd><span class="badge badge-wallet">{{ claim.actor }}</span></dd>
+            {% endif %}
+            {% if claim.domain %}
+            <dt>Domain</dt>
+            <dd>{{ claim.domain }}</dd>
+            {% endif %}
+            {% if claim.default_status %}
+            <dt>Status</dt>
+            <dd>
+              {% for s in claim.default_status %}
+              <span class="badge badge-verifier">{{ s }}</span>
+              {% endfor %}
+            </dd>
+            {% endif %}
+          </dl>
+        </div>
+
+        {% if claim.suggested_action_mappings %}
+        <div class="card" style="margin-bottom: var(--space-4);">
+          <h4 style="font-size: var(--fs-md); font-weight: 700; margin-bottom: var(--space-4);">Action mappings</h4>
+          {% if claim.suggested_action_mappings.maestro_categories %}
+          <div style="margin-bottom: var(--space-2);">
+            <span style="font-size: var(--fs-xs); font-weight: 600; color: var(--fg-muted);">Maestro:</span>
+            {% for m in claim.suggested_action_mappings.maestro_categories %}
+            <span class="badge badge-technical">{{ m }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+          {% if claim.suggested_action_mappings.stepci_categories %}
+          <div style="margin-bottom: var(--space-2);">
+            <span style="font-size: var(--fs-xs); font-weight: 600; color: var(--fg-muted);">StepCI:</span>
+            {% for s in claim.suggested_action_mappings.stepci_categories %}
+            <span class="badge badge-technical">{{ s }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        <div style="text-align: right;">
+          <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/evidence-claims-registry.yaml" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
+        </div>
+      </aside>
+    </div>
+
+  </div>
+</div>

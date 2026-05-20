@@ -1,0 +1,24 @@
+{% from "components/source-badge.njk" import sourceBadge %}
+
+{% macro documentCard(doc) %}
+<article class="card doc-card">
+  <div class="doc-card-top">
+    <div>
+      <h4><a href="/documents/{{ doc.id }}">{{ doc.name }}</a></h4>
+      <span class="doc-id">{{ doc.id }}</span>
+    </div>
+    {{ sourceBadge(doc.type) }}
+  </div>
+  {% if doc.summary %}
+  <p class="doc-summary">{{ doc.summary }}</p>
+  {% endif %}
+  <div class="doc-meta">
+    {% for aud in doc.audience %}
+    <span class="badge badge-neutral">{{ aud }}</span>
+    {% endfor %}
+    {% if doc.pdf_url %}
+    <a href="{{ doc.pdf_url }}" class="text-xs" target="_blank" rel="noopener">PDF ↗</a>
+    {% endif %}
+  </div>
+</article>
+{% endmacro %}

@@ -1,0 +1,7 @@
+{% macro filterBar(id, filters) %}
+<div class="filter-bar" id="{{ id or 'filter-bar' }}">
+  {% for filter in filters %}
+  <button class="filter-chip" data-filter="{{ filter.key }}" data-value="{{ filter.value }}" aria-pressed="false">{{ filter.label }}</button>
+  {% endfor %}
+</div>
+{% endmacro %}

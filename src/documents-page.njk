@@ -1,0 +1,113 @@
+---
+layout: base.njk
+pagination:
+  data: documents.documents
+  size: 1
+  alias: doc
+  addAllPagesToCollections: true
+permalink: "/documents/{{ doc.id }}/index.html"
+eleventyComputed:
+  title: "{{ doc.name }}"
+  description: "{{ doc.summary }}"
+---
+{% from "components/source-badge.njk" import sourceBadge %}
+
+<section class="hero" style="padding: var(--space-8) 0;">
+  <div class="hero-inner">
+    <p class="eyebrow">DOCUMENT</p>
+    <div style="margin-bottom: var(--space-2);">
+      {{ sourceBadge(doc.type) }}
+    </div>
+    <h1 style="font-size: var(--fs-2xl);">{{ doc.name }}</h1>
+    <p class="doc-id-display">ID: {{ doc.id }}</p>
+  </div>
+</section>
+
+<div class="page-content">
+  <div class="container">
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> Official sources always prevail. Always refer to EUR-Lex for authoritative texts.
+    </div>
+
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-8);">
+      <div>
+        <div class="detail-section">
+          <h3>Summary</h3>
+          <p style="font-size: var(--fs-md); line-height: 1.6;">{{ doc.summary or 'No summary available.' }}</p>
+        </div>
+
+        <div class="detail-section">
+          <h3>Relevance for EUDI</h3>
+          <p style="font-size: var(--fs-base); line-height: 1.6;">{{ doc.relevance_for_eudi or 'Not specified.' }}</p>
+        </div>
+
+        {% if doc.tags and doc.tags.length > 0 %}
+        <div class="detail-section">
+          <h3>Tags</h3>
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+            {% for tag in doc.tags %}
+            <span class="badge badge-neutral">{{ tag }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        {% set docGroups = documents.docGroups[doc.id] %}
+        {% if docGroups and docGroups.length > 0 %}
+        <div class="detail-section">
+          <h3>Related logical groups</h3>
+          <div style="display: flex; flex-direction: column; gap: var(--space-2);">
+            {% for grp in docGroups %}
+            <div class="card" style="padding: var(--space-3);">
+              <span style="font-weight: 600; font-size: var(--fs-sm);">{{ grp.groupTitle }}</span>
+              <span style="font-size: var(--fs-xs); color: var(--fg-muted); display: block;">Step: {{ grp.stepTitle }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        {% set docRoutes = documents.docRoutes[doc.id] %}
+        {% if docRoutes and docRoutes.length > 0 %}
+        <div class="detail-section">
+          <h3>Reading routes</h3>
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+            {% for r in docRoutes %}
+            <span class="badge badge-neutral">{{ r.routeTitle }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      <aside>
+        <div class="card" style="margin-bottom: var(--space-4);">
+          <h4 style="font-size: var(--fs-md); font-weight: 700; margin-bottom: var(--space-4);">Details</h4>
+          <dl class="dl">
+            <dt>Type</dt>
+            <dd>{{ sourceBadge(doc.type) }}</dd>
+            <dt>Audience</dt>
+            <dd>
+              {% if doc.audience and doc.audience.length > 0 %}
+              {% for aud in doc.audience %}<span class="badge badge-neutral">{{ aud }}</span> {% endfor %}
+              {% else %}<span class="text-muted">—</span>{% endif %}
+            </dd>
+          </dl>
+
+          <div style="margin-top: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2);">
+            {% if doc.url %}
+            <a href="{{ doc.url }}" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Official source ↗</a>
+            {% endif %}
+            {% if doc.pdf_url %}
+            <a href="{{ doc.pdf_url }}" class="btn btn-outline btn-sm" target="_blank" rel="noopener">PDF ↗</a>
+            {% endif %}
+          </div>
+        </div>
+
+        <div style="text-align: right;">
+          <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/eudi-documents-map.yaml" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>

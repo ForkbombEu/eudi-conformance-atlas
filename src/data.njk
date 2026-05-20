@@ -1,0 +1,86 @@
+---
+layout: base.njk
+title: Data
+description: Raw machine-readable data files — YAML, JSON — that power the EUDI Trust & Conformance Atlas.
+---
+{% from "components/section-header.njk" import sectionHeader %}
+{% from "components/source-badge.njk" import sourceBadge %}
+
+<section class="hero" style="padding: var(--space-8) 0;">
+  <div class="hero-inner">
+    <p class="eyebrow">MACHINE-READABLE DATA</p>
+    <h1 style="font-size: var(--fs-2xl);">Data & downloads</h1>
+    <p style="font-size: var(--fs-base);">Raw YAML and JSON files that power this site. Free to download, fork, and use under Apache-2.0.</p>
+  </div>
+</section>
+
+<div class="page-content">
+  <div class="container">
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> These files are not official EU publications. Official sources always prevail. Licensed under Apache-2.0.
+    </div>
+
+    <div class="card-grid card-grid-2 mb-8">
+      <div class="card">
+        <h4 style="font-size: var(--fs-md); font-weight: 700; margin-bottom: var(--space-2);">EUDI Documents Map</h4>
+        <p class="text-sm text-muted" style="margin-bottom: var(--space-3);">{{ documents.totalCount }} documents, {{ documents.groups.length }} logical groups, {{ documents.routes.length }} reading routes. Version {{ documents.version }}.</p>
+        <div style="display: flex; gap: var(--space-2);">
+          <a href="/data/eudi-documents-map.yaml" class="btn btn-outline btn-sm" download>Download YAML</a>
+          <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/eudi-documents-map.yaml" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">View on GitHub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4 style="font-size: var(--fs-md); font-weight: 700; margin-bottom: var(--space-2);">Evidence Claims Registry</h4>
+        <p class="text-sm text-muted" style="margin-bottom: var(--space-3);">{{ evidence.totalCount }} evidence claims across {{ evidence.profiles.length }} profiles. Version {{ evidence.registryVersion }}.</p>
+        <div style="display: flex; gap: var(--space-2);">
+          <a href="/data/evidence-claims-registry.yaml" class="btn btn-outline btn-sm" download>Download YAML</a>
+          <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/evidence-claims-registry.yaml" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">View on GitHub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4 style="font-size: var(--fs-md); font-weight: 700; margin-bottom: var(--space-2);">Conformance Result Schema</h4>
+        <p class="text-sm text-muted" style="margin-bottom: var(--space-3);">JSON Schema (draft 2020-12) for normalized Credimi conformance evidence results. Version 0.2.</p>
+        <div style="display: flex; gap: var(--space-2);">
+          <a href="/data/conformance-result.schema.json" class="btn btn-outline btn-sm" download>Download JSON</a>
+          <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/conformance-result.schema.json" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">View on GitHub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4 style="font-size: var(--fs-md); font-weight: 700; margin-bottom: var(--space-2);">Trust Helper Backlog</h4>
+        <p class="text-sm text-muted" style="margin-bottom: var(--space-3);">Architecture decisions and feature backlog for Credimi trust-helper implementation. Version 0.2.</p>
+        <div style="display: flex; gap: var(--space-2);">
+          <a href="/data/trust-helper-backlog.md" class="btn btn-outline btn-sm">View Markdown</a>
+          <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/trust-helper-backlog.md" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">View on GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    {{ sectionHeader("Document counts by type", documents.typeCounts | length) }}
+
+    <div class="card" style="margin-bottom: var(--space-8);">
+      <table style="width:100%; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--border);font-size:var(--fs-xs);font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;">Source Type</th>
+            <th style="text-align:right;padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--border);font-size:var(--fs-xs);font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;">Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for typeName, typeCount in documents.typeCounts %}
+          <tr>
+            <td style="padding:var(--space-2) var(--space-4);font-size:var(--fs-sm);">{{ sourceBadge(typeName) }} {{ typeName }}</td>
+            <td style="text-align:right;padding:var(--space-2) var(--space-4);font-family:'JetBrains Mono',monospace;font-size:var(--fs-sm);">{{ typeCount }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top: var(--space-4); text-align: center;">
+      <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/src/data.njk" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
+    </div>
+  </div>
+</div>

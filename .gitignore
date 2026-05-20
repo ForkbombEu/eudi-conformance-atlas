@@ -146,6 +146,9 @@ Desktop.ini
 *.sublime-workspace
 *~
 
+# Static site build output
+_site/
+
 # Tooling local state
 .envrc
 .direnv/

@@ -1,0 +1,744 @@
+version: '0.1'
+name: Credimi EUDI Conformance Documentation Map
+description: A consolidated map of legal acts, implementing acts, ARF/WE BUILD documentation, cybersecurity and trust-service
+  sources relevant to Credimi's EUDI conformance and interoperability evidence work.
+flat_documents:
+- id: EUDI-ARF
+  name: EUDI Architecture and Reference Framework
+  url: https://eudi.dev/latest/
+  type: architecture_reference_framework
+  summary: The main technical and architectural reference for the EUDI Wallet ecosystem. It defines roles, protocols, high-level
+    requirements, certification concepts, trust model elements, and interoperability expectations.
+  relevance_for_eudi: Primary bridge between legal requirements and implementable Wallet/Issuer/RP behaviour. Credimi evidence
+    claims should map to ARF requirements wherever possible.
+- id: WE-BUILD-WP4
+  name: WE BUILD WP4 Trust Group Repository
+  url: https://github.com/webuild-consortium/wp4-trust-group
+  type: project_working_documentation
+  summary: Working documentation for WE BUILD WP4 trust infrastructure, trust registry, participant certificates, LoTL/TL
+    integration, wallet conformance and testing scenarios.
+  relevance_for_eudi: Highly relevant because it contains concrete pilot-facing trust evaluation use cases that can become
+    executable evidence scenarios.
+- id: EU-2014-910
+  name: Regulation (EU) No 910/2014 — eIDAS Regulation
+  url: https://data.europa.eu/eli/reg/2014/910/oj
+  type: regulation
+  summary: Original eIDAS Regulation establishing the legal framework for electronic identification and trust services in
+    the internal market.
+  relevance_for_eudi: Legal foundation on which the EUDI Wallet amendments and implementing acts are built.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32014R0910
+- id: EU-2014-910-CONSOLIDATED-2024-10-18
+  name: Consolidated eIDAS Regulation after EUDI amendments
+  url: https://data.europa.eu/eli/reg/2014/910/2024-10-18
+  type: consolidated_regulation
+  summary: Consolidated version of Regulation (EU) No 910/2014 incorporating amendments including the European Digital Identity
+    Framework changes.
+  relevance_for_eudi: Operational legal baseline when interpreting current eIDAS/EUDI obligations across Wallets, issuers,
+    relying parties and trust services.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02014R0910-20241018
+- id: EU-2024-1183
+  name: Regulation (EU) 2024/1183 — European Digital Identity Framework
+  url: https://data.europa.eu/eli/reg/2024/1183/oj
+  type: regulation
+  summary: Amends eIDAS to establish the European Digital Identity Framework and European Digital Identity Wallets.
+  relevance_for_eudi: Core legal source for the Wallet ecosystem and the basis for many wallet, issuer, relying party, certification
+    and notification implementing acts.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32024R1183
+- id: EU-2021-946
+  name: Commission Recommendation (EU) 2021/946 — Common Union Toolbox
+  url: https://data.europa.eu/eli/reco/2021/946/oj
+  type: recommendation
+  summary: Recommendation establishing the coordinated approach and toolbox process that led to the ARF.
+  relevance_for_eudi: Historical and procedural basis for ARF development; useful for understanding why ARF is treated as
+    a central technical reference.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32021H0946
+- id: EU-2024-2847
+  name: Regulation (EU) 2024/2847 — Cyber Resilience Act
+  url: https://data.europa.eu/eli/reg/2024/2847/oj
+  type: regulation
+  summary: Establishes cybersecurity requirements for products with digital elements.
+  relevance_for_eudi: Relevant to Wallet software and components as cybersecurity products, especially in certification and
+    vulnerability-management discussions.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32024R2847
+- id: EU-2024-2977
+  name: Commission Implementing Regulation (EU) 2024/2977 — PID and electronic attestations of attributes
+  url: https://data.europa.eu/eli/reg_impl/2024/2977/oj
+  type: implementing_regulation
+  summary: Rules for person identification data and electronic attestations of attributes issued to Wallets, including issuance,
+    validation information, cryptographic binding and validity status.
+  relevance_for_eudi: Central for Issuer/Attestation Provider evidence, PID/EAA issuance tests, revocation/status checks and
+    Wallet issuance interoperability.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32024R2977
+- id: EU-2024-2979
+  name: Commission Implementing Regulation (EU) 2024/2979 — Wallet integrity and core functionalities
+  url: https://data.europa.eu/eli/reg_impl/2024/2979/oj
+  type: implementing_regulation
+  summary: Defines rules around Wallet integrity and core functionalities such as managing PID/EAAs, transaction logs, portability,
+    pseudonyms and related user-control features.
+  relevance_for_eudi: Relevant for Wallet behavioural evidence beyond issuance/presentation, especially user-facing functionality
+    and certification-support evidence.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32024R2979
+- id: EU-2024-2980
+  name: Commission Implementing Regulation (EU) 2024/2980 — Notifications to the Commission
+  url: https://data.europa.eu/eli/reg_impl/2024/2980/oj
+  type: implementing_regulation
+  summary: Notification-related rules and public machine-readable information flows to the Commission concerning the Wallet
+    ecosystem.
+  relevance_for_eudi: Relevant for trust infrastructure, machine-readable lists, ecosystem transparency and future lookup
+    of notified/certified Wallet information.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32024R2980
+- id: EU-2024-2981
+  name: Commission Implementing Regulation (EU) 2024/2981 — Wallet certification
+  url: https://data.europa.eu/eli/reg_impl/2024/2981/oj
+  type: implementing_regulation
+  summary: Rules for Wallet certification, including object of certification, national certification schemes, assurance documentation
+    and dependency analysis.
+  relevance_for_eudi: 'Very important for Credimi''s positioning: Credimi can generate structured assurance evidence that
+    may support certification dependency analysis.'
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32024R2981
+- id: EU-2024-2982
+  name: Commission Implementing Regulation (EU) 2024/2982 — Protocols and interfaces
+  url: https://data.europa.eu/eli/reg_impl/2024/2982/oj
+  type: implementing_regulation
+  summary: Protocols and interfaces for Wallet issuance, presentation, relying-party authentication, selective disclosure,
+    erasure requests and reporting relying parties.
+  relevance_for_eudi: Central for Credimi's StepCI/Maestro evidence model because it maps directly to remote issuance/presentation
+    and user-approval evidence.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32024R2982
+- id: EU-2025-846
+  name: Commission Implementing Regulation (EU) 2025/846 — Cross-border identity matching
+  url: https://data.europa.eu/eli/reg_impl/2025/846/oj
+  type: implementing_regulation
+  summary: Rules for cross-border identity matching of natural persons when accessing public services.
+  relevance_for_eudi: Relevant for public-sector relying-party scenarios and PID identity matching, but not the first priority
+    for Wallet automation UX.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R0846
+- id: EU-2025-847
+  name: Commission Implementing Regulation (EU) 2025/847 — Reactions to Wallet security breaches
+  url: https://data.europa.eu/eli/reg_impl/2025/847/oj
+  type: implementing_regulation
+  summary: Rules for assessment and reaction to security breaches or compromise affecting Wallet solutions.
+  relevance_for_eudi: Relevant to operational monitoring and assurance evidence, but mostly outside basic Wallet issuance/presentation
+    testing.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R0847
+- id: EU-2025-848
+  name: Commission Implementing Regulation (EU) 2025/848 — Registration of Wallet-relying parties
+  url: https://data.europa.eu/eli/reg_impl/2025/848/oj
+  type: implementing_regulation
+  summary: Registration of Wallet-relying parties, including national registers, machine-readable interfaces, entitlements,
+    access certificates and registration certificates.
+  relevance_for_eudi: Crucial for RP/Verifier trust checks, attribute entitlement validation and wallet display of relying-party
+    registration information.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R0848
+- id: EU-2025-849
+  name: Commission Implementing Regulation (EU) 2025/849 — List of certified Wallets
+  url: https://data.europa.eu/eli/reg_impl/2025/849/oj
+  type: implementing_regulation
+  summary: Formats/procedures for Member States to submit information to the Commission and Cooperation Group for the list
+    of certified Wallets.
+  relevance_for_eudi: Relevant to future checks against certified Wallet lists and certification metadata attached to evidence
+    bundles.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R0849
+- id: EU-2025-1566
+  name: Commission Implementing Regulation (EU) 2025/1566 — Identity and attribute verification standards
+  url: https://data.europa.eu/eli/reg_impl/2025/1566/oj
+  type: implementing_regulation
+  summary: Reference standards for verification of identity and attributes before qualified certificates or qualified electronic
+    attestations are issued.
+  relevance_for_eudi: Relevant for QTSP/QEAA issuer assurance and identity proofing evidence.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R1566
+- id: EU-2025-1567
+  name: Commission Implementing Regulation (EU) 2025/1567 — Remote QSCD/QSealCD management
+  url: https://data.europa.eu/eli/reg_impl/2025/1567/oj
+  type: implementing_regulation
+  summary: Reference standards for management of remote qualified electronic signature and seal creation devices as qualified
+    trust services.
+  relevance_for_eudi: Relevant to advanced QTSP/signature/seal scenarios, not core Wallet UI conformance MVP.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R1567
+- id: EU-2025-1568
+  name: Commission Implementing Regulation (EU) 2025/1568 — Peer reviews of eID schemes
+  url: https://data.europa.eu/eli/reg_impl/2025/1568/oj
+  type: implementing_regulation
+  summary: Covers peer review procedures for electronic identification schemes.
+  relevance_for_eudi: Relevant to Member State assurance and scheme-level governance; useful for certification/eID scheme
+    evidence context.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R1568
+- id: EU-2025-1569
+  name: Commission Implementing Regulation (EU) 2025/1569 — QEAA and public-sector authentic-source EAAs
+  url: https://data.europa.eu/eli/reg_impl/2025/1569/oj
+  type: implementing_regulation
+  summary: Rules for qualified electronic attestations of attributes and EAAs issued by or on behalf of public-sector bodies
+    responsible for authentic sources.
+  relevance_for_eudi: Important for QEEA/QEAA issuer status, authentic-source attestations, revocation/status evidence and
+    issuer entitlement checks.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R1569
+- id: EU-2025-1570
+  name: Commission Implementing Regulation (EU) 2025/1570 — Certified QSCD/QSealCD notification
+  url: https://data.europa.eu/eli/reg_impl/2025/1570/oj
+  type: implementing_regulation
+  summary: Notification information on certified qualified electronic signature and seal creation devices.
+  relevance_for_eudi: Relevant to qualified signature/seal ecosystems and advanced trust-service evidence, not first-pass
+    Wallet/Issuer/RP automation.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R1570
+- id: EU-2025-1571
+  name: Commission Implementing Regulation (EU) 2025/1571 — Supervisory body annual reports
+  url: https://data.europa.eu/eli/reg_impl/2025/1571/oj
+  type: implementing_regulation
+  summary: Formats/procedures for annual reports by Wallet and trust-service supervisory bodies.
+  relevance_for_eudi: Relevant to supervisory reporting and ecosystem transparency; useful context for audit-ready evidence
+    but not a runtime test target.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R1571
+- id: EU-2025-1572
+  name: Commission Implementing Regulation (EU) 2025/1572 — Notification of intention for qualified trust services
+  url: https://data.europa.eu/eli/reg_impl/2025/1572/oj
+  type: implementing_regulation
+  summary: Format/procedures for trust service providers notifying intention to start qualified trust services and supervisory
+    verification methodology.
+  relevance_for_eudi: Relevant to QTSP onboarding and conformity assessment evidence, especially for QEEA/QEAA providers and
+    trust-service integrations.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R1572
+- id: EU-2025-1929
+  name: Commission Implementing Regulation (EU) 2025/1929 — Qualified electronic time stamps
+  url: https://data.europa.eu/eli/reg_impl/2025/1929/oj
+  type: implementing_regulation
+  summary: Standards/specifications for qualified electronic time stamps, binding date/time to data and time-source accuracy.
+  relevance_for_eudi: Relevant to optional higher-assurance evidence bundles if Credimi later integrates QTSP timestamping.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R1929
+- id: EU-2025-1942
+  name: Commission Implementing Regulation (EU) 2025/1942 — Qualified validation services
+  url: https://data.europa.eu/eli/reg_impl/2025/1942/oj
+  type: implementing_regulation
+  summary: Standards for qualified validation services for qualified electronic signatures and seals.
+  relevance_for_eudi: Relevant if Credimi integrates or ingests qualified validation-service results for advanced signature/seal
+    evidence.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R1942
+- id: EU-2025-1943
+  name: Commission Implementing Regulation (EU) 2025/1943 — Qualified certificate standards
+  url: https://data.europa.eu/eli/reg_impl/2025/1943/oj
+  type: implementing_regulation
+  summary: Reference standards for qualified certificates for electronic signatures and electronic seals.
+  relevance_for_eudi: Relevant to qualified certificate parsing/validation, QTSP trust evidence and advanced verifier/issuer
+    certificate checks.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R1943
+- id: EU-2025-1944
+  name: Commission Implementing Regulation (EU) 2025/1944 — QERDS and interoperability
+  url: https://data.europa.eu/eli/reg_impl/2025/1944/oj
+  type: implementing_regulation
+  summary: Standards for qualified electronic registered delivery services and interoperability between such services.
+  relevance_for_eudi: Tracked as optional future evidence-delivery context; not relevant to the first Credimi conformance
+    MVP.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R1944
+- id: EU-2025-1945
+  name: Commission Implementing Regulation (EU) 2025/1945 — Validation of electronic signatures and seals
+  url: https://data.europa.eu/eli/reg_impl/2025/1945/oj
+  type: implementing_regulation
+  summary: Reference standards for validation of qualified signatures/seals and advanced signatures/seals based on qualified
+    certificates.
+  relevance_for_eudi: Relevant to verifier-side signature/seal validation and optional qualified validation evidence.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R1945
+- id: EU-2025-1946
+  name: Commission Implementing Regulation (EU) 2025/1946 — Qualified preservation services
+  url: https://data.europa.eu/eli/reg_impl/2025/1946/oj
+  type: implementing_regulation
+  summary: Covers qualified preservation services for qualified electronic signatures and seals.
+  relevance_for_eudi: Relevant to long-term preservation of qualified evidence, but not part of first-pass Wallet/Issuer/RP
+    conformance automation.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R1946
+- id: EU-2025-2160
+  name: Commission Implementing Regulation (EU) 2025/2160 — Risk management for non-qualified trust services
+  url: https://data.europa.eu/eli/reg_impl/2025/2160/oj
+  type: implementing_regulation
+  summary: Risk management requirements for non-qualified trust services.
+  relevance_for_eudi: Relevant to trust-service assurance and operational evidence; not a core Wallet UI test target.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R2160
+- id: EU-2025-2162
+  name: Commission Implementing Regulation (EU) 2025/2162 — Accreditation of CABs and conformity assessment
+  url: https://data.europa.eu/eli/reg_impl/2025/2162/oj
+  type: implementing_regulation
+  summary: Accreditation of conformity assessment bodies assessing QTSPs and qualified trust services, including conformity
+    assessment report and scheme.
+  relevance_for_eudi: Relevant to CAB-facing evidence and assurance documentation. Helps clarify what kinds of evidence may
+    be useful to auditors.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R2162
+- id: EU-2025-2164
+  name: Commission Implementing Decision (EU) 2025/2164 — Trusted List template standard
+  url: https://data.europa.eu/eli/dec_impl/2025/2164/oj
+  type: implementing_decision
+  summary: Identifies the version of the standard for the common Trusted List template.
+  relevance_for_eudi: Important for LoTL/TL consumption, Trusted List schema validation and trust infrastructure helper implementation.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025D2164
+- id: EU-2025-2527
+  name: Commission Implementing Regulation (EU) 2025/2527 — Qualified certificates for website authentication
+  url: https://data.europa.eu/eli/reg_impl/2025/2527/oj
+  type: implementing_regulation
+  summary: Reference standards for qualified certificates for website authentication.
+  relevance_for_eudi: Relevant to website authentication certificates and trust-service evidence, possibly useful for issuer/verifier
+    endpoint trust in advanced profiles.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R2527
+- id: EU-2025-2530
+  name: Commission Implementing Regulation (EU) 2025/2530 — Requirements for QTSPs
+  url: https://data.europa.eu/eli/reg_impl/2025/2530/oj
+  type: implementing_regulation
+  summary: Requirements for qualified trust service providers providing qualified trust services.
+  relevance_for_eudi: Relevant for QEEA/QEAA providers, QTSP assurance and advanced trust-service validation.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R2530
+- id: EU-2025-2531
+  name: Commission Implementing Regulation (EU) 2025/2531 — Qualified electronic ledgers
+  url: https://data.europa.eu/eli/reg_impl/2025/2531/oj
+  type: implementing_regulation
+  summary: Reference standards/specifications for qualified electronic ledgers.
+  relevance_for_eudi: Tracked as adjacent trust-service infrastructure; not part of Credimi's first Wallet conformance scope.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R2531
+- id: EU-2025-2532
+  name: Commission Implementing Regulation (EU) 2025/2532 — Qualified electronic archiving services
+  url: https://data.europa.eu/eli/reg_impl/2025/2532/oj
+  type: implementing_regulation
+  summary: Reference standards/specifications for qualified electronic archiving services.
+  relevance_for_eudi: Relevant to long-term preservation/archiving of evidence bundles, but not MVP-critical.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R2532
+- id: EU-2015-1502
+  name: Commission Implementing Regulation (EU) 2015/1502 — Assurance levels for eID means
+  url: https://data.europa.eu/eli/reg_impl/2015/1502/oj
+  type: implementing_regulation
+  summary: Minimum technical specifications and procedures for low, substantial and high assurance levels for electronic identification
+    means.
+  relevance_for_eudi: Important for Wallet/eID assurance-level evidence, identity proofing, authentication factors, eID means
+    management and audit expectations.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32015R1502
+- id: EU-2015-1505
+  name: Commission Implementing Decision (EU) 2015/1505 — Trusted Lists formats
+  url: https://data.europa.eu/eli/dec_impl/2015/1505/oj
+  type: implementing_decision
+  summary: Technical specifications and formats for Trusted Lists.
+  relevance_for_eudi: Important for LoTL/TL parsing and validation, especially when combined with newer Trusted List template
+    decisions.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32015D1505
+- id: EU-2024-482
+  name: Commission Implementing Regulation (EU) 2024/482 — EUCC cybersecurity certification scheme
+  url: https://data.europa.eu/eli/reg_impl/2024/482/oj
+  type: implementing_regulation
+  summary: Adopts the European Common Criteria-based cybersecurity certification scheme.
+  relevance_for_eudi: Relevant to Wallet/certification components and references in qualified trust-service standards.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32024R0482
+- id: EU-2024-3144
+  name: Commission Implementing Regulation (EU) 2024/3144 — EUCC amendments/corrections
+  url: https://data.europa.eu/eli/reg_impl/2024/3144/oj
+  type: implementing_regulation
+  summary: Amends and corrects the EUCC implementing regulation.
+  relevance_for_eudi: Relevant where EUCC is referenced by Wallet certification or trust-service assurance standards.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32024R3144
+- id: EU-2016-679
+  name: Regulation (EU) 2016/679 — GDPR
+  url: https://data.europa.eu/eli/reg/2016/679/oj
+  type: regulation
+  summary: General Data Protection Regulation.
+  relevance_for_eudi: Applies to Wallet, Issuer, RP and trust-service personal data processing, especially user control, privacy,
+    data minimisation and reporting.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
+- id: EU-2002-58
+  name: Directive 2002/58/EC — ePrivacy Directive
+  url: https://data.europa.eu/eli/dir/2002/58/oj
+  type: directive
+  summary: Privacy and electronic communications directive.
+  relevance_for_eudi: Referenced alongside GDPR in multiple implementing acts where relevant to personal data and communications
+    privacy.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32002L0058
+- id: EU-2018-1725
+  name: Regulation (EU) 2018/1725 — Data protection for EU institutions
+  url: https://data.europa.eu/eli/reg/2018/1725/oj
+  type: regulation
+  summary: Data protection rules for EU institutions, bodies, offices and agencies.
+  relevance_for_eudi: Relevant to Commission and EU-level processing in notification, reporting and ecosystem-list publication.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32018R1725
+- id: EU-2022-2555
+  name: Directive (EU) 2022/2555 — NIS2 Directive
+  url: https://data.europa.eu/eli/dir/2022/2555/oj
+  type: directive
+  summary: EU cybersecurity directive establishing a high common level of cybersecurity.
+  relevance_for_eudi: Relevant to supervisory verification, trust-service provider security and operational assurance.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32022L2555
+- id: EU-2019-881
+  name: Regulation (EU) 2019/881 — Cybersecurity Act
+  url: https://data.europa.eu/eli/reg/2019/881/oj
+  type: regulation
+  summary: Establishes ENISA and the EU cybersecurity certification framework.
+  relevance_for_eudi: Legal basis for cybersecurity certification schemes such as EUCC that are referenced in EUDI and trust-service
+    assurance contexts.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32019R0881
+- id: EU-2008-765
+  name: Regulation (EC) No 765/2008 — Accreditation and market surveillance
+  url: https://data.europa.eu/eli/reg/2008/765/oj
+  type: regulation
+  summary: Accreditation and market surveillance framework, including conformity assessment body concepts.
+  relevance_for_eudi: Relevant to CAB references in assurance-level and certification contexts.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32008R0765
+- id: EU-2016-2102
+  name: Directive (EU) 2016/2102 — Web Accessibility Directive
+  url: https://data.europa.eu/eli/dir/2016/2102/oj
+  type: directive
+  summary: Accessibility requirements for public sector bodies' websites and mobile applications.
+  relevance_for_eudi: Relevant to public-sector Wallet/RP interfaces and accessibility context.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016L2102
+- id: EU-2019-882
+  name: Directive (EU) 2019/882 — European Accessibility Act
+  url: https://data.europa.eu/eli/dir/2019/882/oj
+  type: directive
+  summary: Accessibility requirements for products and services.
+  relevance_for_eudi: Relevant to accessible Wallet and service interaction design, especially consumer-facing digital services.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32019L0882
+logical_groups:
+- group_slug: wallet-core-and-certification
+  title: Wallet core functionality, certification and assurance
+  explanation: Covers the legal and technical basis for Wallet functionality, certification and audit/assurance evidence.
+    It moves from the EUDI legal basis to ARF, then to wallet functionality and certification evidence.
+  steps:
+  - step: Establish Wallet legal basis
+    sub_steps:
+    - Read the amended eIDAS framework and EUDI Regulation.
+    - Use the consolidated text to understand current legal obligations.
+    documents:
+    - EU-2014-910
+    - EU-2014-910-CONSOLIDATED-2024-10-18
+    - EU-2024-1183
+  - step: Map legal obligations to architecture and high-level requirements
+    sub_steps:
+    - Use ARF as the technical bridge between law and implementable behaviour.
+    - Use WE BUILD where trust-registry or pilot interpretation is more concrete.
+    documents:
+    - EUDI-ARF
+    - WE-BUILD-WP4
+  - step: Understand Wallet core functions
+    sub_steps:
+    - Identify testable user-facing features such as transaction history, portability and pseudonyms.
+    - Separate black-box behavioural evidence from internal security/certification evidence.
+    documents:
+    - EU-2024-2979
+  - step: Understand certification and assurance evidence
+    sub_steps:
+    - Map Credimi reports and Temporal evidence to certification support.
+    - Treat Credimi evidence as assurance material, not certification itself.
+    documents:
+    - EU-2024-2981
+    - EU-2025-849
+    - EU-2024-482
+    - EU-2024-3144
+    - EU-2024-2847
+- group_slug: wallet-issuance-and-presentation
+  title: Wallet issuance and presentation flows
+  explanation: 'Covers the main Credimi automation story: Wallet receives credential offers, obtains PID/EAA, processes presentation
+    requests, displays RP information, waits for user approval and presents attributes.'
+  steps:
+  - step: Generate or fetch issuance material
+    sub_steps:
+    - Issuer or StepCI integration creates a credential offer.
+    - Issuer metadata and credential configuration are captured as protocol evidence.
+    documents:
+    - EU-2024-2977
+    - EU-2024-2982
+    - EUDI-ARF
+  - step: Drive real Wallet issuance
+    sub_steps:
+    - Maestro opens the credential offer or deeplink.
+    - Wallet completes the issuance UI flow.
+    - Credimi records screenshots, video and workflow IDs.
+    documents:
+    - EU-2024-2977
+    - EU-2024-2979
+    - EU-2024-2982
+  - step: Generate or fetch presentation request
+    sub_steps:
+    - Verifier/RP creates an OpenID4VP-style presentation request.
+    - StepCI captures the request and expected callback.
+    documents:
+    - EU-2024-2982
+    - EUDI-ARF
+  - step: Drive real Wallet presentation
+    sub_steps:
+    - Wallet opens the request.
+    - Wallet displays RP identity and requested attributes.
+    - Wallet presents only after user approval.
+    - Verifier receives or rejects the response.
+    documents:
+    - EU-2024-2982
+    - EU-2025-848
+    - EUDI-ARF
+    - WE-BUILD-WP4
+- group_slug: issuer-and-attestation-provider
+  title: Issuer, PID Provider, EAA Provider and QEAA/QEEA evidence
+  explanation: Covers actors that issue PID and attestations to Wallets. It separates ordinary issuance interoperability from
+    qualified/public-sector attestation status, issuer entitlements and revocation/status evidence.
+  steps:
+  - step: Validate issuer metadata and credential offer
+    sub_steps:
+    - Check that issuer metadata is reachable and consistent with the offer.
+    - Capture protocol evidence before the Wallet flow begins.
+    documents:
+    - EU-2024-2977
+    - EU-2024-2982
+    - EUDI-ARF
+  - step: Validate PID/EAA issuance behaviour
+    sub_steps:
+    - Use real Wallet automation for end-to-end issuance.
+    - Use headless tests or verifier-side validation for credential-level checks.
+    documents:
+    - EU-2024-2977
+    - EU-2025-1569
+    - WE-BUILD-WP4
+  - step: Check issuer qualification or entitlement
+    sub_steps:
+    - Resolve issuer in Trusted Lists or relevant registries.
+    - Check whether the issuer is entitled to issue the claimed credential or attestation type.
+    - For QEEA/QEAA, include QTSP-like approval evidence where applicable.
+    documents:
+    - EU-2025-1569
+    - EU-2025-2530
+    - EU-2025-1572
+    - EU-2025-2162
+    - EU-2025-2164
+    - WE-BUILD-WP4
+  - step: Check revocation and validity status
+    sub_steps:
+    - Fetch issuer validity-status or revocation evidence.
+    - Use negative credential fixtures to ensure verifiers reject revoked/invalid credentials.
+    documents:
+    - EU-2024-2977
+    - EU-2025-1569
+    - EU-2025-1945
+- group_slug: relying-party-and-verifier
+  title: Relying Party registration, entitlement and verifier behaviour
+  explanation: 'Covers RPs and verifiers: whether they are registered, whether their certificates are valid, whether requested
+    attributes match entitlements, and whether verifiers validate received credentials correctly.'
+  steps:
+  - step: Resolve RP registration
+    sub_steps:
+    - Look up RP registration in human/machine-readable national registers.
+    - Capture declared intended use and entitlements.
+    documents:
+    - EU-2025-848
+    - WE-BUILD-WP4
+  - step: Validate RP access and registration certificates
+    sub_steps:
+    - Parse RP access certificate and registration certificate where present.
+    - Check validity period, chain, revocation and consistency with register entries.
+    documents:
+    - EU-2025-848
+    - EU-2024-2982
+    - EU-2025-1943
+    - EU-2025-1945
+  - step: Compare requested attributes with entitlements
+    sub_steps:
+    - Parse presentation request.
+    - Compare requested claims against registered RP entitlements.
+    - Expect Wallet warning/rejection or report failure for unauthorized requests.
+    documents:
+    - EU-2025-848
+    - EU-2024-2982
+    - EUDI-ARF
+    - WE-BUILD-WP4
+  - step: Validate credential verification behaviour
+    sub_steps:
+    - Use real Wallet or headless Wallet to present credentials.
+    - Check that verifier accepts valid credentials and rejects invalid/revoked/untrusted credentials.
+    documents:
+    - EU-2024-2977
+    - EU-2025-1569
+    - EU-2025-1945
+    - WE-BUILD-WP4
+- group_slug: trusted-lists-and-trust-infrastructure
+  title: Trusted Lists, LoTL, trust anchors and actor status
+  explanation: 'Covers machine-readable trust infrastructure. It is central to Credimi''s Level 2 evidence: resolving whether
+    issuers, RPs, Wallet Providers, authorities and trust-service providers are present, valid, suspended or revoked.'
+  steps:
+  - step: Fetch and parse LoTL/TL sources
+    sub_steps:
+    - Fetch List of Trusted Lists and referenced Trusted Lists.
+    - Preserve snapshots and hashes as evidence artifacts.
+    documents:
+    - EU-2024-2980
+    - EU-2015-1505
+    - EU-2025-2164
+    - WE-BUILD-WP4
+  - step: Validate schema, signature/seal and freshness
+    sub_steps:
+    - Validate TL schemas against the applicable template/version.
+    - Validate signatures or seals using configured trust anchors.
+    - Check freshness/update timestamps where available.
+    documents:
+    - EU-2015-1505
+    - EU-2025-2164
+    - EU-2025-1945
+    - WE-BUILD-WP4
+  - step: Resolve actors and statuses
+    sub_steps:
+    - Resolve issuer, RP, Wallet Provider, Registrar and CA entries.
+    - Normalize status to valid/suspended/revoked/expired/unknown.
+    documents:
+    - EU-2025-848
+    - EU-2025-1569
+    - EU-2025-2530
+    - WE-BUILD-WP4
+- group_slug: assurance-levels-and-eid-schemes
+  title: Assurance levels and electronic identification schemes
+  explanation: 'Covers the assurance-level model for electronic identification means: low, substantial and high. It is mostly
+    certification/scheme evidence, not a normal runtime Wallet automation test.'
+  steps:
+  - step: Establish assurance level framework
+    sub_steps:
+    - Use eIDAS Article 8 and 2015/1502 to understand low/substantial/high levels.
+    - Map evidence to enrolment, eID means management, authentication and management/organisation controls.
+    documents:
+    - EU-2014-910
+    - EU-2014-910-CONSOLIDATED-2024-10-18
+    - EU-2015-1502
+  - step: Relate assurance to Wallet/eID scheme certification
+    sub_steps:
+    - Treat assurance-level documents as scheme/certification evidence.
+    - Do not expose these as normal Maestro action mappings unless a specific test scenario exists.
+    documents:
+    - EU-2024-2981
+    - EU-2025-1568
+    - EU-2025-2162
+- group_slug: third-party-conformance-and-openid-webuild
+  title: Third-party conformance tests and WE BUILD scenarios
+  explanation: Covers Credimi's ingestion of external conformance results, especially OpenID Foundation and WE BUILD/headless
+    tests. The goal is to normalize third-party outputs into the same evidence report as StepCI/Maestro.
+  steps:
+  - step: Run external conformance test
+    sub_steps:
+    - Trigger OpenID Foundation or WE BUILD test suite.
+    - Preserve raw result unchanged.
+    documents:
+    - EUDI-ARF
+    - WE-BUILD-WP4
+    - EU-2024-2982
+  - step: Map external assertions to evidence claims
+    sub_steps:
+    - Map external test IDs/assertions to Credimi evidence-claim slugs.
+    - Record limitations so results are not overclaimed.
+    documents:
+    - EU-2024-2981
+    - EUDI-ARF
+    - WE-BUILD-WP4
+  - step: Attach results to conformance report
+    sub_steps:
+    - Include external raw output, normalized result and mapping in the evidence bundle.
+    - Use external results to complement real Wallet UI automation.
+    documents:
+    - EU-2024-2981
+- group_slug: qualified-trust-services-and-advanced-assurance
+  title: Qualified trust services and advanced assurance add-ons
+  explanation: 'Covers QTSP-oriented material: qualified timestamps, qualified validation services, qualified certificates,
+    remote QSCD/QSealCD management, preservation, archiving, ledgers and QERDS. These are not MVP blockers for Credimi Wallet
+    conformance but matter for advanced assurance and QTSP partners.'
+  steps:
+  - step: Optional qualified timestamping
+    sub_steps:
+    - Integrate a QTSP timestamping API only if/when higher-assurance evidence is required.
+    - Otherwise keep Temporal timestamps and hash manifests as MVP evidence.
+    documents:
+    - EU-2025-1929
+  - step: Optional qualified validation evidence
+    sub_steps:
+    - Either perform internal technical validation or ingest qualified validation-service results.
+    - Attach qualified validation reports only for advanced/enterprise/QTSP scenarios.
+    documents:
+    - EU-2025-1942
+    - EU-2025-1945
+  - step: Qualified certificate and QSCD/QSealCD evidence
+    sub_steps:
+    - Validate qualified certificate profile where relevant.
+    - Track remote QSCD/QSealCD management only for signature/seal scenarios.
+    documents:
+    - EU-2025-1567
+    - EU-2025-1570
+    - EU-2025-1943
+  - step: Preservation, archiving, ledgers and QERDS
+    sub_steps:
+    - Track as future evidence-lifecycle capabilities.
+    - Do not show in normal Wallet/Issuer/RP UX.
+    documents:
+    - EU-2025-1944
+    - EU-2025-1946
+    - EU-2025-2531
+    - EU-2025-2532
+- group_slug: privacy-cybersecurity-accessibility-and-horizontal-context
+  title: Privacy, cybersecurity, accessibility and horizontal legal context
+  explanation: Contains cross-cutting legal context. These documents are not usually direct StepCI/Maestro test targets, but
+    they frame privacy, security, accessibility and supervisory expectations around the EUDI ecosystem.
+  steps:
+  - step: Privacy and data protection
+    sub_steps:
+    - Understand GDPR/ePrivacy obligations around PID/EAA processing, RP requests, erasure and reports.
+    - Use privacy references when designing reports and user-facing Wallet/RP evidence.
+    documents:
+    - EU-2016-679
+    - EU-2002-58
+    - EU-2018-1725
+    - EU-2024-2982
+  - step: Cybersecurity and operational assurance
+    sub_steps:
+    - Use NIS2, CRA and Cybersecurity Act context for operational/security evidence.
+    - Keep runtime conformance evidence separate from formal cybersecurity certification.
+    documents:
+    - EU-2022-2555
+    - EU-2024-2847
+    - EU-2019-881
+    - EU-2024-482
+    - EU-2024-3144
+    - EU-2025-847
+  - step: Accessibility
+    sub_steps:
+    - Track accessibility as a user-facing and public-service requirement context.
+    - Consider future UI/accessibility evidence for Wallet/RP flows.
+    documents:
+    - EU-2016-2102
+    - EU-2019-882
+recommended_reading_routes:
+- route_slug: mvp-credimi-conformance-evidence
+  title: MVP route for Credimi conformance evidence
+  documents:
+  - EU-2024-1183
+  - EU-2024-2977
+  - EU-2024-2979
+  - EU-2024-2981
+  - EU-2024-2982
+  - EU-2025-848
+  - EUDI-ARF
+  - WE-BUILD-WP4
+  why_this_route: 'These are the most important sources for the first Credimi story: real Wallet issuance/presentation automation,
+    Issuer/Verifier protocol traces, RP entitlement checks, and certification-support evidence.'
+- route_slug: trust-helper-mvp
+  title: MVP route for Credimi trust-helper implementation
+  documents:
+  - EU-2025-848
+  - EU-2024-2980
+  - EU-2015-1505
+  - EU-2025-2164
+  - EU-2025-1569
+  - WE-BUILD-WP4
+  why_this_route: These sources support RP register lookup, Trusted List consumption, issuer/RP status checks, entitlement
+    matching and revocation/status evidence.
+- route_slug: certification-and-assurance
+  title: Certification and assurance route
+  documents:
+  - EU-2024-2981
+  - EU-2025-849
+  - EU-2015-1502
+  - EU-2025-1568
+  - EU-2025-2162
+  - EU-2025-1571
+  why_this_route: These sources frame Credimi evidence as assurance documentation useful for certification, dependency analysis,
+    scheme review and supervisory reporting.
+- route_slug: advanced-qtsp-and-qualified-evidence
+  title: Advanced QTSP and qualified-evidence route
+  documents:
+  - EU-2025-1566
+  - EU-2025-1567
+  - EU-2025-1572
+  - EU-2025-1929
+  - EU-2025-1942
+  - EU-2025-1943
+  - EU-2025-1945
+  - EU-2025-2530
+  why_this_route: These are relevant for QTSP partnerships, QEEA/QEAA issuance, qualified timestamping, qualified validation
+    and advanced assurance bundles, but they should not block the MVP.

@@ -1,0 +1,15 @@
+<div class="tabs">
+  <button class="tab-btn active" data-tab="human">Human view</button>
+  <button class="tab-btn" data-tab="yaml">YAML</button>
+  <button class="tab-btn" data-tab="json">JSON</button>
+</div>
+
+<div class="tab-content" id="tab-human">
+  {{ humanContent | safe }}
+</div>
+<div class="tab-content" id="tab-yaml" style="display:none;">
+  <pre><code>{{ yamlContent | safe }}</code></pre>
+</div>
+<div class="tab-content" id="tab-json" style="display:none;">
+  <pre><code>{{ jsonContent | safe }}</code></pre>
+</div>

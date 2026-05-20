@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if title and title !== 'EUDI Trust & Conformance Atlas' %}{{ title }} — {% endif %}EUDI Trust & Conformance Atlas</title>
+  <meta name="description" content="{{ description or 'A community-maintained map of EUDI Wallet law, implementing acts, ARF requirements, WE BUILD trust work, and conformance evidence.' }}">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/credimi_logo_mark.svg">
+</head>
+<body>
+  {% include "topbar.njk" %}
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  {% include "footer.njk" %}
+
+  {% if pageScript %}
+  <script type="module" src="/js/{{ pageScript }}"></script>
+  {% endif %}
+</body>
+</html>

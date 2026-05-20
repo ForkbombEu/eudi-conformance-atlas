@@ -1,0 +1,8 @@
+{% macro sectionHeader(title, count, seeAllUrl) %}
+<div class="section-header">
+  <h2>{{ title }}{% if count %}<span class="count-chip">{{ count }}</span>{% endif %}</h2>
+  {% if seeAllUrl %}
+  <a href="{{ seeAllUrl }}" class="see-all">See all <span aria-hidden="true">↗</span></a>
+  {% endif %}
+</div>
+{% endmacro %}
