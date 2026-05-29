@@ -1,52 +1,10 @@
 ---
 layout: base.njk
-title: Evidence Claims
-description: Reproducible conformance evidence claims mapped to EUDI Wallet requirements.
-pageScript: search.js
+title: Test Coverage
+description: Redirecting to the Test Coverage page.
+permalink: /evidence/
 ---
-{% from "components/search-box.njk" import searchBox %}
-{% from "components/filter-bar.njk" import filterBar %}
-{% from "components/evidence-card.njk" import evidenceCard %}
-
-<section class="hero" style="padding: var(--space-8) 0;">
-  <div class="hero-inner">
-    <p class="eyebrow">EVIDENCE CLAIMS</p>
-    <h1 style="font-size: var(--fs-2xl);">Evidence claims registry</h1>
-    <p style="font-size: var(--fs-base);">All {{ evidence.totalCount }} Credimi conformance evidence claims — reproducible, observable, and mapped to official references.</p>
-  </div>
-</section>
-
-<div class="page-content">
-  <div class="container">
-    <div class="disclaimer">
-      <strong>Disclaimer:</strong> Evidence claims are not official requirement identifiers. Credimi does not act as a certification body. Claims use language like "maps to", "supports", "evidence claim" — not "certifies" or "proves compliance".
-    </div>
-
-    <div style="margin-bottom: var(--space-6);">
-      {{ searchBox("evidence-search", "Find evidence claims by title, slug, or description:") }}
-    </div>
-
-    {% set evFilters = [
-      { key: "actor", value: "wallet", label: "Wallet" },
-      { key: "actor", value: "issuer", label: "Issuer" },
-      { key: "actor", value: "relying_party", label: "Relying Party" },
-      { key: "actor", value: "verifier", label: "Verifier" },
-      { key: "domain", value: "issuance", label: "Issuance" },
-      { key: "domain", value: "presentation", label: "Presentation" },
-      { key: "domain", value: "trust", label: "Trust" }
-    ] %}
-    {{ filterBar("evidence-filter", evFilters) }}
-
-    <div class="card-grid card-grid-2" id="evidence-list">
-      {% for claim in evidence.claims %}
-      <div class="evidence-item" data-actor="{{ claim.actor or '' }}" data-domain="{{ claim.domain or '' }}" data-title="{{ claim.title }}" data-slug="{{ claim.slug }}" data-description="{{ claim.description or '' }}">
-        {{ evidenceCard(claim) }}
-      </div>
-      {% endfor %}
-    </div>
-
-    <div style="margin-top: var(--space-4); text-align: center;">
-      <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/evidence-claims-registry.yaml" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
-    </div>
-  </div>
-</div>
+<script>window.location.replace("{{ '/tests/' | url }}");</script>
+<div class="page-content"><div class="container">
+  <p>Redirecting to <a href="{{ '/tests/' | url }}">Test Coverage</a>…</p>
+</div></div>

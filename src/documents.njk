@@ -1,53 +1,10 @@
 ---
 layout: base.njk
 title: Documents
-description: All EUDI Wallet documents — legal acts, implementing regulations, ARF, WE BUILD, and more.
-pageScript: search.js
+description: Redirecting to the Reference page.
+permalink: /documents/
 ---
-{% from "components/section-header.njk" import sectionHeader %}
-{% from "components/search-box.njk" import searchBox %}
-{% from "components/filter-bar.njk" import filterBar %}
-{% from "components/document-card.njk" import documentCard %}
-
-<section class="hero" style="padding: var(--space-8) 0;">
-  <div class="hero-inner">
-    <p class="eyebrow">BROWSE</p>
-    <h1 style="font-size: var(--fs-2xl);">Documents</h1>
-    <p style="font-size: var(--fs-base);">All {{ documents.totalCount }} EUDI Wallet documents — legal acts, implementing regulations, ARF, WE BUILD, and more.</p>
-  </div>
-</section>
-
-<div class="page-content">
-  <div class="container">
-    <div class="disclaimer">
-      <strong>Disclaimer:</strong> This is an unofficial navigation resource. Official sources always prevail. Always refer to EUR-Lex and official EU repositories for authoritative texts.
-    </div>
-
-    <div style="margin-bottom: var(--space-6);">
-      {{ searchBox("doc-search", "Find documents by name, ID, or summary:") }}
-    </div>
-
-    {% set docFilters = [
-      { key: "type", value: "regulation", label: "Regulations" },
-      { key: "type", value: "implementing_regulation", label: "Implementing Regulations" },
-      { key: "type", value: "implementing_decision", label: "Implementing Decisions" },
-      { key: "type", value: "directive", label: "Directives" },
-      { key: "type", value: "architecture_reference_framework", label: "ARF" },
-      { key: "type", value: "project_working_documentation", label: "WE BUILD" },
-      { key: "type", value: "recommendation", label: "Recommendations" }
-    ] %}
-    {{ filterBar("type-filter", docFilters) }}
-
-    <div class="card-grid card-grid-2" id="doc-list">
-      {% for doc in documents.documents %}
-      <div class="doc-item" data-type="{{ doc.type }}" data-id="{{ doc.id }}" data-name="{{ doc.name }}" data-summary="{{ doc.summary or '' }}">
-        {{ documentCard(doc) }}
-      </div>
-      {% endfor %}
-    </div>
-
-    <div style="margin-top: var(--space-4); text-align: center;">
-      <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/src/documents.njk" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
-    </div>
-  </div>
-</div>
+<script>window.location.replace("{{ '/reference/' | url }}");</script>
+<div class="page-content"><div class="container">
+  <p>Redirecting to <a href="{{ '/reference/' | url }}">Reference</a>…</p>
+</div></div>

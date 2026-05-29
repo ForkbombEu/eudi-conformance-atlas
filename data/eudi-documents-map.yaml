@@ -386,6 +386,183 @@ flat_documents:
   summary: Accessibility requirements for products and services.
   relevance_for_eudi: Relevant to accessible Wallet and service interaction design, especially consumer-facing digital services.
   pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32019L0882
+- id: ETSI-TS-119-471
+  name: ETSI TS 119 471 V1.1.1 — EAA Service Provider Policy and Security Requirements
+  url: https://www.etsi.org/deliver/etsi_ts/119400_119499/119471/01.01.01_60/ts_119471v010101p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Policy and security requirements for EAA service providers.
+  relevance_for_eudi: Relevant for Issuers/Attestation Providers providing EAAs; sets provider-level policy and security baseline.
+- id: ETSI-TS-119-472-1
+  name: ETSI TS 119 472-1 V1.2.1 — General EAA/PID Profile Requirements
+  url: https://www.etsi.org/deliver/etsi_ts/119400_119499/11947201/01.02.01_60/ts_11947201v010201p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: General profile requirements for EAA and PID.
+  relevance_for_eudi: Foundation profile spec for all EAA/PID issuance.
+- id: ETSI-TS-119-472-2
+  name: ETSI TS 119 472-2 V1.2.1 — EAA/PID Presentation Profiles
+  url: https://www.etsi.org/deliver/etsi_ts/119400_119499/11947202/01.02.01_60/ts_11947202v010201p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Profiles for presentation of EAA or PID to Relying Parties.
+  relevance_for_eudi: Defines how credentials are presented; relevant for Verifier/RP conformance.
+- id: ETSI-TS-119-472-3
+  name: ETSI TS 119 472-3 V1.1.1 — EAA/PID Issuance Profiles
+  url: https://www.etsi.org/deliver/etsi_ts/119400_119499/11947203/01.01.01_60/ts_11947203v010101p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Profiles for issuance of EAA or PID.
+  relevance_for_eudi: Concrete issuance profile spec for Issuers.
+- id: ETSI-TS-119-475
+  name: ETSI TS 119 475 V1.2.1 — Relying Party Attributes
+  url: https://www.etsi.org/deliver/etsi_ts/119400_119499/119475/01.02.01_60/ts_119475v010201p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Relying-party attributes supporting Wallet user authorization decisions.
+  relevance_for_eudi: Defines RP attribute framework; critical for entitlement checks.
+- id: ETSI-TS-119-478
+  name: ETSI TS 119 478 V1.1.1 — Authentic-Source Interfaces
+  url: https://www.etsi.org/deliver/etsi_ts/119400_119499/119478/01.01.01_60/ts_119478v010101p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Interfaces between authentic sources and EAA providers.
+  relevance_for_eudi: Relevant for Issuers integrating with government authentic-source systems.
+- id: ETSI-TR-119-476
+  name: ETSI TR 119 476 V1.2.1 — Selective Disclosure and ZKP Analysis
+  url: https://www.etsi.org/deliver/etsi_tr/119400_119499/119476/01.02.01_60/tr_119476v010201p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Analysis of selective disclosure and zero-knowledge proofs applied to EAA.
+  relevance_for_eudi: Technical analysis underpinning selective disclosure conformance evidence.
+- id: ETSI-TR-119-476-1
+  name: ETSI TR 119 476-1 V1.3.1 — Selective Disclosure ZKP Feasibility
+  url: https://www.etsi.org/deliver/etsi_tr/119400_119499/11947601/01.03.01_60/tr_11947601v010301p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Feasibility study for selective disclosure and zero-knowledge proofs for EAAs.
+  relevance_for_eudi: Forward-looking analysis for ZKP-based credential formats.
+- id: ETSI-EN-319-401
+  name: ETSI EN 319 401 V3.2.1 — General TSP Policy Requirements
+  url: https://www.etsi.org/deliver/etsi_en/319400_319499/319401/03.02.01_60/en_319401v030201p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: General policy requirements for Trust Service Providers.
+  relevance_for_eudi: Baseline policy context for all QTSP and trust-service conformance.
+- id: ETSI-EN-319-403-1
+  name: ETSI EN 319 403-1 V2.3.1 — Conformity Assessment for TSPs
+  url: https://www.etsi.org/deliver/etsi_en/319400_319499/31940301/02.03.01_60/en_31940301v020301p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Conformity assessment requirements for Trust Service Providers.
+  relevance_for_eudi: Framework for CAB/NAB assessment of QTSPs; relevant for certification evidence.
+- id: ETSI-EN-319-411-1
+  name: ETSI EN 319 411-1 V1.5.1 — Certificate-Issuing TSP Policy
+  url: https://www.etsi.org/deliver/etsi_en/319400_319499/31941101/01.05.01_60/en_31941101v010501p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Policy and security requirements for certificate-issuing Trust Service Providers.
+  relevance_for_eudi: Applies to TSPs issuing access/registration certificates for EUDI actors.
+- id: ETSI-EN-319-411-2
+  name: ETSI EN 319 411-2 V2.6.1 — Qualified Certificate TSP Requirements
+  url: https://www.etsi.org/deliver/etsi_en/319400_319499/31941102/02.06.01_60/en_31941102v020601p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Requirements for TSPs issuing EU qualified certificates.
+  relevance_for_eudi: Required for QTSPs issuing qualified certificates in the EUDI ecosystem.
+- id: ETSI-EN-319-412-1
+  name: ETSI EN 319 412-1 V1.7.1 — Certificate Profile Overview
+  url: https://www.etsi.org/deliver/etsi_en/319400_319499/31941201/01.07.01_60/en_31941201v010701p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Certificate profile overview and common data structures.
+  relevance_for_eudi: Foundation for all certificate profile validation in trust infrastructure.
+- id: ETSI-EN-319-412-5
+  name: ETSI EN 319 412-5 V2.6.1 — Qualified Certificate Statements
+  url: https://www.etsi.org/deliver/etsi_en/319400_319499/31941205/02.06.01_60/en_31941205v020601p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Qualified certificate statements profile.
+  relevance_for_eudi: Defines qualified certificate statements used across EUDI trust infrastructure.
+- id: ETSI-EN-319-421
+  name: ETSI EN 319 421 V1.3.1 — Timestamping Policy
+  url: https://www.etsi.org/deliver/etsi_en/319400_319499/319421/01.03.01_60/en_319421v010301p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Policy requirements for Trust Service Providers providing time-stamping services.
+  relevance_for_eudi: Relevant for evidence timestamping and qualified time-stamp services.
+- id: ETSI-TS-119-441
+  name: ETSI TS 119 441 V1.3.1 — Signature Validation Policy
+  url: https://www.etsi.org/deliver/etsi_ts/119400_119499/119441/01.03.01_60/ts_119441v010301p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Policy requirements for TSPs providing signature validation services.
+  relevance_for_eudi: Relevant for qualified validation of signatures/seals in the EUDI ecosystem.
+# --- OpenID / OAuth / ISO Standards (added v1.4) ---
+- id: OID4VCI
+  name: OpenID for Verifiable Credential Issuance 1.0
+  url: https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html
+  type: openid_spec
+  layer: protocol
+  summary: Protocol specification for issuing Verifiable Credentials using OpenID Connect flows.
+  relevance_for_eudi: Mandatory issuance protocol for EUDI Wallets, Issuers, and Attestation Providers.
+- id: OID4VP
+  name: OpenID for Verifiable Presentations 1.0
+  url: https://openid.net/specs/openid-4-verifiable-presentations-1_0.html
+  type: openid_spec
+  layer: protocol
+  summary: Protocol specification for presenting Verifiable Credentials using OpenID Connect flows.
+  relevance_for_eudi: Mandatory presentation protocol for EUDI Wallets and Verifiers/RPs.
+- id: HAIP
+  name: OpenID4VC High Assurance Interoperability Profile
+  url: https://openid.net/specs/openid4vc-high-assurance-interoperability-profile-1_0.html
+  type: openid_spec
+  layer: protocol
+  summary: High-assurance interoperability profile for OpenID4VC in the EUDI context.
+  relevance_for_eudi: Defines the specific parameter constraints and profile requirements for EUDI-conformant implementations.
+- id: SD-JWT
+  name: Selective Disclosure JWT (SD-JWT)
+  url: https://www.ietf.org/archive/id/draft-ietf-oauth-selective-disclosure-jwt-14.html
+  type: openid_spec
+  layer: credential_format
+  summary: IETF draft specification for selective disclosure using JSON Web Tokens.
+  relevance_for_eudi: Primary credential format for PID and EAAs in SD-JWT form.
+- id: SD-JWT-VC
+  name: SD-JWT-based Verifiable Credentials
+  url: https://www.ietf.org/archive/id/draft-ietf-oauth-sd-jwt-vc-13.html
+  type: openid_spec
+  layer: credential_format
+  summary: SD-JWT-based Verifiable Credentials specification.
+  relevance_for_eudi: Defines the VC-specific profile on top of SD-JWT for EUDI credential issuance.
+- id: OAUTH-STATUS-LIST
+  name: OAuth Status List
+  url: https://datatracker.ietf.org/doc/html/draft-ietf-oauth-status-list-15
+  type: openid_spec
+  layer: protocol
+  summary: Mechanism for representing the status of tokens and credentials using status lists.
+  relevance_for_eudi: Credential revocation and status checking mechanism for EUDI credentials.
+- id: OPENID-FEDERATION
+  name: OpenID Federation 1.0
+  url: https://openid.net/specs/openid-federation-1_0-45.html
+  type: openid_spec
+  layer: trust_infrastructure
+  summary: Federation framework for OpenID Connect deployments.
+  relevance_for_eudi: Optional trust model layer for EUDI ecosystem participants using federation.
+- id: ISO-18013-5
+  name: ISO/IEC 18013-5 — mDL/mdoc
+  url: https://www.iso.org/standard/69084.html
+  type: iso_standard
+  layer: credential_format
+  summary: Mobile driving licence standard defining mdoc/mDL device engagement, data retrieval and security.
+  relevance_for_eudi: Mandatory credential format for mdoc-based PID and EAAs.
+- id: ISO-18013-7
+  name: ISO/IEC 18013-7 — mdoc Online Presentation
+  url: https://www.iso.org/standard/82772.html
+  type: iso_standard
+  layer: credential_format
+  summary: Online presentation for mdoc/mDL credentials. Reference-only until fully available.
+  relevance_for_eudi: Relevant to mdoc online presentation flows; reference-only until formally integrated.
+
 logical_groups:
 - group_slug: wallet-core-and-certification
   title: Wallet core functionality, certification and assurance
@@ -693,6 +870,7 @@ logical_groups:
     documents:
     - EU-2016-2102
     - EU-2019-882
+
 recommended_reading_routes:
 - route_slug: mvp-credimi-conformance-evidence
   title: MVP route for Credimi conformance evidence
