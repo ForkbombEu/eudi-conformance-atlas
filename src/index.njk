@@ -12,75 +12,86 @@ pageScript: search.js
   <div class="hero-inner">
     <p class="eyebrow">COMMUNITY-MAINTAINED NAVIGATION RESOURCE</p>
     <h1>EUDI Trust &<br>Conformance Atlas</h1>
-    <p>A community-maintained map of EUDI Wallet law, implementing acts, ARF requirements, WE BUILD trust work, and conformance-evidence mappings.</p>
-    <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3);">
+    <p>A community-maintained map of EUDI Wallet law, implementing acts, ARF requirements, protocol standards, and mapped conformance tests.</p>
+    <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3); flex-wrap: wrap;">
       <a href="{{ '/map/' | url }}" class="btn btn-primary btn-lg">Explore the map</a>
-      <a href="{{ '/documents/' | url }}" class="btn btn-outline btn-lg">Browse documents</a>
+      <a href="{{ '/reference/' | url }}" class="btn btn-outline btn-lg">Browse reference</a>
+      <a href="{{ '/tests/' | url }}" class="btn btn-outline btn-lg">Test coverage</a>
     </div>
   </div>
 </section>
 
 <div class="page-content">
   <div class="container">
+
     <div class="disclaimer">
-      <strong>Disclaimer:</strong> This is an unofficial navigation resource, not legal advice, not certification. Official sources always prevail. Maintained by <strong>Credimi / Forkbomb BV</strong>.
+      <strong>Disclaimer:</strong> Unofficial navigation resource — not legal advice, not certification. Official sources always prevail. Maintained by <strong>ForkBomb BV / Credimi</strong>.
     </div>
 
-    {{ sectionHeader("Find documents, evidence claims, and references", documents.totalCount + evidence.totalCount) }}
+    <!-- Visual overview -->
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); margin-bottom: var(--space-10);">
 
-    <div style="margin-bottom: var(--space-6);">
-      {{ searchBox("landing-search", "Find documents, evidence claims, and references:") }}
+      <!-- Doc chart -->
+      <div class="card" style="padding: var(--space-6);">
+        <h3 style="font-size:var(--fs-md); font-weight:700; margin-bottom:var(--space-1);">{{ documents.totalCount }} documents collected</h3>
+        <p class="text-xs text-muted" style="margin-bottom: var(--space-4);">EU regulations, ETSI standards, OpenID specs and more</p>
+        <canvas id="doc-chart" width="300" height="220"></canvas>
+      </div>
+
+      <!-- Test chart -->
+      <div class="card" style="padding: var(--space-6);">
+        <h3 style="font-size:var(--fs-md); font-weight:700; margin-bottom:var(--space-1);">{{ tests.totalCount }} mapped conformance tests</h3>
+        <p class="text-xs text-muted" style="margin-bottom: var(--space-4);">Grouped by actor — Wallet, Issuer, Verifier/RP, Trust Infrastructure</p>
+        <canvas id="test-chart" width="300" height="220"></canvas>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div style="margin-bottom: var(--space-8);">
+      {{ sectionHeader("Search documents and references", documents.totalCount) }}
+      <div style="margin-top: var(--space-4);">
+        {{ searchBox("landing-search", "Find documents by name, ID, or summary…") }}
+      </div>
     </div>
 
     <div id="search-results" style="display:none;" class="card-grid card-grid-2"></div>
 
     <div id="default-content">
-      <div style="margin-top: var(--space-6);">
-        {{ sectionHeader("Quick links", null, "/documents/") }}
-      </div>
 
-      <div class="card-grid card-grid-3 mb-8">
-        <a href="{{ '/map/' | url }}" class="card" style="text-decoration:none;">
-          <h4 style="color:var(--fg);">Map <span aria-hidden="true">↗</span></h4>
-          <p class="text-sm text-muted">Interactive tree of documents, groups, and evidence claims.</p>
-        </a>
-        <a href="{{ '/documents/' | url }}" class="card" style="text-decoration:none;">
-          <h4 style="color:var(--fg);">Documents <span aria-hidden="true">↗</span><span class="count-chip">{{ documents.totalCount }}</span></h4>
-          <p class="text-sm text-muted">Legal acts, implementing regulations, ARF, WE BUILD, and more.</p>
-        </a>
-        <a href="{{ '/evidence/' | url }}" class="card" style="text-decoration:none;">
-          <h4 style="color:var(--fg);">Evidence Claims <span aria-hidden="true">↗</span><span class="count-chip">{{ evidence.totalCount }}</span></h4>
-          <p class="text-sm text-muted">Reproducible conformance evidence claims with official references.</p>
-        </a>
-      </div>
-
-      <div style="margin-top: var(--space-6);">
-        {{ sectionHeader("Recommended reading routes", documents.routes.length) }}
-      </div>
-
-      <div class="card-grid card-grid-2 mb-8">
-        {% for route in documents.routes %}
-        <div class="card">
-          <h4 style="font-size:var(--fs-md);font-weight:700;margin-bottom:var(--space-1);">{{ route.title }}</h4>
-          <p style="font-size:var(--fs-sm);color:var(--fg-muted);margin-bottom:var(--space-3);">{{ route.why_this_route }}</p>
-          <div style="display:flex;flex-wrap:wrap;gap:var(--space-1);">
-            {% for docId in route.documents %}
-            <a href="{{ ('/documents/' + docId + '/') | url }}" class="badge badge-neutral font-mono" style="text-decoration:none;">{{ docId }}</a>
-            {% endfor %}
+      <!-- Role cards -->
+      <div style="margin-bottom: var(--space-8);">
+        {{ sectionHeader("Start by role") }}
+        <p class="text-sm text-muted" style="margin-top: var(--space-2); margin-bottom: var(--space-4);">Select your role using the <strong>Role</strong> button (top-right) to highlight relevant documents and tests across all pages.</p>
+        <div class="card-grid card-grid-3">
+          {% for role in documents.roles %}
+          <div class="card" style="display:flex; flex-direction:column; gap: var(--space-2);">
+            <div style="font-size:22px;">{{ role.icon }}</div>
+            <h4 style="font-size:var(--fs-sm); font-weight:700;">{{ role.label }}</h4>
+            <p style="font-size:var(--fs-xs); color:var(--fg-muted); flex:1;">{{ role.description }}</p>
+            <a href="{{ '/reference/' | url }}" class="btn btn-outline btn-sm" style="align-self:flex-start; margin-top: var(--space-1);">See docs →</a>
           </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
 
-      <div style="margin-top: var(--space-6);">
-        {{ sectionHeader("Recent documents", documents.recentDocuments.length, "/documents/") }}
+      <!-- Reading routes -->
+      <div style="margin-bottom: var(--space-8);">
+        {{ sectionHeader("Recommended reading routes", documents.routes.length) }}
+        <div class="card-grid card-grid-2" style="margin-top: var(--space-4);">
+          {% for route in documents.routes %}
+          <div class="card">
+            <h4 style="font-size:var(--fs-sm);font-weight:700;margin-bottom:var(--space-1);">{{ route.title }}</h4>
+            <p style="font-size:var(--fs-xs);color:var(--fg-muted);margin-bottom:var(--space-3);">{{ route.why_this_route }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:var(--space-1);">
+              {% for docId in route.documents %}
+              <a href="{{ ('/documents/' + docId + '/') | url }}" class="badge badge-neutral font-mono" style="text-decoration:none;font-size:10px;">{{ docId }}</a>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
       </div>
 
-      <div class="card-grid card-grid-2 mb-8">
-        {% for doc in documents.recentDocuments %}
-        {{ documentCard(doc) }}
-        {% endfor %}
-      </div>
     </div>
 
     <div style="margin-top: var(--space-4); text-align: center;">
@@ -88,3 +99,10 @@ pageScript: search.js
     </div>
   </div>
 </div>
+
+<!-- Inline chart data from 11ty build -->
+<script>
+var ATLAS_DOC_DATA = {{ documents.chartBySource | toJson | safe }};
+var ATLAS_TEST_DATA = {{ tests.chartByActor | toJson | safe }};
+</script>
+<script src="{{ '/js/charts.js' | url }}"></script>

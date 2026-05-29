@@ -1,24 +1,24 @@
-{% from "components/source-badge.njk" import sourceBadge %}
-
 {% macro documentCard(doc) %}
-<article class="card doc-card">
+<div class="card doc-card highlightable" data-doc-id="{{ doc.id }}" data-layer="{{ doc.layer or 'other' }}">
   <div class="doc-card-top">
-    <div>
-      <h4><a href="{{ ('/documents/' + doc.id + '/') | url }}">{{ doc.name }}</a></h4>
-      <span class="doc-id">{{ doc.id }}</span>
-    </div>
-    {{ sourceBadge(doc.type) }}
+    <h4><a href="{{ ('/documents/' + doc.id + '/') | url }}">{{ doc.name }}</a></h4>
   </div>
+  <div class="doc-id">{{ doc.id }}</div>
   {% if doc.summary %}
   <p class="doc-summary">{{ doc.summary }}</p>
   {% endif %}
   <div class="doc-meta">
-    {% for aud in doc.audience %}
-    <span class="badge badge-neutral">{{ aud }}</span>
-    {% endfor %}
-    {% if doc.pdf_url %}
-    <a href="{{ doc.pdf_url }}" class="text-xs" target="_blank" rel="noopener">PDF ↗</a>
+    <span class="badge {{ doc.type | sourceTypeClass }}">{{ doc.type | sourceTypeLabel }}</span>
+    {% if doc.layer == 'etsi' %}
+    <span class="badge badge-etsi" style="font-size:10px;">ETSI</span>
+    {% elif doc.layer == 'protocol' %}
+    <span class="badge badge-protocol" style="font-size:10px;">Protocol</span>
+    {% elif doc.layer == 'credential_format' %}
+    <span class="badge badge-iso" style="font-size:10px;">Format</span>
+    {% endif %}
+    {% if doc.url %}
+    <a href="{{ doc.url }}" target="_blank" rel="noopener" class="text-xs text-muted" style="margin-left:auto; text-decoration:none;">Official ↗</a>
     {% endif %}
   </div>
-</article>
+</div>
 {% endmacro %}

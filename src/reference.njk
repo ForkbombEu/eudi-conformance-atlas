@@ -1,0 +1,106 @@
+---
+layout: base.njk
+title: Reference
+description: Unified searchable catalogue of all EUDI documents — EU law, ETSI standards, OpenID specs.
+pageScript: search.js
+---
+{% from "components/section-header.njk" import sectionHeader %}
+{% from "components/search-box.njk" import searchBox %}
+{% from "components/document-card.njk" import documentCard %}
+
+<section class="hero" style="padding: var(--space-8) 0;">
+  <div class="hero-inner">
+    <p class="eyebrow">UNIFIED CATALOGUE</p>
+    <h1 style="font-size: var(--fs-2xl);">Reference</h1>
+    <p style="font-size: var(--fs-base);">All {{ documents.totalCount }} documents — EU Regulations, Implementing Acts, ARF, ETSI standards, and OpenID/ISO specs. Filter by layer or download raw data.</p>
+  </div>
+</section>
+
+<div class="page-content">
+  <div class="container">
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> Unofficial navigation resource. Always refer to EUR-Lex and official repositories for authoritative texts.
+    </div>
+
+    <div style="margin-bottom: var(--space-6); display:flex; gap: var(--space-4); align-items: flex-start; flex-wrap: wrap;">
+      <div style="flex:1; min-width: 260px;">
+        {{ searchBox("doc-search", "Find documents by name, ID, or summary…") }}
+      </div>
+      <div style="display:flex; gap: var(--space-2); flex-shrink:0;">
+        <a href="{{ '/data/eudi-documents-map.yaml' | url }}" class="btn btn-outline btn-sm" download>↓ YAML</a>
+        <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/eudi-documents-map.yaml" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">GitHub →</a>
+      </div>
+    </div>
+
+    <!-- Layer tabs -->
+    <div class="ref-source-tabs" id="layer-tabs">
+      <button class="ref-source-tab active" data-layer="all">All <span class="count-chip">{{ documents.totalCount }}</span></button>
+      {% for layer in documents.layers %}
+      {% set layerCount = 0 %}
+      {% for doc in documents.documents %}{% if doc.layer == layer.key %}{% set layerCount = layerCount + 1 %}{% endif %}{% endfor %}
+      <button class="ref-source-tab" data-layer="{{ layer.key }}">{{ layer.label }} <span class="count-chip">{{ layerCount }}</span></button>
+      {% endfor %}
+    </div>
+
+    <!-- Type filter bar -->
+    {% set docFilters = [
+      { key: "type", value: "regulation", label: "Regulation" },
+      { key: "type", value: "implementing_regulation", label: "Implementing Regulation" },
+      { key: "type", value: "implementing_decision", label: "Implementing Decision" },
+      { key: "type", value: "directive", label: "Directive" },
+      { key: "type", value: "architecture_reference_framework", label: "ARF" },
+      { key: "type", value: "project_working_documentation", label: "WE BUILD" },
+      { key: "type", value: "etsi_standard", label: "ETSI Standard" },
+      { key: "type", value: "openid_spec", label: "OpenID/OAuth" },
+      { key: "type", value: "iso_standard", label: "ISO Standard" }
+    ] %}
+    {% from "components/filter-bar.njk" import filterBar %}
+    {{ filterBar("type-filter", docFilters) }}
+
+    <div class="card-grid card-grid-2" id="doc-list">
+      {% for doc in documents.documents %}
+      <div class="doc-item highlightable"
+           data-type="{{ doc.type }}"
+           data-layer="{{ doc.layer }}"
+           data-id="{{ doc.id }}"
+           data-doc-id="{{ doc.id }}"
+           data-name="{{ doc.name }}"
+           data-summary="{{ doc.summary or '' }}">
+        {{ documentCard(doc) }}
+      </div>
+      {% endfor %}
+    </div>
+
+    <div style="margin-top: var(--space-4); text-align: center;">
+      <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/src/reference.njk" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
+    </div>
+  </div>
+</div>
+
+<script>
+// Layer tab switching
+(function() {
+  var tabs = document.querySelectorAll('.ref-source-tab');
+  var items = document.querySelectorAll('.doc-item');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      var layer = tab.dataset.layer;
+      items.forEach(function(item) {
+        item.style.display = (layer === 'all' || item.dataset.layer === layer) ? '' : 'none';
+      });
+    });
+  });
+
+  // Pre-select role from URL param
+  var params = new URLSearchParams(window.location.search);
+  var role = params.get('role');
+  if (role) {
+    setTimeout(function() {
+      var roleBtn = document.querySelector('.role-btn[data-role="' + role + '"]');
+      if (roleBtn) roleBtn.click();
+    }, 100);
+  }
+})();
+</script>

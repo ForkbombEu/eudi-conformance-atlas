@@ -1,0 +1,163 @@
+---
+layout: base.njk
+title: Test Coverage
+description: Community inventory of EUDI conformance tests across Wallet, Issuer, Verifier, and Trust Infrastructure.
+---
+
+<section class="hero" style="padding: var(--space-8) 0;">
+  <div class="hero-inner">
+    <p class="eyebrow">COMMUNITY CONFORMANCE INVENTORY</p>
+    <h1 style="font-size: var(--fs-2xl);">Test Coverage</h1>
+    <p style="font-size: var(--fs-base);">{{ tests.totalCount }} machine-tagged conformance tests for EUDI implementations — classified by evidence strength and organised by actor. Use the <strong>Role</strong> role filter to highlight tests relevant to you.</p>
+  </div>
+</section>
+
+<div class="page-content">
+  <div class="container">
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> Tests are not official requirement identifiers. This inventory does not certify or prove compliance. Maintained by the community; evidence claims use language like "maps to" and "supports" — not "certifies". Original source data by <strong>Credimi</strong>.
+    </div>
+
+    <!-- Stats strip -->
+    <div class="stats-strip">
+      <div class="stat-item">
+        <span class="stat-value">{{ tests.totalCount }}</span>
+        <span class="stat-label">Total tests</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">{{ tests.definitiveCount }}</span>
+        <span class="stat-label">Definitive evidence</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">{{ tests.conditionalCount }}</span>
+        <span class="stat-label">Conditional evidence</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">{{ tests.externalCount }}</span>
+        <span class="stat-label">Requires external testing</span>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div style="display:flex; gap: var(--space-3); flex-wrap:wrap; margin-bottom: var(--space-6); align-items: center;">
+      <span class="text-xs text-muted" style="font-weight:600; text-transform:uppercase; letter-spacing:0.08em;">Evidence strength:</span>
+      <span class="strength-chip strength-definitive">Definitive</span>
+      <span class="strength-chip strength-conditional">Conditional</span>
+      <span class="strength-chip strength-external">Requires external testing</span>
+    </div>
+
+    <!-- Actor filter tabs -->
+    <div class="ref-source-tabs" id="actor-tabs" style="margin-bottom: var(--space-6);">
+      <button class="ref-source-tab active" data-actor="all">All <span class="count-chip">{{ tests.totalCount }}</span></button>
+      <button class="ref-source-tab" data-actor="wallet">🔐 Wallet</button>
+      <button class="ref-source-tab" data-actor="issuer">🏛️ Issuer</button>
+      <button class="ref-source-tab" data-actor="verifier">✅ Verifier / RP</button>
+      <button class="ref-source-tab" data-actor="trust">🔗 Trust Infrastructure</button>
+      <button class="ref-source-tab" data-actor="external">🔍 External / CAB</button>
+    </div>
+
+    <!-- Search -->
+    <div style="margin-bottom: var(--space-4);">
+      <input type="search" id="test-search" placeholder="Search tests by name or notes…" style="max-width: 480px;">
+    </div>
+
+    <div class="test-table-wrap">
+      <table class="test-table">
+        <thead>
+          <tr>
+            <th style="width:48px;">#</th>
+            <th style="width:110px;">Actor</th>
+            <th>Test</th>
+            <th style="width:140px;">Evidence</th>
+            <th style="width:160px;">Execution</th>
+            <th>References</th>
+          </tr>
+        </thead>
+        <tbody id="test-tbody">
+          {% for test in tests.tests %}
+          <tr class="test-row highlightable"
+              data-actor-key="{{ test.actorKey }}"
+              data-actor="{{ test.actor }}"
+              data-strength="{{ test.strengthKey }}"
+              data-text="{{ test.test | lower }} {{ test.notes | lower }}">
+            <td class="test-id">{{ test.id }}</td>
+            <td>
+              {% if test.actorKey == 'wallet' %}
+              <span class="badge badge-wallet">{{ test.actor }}</span>
+              {% elif test.actorKey == 'issuer' %}
+              <span class="badge badge-issuer">{{ test.actor }}</span>
+              {% elif test.actorKey == 'verifier' %}
+              <span class="badge badge-verifier">{{ test.actor }}</span>
+              {% elif test.actorKey == 'trust' %}
+              <span class="badge badge-trust">{{ test.actor }}</span>
+              {% else %}
+              <span class="badge badge-neutral">{{ test.actor }}</span>
+              {% endif %}
+            </td>
+            <td class="test-name">{{ test.test }}</td>
+            <td>
+              {% if test.strengthKey == 'definitive' %}
+              <span class="strength-chip strength-definitive">Definitive</span>
+              {% elif test.strengthKey == 'conditional' %}
+              <span class="strength-chip strength-conditional">Conditional</span>
+              {% else %}
+              <span class="strength-chip strength-external">External</span>
+              {% endif %}
+            </td>
+            <td class="text-xs text-muted">{{ test.execution }}</td>
+            <td>
+              <div style="display:flex; flex-wrap:wrap; gap:4px;">
+                {% for ref in test.refs %}
+                <span class="badge badge-neutral font-mono" style="font-size:10px;">{{ ref }}</span>
+                {% endfor %}
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="text-xs text-muted" style="margin-top: var(--space-4);">
+      Test inventory based on <em>credimi-flat-conformance-test-list-v1.1</em>.
+      <a href="https://github.com/forkbombeu/eudi-conformance-atlas" target="_blank" rel="noopener">Contribute on GitHub →</a>
+    </p>
+
+    <div style="margin-top: var(--space-8); text-align: center;">
+      <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/src/tests.njk" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  // Actor tab filter
+  var tabs = document.querySelectorAll('#actor-tabs .ref-source-tab');
+  var rows = document.querySelectorAll('.test-row');
+  var searchInput = document.getElementById('test-search');
+
+  function filterRows() {
+    var activeTab = document.querySelector('#actor-tabs .ref-source-tab.active');
+    var actor = activeTab ? activeTab.dataset.actor : 'all';
+    var query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+    rows.forEach(function(row) {
+      var actorMatch = actor === 'all' || row.dataset.actorKey === actor;
+      var textMatch = !query || (row.dataset.text || '').indexOf(query) !== -1;
+      row.style.display = (actorMatch && textMatch) ? '' : 'none';
+    });
+  }
+
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      filterRows();
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', filterRows);
+  }
+})();
+</script>

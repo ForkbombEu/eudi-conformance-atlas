@@ -11,12 +11,18 @@
 <body>
   {% include "topbar.njk" %}
 
-  <main>
-    {{ content | safe }}
-  </main>
+  <div class="page-shell" id="page-shell">
+    <div class="page-shell-main">
+      <main>
+        {{ content | safe }}
+      </main>
+      {% include "footer.njk" %}
+    </div>
+  </div>
 
-  {% include "footer.njk" %}
+  {% include "role-sidebar.njk" %}
 
+  <script src="{{ '/js/roles.js' | url }}"></script>
   {% if pageScript %}
   <script type="module" src="{{ ('/js/' + pageScript) | url }}"></script>
   {% endif %}

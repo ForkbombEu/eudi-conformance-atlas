@@ -8,21 +8,63 @@ pageScript: tree.js
 <section class="hero" style="padding: var(--space-8) 0;">
   <div class="hero-inner">
     <p class="eyebrow">INTERACTIVE MAP</p>
-    <h1 style="font-size: var(--fs-2xl);">EUDI document map</h1>
-    <p style="font-size: var(--fs-base);">Expand, collapse, search, and filter the EUDI document landscape. Click any document to see details and related evidence claims.</p>
+    <h1 style="font-size: var(--fs-2xl);">EUDI Document Map</h1>
+    <p style="font-size: var(--fs-base);">Browse the full EUDI stack — from legal foundations to protocol specs. Use <strong>Role</strong> to highlight documents for your role.</p>
   </div>
 </section>
 
 <div class="page-content">
   <div class="container">
     <div class="disclaimer">
-      <strong>Disclaimer:</strong> This is an unofficial navigation resource. Official sources always prevail.
+      <strong>Disclaimer:</strong> Unofficial navigation resource. Official sources always prevail.
     </div>
 
+    <!-- Layer overview (collapsible) -->
+    <div style="margin-bottom: var(--space-6);">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: var(--space-3);">
+        <h2 style="font-size:var(--fs-lg); font-weight:700;">Stack layers</h2>
+        <button id="toggle-layers-btn" class="btn btn-outline btn-sm">Show layers ▾</button>
+      </div>
+      <div id="layer-panel" style="display:none;">
+        <div class="layer-stack" id="layer-stack">
+          {% for layer in documents.layers %}
+          {% set layerCount = 0 %}
+          {% for doc in documents.documents %}{% if doc.layer == layer.key %}{% set layerCount = layerCount + 1 %}{% endif %}{% endfor %}
+          <div class="layer-row" data-layer="{{ layer.key }}">
+            <div class="layer-row-header" role="button" tabindex="0">
+              <span class="layer-row-arrow">▶</span>
+              <span class="badge {{ layer.color }}">{{ layer.label }}</span>
+              <span class="layer-row-desc">{{ layer.description }}</span>
+              <span class="layer-row-count">{{ layerCount }}</span>
+            </div>
+            <div class="layer-row-body">
+              <div class="layer-doc-grid">
+                {% for doc in documents.documents %}
+                {% if doc.layer == layer.key %}
+                <a href="{{ ('/documents/' + doc.id + '/') | url }}"
+                   class="layer-doc-chip highlightable"
+                   data-doc-id="{{ doc.id }}"
+                   data-layer="{{ doc.layer }}"
+                   title="{{ doc.name }}">
+                  <span class="font-mono" style="font-size:10px;color:var(--fg-muted);">{{ doc.id }}</span>
+                  <span style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ doc.name | truncate(38) }}</span>
+                </a>
+                {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          {% if not loop.last %}<div class="layer-connector">↓</div>{% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Document tree (primary view) -->
     <div style="display: grid; grid-template-columns: 1fr 300px; gap: var(--space-6);">
       <div>
         <div style="margin-bottom: var(--space-4);">
-          {{ searchBox("tree-search", "Filter tree:") }}
+          {{ searchBox("tree-search", "Filter tree…") }}
         </div>
         <div class="tree-container" id="tree-container" data-path-prefix="{{ '/' | url }}"></div>
       </div>
@@ -39,4 +81,25 @@ pageScript: tree.js
 
 <script id="tree-data" type="application/json">
 {{ documents | toJson | safe }}
+</script>
+
+<script>
+(function() {
+  // Layer panel toggle
+  var toggleBtn = document.getElementById('toggle-layers-btn');
+  var panel = document.getElementById('layer-panel');
+  if (toggleBtn && panel) {
+    toggleBtn.addEventListener('click', function() {
+      var open = panel.style.display !== 'none';
+      panel.style.display = open ? 'none' : 'block';
+      toggleBtn.textContent = open ? 'Show layers ▾' : 'Hide layers ▴';
+    });
+  }
+  // Layer row expand/collapse
+  document.querySelectorAll('.layer-row-header').forEach(function(h) {
+    function toggle() { h.closest('.layer-row').classList.toggle('expanded'); }
+    h.addEventListener('click', toggle);
+    h.addEventListener('keydown', function(e) { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); toggle(); } });
+  });
+})();
 </script>
