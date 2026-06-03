@@ -4,24 +4,24 @@
       <span style="font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;font-weight:800;font-size:18px;color:var(--brand-primary);">EUDI Atlas</span>
     </a>
     <ul class="topbar-nav">
-      <li><a href="{{ '/' | url }}" {% if page.url == ('/' | url) %}class="nav-active"{% endif %}>Home</a></li>
       <li><a href="{{ '/map/' | url }}" {% if '/map/' in page.url %}class="nav-active"{% endif %}>Map</a></li>
       <li><a href="{{ '/reference/' | url }}" {% if '/reference/' in page.url or '/documents/' in page.url %}class="nav-active"{% endif %}>Reference</a></li>
-      <li><a href="{{ '/tests/' | url }}" {% if '/tests/' in page.url %}class="nav-active"{% endif %}>Test Coverage</a></li>
-      <li><a href="{{ '/about/' | url }}" {% if '/about/' in page.url %}class="nav-active"{% endif %}>About</a></li>
+      <li><a href="{{ '/tests/' | url }}" {% if '/tests/' in page.url %}class="nav-active"{% endif %}>Tests</a></li>
+      {% set rolePages = ['/reference/', '/tests/', '/evidence/', '/documents/'] %}
+      {% set showRoleBtn = false %}
+      {% for p in rolePages %}{% if p in page.url %}{% set showRoleBtn = true %}{% endif %}{% endfor %}
+      <li>
+        <button
+          class="role-toggle-btn{% if not showRoleBtn %} role-toggle-hidden{% endif %}"
+          id="role-toggle-btn"
+          aria-expanded="false"
+          aria-controls="role-sidebar"
+          aria-label="Filter by role"
+          {% if not showRoleBtn %}disabled aria-hidden="true"{% endif %}>
+          <span id="role-toggle-icon">◈</span>
+          <span id="role-toggle-label">Role</span>
+        </button>
+      </li>
     </ul>
-    {% set rolePages = ['/reference/', '/tests/', '/evidence/', '/documents/'] %}
-    {% set showRoleBtn = false %}
-    {% for p in rolePages %}{% if p in page.url %}{% set showRoleBtn = true %}{% endif %}{% endfor %}
-    <button
-      class="role-toggle-btn{% if not showRoleBtn %} role-toggle-hidden{% endif %}"
-      id="role-toggle-btn"
-      aria-expanded="false"
-      aria-controls="role-sidebar"
-      aria-label="Filter by role"
-      {% if not showRoleBtn %}disabled aria-hidden="true"{% endif %}>
-      <span id="role-toggle-icon">◈</span>
-      <span id="role-toggle-label">Role</span>
-    </button>
   </div>
 </nav>

@@ -116,7 +116,8 @@
     } else {
       var label = btn.querySelector('.role-btn-label').textContent;
       var icon = btn.querySelector('.role-btn-icon').textContent;
-      setRole(btn.dataset.role, btn.dataset.highlightDocs, btn.dataset.highlightLayers, label, icon);
+		setRole(btn.dataset.role, btn.dataset.highlightDocs, btn.dataset.highlightLayers, label, icon);
+		closeSidebar();
     }
   });
 
