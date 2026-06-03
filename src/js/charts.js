@@ -1,48 +1,62 @@
 (function () {
-  var COLORS_DOCS = [
-    '#2d3a8c',  // EU legal — deep indigo
-    '#7c3aed',  // ETSI — purple
-    '#0891b2',  // OpenID — teal
-    '#b45309',  // ISO — amber
-    '#15803d',  // ARF — green
-  ];
-  var COLORS_TESTS = [
-    '#7c3aed',  // wallet — purple
-    '#b45309',  // issuer — amber
-    '#15803d',  // verifier — green
-    '#2d3a8c',  // trust — indigo
-    '#9f1239',  // external — rose
-  ];
+  var COLORS_DOCS  = ['#2d3a8c','#7c3aed','#0891b2','#b45309','#15803d'];
+  var COLORS_TESTS = ['#7c3aed','#b45309','#15803d','#2d3a8c','#9f1239'];
 
   function drawDonut(canvasId, data, colors) {
     var canvas = document.getElementById(canvasId);
     if (!canvas || !canvas.getContext) return;
 
-    // Size canvas to its CSS container width
     var container = canvas.parentElement;
-    var W = container ? container.clientWidth - 48 : 400; // subtract padding
-    var H = Math.round(W * 0.55);
-    H = Math.max(H, 180);
+   var W = container ? Math.floor(Math.min(container.clientWidth, window.innerWidth) - 32) : 340;
+    W = Math.max(W, 200);
     var dpr = window.devicePixelRatio || 1;
-    canvas.width = W * dpr;
+
+    // Decide layout: side-by-side if wide enough, stacked otherwise
+    var SIDE_THRESHOLD = 380;
+    var stacked = W < SIDE_THRESHOLD;
+
+    // Legend metrics
+    var LEGEND_ROW_H = 22;
+    var legendRows = data.labels.length;
+    var legendH = legendRows * LEGEND_ROW_H + 8;
+
+    // Donut size
+    var donutDiam = stacked ? Math.min(W * 0.55, 160) : Math.min(W * 0.38, 160);
+    var donutR = donutDiam / 2;
+    var innerR = donutR * 0.54;
+
+    // Canvas height
+    var H;
+    if (stacked) {
+      H = donutDiam + 16 + legendH + 8;
+    } else {
+      H = Math.max(donutDiam + 16, legendH + 24);
+    }
+
+    canvas.width  = W * dpr;
     canvas.height = H * dpr;
-    canvas.style.width = W + 'px';
+    canvas.style.width  = W + 'px';
     canvas.style.height = H + 'px';
 
     var ctx = canvas.getContext('2d');
     ctx.scale(dpr, dpr);
 
-    var total = data.values.reduce(function(a, b) { return a + b; }, 0);
+    var total = data.values.reduce(function(a,b){return a+b;},0);
 
-    // Layout: donut on left third, legend on right two-thirds
-    var donutR = Math.min(W * 0.22, H * 0.42);
-    var cx = donutR + 16;
-    var cy = H / 2;
+    // Donut position
+    var cx, cy;
+    if (stacked) {
+      cx = W / 2;
+      cy = donutR + 8;
+    } else {
+      cx = donutR + 8;
+      cy = H / 2;
+    }
 
-    // Draw slices
+    // Slices
     var startAngle = -Math.PI / 2;
     for (var i = 0; i < data.values.length; i++) {
-      if (data.values[i] === 0) continue;
+      if (!data.values[i]) continue;
       var slice = (data.values[i] / total) * Math.PI * 2;
       ctx.beginPath();
       ctx.moveTo(cx, cy);
@@ -50,73 +64,86 @@
       ctx.closePath();
       ctx.fillStyle = colors[i % colors.length];
       ctx.fill();
-      ctx.strokeStyle = '#ffffff';
+      ctx.strokeStyle = '#fff';
       ctx.lineWidth = 2;
       ctx.stroke();
       startAngle += slice;
     }
 
-    // Donut hole
+    // Hole
     ctx.beginPath();
-    ctx.arc(cx, cy, donutR * 0.54, 0, Math.PI * 2);
+    ctx.arc(cx, cy, innerR, 0, Math.PI * 2);
     ctx.fillStyle = '#ffffff';
     ctx.fill();
 
-    // Centre total
+    // Centre text
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillStyle = '#1e1b4b';
-    ctx.font = 'bold ' + Math.round(donutR * 0.46) + 'px Manrope, system-ui, sans-serif';
-    ctx.fillText(String(total), cx, cy - 4);
+    ctx.font = 'bold ' + Math.round(donutR * 0.44) + 'px Manrope,system-ui,sans-serif';
+    ctx.fillText(String(total), cx, cy - 3);
     ctx.fillStyle = '#9ca3af';
-    ctx.font = '11px Manrope, system-ui, sans-serif';
-    ctx.fillText('total', cx, cy + Math.round(donutR * 0.3));
+    ctx.font = '11px Manrope,system-ui,sans-serif';
+    ctx.fillText('total', cx, cy + Math.round(donutR * 0.28));
 
-    // Legend — right of donut
-    var legendX = cx + donutR + 20;
-    var rowH = Math.min(22, (H - 16) / data.labels.length);
-    var legendTop = cy - (data.labels.length * rowH) / 2;
+    // Legend
+    var legX, legY;
+    if (stacked) {
+      legX = 8;
+      legY = donutDiam + 20;
+    } else {
+      legX = cx + donutR + 18;
+      legY = cy - (legendRows * LEGEND_ROW_H) / 2 + 4;
+    }
+
+    var maxLabelW = stacked ? W - 50 : W - legX - 36;
 
     ctx.textBaseline = 'middle';
     for (var j = 0; j < data.labels.length; j++) {
-      var y = legendTop + j * rowH + rowH / 2;
+      var ry = legY + j * LEGEND_ROW_H + LEGEND_ROW_H / 2;
 
-      // Colour swatch
+      // Swatch
       ctx.beginPath();
-      ctx.roundRect(legendX, y - 5, 10, 10, 2);
+      if (ctx.roundRect) {
+        ctx.roundRect(legX, ry - 5, 10, 10, 2);
+      } else {
+        ctx.rect(legX, ry - 5, 10, 10);
+      }
       ctx.fillStyle = colors[j % colors.length];
       ctx.fill();
 
-      // Label
+      // Label — truncate if needed
       ctx.textAlign = 'left';
       ctx.fillStyle = '#111827';
-      ctx.font = '12px Manrope, system-ui, sans-serif';
-      ctx.fillText(data.labels[j], legendX + 15, y);
+      ctx.font = '12px Manrope,system-ui,sans-serif';
+      var label = data.labels[j];
+      while (ctx.measureText(label).width > maxLabelW && label.length > 4) {
+        label = label.slice(0, -2) + '…';
+      }
+      ctx.fillText(label, legX + 15, ry);
 
-      // Value — right-aligned
+      // Count
       ctx.textAlign = 'right';
       ctx.fillStyle = '#6b7280';
-      ctx.font = 'bold 12px Manrope, system-ui, sans-serif';
-      ctx.fillText(String(data.values[j]), W - 4, y);
+      ctx.font = 'bold 12px Manrope,system-ui,sans-serif';
+      ctx.fillText(String(data.values[j]), W - 4, ry);
     }
   }
 
   function init() {
-    if (typeof ATLAS_DOC_DATA !== 'undefined') drawDonut('doc-chart', ATLAS_DOC_DATA, COLORS_DOCS);
+    if (typeof ATLAS_DOC_DATA  !== 'undefined') drawDonut('doc-chart',  ATLAS_DOC_DATA,  COLORS_DOCS);
     if (typeof ATLAS_TEST_DATA !== 'undefined') drawDonut('test-chart', ATLAS_TEST_DATA, COLORS_TESTS);
   }
 
-  // Run after fonts and layout settle
   if (document.readyState === 'complete') {
     setTimeout(init, 50);
   } else {
-    window.addEventListener('load', function() { setTimeout(init, 50); });
+    window.addEventListener('load', function(){ setTimeout(init, 50); });
   }
 
-  // Also redraw on resize
   var resizeTimer;
-  window.addEventListener('resize', function() {
+  window.addEventListener('resize', function(){
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(init, 100);
+    resizeTimer = setTimeout(init, 120);
   });
 })();
