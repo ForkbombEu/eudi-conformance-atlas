@@ -7,7 +7,7 @@
       <li><a href="{{ '/map/' | url }}" {% if '/map/' in page.url %}class="nav-active"{% endif %}>Map</a></li>
       <li><a href="{{ '/reference/' | url }}" {% if '/reference/' in page.url or '/documents/' in page.url %}class="nav-active"{% endif %}>Reference</a></li>
       <li><a href="{{ '/tests/' | url }}" {% if '/tests/' in page.url %}class="nav-active"{% endif %}>Tests</a></li>
-      {% set rolePages = ['/reference/', '/tests/', '/evidence/', '/documents/'] %}
+      {% set rolePages = ['/reference/', '/tests/', '/evidence/', '/documents/', '/map/'] %}
       {% set showRoleBtn = false %}
       {% for p in rolePages %}{% if p in page.url %}{% set showRoleBtn = true %}{% endif %}{% endfor %}
       <li>

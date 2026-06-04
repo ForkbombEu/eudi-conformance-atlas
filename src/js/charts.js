@@ -6,54 +6,46 @@
     var canvas = document.getElementById(canvasId);
     if (!canvas || !canvas.getContext) return;
 
+    // Read the container width ONCE. After this we set explicit px on the
+    // canvas so CSS can never stretch/squish it again.
     var container = canvas.parentElement;
-   var W = container ? Math.floor(Math.min(container.clientWidth, window.innerWidth) - 32) : 340;
-    W = Math.max(W, 200);
+    var W = container ? container.offsetWidth - 32 : 400;
+    W = Math.max(Math.min(W, 760), 200); // clamp 200–760px
+
     var dpr = window.devicePixelRatio || 1;
 
-    // Decide layout: side-by-side if wide enough, stacked otherwise
-    var SIDE_THRESHOLD = 380;
-    var stacked = W < SIDE_THRESHOLD;
-
-    // Legend metrics
     var LEGEND_ROW_H = 22;
-    var legendRows = data.labels.length;
-    var legendH = legendRows * LEGEND_ROW_H + 8;
+    var legendRows   = data.labels.length;
+    var GAP          = 24;
+    var VALUE_COL    = 28;
+    var SWATCH_W     = 12;
+    var SWATCH_GAP   = 6;
 
-    // Donut size
-    var donutDiam = stacked ? Math.min(W * 0.55, 160) : Math.min(W * 0.38, 160);
-    var donutR = donutDiam / 2;
-    var innerR = donutR * 0.54;
+    var donutR    = Math.min(W * 0.30, 80);
+    var donutDiam = donutR * 2;
+    var innerR    = donutR * 0.54;
 
-    // Canvas height
-    var H;
-    if (stacked) {
-      H = donutDiam + 16 + legendH + 8;
-    } else {
-      H = Math.max(donutDiam + 16, legendH + 24);
-    }
+    var legendX = donutDiam + GAP * 2;
+    var legendW = W - legendX - VALUE_COL - 4;
 
-    canvas.width  = W * dpr;
-    canvas.height = H * dpr;
+    var legendH = legendRows * LEGEND_ROW_H;
+    var H = Math.max(donutDiam + 8, legendH + 8);
+
+    // Set explicit pixel size — CSS must not override these
+    canvas.width        = W * dpr;
+    canvas.height       = H * dpr;
     canvas.style.width  = W + 'px';
     canvas.style.height = H + 'px';
+    canvas.style.maxWidth = 'none'; // prevent CSS 100% from taking over
 
     var ctx = canvas.getContext('2d');
     ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, W, H);
 
-    var total = data.values.reduce(function(a,b){return a+b;},0);
+    var total = data.values.reduce(function(a,b){ return a+b; }, 0);
+    var cx = donutR + GAP;
+    var cy = H / 2;
 
-    // Donut position
-    var cx, cy;
-    if (stacked) {
-      cx = W / 2;
-      cy = donutR + 8;
-    } else {
-      cx = donutR + 8;
-      cy = H / 2;
-    }
-
-    // Slices
     var startAngle = -Math.PI / 2;
     for (var i = 0; i < data.values.length; i++) {
       if (!data.values[i]) continue;
@@ -70,59 +62,44 @@
       startAngle += slice;
     }
 
-    // Hole
     ctx.beginPath();
     ctx.arc(cx, cy, innerR, 0, Math.PI * 2);
     ctx.fillStyle = '#ffffff';
     ctx.fill();
 
-    // Centre text
+    var fontSize = Math.max(Math.round(donutR * 0.44), 14);
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillStyle = '#1e1b4b';
-    ctx.font = 'bold ' + Math.round(donutR * 0.44) + 'px Manrope,system-ui,sans-serif';
-    ctx.fillText(String(total), cx, cy - 3);
+    ctx.font = 'bold ' + fontSize + 'px Manrope,system-ui,sans-serif';
+    ctx.fillText(String(total), cx, cy - fontSize * 0.3);
     ctx.fillStyle = '#9ca3af';
     ctx.font = '11px Manrope,system-ui,sans-serif';
-    ctx.fillText('total', cx, cy + Math.round(donutR * 0.28));
+    ctx.fillText('total', cx, cy + fontSize * 0.5);
 
-    // Legend
-    var legX, legY;
-    if (stacked) {
-      legX = 8;
-      legY = donutDiam + 20;
-    } else {
-      legX = cx + donutR + 18;
-      legY = cy - (legendRows * LEGEND_ROW_H) / 2 + 4;
-    }
-
-    var maxLabelW = stacked ? W - 50 : W - legX - 36;
-
+    var legTop = cy - legendH / 2;
     ctx.textBaseline = 'middle';
     for (var j = 0; j < data.labels.length; j++) {
-      var ry = legY + j * LEGEND_ROW_H + LEGEND_ROW_H / 2;
+      var ry = legTop + j * LEGEND_ROW_H + LEGEND_ROW_H / 2;
 
-      // Swatch
+      ctx.fillStyle = colors[j % colors.length];
       ctx.beginPath();
       if (ctx.roundRect) {
-        ctx.roundRect(legX, ry - 5, 10, 10, 2);
+        ctx.roundRect(legendX, ry - 5, SWATCH_W, 10, 2);
       } else {
-        ctx.rect(legX, ry - 5, 10, 10);
+        ctx.rect(legendX, ry - 5, SWATCH_W, 10);
       }
-      ctx.fillStyle = colors[j % colors.length];
       ctx.fill();
 
-      // Label — truncate if needed
       ctx.textAlign = 'left';
       ctx.fillStyle = '#111827';
       ctx.font = '12px Manrope,system-ui,sans-serif';
-      var label = data.labels[j];
-      while (ctx.measureText(label).width > maxLabelW && label.length > 4) {
-        label = label.slice(0, -2) + '…';
+      var lbl = data.labels[j];
+      while (lbl.length > 3 && ctx.measureText(lbl).width > legendW) {
+        lbl = lbl.slice(0, -2) + '…';
       }
-      ctx.fillText(label, legX + 15, ry);
+      ctx.fillText(lbl, legendX + SWATCH_W + SWATCH_GAP, ry);
 
-      // Count
       ctx.textAlign = 'right';
       ctx.fillStyle = '#6b7280';
       ctx.font = 'bold 12px Manrope,system-ui,sans-serif';
@@ -135,15 +112,11 @@
     if (typeof ATLAS_TEST_DATA !== 'undefined') drawDonut('test-chart', ATLAS_TEST_DATA, COLORS_TESTS);
   }
 
+  // Draw exactly once, when the container has its layout width.
+  // Never redraw on resize — canvas has explicit px size so it won't distort.
   if (document.readyState === 'complete') {
-    setTimeout(init, 50);
+    setTimeout(init, 0);
   } else {
-    window.addEventListener('load', function(){ setTimeout(init, 50); });
+    window.addEventListener('load', init);
   }
-
-  var resizeTimer;
-  window.addEventListener('resize', function(){
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(init, 120);
-  });
 })();
