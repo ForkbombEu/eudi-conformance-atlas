@@ -61,14 +61,15 @@ pageScript: tree.js
     </div>
 
     <!-- Document tree (primary view) -->
-    <div style="display: grid; grid-template-columns: 1fr 300px; gap: var(--space-6);">
+    <div class ="tree-layout">
       <div>
         <div style="margin-bottom: var(--space-4);">
           {{ searchBox("tree-search", "Filter tree…") }}
         </div>
         <div class="tree-container" id="tree-container" data-path-prefix="{{ '/' | url }}"></div>
       </div>
-      <div id="tree-side-panel" style="display:none;">
+	  <div id="tree-side-panel" class="tree-side-panel" style="display:none;">
+        <button id="tree-panel-close" class="tree-panel-close" aria-label="Close">✕</button>
         <div class="card" id="tree-detail-card"></div>
       </div>
     </div>

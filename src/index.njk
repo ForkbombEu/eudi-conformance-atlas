@@ -32,17 +32,35 @@ pageScript: search.js
     <div class="chart-grid" style="margin-bottom: var(--space-10);">
 
       <!-- Doc chart -->
-      <div class="card" style="padding: var(--space-6);">
-        <h3 style="font-size:var(--fs-md); font-weight:700; margin-bottom:var(--space-1);">{{ documents.totalCount }} documents collected</h3>
-        <p class="text-xs text-muted" style="margin-bottom: var(--space-4);">EU regulations, ETSI standards, OpenID specs and more</p>
-        <canvas id="doc-chart" width="300" height="220"></canvas>
+      <div class="card css-chart-card">
+        <h3 class="css-chart-title">{{ documents.totalCount }} documents collected</h3>
+        <p class="text-xs text-muted css-chart-sub">EU regulations, ETSI standards, OpenID specs and more</p>
+        <div class="css-chart-body">
+          <div class="css-donut" id="css-donut-docs" aria-hidden="true"></div>
+          <div class="css-legend">
+            <div class="css-legend-row"><span class="css-swatch" style="background:#2d3a8c"></span><span class="css-legend-label">EU Regulations &amp; Acts</span><span class="css-legend-val">{{ documents.chartBySource.values[0] }}</span></div>
+            <div class="css-legend-row"><span class="css-swatch" style="background:#7c3aed"></span><span class="css-legend-label">ETSI Standards</span><span class="css-legend-val">{{ documents.chartBySource.values[1] }}</span></div>
+            <div class="css-legend-row"><span class="css-swatch" style="background:#0891b2"></span><span class="css-legend-label">OpenID / OAuth</span><span class="css-legend-val">{{ documents.chartBySource.values[2] }}</span></div>
+            <div class="css-legend-row"><span class="css-swatch" style="background:#b45309"></span><span class="css-legend-label">ISO Standards</span><span class="css-legend-val">{{ documents.chartBySource.values[3] }}</span></div>
+            <div class="css-legend-row"><span class="css-swatch" style="background:#15803d"></span><span class="css-legend-label">Architecture / ARF</span><span class="css-legend-val">{{ documents.chartBySource.values[4] }}</span></div>
+          </div>
+        </div>
       </div>
 
       <!-- Test chart -->
-      <div class="card" style="padding: var(--space-6);">
-        <h3 style="font-size:var(--fs-md); font-weight:700; margin-bottom:var(--space-1);">{{ tests.totalCount }} mapped conformance tests</h3>
-        <p class="text-xs text-muted" style="margin-bottom: var(--space-4);">Grouped by actor — Wallet, Issuer, Verifier/RP, Trust Infrastructure</p>
-        <canvas id="test-chart" width="300" height="220"></canvas>
+      <div class="card css-chart-card">
+        <h3 class="css-chart-title">{{ tests.totalCount }} mapped conformance tests</h3>
+        <p class="text-xs text-muted css-chart-sub">Grouped by actor — Wallet, Issuer, Verifier/RP, Trust Infrastructure</p>
+        <div class="css-chart-body">
+          <div class="css-donut" id="css-donut-tests" aria-hidden="true"></div>
+          <div class="css-legend">
+            <div class="css-legend-row"><span class="css-swatch" style="background:#7c3aed"></span><span class="css-legend-label">Wallet</span><span class="css-legend-val">{{ tests.chartByActor.values[0] }}</span></div>
+            <div class="css-legend-row"><span class="css-swatch" style="background:#b45309"></span><span class="css-legend-label">Issuer</span><span class="css-legend-val">{{ tests.chartByActor.values[1] }}</span></div>
+            <div class="css-legend-row"><span class="css-swatch" style="background:#15803d"></span><span class="css-legend-label">Verifier / RP</span><span class="css-legend-val">{{ tests.chartByActor.values[2] }}</span></div>
+            <div class="css-legend-row"><span class="css-swatch" style="background:#2d3a8c"></span><span class="css-legend-label">Trust Infra</span><span class="css-legend-val">{{ tests.chartByActor.values[3] }}</span></div>
+            <div class="css-legend-row"><span class="css-swatch" style="background:#9f1239"></span><span class="css-legend-label">External / CAB</span><span class="css-legend-val">{{ tests.chartByActor.values[4] }}</span></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -100,9 +118,28 @@ pageScript: search.js
   </div>
 </div>
 
-<!-- Inline chart data from 11ty build -->
 <script>
-var ATLAS_DOC_DATA = {{ documents.chartBySource | toJson | safe }};
-var ATLAS_TEST_DATA = {{ tests.chartByActor | toJson | safe }};
+(function(){
+  function buildDonut(id, values, colors) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var total = values.reduce(function(a,b){return a+b;},0);
+    var deg = 0;
+    var stops = [];
+    for (var i = 0; i < values.length; i++) {
+      var slice = (values[i]/total)*360;
+      stops.push(colors[i]+' '+deg+'deg '+(deg+slice)+'deg');
+      deg += slice;
+    }
+    el.style.background = 'conic-gradient('+stops.join(',')+')';
+  }
+  buildDonut('css-donut-docs',
+    [{{ documents.chartBySource.values | join(',') }}],
+    ['#2d3a8c','#7c3aed','#0891b2','#b45309','#15803d']
+  );
+  buildDonut('css-donut-tests',
+    [{{ tests.chartByActor.values | join(',') }}],
+    ['#7c3aed','#b45309','#15803d','#2d3a8c','#9f1239']
+  );
+})();
 </script>
-<script src="{{ '/js/charts.js' | url }}"></script>
