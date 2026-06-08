@@ -31,10 +31,13 @@ jobs:
       - name: Validate data
         run: npm test
 
+      - uses: actions/configure-pages@v4
+        id: pages
+
       - name: Build
         run: npm run build
-
-      - uses: actions/configure-pages@v4
+        env:
+          PATH_PREFIX: ${{ steps.pages.outputs.base_path || '/' }}
 
       - uses: actions/upload-pages-artifact@v3
         with:
