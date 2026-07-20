@@ -1,10 +1,13 @@
 const yaml = require("js-yaml");
 const fs = require("node:fs");
-const path = require("node:path");
+const { loadCurrentManifest, resolveArtifact } = require("./source-of-truth");
 
 module.exports = function () {
-  const file = path.join(__dirname, "..", "..", "data", "evidence-claims-registry.yaml");
-  const raw = yaml.load(fs.readFileSync(file, "utf8"));
+  const manifest = loadCurrentManifest();
+  const registry = resolveArtifact(manifest, {
+    filename: "credimi-conformance-evidence-registry-v1.1.yaml",
+  });
+  const raw = yaml.load(fs.readFileSync(registry.filePath, "utf8"));
 
   const profiles = raw.profiles || [];
   const sourceDocs = raw.source_documents || {};
@@ -58,5 +61,6 @@ module.exports = function () {
     totalCount: claims.length,
     registryVersion: raw.registry_version,
     name: raw.name,
+    sourcePath: registry.path,
   };
 };

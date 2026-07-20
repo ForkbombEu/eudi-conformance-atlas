@@ -1,0 +1,17 @@
+{
+  "manifest_format_version": "1.0",
+  "current_release": "v1.1",
+  "release_date": "2026-05-26",
+  "release_directory": "data/source-of-truth/releases/v1.1",
+  "artifacts": [
+    { "filename": "CHANGELOG-conformance-artifacts.md", "path": "data/source-of-truth/releases/v1.1/CHANGELOG-conformance-artifacts.md", "media_type": "text/markdown", "byte_size": 1002, "sha256": "b1b898558a8a75e5d2957a2d7589ff2e09c5626b4732767f22e65107da50c0ef" },
+    { "filename": "README-conformance-artifacts-v1.1.md", "path": "data/source-of-truth/releases/v1.1/README-conformance-artifacts-v1.1.md", "media_type": "text/markdown", "byte_size": 1986, "sha256": "dc6f2d66424eac37b8da4d92546d42d60d1e31d7b519286bace8d9f90d95e659" },
+    { "filename": "credimi-conformance-aggregation-taxonomy-v1.1.yaml", "path": "data/source-of-truth/releases/v1.1/credimi-conformance-aggregation-taxonomy-v1.1.yaml", "media_type": "application/yaml", "byte_size": 113435, "sha256": "8abba30026d2f650e0fc4cc5891d226e3ac85ce783ca20f33f1a6888852ac765" },
+    { "filename": "credimi-conformance-evidence-registry-v1.1.yaml", "path": "data/source-of-truth/releases/v1.1/credimi-conformance-evidence-registry-v1.1.yaml", "media_type": "application/yaml", "byte_size": 230162, "sha256": "422ef82155c0154a40a90bd06135d2fe0e3044a014bf9c5f97906ac7eaad7427" },
+    { "filename": "credimi-conformance-result.schema.v1.1.json", "path": "data/source-of-truth/releases/v1.1/credimi-conformance-result.schema.v1.1.json", "media_type": "application/json", "byte_size": 17090, "sha256": "813b9c9a7f4df4d50e53ce44479632b4fe6ead8ce6b0b6231069a880a4bfbf55" },
+    { "filename": "credimi-conformance-source-scope-v1.1.yaml", "path": "data/source-of-truth/releases/v1.1/credimi-conformance-source-scope-v1.1.yaml", "media_type": "application/yaml", "byte_size": 6027, "sha256": "99d854356f371c68b1c1eb815eeb2abddab45a83428374aa704896528aa07da1" },
+    { "filename": "credimi-eudi-regulatory-map-short-v1.1.md", "path": "data/source-of-truth/releases/v1.1/credimi-eudi-regulatory-map-short-v1.1.md", "media_type": "text/markdown", "byte_size": 3977, "sha256": "8fb1b985e25170da687e435a7ff2303637832c8e40ae820b89874cee6a7948c1" },
+    { "filename": "credimi-flat-conformance-test-list-v1.1.md", "path": "data/source-of-truth/releases/v1.1/credimi-flat-conformance-test-list-v1.1.md", "media_type": "text/markdown", "byte_size": 195074, "sha256": "f0d72ce0860714f723c0c943ee2c2c8cb712fba8f3b3f4190d47d776d26ba0ce" },
+    { "filename": "credimi-trust-helper-backlog-v1.1.md", "path": "data/source-of-truth/releases/v1.1/credimi-trust-helper-backlog-v1.1.md", "media_type": "text/markdown", "byte_size": 33529, "sha256": "8e3f0603e829ba4edf26345add984786097080362c356f78548b97aa1b836f59" }
+  ]
+}

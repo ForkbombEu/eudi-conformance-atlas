@@ -49,16 +49,16 @@ pageScript: search.js
 
       <!-- Test chart -->
       <div class="card css-chart-card">
-        <h3 class="css-chart-title">{{ tests.totalCount }} mapped conformance tests</h3>
+        <h3 class="css-chart-title">{{ canonicalTests.totalCount }} mapped conformance tests</h3>
         <p class="text-xs text-muted css-chart-sub">Grouped by actor — Wallet, Issuer, Verifier/RP, Trust Infrastructure</p>
         <div class="css-chart-body">
           <div class="css-donut" id="css-donut-tests" aria-hidden="true"></div>
           <div class="css-legend">
-            <div class="css-legend-row"><span class="css-swatch" style="background:#7c3aed"></span><span class="css-legend-label">Wallet</span><span class="css-legend-val">{{ tests.chartByActor.values[0] }}</span></div>
-            <div class="css-legend-row"><span class="css-swatch" style="background:#b45309"></span><span class="css-legend-label">Issuer</span><span class="css-legend-val">{{ tests.chartByActor.values[1] }}</span></div>
-            <div class="css-legend-row"><span class="css-swatch" style="background:#15803d"></span><span class="css-legend-label">Verifier / RP</span><span class="css-legend-val">{{ tests.chartByActor.values[2] }}</span></div>
-            <div class="css-legend-row"><span class="css-swatch" style="background:#2d3a8c"></span><span class="css-legend-label">Trust Infra</span><span class="css-legend-val">{{ tests.chartByActor.values[3] }}</span></div>
-            <div class="css-legend-row"><span class="css-swatch" style="background:#9f1239"></span><span class="css-legend-label">External / CAB</span><span class="css-legend-val">{{ tests.chartByActor.values[4] }}</span></div>
+            <div class="css-legend-row"><span class="css-swatch" style="background:#7c3aed"></span><span class="css-legend-label">Wallet</span><span class="css-legend-val">{{ canonicalTests.chartByActor.values[0] }}</span></div>
+            <div class="css-legend-row"><span class="css-swatch" style="background:#b45309"></span><span class="css-legend-label">Issuer</span><span class="css-legend-val">{{ canonicalTests.chartByActor.values[1] }}</span></div>
+            <div class="css-legend-row"><span class="css-swatch" style="background:#15803d"></span><span class="css-legend-label">Verifier / RP</span><span class="css-legend-val">{{ canonicalTests.chartByActor.values[2] }}</span></div>
+            <div class="css-legend-row"><span class="css-swatch" style="background:#2d3a8c"></span><span class="css-legend-label">Trust Infra</span><span class="css-legend-val">{{ canonicalTests.chartByActor.values[3] }}</span></div>
+            <div class="css-legend-row"><span class="css-swatch" style="background:#9f1239"></span><span class="css-legend-label">External / CAB</span><span class="css-legend-val">{{ canonicalTests.chartByActor.values[4] }}</span></div>
           </div>
         </div>
       </div>
@@ -138,7 +138,7 @@ pageScript: search.js
     ['#2d3a8c','#7c3aed','#0891b2','#b45309','#15803d']
   );
   buildDonut('css-donut-tests',
-    [{{ tests.chartByActor.values | join(',') }}],
+    [{{ canonicalTests.chartByActor.values | join(',') }}],
     ['#7c3aed','#b45309','#15803d','#2d3a8c','#9f1239']
   );
 })();

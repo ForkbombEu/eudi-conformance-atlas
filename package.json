@@ -7,7 +7,7 @@
   "scripts": {
     "build": "eleventy",
     "start": "eleventy --serve",
-    "test": "node scripts/validate-data.mjs",
+    "test": "node scripts/validate-data.mjs && node scripts/validate-source-of-truth-evidence.mjs",
     "lint": "task lint:design"
   },
   "dependencies": {

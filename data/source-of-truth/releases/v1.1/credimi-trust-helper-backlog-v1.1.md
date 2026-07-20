@@ -831,3 +831,374 @@ manual_review
 ```
 
 This belongs in certification / assurance-support UX, not in the basic Maestro Action editor.
+
+---
+
+# ETSI standards addendum v1.1
+
+This addendum adds the ETSI standards layer from `ETSICatalog.csv` to the trust-helper and evidence-claim implementation backlog.
+
+## Vocabulary addition
+
+Evidence results may now include:
+
+```text
+evidence_type: standards_validation
+artifact types:
+  - etsi_standard_reference
+  - etsi_profile_validation_result
+  - standards_profile_validation_result
+  - certificate_profile_validation_result
+  - timestamp_validation_result
+  - validation_service_result
+  - signature_validation_result
+```
+
+## P0/P1 — EAA/PID profile validation
+
+### B-080 — EAA/PID issuance profile validator
+
+Maps mainly to:
+
+```text
+wallet-receives-pid-eaa-issuance-request
+wallet-completes-pid-eaa-issuance
+pid-provider-issues-pid-to-wallet
+eaa-provider-issues-eaa-to-wallet
+eaa-pid-issuance-profile-validation
+```
+
+Standards:
+
+- [ETSI TS 119 472-3 V1.1.1 (2026-03)](https://www.etsi.org/deliver/etsi_ts/119400_119499/11947203/01.01.01_60/ts_11947203v010101p.pdf) — profiles for issuance of EAA or PID.
+- [ETSI TS 119 471 V1.1.1 (2025-05)](https://www.etsi.org/deliver/etsi_ts/119400_119499/119471/01.01.01_60/ts_119471v010101p.pdf) — policy and security requirements for EAA service providers.
+- [ETSI TS 119 478 V1.1.1 (2026-01)](https://www.etsi.org/deliver/etsi_ts/119400_119499/119478/01.01.01_60/ts_119478v010101p.pdf) — authentic-source interfaces.
+- [ETSI TR 119 479-1 V1.1.1 (2026-05)](https://www.etsi.org/deliver/etsi_tr/119400_119499/11947901/01.01.01_60/tr_11947901v010101p.pdf) — foundational EAA concepts and architecture.
+
+Checks:
+
+- issuer metadata references expected EAA/PID profile;
+- credential offer uses expected credential configuration/profile;
+- authentic-source interface evidence is present where required;
+- profile validation result is attached to `conformance_result.json`.
+
+### B-081 — EAA/PID presentation profile validator
+
+Maps mainly to:
+
+```text
+wallet-processes-remote-presentation-request
+wallet-displays-rp-identity-and-requested-attributes
+wallet-selective-disclosure
+verifier-generates-valid-presentation-request
+eaa-pid-presentation-profile-validation
+```
+
+Standards:
+
+- [ETSI TS 119 472-2 V1.2.1 (2026-03)](https://www.etsi.org/deliver/etsi_ts/119400_119499/11947202/01.02.01_60/ts_11947202v010201p.pdf) — profiles for presentation of EAA or PID to Relying Parties.
+- [ETSI TS 119 475 V1.2.1 (2026-03)](https://www.etsi.org/deliver/etsi_ts/119400_119499/119475/01.02.01_60/ts_119475v010201p.pdf) — relying-party attributes supporting Wallet user authorisation decisions.
+- [ETSI TR 119 476 V1.2.1 (2024-07)](https://www.etsi.org/deliver/etsi_tr/119400_119499/119476/01.02.01_60/tr_119476v010201p.pdf) — selective disclosure and ZKP analysis.
+- [ETSI TR 119 476-1 V1.3.1 (2025-08)](https://www.etsi.org/deliver/etsi_tr/119400_119499/11947601/01.03.01_60/tr_11947601v010301p.pdf) — selective disclosure and ZKP feasibility study.
+
+Checks:
+
+- presentation request uses expected profile;
+- requested attributes are parseable;
+- relying-party attributes can be mapped to user-authorization context;
+- selective disclosure result can be inspected verifier-side or through a headless test.
+
+## P1 — Relying Party attributes and entitlement checks
+
+### B-090 — ETSI RP attribute checker
+
+Maps mainly to:
+
+```text
+rp-requested-attributes-match-entitlements
+rp-registration-certificate-entitlement-match
+relying-party-attributes-standards-validation
+```
+
+Standards:
+
+- [ETSI TS 119 475 V1.2.1 (2026-03)](https://www.etsi.org/deliver/etsi_ts/119400_119499/119475/01.02.01_60/ts_119475v010201p.pdf) — relying-party attributes supporting Wallet user authorization decisions.
+- [ETSI TS 119 472-2 V1.2.1 (2026-03)](https://www.etsi.org/deliver/etsi_ts/119400_119499/11947202/01.02.01_60/ts_11947202v010201p.pdf) — EAA/PID presentation profile.
+
+Checks:
+
+- RP request exposes attributes in a machine-readable way;
+- requested attributes map to registered entitlements;
+- Wallet-facing display values can be compared with expected RP attributes.
+
+## P1/P2 — Certificate profile validation
+
+### B-100 — ETSI certificate-profile validator
+
+Maps mainly to:
+
+```text
+rp-access-certificate-validation
+rp-registration-certificate-entitlement-match
+qualified-certificate-profile-validation
+certificate-profile-standards-validation
+```
+
+Standards:
+
+- [ETSI EN 319 411-1 V1.5.1 (2025-04)](https://www.etsi.org/deliver/etsi_en/319400_319499/31941101/01.05.01_60/en_31941101v010501p.pdf) — policy/security requirements for certificate-issuing TSPs.
+- [ETSI EN 319 411-2 V2.6.1 (2025-06)](https://www.etsi.org/deliver/etsi_en/319400_319499/31941102/02.06.01_60/en_31941102v020601p.pdf) — requirements for TSPs issuing EU qualified certificates.
+- [ETSI EN 319 412-1 V1.7.1 (2026-05)](https://www.etsi.org/deliver/etsi_en/319400_319499/31941201/01.07.01_60/en_31941201v010701p.pdf) — certificate profile overview and common structures.
+- [ETSI EN 319 412-2 V2.5.0 (2026-05)](https://www.etsi.org/deliver/etsi_en/319400_319499/31941202/02.05.00_20/en_31941202v020500a.pdf) — certificate profile for natural persons.
+- [ETSI EN 319 412-3 V1.4.0 (2026-04)](https://www.etsi.org/deliver/etsi_en/319400_319499/31941203/01.04.00_20/en_31941203v010400a.pdf) — certificate profile for legal persons.
+- [ETSI EN 319 412-4 V1.4.1 (2025-06)](https://www.etsi.org/deliver/etsi_en/319400_319499/31941204/01.04.01_60/en_31941204v010401p.pdf) — certificate profile for web site certificates.
+- [ETSI EN 319 412-5 V2.6.1 (2026-05)](https://www.etsi.org/deliver/etsi_en/319400_319499/31941205/02.06.01_60/en_31941205v020601p.pdf) — qualified certificate statements.
+- [ETSI TS 119 412-6 V1.2.1 (2026-04)](https://www.etsi.org/deliver/etsi_ts/119400_119499/11941206/01.02.01_60/ts_11941206v010201p.pdf) — distributed ledger identifiers in certificates.
+- [ETSI TS 119 495 V1.8.1 (2026-04)](https://www.etsi.org/deliver/etsi_ts/119400_119499/119495/01.08.01_60/ts_119495v010801p.pdf) — sector-specific certificate/TSP requirements for open banking.
+
+Checks:
+
+- certificate parses;
+- certificate profile is recognized;
+- QCStatements and relevant extensions are present where expected;
+- policy OIDs / policy URLs are present where required;
+- certificate subject/SAN/identifier binding can be compared with issuer/RP/register evidence.
+
+## P2 — Validation service and signature/seal validation
+
+### B-110 — ETSI validation-service result adapter
+
+Maps mainly to:
+
+```text
+verifier-validates-credential-signature-status-and-issuer-trust
+qualified-validation-service-for-signatures-and-seals
+electronic-signature-seal-validation-process
+qualified-validation-service-standards-validation
+```
+
+Standards:
+
+- [ETSI TS 119 441 V1.3.1 (2025-10)](https://www.etsi.org/deliver/etsi_ts/119400_119499/119441/01.03.01_60/ts_119441v010301p.pdf) — policy requirements for TSPs providing signature validation services.
+- [ETSI TS 119 442 V1.1.1 (2019-02)](https://www.etsi.org/deliver/etsi_ts/119400_119499/119442/01.01.01_60/ts_119442v010101p.pdf) — protocol profiles for validation services.
+
+Checks:
+
+- preserve raw validation-service result;
+- normalize result into `evidence_claim_results[]`;
+- attach certificate-chain, signature/seal and revocation outputs;
+- mark whether result is internal technical validation or qualified validation-service evidence.
+
+## P2/P3 — Timestamp validation
+
+### B-120 — ETSI timestamp validator / optional QTSP timestamp adapter
+
+Maps mainly to:
+
+```text
+qualified-time-stamp-service-validation
+timestamping-standards-validation
+```
+
+Standards:
+
+- [ETSI EN 319 421 V1.3.1 (2025-07)](https://www.etsi.org/deliver/etsi_en/319400_319499/319421/01.03.01_60/en_319421v010301p.pdf) — policy and security requirements for time-stamp providers.
+- [ETSI EN 319 422 V1.1.1 (2016-03)](https://www.etsi.org/deliver/etsi_en/319400_319499/319422/01.01.01_60/en_319422v010101p.pdf) — time-stamping protocol and token profiles.
+
+Checks:
+
+- timestamp token parses;
+- timestamp signature validates;
+- time-stamp provider trust can be resolved;
+- evidence bundle can optionally include QTSP timestamp result.
+
+Not MVP blocker.
+
+## P3 — Remote signature/seal creation and Wallet trust-service interfaces
+
+### B-130 — Remote signature/seal standards adapter
+
+Maps mainly to:
+
+```text
+remote-qualified-signature-seal-device-management-standards
+remote-signature-creation-standards-validation
+```
+
+Standards:
+
+- [ETSI TS 119 431-1 V1.3.1 (2024-12)](https://www.etsi.org/deliver/etsi_ts/119400_119499/11943101/01.03.01_60/ts_11943101v010301p.pdf) — policy/security requirements for remote QSCD/SCDev operation.
+- [ETSI TS 119 431-2 V1.2.1 (2023-06)](https://www.etsi.org/deliver/etsi_ts/119400_119499/11943102/01.02.01_60/ts_11943102v010201p.pdf) — requirements for AdES digital signature creation service components.
+- [ETSI TS 119 432 V1.3.1 (2026-03)](https://www.etsi.org/deliver/etsi_ts/119400_119499/119432/01.03.01_60/ts_119432v010301p.pdf) — protocols for remote digital signature creation.
+- [ETSI TS 119 461 V2.1.1 (2025-02)](https://www.etsi.org/deliver/etsi_ts/119400_119499/119461/02.01.01_60/ts_119461v020101p.pdf) — trust-service components providing identity proofing.
+- [ETSI TR 119 462 V1.1.1 (2026-03)](https://www.etsi.org/deliver/etsi_tr/119400_119499/119462/01.01.01_60/tr_119462v010101p.pdf) — Wallet interfaces for trust services and signing.
+
+Checks:
+
+- remote signing protocol evidence can be captured;
+- service policy/security evidence can be referenced;
+- identity-proofing component evidence can be attached where relevant.
+
+Not MVP blocker.
+
+## P3 — TSP policy and conformity-assessment evidence
+
+### B-140 — ETSI TSP policy/conformity evidence adapter
+
+Maps mainly to:
+
+```text
+wallet-certification-assurance-bundle
+qualified-trust-service-notification-and-verification-evidence
+trusted-list-schema-signature-and-freshness-validation
+```
+
+Standards:
+
+- [ETSI EN 319 401 V3.2.1 (2026-01)](https://www.etsi.org/deliver/etsi_en/319400_319499/319401/03.02.01_60/en_319401v030201p.pdf) — general policy requirements for TSPs.
+- [ETSI EN 319 403-1 V2.3.1 (2020-06)](https://www.etsi.org/deliver/etsi_en/319400_319499/31940301/02.03.01_60/en_31940301v020301p.pdf) — TSP conformity assessment requirements.
+- [ETSI TR 119 404 V1.1.1 (2023-02)](https://www.etsi.org/deliver/etsi_tr/119400_119499/119404/01.01.01_60/tr_119404v010101p.pdf) — NIS2 impact on eIDAS standards.
+
+Checks:
+
+- attach conformity assessment references;
+- attach policy references;
+- mark this as assurance/certification evidence, not a runtime Wallet test.
+
+## Implementation note
+
+Do not expose ETSI-heavy claims in the basic Maestro Action editor. They belong in:
+
+```text
+Advanced trust-helper settings
+Evidence claim detail pages
+Report appendices
+Issuer/RP/trust-service profile validators
+```
+
+---
+
+# OpenID SIOP, mDL/mdoc and Federation addendum v1.1
+
+## B-150 — SIOPv2 request/response helper
+
+Implement support for:
+
+- SIOPv2 same-device request generation.
+- SIOPv2 cross-device request generation.
+- `direct_post` callback capture.
+- RP metadata/client metadata validation.
+- Self-Issued ID Token validation result normalization.
+
+Evidence artifacts:
+
+```text
+siopv2_request
+presentation_metadata
+id_token_validation_result
+verifier_result
+```
+
+Screenshots must be paired with Maestro `assertVisible` / `extendedWaitUntil.visible` output.
+
+## B-160 — mDL/mdoc validation helper
+
+Implement or integrate helper checks for:
+
+- device engagement;
+- reader request;
+- data retrieval;
+- MSO / issuer data authentication;
+- mDL authentication;
+- reader authentication;
+- session encryption result;
+- online retrieval TLS/JWS result.
+
+Evidence artifacts:
+
+```text
+device_engagement_data
+reader_request
+mdoc_response
+session_encryption_result
+issuer_data_authentication_result
+mdl_authentication_result
+reader_authentication_result
+```
+
+## B-170 — OpenID Federation trust resolver
+
+Implement helper checks for:
+
+- entity configuration fetch;
+- entity statement validation;
+- subordinate statement fetch;
+- trust-chain resolution;
+- metadata policy application;
+- trust mark validation;
+- resolve endpoint;
+- key rollover and revocation.
+
+Evidence artifacts:
+
+```text
+entity_configuration
+subordinate_statements
+trust_chain
+trust_chain_validation_result
+metadata_policy_result
+trust_mark_validation_result
+```
+
+---
+
+# OpenID Conformance Suite EUDI subset addendum v1.1
+
+## Source-scope rule
+
+Do not ingest the whole OpenID Conformance Suite spec-link catalogue into EUDI artifacts.
+
+Include as first-class EUDI/OpenID4VC sources:
+
+```text
+OID4VCI
+OID4VP
+HAIP / HAIPA
+SD-JWT
+SD-JWT VC
+OAuth Status List
+OpenID Federation
+ISO 18013-7 reference-only
+```
+
+Include OAuth/OIDC dependencies only when directly used by a concrete EUDI test:
+
+```text
+PKCE
+PAR
+JAR
+JARM
+DPoP
+JWT/JWK/JWA
+OAuth AS Metadata
+OIDC Discovery
+OIDC Dynamic Client Registration
+```
+
+Exclude for now:
+
+```text
+FAPI
+CIBA
+Open Banking / regional profiles
+CAEP / RISC / Shared Signals
+AuthZEN
+```
+
+## B-180 — OID4VCI/OID4VP/HAIP reference adapter
+
+Add helper metadata so every protocol helper can emit references using the same prefixes as the OpenID Conformance Suite.
+
+## B-181 — Source-scope guard
+
+Add a CI/build check that rejects accidental Tier 3/Tier 4 references unless explicitly whitelisted.

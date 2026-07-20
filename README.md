@@ -19,11 +19,7 @@ Output goes to `_site/`.
 
 ## Data
 
-Source data in `data/`:
-- `eudi-documents-map.yaml` — 48 documents with logical groups and reading routes
-- `evidence-claims-registry.yaml` — 37 evidence claims across 8 profiles
-- `conformance-result.schema.json` — JSON Schema for evidence results
-- `trust-helper-backlog.md` — Architecture and backlog for trust-helper
+Atlas-specific document data remains in `data/eudi-documents-map.yaml`. Canonical conformance data is selected by `data/source-of-truth/current.json`; consumers should read that manifest first and pin a Git commit or release tag for reproducibility.
 
 ## Development
 

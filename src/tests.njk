@@ -8,7 +8,7 @@ description: Community inventory of EUDI conformance tests across Wallet, Issuer
   <div class="hero-inner">
     <p class="eyebrow">COMMUNITY CONFORMANCE INVENTORY</p>
     <h1 style="font-size: var(--fs-2xl);">Test Coverage</h1>
-    <p style="font-size: var(--fs-base);">{{ tests.totalCount }} machine-tagged conformance tests for EUDI implementations — classified by evidence strength and organised by actor. Use the <strong>Role</strong> role filter to highlight tests relevant to you.</p>
+    <p style="font-size: var(--fs-base);">{{ canonicalTests.totalCount }} machine-tagged conformance tests for EUDI implementations — classified by evidence strength and organised by actor. Use the <strong>Role</strong> role filter to highlight tests relevant to you.</p>
   </div>
 </section>
 
@@ -21,19 +21,19 @@ description: Community inventory of EUDI conformance tests across Wallet, Issuer
     <!-- Stats strip -->
     <div class="stats-strip">
       <div class="stat-item">
-        <span class="stat-value">{{ tests.totalCount }}</span>
+        <span class="stat-value">{{ canonicalTests.totalCount }}</span>
         <span class="stat-label">Total tests</span>
       </div>
       <div class="stat-item">
-        <span class="stat-value">{{ tests.definitiveCount }}</span>
+        <span class="stat-value">{{ canonicalTests.definitiveCount }}</span>
         <span class="stat-label">Definitive evidence</span>
       </div>
       <div class="stat-item">
-        <span class="stat-value">{{ tests.conditionalCount }}</span>
+        <span class="stat-value">{{ canonicalTests.conditionalCount }}</span>
         <span class="stat-label">Conditional evidence</span>
       </div>
       <div class="stat-item">
-        <span class="stat-value">{{ tests.externalCount }}</span>
+        <span class="stat-value">{{ canonicalTests.externalCount }}</span>
         <span class="stat-label">Requires external testing</span>
       </div>
     </div>
@@ -48,7 +48,7 @@ description: Community inventory of EUDI conformance tests across Wallet, Issuer
 
     <!-- Actor filter tabs -->
     <div class="ref-source-tabs" id="actor-tabs" style="margin-bottom: var(--space-6);">
-      <button class="ref-source-tab active" data-actor="all">All <span class="count-chip">{{ tests.totalCount }}</span></button>
+      <button class="ref-source-tab active" data-actor="all">All <span class="count-chip">{{ canonicalTests.totalCount }}</span></button>
       <button class="ref-source-tab" data-actor="wallet">🔐 Wallet</button>
       <button class="ref-source-tab" data-actor="issuer">🏛️ Issuer</button>
       <button class="ref-source-tab" data-actor="verifier">✅ Verifier / RP</button>
@@ -74,7 +74,7 @@ description: Community inventory of EUDI conformance tests across Wallet, Issuer
           </tr>
         </thead>
         <tbody id="test-tbody">
-          {% for test in tests.tests %}
+          {% for test in canonicalTests.tests %}
           <tr class="test-row highlightable"
               data-actor-key="{{ test.actorKey }}"
               data-actor="{{ test.actor }}"
