@@ -1,12 +1,15 @@
 <nav class="topbar">
   <div class="topbar-inner">
     <a href="{{ '/' | url }}" class="topbar-logo" aria-label="EUDI Trust & Conformance Atlas home">
-      <span style="font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;font-weight:800;font-size:18px;color:var(--brand-primary);">EUDI Atlas</span>
+      <img src="{{ '/assets/credimi_logo.svg' | url }}" alt="Credimi">
+      <span class="atlas-product-name">EUDI Atlas</span>
     </a>
     <ul class="topbar-nav">
       <li><a href="{{ '/map/' | url }}" {% if '/map/' in page.url %}class="nav-active"{% endif %}>Map</a></li>
       <li><a href="{{ '/reference/' | url }}" {% if '/reference/' in page.url or '/documents/' in page.url %}class="nav-active"{% endif %}>Reference</a></li>
       <li><a href="{{ '/tests/' | url }}" {% if '/tests/' in page.url %}class="nav-active"{% endif %}>Tests</a></li>
+      <li><a href="{{ '/data/' | url }}" {% if '/data/' in page.url %}class="nav-active"{% endif %}>Data</a></li>
+      <li><a href="https://github.com/ForkbombEu/eudi-conformance-atlas" target="_blank" rel="noopener">Repository</a></li>
       {% set rolePages = ['/reference/', '/tests/', '/evidence/', '/documents/', '/map/'] %}
       {% set showRoleBtn = false %}
       {% for p in rolePages %}{% if p in page.url %}{% set showRoleBtn = true %}{% endif %}{% endfor %}

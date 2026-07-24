@@ -1,0 +1,7 @@
+/* Atlas-specific layout only; shared components live in style.css. */
+.atlas-product-name { color: var(--text); font-size: var(--fs-sm); font-weight: 800; }
+.atlas-footer-logo { display: block; width: 96px; height: auto; max-height: 42px; object-fit: contain; }
+.footer-brand { align-items: center; }
+@media (max-width: 640px) {
+  .atlas-product-name { display: none; }
+}

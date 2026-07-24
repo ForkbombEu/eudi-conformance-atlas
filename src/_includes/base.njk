@@ -6,7 +6,8 @@
   <title>{% if title and title !== 'EUDI Trust & Conformance Atlas' %}{{ title }} — {% endif %}EUDI Trust & Conformance Atlas</title>
   <meta name="description" content="{{ description or 'A community-maintained map of EUDI Wallet law, implementing acts, ARF requirements, WE BUILD trust work, and conformance evidence.' }}">
   <link rel="stylesheet" href="{{ '/css/style.css' | url }}">
-  <link rel="icon" type="image/svg+xml" href="{{ '/assets/credimi_logo_mark.svg' | url }}">
+  <link rel="stylesheet" href="{{ '/css/app.css' | url }}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/credimi_logo.svg' | url }}">
 </head>
 <body>
   {% include "topbar.njk" %}

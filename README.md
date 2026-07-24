@@ -1,29 +1,34 @@
 # EUDI Trust & Conformance Atlas
 
-A community-maintained map of EUDI Wallet law, implementing acts, ARF requirements, WE BUILD trust work, and conformance-evidence mappings.
+## Intro
 
-Lightly maintained by **Credimi / Forkbomb BV** under the NGI TRUSTCHAIN programme.
+EUDI Trust & Conformance Atlas is a static reference site that maps EUDI Wallet law, architecture requirements, trust work, standards, and conformance evidence. It makes the relationships between source documents, test inventory, and evidence easier to browse without becoming an API service or source-of-truth editor.
 
-## License
+## Technical specs
 
-Apache-2.0
+The site is built with Eleventy and Nunjucks. Its canonical data selection is manifest-driven through `data/source-of-truth/current.json`; document and evidence data remain under `data/` and `content/`.
 
-## Build
+## HOW to run
 
 ```sh
 npm ci
+npm test
 npm run build
+npm start
 ```
 
-Output goes to `_site/`.
+The generated static site is written to `_site/`.
 
-## Data
+## Quick GUI guide
 
-Atlas-specific document data remains in `data/eudi-documents-map.yaml`. Canonical conformance data is selected by `data/source-of-truth/current.json`; consumers should read that manifest first and pin a Git commit or release tag for reproducibility.
+### Map
 
-## Development
+Browse the EUDI ecosystem map and use role filters where available.
 
-```sh
-npm start    # Run dev server
-npm test     # Validate data files
-```
+### Reference and Tests
+
+Use **Reference** to explore source documents and **Tests** to inspect the conformance inventory and related evidence.
+
+### Data
+
+Use **Data** for source-data access. The Atlas deliberately has no API documentation or OpenAPI endpoint.

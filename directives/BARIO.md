@@ -1,6 +1,6 @@
-# PURIA.md
+# BARIO.md
 
-This file defines how work is done in this repository. As per Puria wishes.
+This file defines how work is done in this repository. As per BARIO wishes.
 
 It is the canonical source of truth for agents, assistants, humans, automation, and future maintainers.
 
@@ -48,12 +48,12 @@ Prefer:
 
 Before modifying anything:
 
-1. Read `PURIA.md`
+1. Read `BARIO.md`
 2. Inspect repository structure
 3. Do NOT infer or adopt undocumented conventions
-4. If a convention is observed but not defined in PURIA.md:
+4. If a convention is observed but not defined in BARIO.md:
    → record it in `HITL.md`
-5. Proceed using ONLY known rules from PURIA.md
+5. Proceed using ONLY known rules from BARIO.md
 6. Make the smallest safe change
 7. Validate the change
 
@@ -293,10 +293,6 @@ tasks:
     cmds:
       - task lint:design
 
-  lint:design:
-    cmds:
-      - if [ -f DESIGN.md ]; then npx --yes @google/design.md lint DESIGN.md; fi
-
   run:
     cmds:
       - go run .
@@ -310,39 +306,7 @@ tasks:
 
 ## Design Source
 
-All Puria design MUST be neubrutalist.
 
-If a task includes any web UI:
-
-→ follow `https://neubrutalism.com` as the design reference
-
-If a task includes TUI design:
-
-→ apply neubrutalist principles to the terminal interface
-
-Required neubrutalist traits:
-
-- thick, explicit borders
-- hard offset shadows where the medium supports them
-- square or near-square corners
-- flat high-contrast color
-- bold typography
-- visible structure
-- clear hierarchy
-- no gradients
-- no soft, blurred, polished-neutral styling
-
-If the project uses Svelte:
-
-→ prefer existing neobrutalist Svelte components when they fit the task
-
-If existing components do not fit:
-
-→ implement custom components that follow the same neubrutalist design rules
-
-`DESIGN.md` defines the mandatory Puria neubrutalist design system.
-
-Agents MUST read `DESIGN.md` before any task that affects web UI, TUI, visual identity, layout, components, typography, colors, or design-bearing documentation.
 
 If `DESIGN.md` is present:
 
@@ -358,11 +322,6 @@ If `DESIGN.md` is present:
 
 → `task lint:design` MUST run `npx --yes @google/design.md lint DESIGN.md`
 
-If `DESIGN.md` is absent:
-
-→ do not infer a design system
-
-→ do not create one unless explicitly requested
 
 ---
 
@@ -481,3 +440,14 @@ mise exec -- task -a
 ```
 
 should work even if your shell PATH is not reloaded.
+
+## README.md updates 
+
+After each development task and before each commit, the README.md should be updated. If the README.md is obsolete or empty, re-write it from scratch. README.md should contain the sections: 
+- Intro: explains what the app does. It will a one-liner and a short description first of the main problems the app try to solve (but only if those are known and clear) and then the main functionalities. 
+- Technical specs: list the programming languages and frameworks used and describe the main software components and libraries used in the project, but only include specific, noteworthy and non-obvious libraries, e.g. Credo.TS. Do not include any commonly used or basic libraries. 
+- HOW to run: basic info about how build and run the app locally
+- Quick GUI guide (if applicable): Organize this in subchapters. Describe what the GUI offers, what can be see on the homepage, how to perform actions that are related to the main functionalities of the app
+- CLI Examples (if applicable): a Table listing all the CLI functions, with one example per functionalities
+- API Examples (if applicable): a Table listing all the API functions, with one curl example per API
+  
