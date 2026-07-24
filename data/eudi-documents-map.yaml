@@ -1,16 +1,41 @@
-version: '0.1'
+version: '0.2'
 name: Credimi EUDI Conformance Documentation Map
 description: A consolidated map of legal acts, implementing acts, ARF/WE BUILD documentation, cybersecurity and trust-service
   sources relevant to Credimi's EUDI conformance and interoperability evidence work.
 flat_documents:
 - id: EUDI-ARF
-  name: EUDI Architecture and Reference Framework
-  url: https://eudi.dev/latest/
+  name: EUDI Architecture and Reference Framework 3.0.0
+  url: https://eudi.dev/3.0.0/
   type: architecture_reference_framework
-  summary: The main technical and architectural reference for the EUDI Wallet ecosystem. It defines roles, protocols, high-level
-    requirements, certification concepts, trust model elements, and interoperability expectations.
+  summary: The current technical and architectural reference for the EUDI Wallet ecosystem, dated 21 July 2026. Version
+    3.0 aligns the framework with the July 2026 amending implementing regulations, introduces relying-party services, strengthens
+    Trusted List and List of Trusted Entities handling, and adds functional conformance through FCAF.
   relevance_for_eudi: Primary bridge between legal requirements and implementable Wallet/Issuer/RP behaviour. Credimi evidence
     claims should map to ARF requirements wherever possible.
+- id: EUDI-ARF-HLR
+  name: EUDI ARF 3.0.0 High-Level Requirements dataset
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/v3.0.0/hltr/high-level-requirements.csv
+  type: architecture_requirements_dataset
+  summary: Version-pinned machine-readable CSV containing the normative high-level requirements used by ARF 3.0.0 and rendered
+    in Annex 2 by topic and category.
+  relevance_for_eudi: Best ARF input for deterministic requirement IDs, taxonomy mapping and traceability from a requirement
+    to an evidence claim or FCAF/Credimi test.
+- id: EUDI-ARF-DISCUSSION-TOPICS
+  name: EUDI ARF 3.0.0 Discussion Topics
+  url: https://eudi.dev/3.0.0/discussion-topics/
+  type: project_working_documentation
+  summary: Versioned index of the ARF discussion papers and refinement rounds, including WUA, relying-party registration,
+    wallet-to-wallet interaction, pseudonyms, ZKP, data portability and related open topics.
+  relevance_for_eudi: Upstream monitoring source for requirements likely to enter later ARF releases. Discussion papers are
+    informative working material and must not be treated as adopted requirements unless integrated into the ARF.
+- id: EUDI-ATTESTATION-RULEBOOKS
+  name: EUDI Wallet Attestation Rulebooks Catalog
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-attestation-rulebooks-catalog
+  type: attestation_rulebook_catalog
+  summary: Official catalog of EUDI Wallet attestation rulebooks, currently including PID and mDL rulebooks plus the common
+    rulebook template for defining credential structure, semantics, issuance, validation, trust and revocation requirements.
+  relevance_for_eudi: Direct source for credential-type-specific issuer, Wallet and verifier tests and for connecting EC TS11
+    catalogue entries to concrete attestation rulebooks.
 - id: WE-BUILD-WP4
   name: WE BUILD WP4 Trust Group Repository
   url: https://github.com/webuild-consortium/wp4-trust-group
@@ -19,6 +44,14 @@ flat_documents:
     integration, wallet conformance and testing scenarios.
   relevance_for_eudi: Highly relevant because it contains concrete pilot-facing trust evaluation use cases that can become
     executable evidence scenarios.
+- id: EUDI-FCAF
+  name: EUDI Functional Conformance Assessment Framework (FCAF)
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-functional-conformance-assessment
+  type: conformance_framework
+  summary: European Commission publication repository for the Functional Conformance Assessment Framework, including structured
+    functional test specifications, test data, profiles and implementation-conformance material.
+  relevance_for_eudi: Primary upstream source for harmonised EUDI functional conformance tests and future Credimi/FCAF integration.
+    It is non-normative and does not replace the applicable legal acts or standards.
 - id: EU-2014-910
   name: Regulation (EU) No 910/2014 — eIDAS Regulation
   url: https://data.europa.eu/eli/reg/2014/910/oj
@@ -296,6 +329,51 @@ flat_documents:
   summary: Reference standards/specifications for qualified electronic archiving services.
   relevance_for_eudi: Relevant to long-term preservation/archiving of evidence bundles, but not MVP-critical.
   pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32025R2532
+- id: EU-2026-1730
+  name: Commission Implementing Regulation (EU) 2026/1730 — Wallet-relying-party registration amendments
+  url: https://data.europa.eu/eli/reg_impl/2026/1730/oj
+  type: implementing_regulation
+  summary: Amends Regulation (EU) 2025/848 with common machine-readable relying-party registers, REST/OpenAPI interfaces,
+    intermediary relationships, intended-use information and updated access and registration certificate profiles.
+  relevance_for_eudi: Directly relevant to RP registration API testing, certificate validation, intermediary resolution and
+    comparing requested attributes with the RP's registered intended use.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32026R1730
+- id: EU-2026-1731
+  name: Commission Implementing Regulation (EU) 2026/1731 — Wallet technical framework amendments
+  url: https://data.europa.eu/eli/reg_impl/2026/1731/oj
+  type: implementing_regulation
+  summary: Amends Regulations (EU) 2024/2977, 2024/2979, 2024/2980 and 2024/2982, including PID data, Wallet Instance and
+    Wallet Unit Attestations, WSCD protection, protocols, cryptographic mechanisms, pseudonyms and the EUDI Wallet Trust Mark.
+  relevance_for_eudi: Major source for Wallet, PID Provider and protocol evidence, especially WIA/WUA/key-attestation validation,
+    WSCD properties, Trust Mark behaviour and updated issuance and presentation flows.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32026R1731
+- id: EU-2026-1735
+  name: Commission Implementing Regulation (EU) 2026/1735 — Qualified and public-sector EAA amendments
+  url: https://data.europa.eu/eli/reg_impl/2026/1735/oj
+  type: implementing_regulation
+  summary: Amends Regulation (EU) 2025/1569 with updated EAA provider, issuance, authentic-source verification and privacy-preserving
+    revocation requirements.
+  relevance_for_eudi: Directly relevant to QEAA and public-sector EAA provider testing, authentic-source interfaces, signed
+    or sealed verification results and privacy-preserving status and revocation checks.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32026R1735
+- id: EU-2026-248
+  name: Commission Implementing Regulation (EU) 2026/248 — Advanced signature and seal formats
+  url: https://data.europa.eu/eli/reg_impl/2026/248/oj
+  type: implementing_regulation
+  summary: Defines the formats of advanced electronic signatures and advanced electronic seals that public-sector bodies must
+    recognise and repeals Implementing Decision (EU) 2015/1506.
+  relevance_for_eudi: Relevant to Wallet-enabled signature and seal scenarios, public-sector acceptance testing and validation
+    against the applicable reference formats and validation methods.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32026R0248
+- id: EU-2026-798
+  name: Commission Implementing Regulation (EU) 2026/798 — Remote Wallet user onboarding
+  url: https://data.europa.eu/eli/reg_impl/2026/798/oj
+  type: implementing_regulation
+  summary: Defines reference standards and specifications for remotely onboarding Wallet users with an electronic identification
+    means at assurance level substantial plus additional procedures that together meet assurance level high.
+  relevance_for_eudi: Creates a distinct Wallet onboarding and PID-provider conformance surface covering identity evidence,
+    remote proofing controls and the substantial-to-high assurance combination.
+  pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32026R0798
 - id: EU-2015-1502
   name: Commission Implementing Regulation (EU) 2015/1502 — Assurance levels for eID means
   url: https://data.europa.eu/eli/reg_impl/2015/1502/oj
@@ -386,6 +464,219 @@ flat_documents:
   summary: Accessibility requirements for products and services.
   relevance_for_eudi: Relevant to accessible Wallet and service interaction design, especially consumer-facing digital services.
   pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32019L0882
+- id: EC-TS01
+  name: EC TS01 V1.2 — EUDI Wallet Trust Mark
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/blob/main/docs/technical-specifications/ts1-eudi-wallet-trust-mark.md
+  type: ec_technical_specification
+  layer: wallet
+  summary: Technical and procedural requirements for the EUDI Wallet Trust Mark and links to Wallet certification information.
+  relevance_for_eudi: Relevant to testing Trust Mark display, certification-status links and behaviour when Wallet certification
+    or attestation status changes.
+- id: EC-TS02
+  name: EC TS02 V1.0 — Notification and publication of provider information
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/blob/main/docs/technical-specifications/ts2-notification-publication-provider-information.md
+  type: ec_technical_specification
+  layer: trust_infrastructure
+  summary: Common systems and information for Member State notification and Commission publication of EUDI ecosystem providers.
+  relevance_for_eudi: Relevant to resolving notified PID, public-sector EAA and Wallet Providers and RP access-certificate
+    authorities through published trust infrastructure.
+- id: EC-TS03
+  name: EC TS03 V1.5.2 — Wallet Unit Attestations used in PID and attestation issuance
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/blob/main/docs/technical-specifications/ts3-wallet-unit-attestation.md
+  type: ec_technical_specification
+  layer: wallet_attestation
+  summary: Defines Wallet Instance Attestations and Key Attestations, their formats, contents, lifecycle, status and use by
+    PID and Attestation Providers.
+  relevance_for_eudi: Primary current specification for Credimi Wallet-attestation extraction and validation, including WIA,
+    attested keys, WSCD or keystore status, certificate chains and issuer-side checks.
+- id: EC-TS04
+  name: EC TS04 V1.0.1 — ZKP implementation in the EUDI Wallet
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/blob/main/docs/technical-specifications/ts4-zkp.md
+  type: ec_technical_specification
+  layer: privacy_preserving_credentials
+  summary: Technical assessment of zero-knowledge proof approaches for EUDI Wallet attestations, covering multi-message signatures,
+    arithmetic-circuit proofs, device binding, performance and standardisation gaps.
+  relevance_for_eudi: Source for future privacy-preserving presentation and verifier tests; it is an assessment and gap analysis,
+    not a mandate that one ZKP construction is already production-ready.
+- id: EC-TS05
+  name: EC TS05 V1.3 — Common formats and API for relying-party registration information
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/blob/main/docs/technical-specifications/ts5-common-formats-and-api-for-rp-registration-information.md
+  type: ec_technical_specification
+  layer: relying_party
+  summary: Defines JSON, JWS, REST and OpenAPI requirements for machine-readable Wallet-relying-party registers.
+  relevance_for_eudi: Direct source for testing national RP register APIs, searches, signed responses, certificate histories
+    and intermediary relationships.
+- id: EC-TS06
+  name: EC TS06 V1.0.1 — Common set of relying-party information to be registered
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/blob/main/docs/technical-specifications/ts6-common-set-of-rp-information-to-be-registered.md
+  type: ec_technical_specification
+  layer: relying_party
+  summary: Defines common relying-party registration information, including identity, contacts, intended use and requested-data
+    entitlements.
+  relevance_for_eudi: Direct source for comparing presentation requests and Wallet UI information with registered RP purposes
+    and entitlements.
+- id: EC-TS07
+  name: EC TS07 V0.11 — Common interface for data deletion requests
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/blob/main/docs/technical-specifications/ts7-common-interface-for-data-deletion-request.md
+  type: ec_technical_specification
+  layer: wallet
+  summary: Specifies how a Wallet Unit invokes an external application so a user can request erasure of personal data previously
+    provided to a Wallet-relying party and retain the request in the Wallet transaction history.
+  relevance_for_eudi: Defines testable Wallet UI, transaction-log and external-application handoff behaviour for Article 17
+    GDPR erasure requests.
+- id: EC-TS08
+  name: EC TS08 V0.11 — Common interface for reporting relying parties to DPAs
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/blob/main/docs/technical-specifications/ts8-common-interface-for-reporting-of-wrp-to-dpa.md
+  type: ec_technical_specification
+  layer: wallet
+  summary: Specifies how a Wallet Unit supports reporting an allegedly unlawful or suspicious relying-party data request to
+    the competent national data protection authority.
+  relevance_for_eudi: Defines testable Wallet handoff, report-content and evidence-attachment behaviour for suspicious or unlawful
+    presentation requests.
+- id: EC-TS09
+  name: EC TS09 V1.1 — Wallet-to-Wallet interactions
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/blob/main/docs/technical-specifications/ts9-wallet-to-wallet-interactions.md
+  type: ec_technical_specification
+  layer: protocols
+  summary: Specifies interoperable proximity exchange of PID or attestations between a Holder Wallet Unit and a Verifier Wallet
+    Unit, including presentation offers, requests and verifier Wallet authentication.
+  relevance_for_eudi: Direct source for two-device Wallet-to-Wallet pipelines and presentation evidence across Holder and Verifier
+    Wallet Units.
+- id: EC-TS10
+  name: EC TS10 V1.2 — Data portability and download
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/blob/main/docs/technical-specifications/ts10-data-portability-and-download-%28export%29.md
+  type: ec_technical_specification
+  layer: wallet
+  summary: Defines the transaction-log and migration-object datasets plus export, backup, recovery and import processes between
+    Wallet Units.
+  relevance_for_eudi: Supports behavioural tests for Wallet portability, migration, transaction-history preservation and handling
+    of device-bound versus non-device-bound attestations.
+- id: EC-TS11
+  name: EC TS11 V1.0.1 — Catalogue of Attestation Rulebooks and attributes
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/blob/main/docs/technical-specifications/ts11-interfaces-and-formats-for-catalogue-of-attributes-and-catalogue-of-schemes.md
+  type: ec_technical_specification
+  layer: data_model
+  summary: Defines interfaces and data formats for catalogues of attributes, attestation rulebooks and machine-readable attestation
+    schemas.
+  relevance_for_eudi: Relevant to discovering and validating credential schemas, attribute definitions, rulebooks and authentic-source
+    mappings.
+- id: EC-TS12
+  name: EC TS12 V1.0.1 — Strong Customer Authentication with the Wallet
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/blob/main/docs/technical-specifications/ts12-electronic-payments-SCA-implementation-with-wallet.md
+  type: ec_technical_specification
+  layer: payments
+  summary: Defines data structures and processing rules for using EUDI Wallets in PSD2 Strong Customer Authentication, including
+    SCA attestations, transactional data and dynamic linking.
+  relevance_for_eudi: Source for payment-oriented issuer, Wallet and relying-party interoperability tests when Credimi covers
+    SCA workflows.
+- id: EC-TS13
+  name: EC TS13 V1.0.1 — ZKP based on arithmetic circuits
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/blob/main/docs/technical-specifications/ts13-zksnarks.md
+  type: ec_technical_specification
+  layer: privacy_preserving_credentials
+  summary: Exploratory specification for presenting mdoc or SD-JWT credentials with zero-knowledge proofs based on arithmetic
+    circuits without trusted setup.
+  relevance_for_eudi: Useful for future ZKP test vectors, proof-generation and verification evidence, but explicitly exploratory
+    pending further ETSI TS 119 476-2 standardisation.
+- id: EC-TS14
+  name: EC TS14 V1.0 — ZKP based on multi-message signatures
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/blob/main/docs/technical-specifications/ts14-zkps-from-mms.md
+  type: ec_technical_specification
+  layer: privacy_preserving_credentials
+  summary: Exploratory specification for integrating privacy-preserving presentations based on multi-message signature schemes
+    into EUDI Wallet issuance and presentation protocols.
+  relevance_for_eudi: Useful for future BBS/PS-style issuance, presentation, device-binding and revocation test vectors, but
+    explicitly exploratory pending further ETSI TS 119 476-2 standardisation.
+- id: ETSI-TS-119-411-8
+  name: ETSI TS 119 411-8 V1.1.1 — Access certificates for EUDI Wallet relying parties
+  url: https://www.etsi.org/deliver/etsi_ts/119400_119499/11941108/01.01.01_60/ts_11941108v010101p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Policy and security requirements for trust service providers issuing Wallet-relying-party access certificates.
+  relevance_for_eudi: Primary certificate-policy source for validating RP access-certificate issuance, identity, lifecycle
+    and trust chains.
+- id: ETSI-TS-119-412-6
+  name: ETSI TS 119 412-6 V1.2.1 — Certificate profiles for PID, Wallet and EAA providers
+  url: https://www.etsi.org/deliver/etsi_ts/119400_119499/11941206/01.02.01_60/ts_11941206v010201p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Certificate profile requirements for PID, Wallet, EAA, QEAA and public-sector EAA providers.
+  relevance_for_eudi: Relevant to parsing and validating provider certificates and binding certificate identities to notified
+    ecosystem actors.
+- id: ETSI-TS-119-476-3
+  name: ETSI TS 119 476-3 — Wallet Unit and Wallet Instance Attestations (in development)
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues/500
+  type: standards_roadmap
+  layer: etsi
+  summary: Forthcoming ETSI specification for WIA and Wallet Key Attestation formats, contents, lifecycle, revocation and
+    cryptographic protection, based on EC TS03.
+  relevance_for_eudi: Important upstream target for future Wallet and Key Attestation checks. It is not yet a published standard;
+    EC TS03 remains the current implementation source.
+- id: ETSI-TS-119-602
+  name: ETSI TS 119 602 V1.1.1 — Lists of trusted entities data model
+  url: https://www.etsi.org/deliver/etsi_ts/119600_119699/119602/01.01.01_60/ts_119602v010101p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Data model and syntax bindings for lists of trusted EUDI ecosystem entities.
+  relevance_for_eudi: Core source for resolving notified PID, Wallet and public-sector EAA Providers and RP access-certificate
+    authorities in EUDI trust lists.
+- id: ETSI-TS-119-612
+  name: ETSI TS 119 612 V2.4.1 — Trusted Lists
+  url: https://www.etsi.org/deliver/etsi_ts/119600_119699/119612/02.04.01_60/ts_119612v020401p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Data model and operational requirements for signed Trusted Lists, including scheme information, trust-service provider
+    entries, service status, history and pointers to other lists.
+  relevance_for_eudi: Core format for Trusted List and List of Trusted Lists ingestion, signature validation, status resolution
+    and trust-anchor retrieval in ARF 3.0.
+- id: ETSI-TS-119-615
+  name: ETSI TS 119 615 V1.4.1 — Procedures for using and interpreting Trusted Lists
+  url: https://www.etsi.org/deliver/etsi_ts/119600_119699/119615/01.04.01_60/ts_119615v010401p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Procedures for using and interpreting European Union Member State national Trusted Lists.
+  relevance_for_eudi: Relevant to deterministic actor-status resolution, service-type interpretation and validation of Trusted
+    List based evidence.
+- id: ETSI-TS-119-312
+  name: ETSI TS 119 312 V2.1.1 — Cryptographic suites
+  url: https://www.etsi.org/deliver/etsi_ts/119300_119399/119312/02.01.01_60/ts_119312v020101p.pdf
+  type: etsi_standard
+  layer: etsi
+  summary: Cryptographic suites for creation and validation of digital signatures, time stamps and related certificates.
+  relevance_for_eudi: Relevant to algorithm-policy checks across Wallet attestations, provider certificates, trust services
+    and signed conformance evidence.
+- id: ENISA-ECCG-ACM-V2
+  name: ENISA ECCG Agreed Cryptographic Mechanisms V2
+  url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues/416
+  type: cybersecurity_guidance
+  layer: cryptography
+  summary: Agreed cryptographic mechanisms for developers and evaluators under the European cybersecurity certification framework.
+  relevance_for_eudi: Current cryptographic-security reference for selecting and assessing mechanisms used by Wallets, WSCDs
+    and certification targets.
+- id: FIDO-CTAP-2.3
+  name: FIDO Client to Authenticator Protocol (CTAP) 2.3
+  url: https://fidoalliance.org/specs/fido-v2.3-ps-20260226/
+  type: fido_spec
+  layer: platform
+  summary: Application-layer protocol and transport bindings between clients or platforms and roaming authenticators.
+  relevance_for_eudi: Relevant to local cross-device communication, WebAuthn-based pseudonyms and Wallet interaction with
+    authenticators.
+- id: W3C-DIGITAL-CREDENTIALS-API
+  name: W3C Digital Credentials API
+  url: https://w3c-fedid.github.io/digital-credentials/
+  type: w3c_spec
+  layer: platform
+  summary: Browser API for requesting and presenting digital credentials through user agents and credential providers.
+  relevance_for_eudi: Relevant to browser-mediated Wallet presentation and platform interoperability for remote credential
+    flows.
+- id: W3C-WEBAUTHN-3
+  name: W3C Web Authentication Level 3
+  url: https://www.w3.org/TR/webauthn-3/
+  type: w3c_spec
+  layer: platform
+  summary: Public-key credential API for strong authentication between relying parties, browsers and authenticators.
+  relevance_for_eudi: Relevant to EUDI pseudonym registration and authentication flows and their interaction with CTAP-capable
+    authenticators.
 - id: ETSI-TS-119-471
   name: ETSI TS 119 471 V1.1.1 — EAA Service Provider Policy and Security Requirements
   url: https://www.etsi.org/deliver/etsi_ts/119400_119499/119471/01.01.01_60/ts_119471v010101p.pdf
@@ -521,22 +812,22 @@ flat_documents:
   summary: High-assurance interoperability profile for OpenID4VC in the EUDI context.
   relevance_for_eudi: Defines the specific parameter constraints and profile requirements for EUDI-conformant implementations.
 - id: SD-JWT
-  name: Selective Disclosure JWT (SD-JWT)
-  url: https://www.ietf.org/archive/id/draft-ietf-oauth-selective-disclosure-jwt-14.html
+  name: RFC 9901 — Selective Disclosure for JSON Web Tokens (SD-JWT)
+  url: https://www.rfc-editor.org/rfc/rfc9901.html
   type: openid_spec
   layer: credential_format
-  summary: IETF draft specification for selective disclosure using JSON Web Tokens.
+  summary: IETF Standards Track specification for selective disclosure using JSON Web Tokens.
   relevance_for_eudi: Primary credential format for PID and EAAs in SD-JWT form.
 - id: SD-JWT-VC
-  name: SD-JWT-based Verifiable Credentials
-  url: https://www.ietf.org/archive/id/draft-ietf-oauth-sd-jwt-vc-13.html
+  name: SD-JWT-based Verifiable Credentials — draft 16
+  url: https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-16
   type: openid_spec
   layer: credential_format
   summary: SD-JWT-based Verifiable Credentials specification.
   relevance_for_eudi: Defines the VC-specific profile on top of SD-JWT for EUDI credential issuance.
 - id: OAUTH-STATUS-LIST
-  name: OAuth Status List
-  url: https://datatracker.ietf.org/doc/html/draft-ietf-oauth-status-list-15
+  name: OAuth Status List — draft 21
+  url: https://datatracker.ietf.org/doc/html/draft-ietf-oauth-status-list-21
   type: openid_spec
   layer: protocol
   summary: Mechanism for representing the status of tokens and credentials using status lists.
@@ -556,12 +847,14 @@ flat_documents:
   summary: Mobile driving licence standard defining mdoc/mDL device engagement, data retrieval and security.
   relevance_for_eudi: Mandatory credential format for mdoc-based PID and EAAs.
 - id: ISO-18013-7
-  name: ISO/IEC 18013-7 — mdoc Online Presentation
-  url: https://www.iso.org/standard/82772.html
+  name: ISO/IEC 18013-7:2025 — mdoc Online Presentation
+  url: https://www.iso.org/standard/91154.html
   type: iso_standard
   layer: credential_format
-  summary: Online presentation for mdoc/mDL credentials. Reference-only until fully available.
-  relevance_for_eudi: Relevant to mdoc online presentation flows; reference-only until formally integrated.
+  summary: Second edition of the mdoc/mDL online-presentation specification, including REST and OpenID4VP-based retrieval
+    profiles.
+  relevance_for_eudi: Referenced by the EUDI protocols and interfaces regulation and directly relevant to remote mdoc presentation
+    interoperability.
 
 logical_groups:
 - group_slug: wallet-core-and-certification
@@ -577,12 +870,15 @@ logical_groups:
     - EU-2014-910
     - EU-2014-910-CONSOLIDATED-2024-10-18
     - EU-2024-1183
+    - EU-2026-1731
   - step: Map legal obligations to architecture and high-level requirements
     sub_steps:
     - Use ARF as the technical bridge between law and implementable behaviour.
     - Use WE BUILD where trust-registry or pilot interpretation is more concrete.
     documents:
     - EUDI-ARF
+    - EUDI-ARF-HLR
+    - EUDI-ARF-DISCUSSION-TOPICS
     - WE-BUILD-WP4
   - step: Understand Wallet core functions
     sub_steps:
@@ -590,6 +886,13 @@ logical_groups:
     - Separate black-box behavioural evidence from internal security/certification evidence.
     documents:
     - EU-2024-2979
+    - EU-2026-1731
+    - EC-TS01
+    - EC-TS03
+    - EC-TS09
+    - EC-TS10
+    - FIDO-CTAP-2.3
+    - W3C-WEBAUTHN-3
   - step: Understand certification and assurance evidence
     sub_steps:
     - Map Credimi reports and Temporal evidence to certification support.
@@ -600,6 +903,10 @@ logical_groups:
     - EU-2024-482
     - EU-2024-3144
     - EU-2024-2847
+    - EU-2026-1731
+    - EC-TS01
+    - ETSI-TS-119-476-3
+    - ENISA-ECCG-ACM-V2
 - group_slug: wallet-issuance-and-presentation
   title: Wallet issuance and presentation flows
   explanation: 'Covers the main Credimi automation story: Wallet receives credential offers, obtains PID/EAA, processes presentation
@@ -612,6 +919,9 @@ logical_groups:
     documents:
     - EU-2024-2977
     - EU-2024-2982
+    - EU-2026-1731
+    - EC-TS03
+    - ETSI-TS-119-412-6
     - EUDI-ARF
   - step: Drive real Wallet issuance
     sub_steps:
@@ -622,12 +932,18 @@ logical_groups:
     - EU-2024-2977
     - EU-2024-2979
     - EU-2024-2982
+    - EU-2026-798
+    - EU-2026-1731
+    - EC-TS03
   - step: Generate or fetch presentation request
     sub_steps:
     - Verifier/RP creates an OpenID4VP-style presentation request.
     - StepCI captures the request and expected callback.
     documents:
     - EU-2024-2982
+    - EU-2026-1731
+    - OID4VP
+    - W3C-DIGITAL-CREDENTIALS-API
     - EUDI-ARF
   - step: Drive real Wallet presentation
     sub_steps:
@@ -638,6 +954,11 @@ logical_groups:
     documents:
     - EU-2024-2982
     - EU-2025-848
+    - EU-2026-1730
+    - EU-2026-1731
+    - EC-TS05
+    - EC-TS06
+    - ISO-18013-7
     - EUDI-ARF
     - WE-BUILD-WP4
 - group_slug: issuer-and-attestation-provider
@@ -652,6 +973,8 @@ logical_groups:
     documents:
     - EU-2024-2977
     - EU-2024-2982
+    - EU-2026-1731
+    - EC-TS03
     - EUDI-ARF
   - step: Validate PID/EAA issuance behaviour
     sub_steps:
@@ -660,6 +983,11 @@ logical_groups:
     documents:
     - EU-2024-2977
     - EU-2025-1569
+    - EU-2026-1731
+    - EU-2026-1735
+    - EC-TS03
+    - EC-TS11
+    - EUDI-ATTESTATION-RULEBOOKS
     - WE-BUILD-WP4
   - step: Check issuer qualification or entitlement
     sub_steps:
@@ -672,6 +1000,9 @@ logical_groups:
     - EU-2025-1572
     - EU-2025-2162
     - EU-2025-2164
+    - EU-2026-1735
+    - ETSI-TS-119-412-6
+    - ETSI-TS-119-602
     - WE-BUILD-WP4
   - step: Check revocation and validity status
     sub_steps:
@@ -681,6 +1012,8 @@ logical_groups:
     - EU-2024-2977
     - EU-2025-1569
     - EU-2025-1945
+    - EU-2026-1735
+    - OAUTH-STATUS-LIST
 - group_slug: relying-party-and-verifier
   title: Relying Party registration, entitlement and verifier behaviour
   explanation: 'Covers RPs and verifiers: whether they are registered, whether their certificates are valid, whether requested
@@ -692,6 +1025,9 @@ logical_groups:
     - Capture declared intended use and entitlements.
     documents:
     - EU-2025-848
+    - EU-2026-1730
+    - EC-TS05
+    - EC-TS06
     - WE-BUILD-WP4
   - step: Validate RP access and registration certificates
     sub_steps:
@@ -700,6 +1036,9 @@ logical_groups:
     documents:
     - EU-2025-848
     - EU-2024-2982
+    - EU-2026-1730
+    - ETSI-TS-119-411-8
+    - ETSI-TS-119-475
     - EU-2025-1943
     - EU-2025-1945
   - step: Compare requested attributes with entitlements
@@ -710,6 +1049,9 @@ logical_groups:
     documents:
     - EU-2025-848
     - EU-2024-2982
+    - EU-2026-1730
+    - EC-TS05
+    - EC-TS06
     - EUDI-ARF
     - WE-BUILD-WP4
   - step: Validate credential verification behaviour
@@ -719,6 +1061,7 @@ logical_groups:
     documents:
     - EU-2024-2977
     - EU-2025-1569
+    - EU-2026-1735
     - EU-2025-1945
     - WE-BUILD-WP4
 - group_slug: trusted-lists-and-trust-infrastructure
@@ -732,6 +1075,10 @@ logical_groups:
     - Preserve snapshots and hashes as evidence artifacts.
     documents:
     - EU-2024-2980
+    - EU-2026-1731
+    - EC-TS02
+    - ETSI-TS-119-602
+    - ETSI-TS-119-612
     - EU-2015-1505
     - EU-2025-2164
     - WE-BUILD-WP4
@@ -744,6 +1091,9 @@ logical_groups:
     - EU-2015-1505
     - EU-2025-2164
     - EU-2025-1945
+    - ETSI-TS-119-612
+    - ETSI-TS-119-615
+    - ETSI-TS-119-312
     - WE-BUILD-WP4
   - step: Resolve actors and statuses
     sub_steps:
@@ -753,6 +1103,11 @@ logical_groups:
     - EU-2025-848
     - EU-2025-1569
     - EU-2025-2530
+    - EU-2026-1730
+    - EU-2026-1735
+    - ETSI-TS-119-602
+    - ETSI-TS-119-612
+    - ETSI-TS-119-615
     - WE-BUILD-WP4
 - group_slug: assurance-levels-and-eid-schemes
   title: Assurance levels and electronic identification schemes
@@ -767,6 +1122,7 @@ logical_groups:
     - EU-2014-910
     - EU-2014-910-CONSOLIDATED-2024-10-18
     - EU-2015-1502
+    - EU-2026-798
   - step: Relate assurance to Wallet/eID scheme certification
     sub_steps:
     - Treat assurance-level documents as scheme/certification evidence.
@@ -786,6 +1142,7 @@ logical_groups:
     - Preserve raw result unchanged.
     documents:
     - EUDI-ARF
+    - EUDI-FCAF
     - WE-BUILD-WP4
     - EU-2024-2982
   - step: Map external assertions to evidence claims
@@ -795,6 +1152,7 @@ logical_groups:
     documents:
     - EU-2024-2981
     - EUDI-ARF
+    - EUDI-FCAF
     - WE-BUILD-WP4
   - step: Attach results to conformance report
     sub_steps:
@@ -802,6 +1160,7 @@ logical_groups:
     - Use external results to complement real Wallet UI automation.
     documents:
     - EU-2024-2981
+    - EUDI-FCAF
 - group_slug: qualified-trust-services-and-advanced-assurance
   title: Qualified trust services and advanced assurance add-ons
   explanation: 'Covers QTSP-oriented material: qualified timestamps, qualified validation services, qualified certificates,
@@ -821,6 +1180,7 @@ logical_groups:
     documents:
     - EU-2025-1942
     - EU-2025-1945
+    - EU-2026-248
   - step: Qualified certificate and QSCD/QSealCD evidence
     sub_steps:
     - Validate qualified certificate profile where relevant.
@@ -852,6 +1212,16 @@ logical_groups:
     - EU-2002-58
     - EU-2018-1725
     - EU-2024-2982
+    - EC-TS07
+    - EC-TS08
+  - step: Privacy-preserving credentials and zero-knowledge proofs
+    sub_steps:
+    - Track the current EC analysis and exploratory implementation specifications separately from adopted Wallet requirements.
+    - Add executable ZKP tests only when a concrete profile, algorithm and credential format are selected.
+    documents:
+    - EC-TS04
+    - EC-TS13
+    - EC-TS14
   - step: Cybersecurity and operational assurance
     sub_steps:
     - Use NIS2, CRA and Cybersecurity Act context for operational/security evidence.
@@ -863,6 +1233,9 @@ logical_groups:
     - EU-2024-482
     - EU-2024-3144
     - EU-2025-847
+    - EU-2026-1731
+    - ETSI-TS-119-312
+    - ENISA-ECCG-ACM-V2
   - step: Accessibility
     sub_steps:
     - Track accessibility as a user-facing and public-service requirement context.
@@ -881,7 +1254,17 @@ recommended_reading_routes:
   - EU-2024-2981
   - EU-2024-2982
   - EU-2025-848
+  - EU-2026-1730
+  - EU-2026-1731
+  - EU-2026-1735
+  - EU-2026-798
   - EUDI-ARF
+  - EUDI-ARF-HLR
+  - EUDI-FCAF
+  - EUDI-ATTESTATION-RULEBOOKS
+  - EC-TS03
+  - EC-TS05
+  - EC-TS06
   - WE-BUILD-WP4
   why_this_route: 'These are the most important sources for the first Credimi story: real Wallet issuance/presentation automation,
     Issuer/Verifier protocol traces, RP entitlement checks, and certification-support evidence.'
@@ -893,6 +1276,13 @@ recommended_reading_routes:
   - EU-2015-1505
   - EU-2025-2164
   - EU-2025-1569
+  - EU-2026-1730
+  - EU-2026-1735
+  - EC-TS02
+  - EC-TS05
+  - ETSI-TS-119-602
+  - ETSI-TS-119-612
+  - ETSI-TS-119-615
   - WE-BUILD-WP4
   why_this_route: These sources support RP register lookup, Trusted List consumption, issuer/RP status checks, entitlement
     matching and revocation/status evidence.
@@ -905,6 +1295,9 @@ recommended_reading_routes:
   - EU-2025-1568
   - EU-2025-2162
   - EU-2025-1571
+  - EU-2026-1731
+  - EC-TS01
+  - ENISA-ECCG-ACM-V2
   why_this_route: These sources frame Credimi evidence as assurance documentation useful for certification, dependency analysis,
     scheme review and supervisory reporting.
 - route_slug: advanced-qtsp-and-qualified-evidence
@@ -917,6 +1310,7 @@ recommended_reading_routes:
   - EU-2025-1942
   - EU-2025-1943
   - EU-2025-1945
+  - EU-2026-248
   - EU-2025-2530
   why_this_route: These are relevant for QTSP partnerships, QEEA/QEAA issuance, qualified timestamping, qualified validation
     and advanced assurance bundles, but they should not block the MVP.
