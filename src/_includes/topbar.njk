@@ -13,18 +13,19 @@
       {% set rolePages = ['/reference/', '/tests/', '/evidence/', '/documents/', '/map/'] %}
       {% set showRoleBtn = false %}
       {% for p in rolePages %}{% if p in page.url %}{% set showRoleBtn = true %}{% endif %}{% endfor %}
+      {% if showRoleBtn %}
       <li>
         <button
-          class="role-toggle-btn{% if not showRoleBtn %} role-toggle-hidden{% endif %}"
+          class="role-toggle-btn"
           id="role-toggle-btn"
           aria-expanded="false"
           aria-controls="role-sidebar"
-          aria-label="Filter by role"
-          {% if not showRoleBtn %}disabled aria-hidden="true"{% endif %}>
+          aria-label="Filter by role">
           <span id="role-toggle-icon">◈</span>
           <span id="role-toggle-label">Role</span>
         </button>
       </li>
+      {% endif %}
     </ul>
   </div>
 </nav>

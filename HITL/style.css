@@ -1358,11 +1358,11 @@ body.role-active .tree-leaf.role-highlight a {
   .stats-strip { gap: var(--space-4); }
 }
 
-/* Hide role button on pages where it has no effect */
+/* Hide role button on pages where it has no effect.
+   display:none so its <li> claims no width — otherwise it steals ~75px
+   from the nav and forces an early wrap on narrow screens. */
 .role-toggle-hidden {
-  opacity: 0;
-  pointer-events: none;
-  cursor: default;
+  display: none;
 }
 
 /* ============================================
@@ -1393,14 +1393,21 @@ body.role-active .tree-leaf.role-highlight a {
 
 /* Topbar nav: allow wrapping on very small screens */
 @media (max-width: 480px) {
+  /* No wrapping: .topbar has a fixed height, so a wrapped second row was
+     pushed out of the bar. The nav scrolls horizontally instead. */
   .topbar-inner {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: var(--space-2);
     padding: var(--space-2) var(--space-4);
   }
   .topbar-nav {
     gap: var(--space-2);
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
   }
+  .topbar-nav::-webkit-scrollbar { display: none; }
+  .topbar-nav li { flex-shrink: 0; }
   .topbar-nav a {
     font-size: 13px;
   }

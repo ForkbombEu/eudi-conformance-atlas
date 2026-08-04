@@ -34,6 +34,50 @@
 }
 
 /*
+  --- Detail page two-column layout ---
+
+  documents-page.njk and evidence-page.njk declared `grid-template-columns:
+  2fr 1fr` in an inline style, which no media query can reach. Below roughly
+  400px the two tracks' min-content floors — held open by nowrap children such
+  as `.btn` ("Official source ↗") and `.badge` — added up to more than the
+  viewport, so the document scrolled horizontally while the body background
+  only painted the viewport width: the blank strip on the right, growing as
+  the window narrows.
+
+  min-width: 0 lets each column shrink to the space it actually gets instead
+  of to its content, and the tracks stack below the sidebar breakpoint already
+  used by style.css.
+*/
+.detail-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-8);
+}
+
+.detail-layout > * {
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .detail-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
+/*
+  --- Wide tables ---
+
+  style.css wraps the test-coverage table in `.test-table-wrap`; the source of
+  truth table on the data page had no equivalent, so its columns (a mono media
+  type, a nowrap Download button) pushed the page wider than a phone viewport.
+  Same remedy: the table scrolls inside its own box, the page does not.
+*/
+.table-scroll {
+  overflow-x: auto;
+}
+
+/*
   --- Credimi Extras cross-promotional bars ---
 
   One strip above the topbar and one below the footer's own sub-bar, both

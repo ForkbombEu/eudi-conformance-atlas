@@ -26,26 +26,28 @@ permalink: /data/
       <h4 style="font-size: var(--fs-md); font-weight: 700; margin-bottom: var(--space-2);">Current source of truth: {{ sourceOfTruth.current_release }}</h4>
       <p class="text-sm text-muted" style="margin-bottom: var(--space-3);">Release date: {{ sourceOfTruth.release_date }}</p>
       <p style="margin-bottom: var(--space-4);"><a href="{{ '/data/source-of-truth/current.json' | url }}" class="btn btn-outline btn-sm" download>Download current.json</a></p>
-      <table style="width:100%; border-collapse: collapse;">
-        <thead>
-          <tr>
-            <th style="text-align:left;padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--border);font-size:var(--fs-xs);font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;">Filename</th>
-            <th style="text-align:left;padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--border);font-size:var(--fs-xs);font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;">Media type</th>
-            <th style="text-align:right;padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--border);font-size:var(--fs-xs);font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;">Bytes</th>
-            <th style="padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--border);"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for artifact in sourceOfTruth.artifacts %}
-          <tr>
-            <td style="padding:var(--space-2) var(--space-4);font-size:var(--fs-sm);">{{ artifact.filename }}</td>
-            <td style="padding:var(--space-2) var(--space-4);font-family:'JetBrains Mono',monospace;font-size:var(--fs-sm);">{{ artifact.media_type }}</td>
-            <td style="text-align:right;padding:var(--space-2) var(--space-4);font-family:'JetBrains Mono',monospace;font-size:var(--fs-sm);">{{ artifact.byte_size }}</td>
-            <td style="text-align:right;padding:var(--space-2) var(--space-4);"><a href="{{ ('/' + artifact.path) | url }}" class="btn btn-outline btn-sm" download>Download</a></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <div class="table-scroll">
+        <table style="width:100%; border-collapse: collapse;">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--border);font-size:var(--fs-xs);font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;">Filename</th>
+              <th style="text-align:left;padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--border);font-size:var(--fs-xs);font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;">Media type</th>
+              <th style="text-align:right;padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--border);font-size:var(--fs-xs);font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;">Bytes</th>
+              <th style="padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--border);"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for artifact in sourceOfTruth.artifacts %}
+            <tr>
+              <td style="padding:var(--space-2) var(--space-4);font-size:var(--fs-sm);">{{ artifact.filename }}</td>
+              <td style="padding:var(--space-2) var(--space-4);font-family:'JetBrains Mono',monospace;font-size:var(--fs-sm);">{{ artifact.media_type }}</td>
+              <td style="text-align:right;padding:var(--space-2) var(--space-4);font-family:'JetBrains Mono',monospace;font-size:var(--fs-sm);">{{ artifact.byte_size }}</td>
+              <td style="text-align:right;padding:var(--space-2) var(--space-4);"><a href="{{ ('/' + artifact.path) | url }}" class="btn btn-outline btn-sm" download>Download</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="card-grid card-grid-2 mb-8">
@@ -61,22 +63,24 @@ permalink: /data/
 
     {{ sectionHeader("Document counts by type") }}
     <div class="card" style="margin-bottom: var(--space-8);">
-      <table style="width:100%; border-collapse: collapse;">
-        <thead>
-          <tr>
-            <th style="text-align:left;padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--border);font-size:var(--fs-xs);font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;">Type</th>
-            <th style="text-align:right;padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--border);font-size:var(--fs-xs);font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;">Count</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for typeName, typeCount in documents.typeCounts %}
-          <tr>
-            <td style="padding:var(--space-2) var(--space-4);font-size:var(--fs-sm);">{{ sourceBadge(typeName) }} {{ typeName }}</td>
-            <td style="text-align:right;padding:var(--space-2) var(--space-4);font-family:'JetBrains Mono',monospace;font-size:var(--fs-sm);">{{ typeCount }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <div class="table-scroll">
+        <table style="width:100%; border-collapse: collapse;">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--border);font-size:var(--fs-xs);font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;">Type</th>
+              <th style="text-align:right;padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--border);font-size:var(--fs-xs);font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;">Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for typeName, typeCount in documents.typeCounts %}
+            <tr>
+              <td style="padding:var(--space-2) var(--space-4);font-size:var(--fs-sm);">{{ sourceBadge(typeName) }} {{ typeName }}</td>
+              <td style="text-align:right;padding:var(--space-2) var(--space-4);font-family:'JetBrains Mono',monospace;font-size:var(--fs-sm);">{{ typeCount }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
