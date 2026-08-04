@@ -1,5 +1,32 @@
 /* Atlas-specific layout only; shared components live in style.css. */
-.atlas-product-name { color: var(--text); font-size: var(--fs-sm); font-weight: 800; }
+
+/*
+  --- Topbar brand lockup ---
+
+  style.css sizes .topbar-logo (height: 22px) but never makes it a flex
+  container, so the icon and the product name were laid out in an inline
+  formatting context and aligned on the text baseline — the name sat low
+  against the 22px icon and overflowed the lockup box. Centring them is a
+  fix to the shared shell that belongs in this layer: style.css is the
+  canonical human-supplied stylesheet and is byte-compared against
+  HITL/style.css.
+
+  --space-2 is the token nearest the 10px lockup spacing the sibling Credimi
+  Extras shells use. The ~3px the markup showed before was the collapsed
+  whitespace between the <img> and the <span>, not a chosen value.
+*/
+.topbar-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  /* Generic `a` styling in style.css underlines the lockup like body copy. */
+  text-decoration: none;
+}
+
+/* --fg is the design system's foreground token; --text is not defined anywhere,
+   so the declaration was invalid and the name inherited the brand-primary link
+   colour from the enclosing anchor instead. */
+.atlas-product-name { color: var(--fg); font-size: var(--fs-sm); font-weight: 800; }
 .atlas-footer-logo { display: block; width: 96px; height: auto; max-height: 42px; object-fit: contain; }
 .footer-brand { align-items: center; }
 @media (max-width: 640px) {
