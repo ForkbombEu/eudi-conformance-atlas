@@ -12,6 +12,7 @@
     { "filename": "credimi-conformance-source-scope-v1.1.yaml", "path": "data/source-of-truth/releases/v1.1/credimi-conformance-source-scope-v1.1.yaml", "media_type": "application/yaml", "byte_size": 6027, "sha256": "99d854356f371c68b1c1eb815eeb2abddab45a83428374aa704896528aa07da1" },
     { "filename": "credimi-eudi-regulatory-map-short-v1.1.md", "path": "data/source-of-truth/releases/v1.1/credimi-eudi-regulatory-map-short-v1.1.md", "media_type": "text/markdown", "byte_size": 3977, "sha256": "8fb1b985e25170da687e435a7ff2303637832c8e40ae820b89874cee6a7948c1" },
     { "filename": "credimi-flat-conformance-test-list-v1.1.md", "path": "data/source-of-truth/releases/v1.1/credimi-flat-conformance-test-list-v1.1.md", "media_type": "text/markdown", "byte_size": 195074, "sha256": "f0d72ce0860714f723c0c943ee2c2c8cb712fba8f3b3f4190d47d776d26ba0ce" },
-    { "filename": "credimi-trust-helper-backlog-v1.1.md", "path": "data/source-of-truth/releases/v1.1/credimi-trust-helper-backlog-v1.1.md", "media_type": "text/markdown", "byte_size": 33529, "sha256": "8e3f0603e829ba4edf26345add984786097080362c356f78548b97aa1b836f59" }
+    { "filename": "credimi-trust-helper-backlog-v1.1.md", "path": "data/source-of-truth/releases/v1.1/credimi-trust-helper-backlog-v1.1.md", "media_type": "text/markdown", "byte_size": 33529, "sha256": "8e3f0603e829ba4edf26345add984786097080362c356f78548b97aa1b836f59" },
+    { "filename": "v1.1.zip", "path": "data/source-of-truth/releases/v1.1/v1.1.zip", "media_type": "application/zip", "byte_size": 83498, "sha256": "77c96f98acbe17d75fc5a21fbd4e8acf4e1ea5e7a99e757a85b00e73f0535c77" }
   ]
 }
