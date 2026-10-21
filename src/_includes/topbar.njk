@@ -5,6 +5,7 @@
       <span class="atlas-product-name">EUDI Atlas</span>
     </a>
     <ul class="topbar-nav">
+      <li><a href="{{ '/radar/' | url }}" {% if '/radar/' in page.url %}class="nav-active"{% endif %}>Radar</a></li>
       <li><a href="{{ '/map/' | url }}" {% if '/map/' in page.url %}class="nav-active"{% endif %}>Map</a></li>
       <li><a href="{{ '/reference/' | url }}" {% if '/reference/' in page.url or '/documents/' in page.url %}class="nav-active"{% endif %}>Reference</a></li>
       <li><a href="{{ '/tests/' | url }}" {% if '/tests/' in page.url %}class="nav-active"{% endif %}>Tests</a></li>
@@ -26,6 +27,7 @@
         </button>
       </li>
       {% endif %}
+      <li><a class="nav-cta" href="https://credimi.io/hub" target="_blank" rel="noopener">Try Credimi ↗</a></li>
     </ul>
   </div>
 </nav>

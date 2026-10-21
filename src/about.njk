@@ -3,12 +3,13 @@ layout: base.njk
 title: About
 description: About the EUDI Trust & Conformance Atlas — an open, community-maintained navigation resource.
 ---
+{% from "components/credimi.njk" import credimiPromo %}
 
-<section class="hero" style="padding: var(--space-8) 0;">
+<section class="hero page-hero">
   <div class="hero-inner">
     <p class="eyebrow">ABOUT</p>
-    <h1 style="font-size: var(--fs-2xl);">About this atlas</h1>
-    <p style="font-size: var(--fs-base);">A community-maintained navigation resource for the EUDI Wallet ecosystem.</p>
+    <h1>About this atlas</h1>
+    <p>A community-maintained navigation resource for the EUDI Wallet ecosystem.</p>
   </div>
 </section>
 
@@ -63,6 +64,10 @@ description: About the EUDI Trust & Conformance Atlas — an open, community-mai
           All content, code, and data are licensed under <strong>Apache-2.0</strong> unless otherwise noted. See the <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/LICENSE">LICENSE</a> file for the full text.
         </p>
       </div>
+    </div>
+
+    <div class="home-section">
+      {{ credimiPromo(canonicalTests.totalCount) }}
     </div>
 
     <div style="margin-top: var(--space-4); text-align: center;">

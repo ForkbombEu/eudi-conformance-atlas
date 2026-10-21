@@ -1,22 +1,49 @@
 ---
 layout: base.njk
 title: EUDI Trust & Conformance Atlas
-description: A community-maintained map of EUDI Wallet law, implementing acts, ARF requirements, WE BUILD trust work, and conformance evidence.
-pageScript: search.js
+description: A community-maintained map of EUDI Wallet law, implementing acts, ARF requirements, standards, protocols and conformance evidence — with adoption status for every document.
 ---
 {% from "components/section-header.njk" import sectionHeader %}
 {% from "components/search-box.njk" import searchBox %}
-{% from "components/document-card.njk" import documentCard %}
+{% from "components/credimi.njk" import credimiCta, credimiPromo %}
+{% from "components/viz.njk" import radarChart, ecosystemWeb %}
+{% from "components/role-art.njk" import roleArt %}
 
-<section class="hero">
-  <div class="hero-inner">
-    <p class="eyebrow">COMMUNITY-MAINTAINED NAVIGATION RESOURCE</p>
-    <h1>EUDI Trust &<br>Conformance Atlas</h1>
-    <p>A community-maintained map of EUDI Wallet law, implementing acts, ARF requirements, protocol standards, and mapped conformance tests.</p>
-    <div style="margin-top: var(--space-6); display: flex; gap: var(--space-3); flex-wrap: wrap;">
-      <a href="{{ '/map/' | url }}" class="btn btn-primary btn-lg">Explore the map</a>
-      <a href="{{ '/reference/' | url }}" class="btn btn-outline btn-lg">Browse reference</a>
-      <a href="{{ '/tests/' | url }}" class="btn btn-outline btn-lg">Test coverage</a>
+<section class="atlas-hero">
+  <div class="atlas-hero-inner">
+    <div>
+      <p class="eyebrow">Community-maintained · {% if documents.latestRelease %}updated {{ documents.latestRelease.date | statusDate }}{% endif %}</p>
+      <h1>The EUDI Wallet rulebook, <em>mapped</em>.</h1>
+      <p class="atlas-hero-lead">{{ documents.totalCount }} laws, implementing acts, EC specifications, standards and protocols — each with its adoption status, linked to {{ canonicalTests.totalCount }} conformance tests.</p>
+      <form class="atlas-hero-search" action="{{ '/reference/' | url }}" method="get" role="search">
+        {{ searchBox("landing-search", "Search e.g. HAIP, 2024/2982, Trusted Lists…", "q") }}
+        <button class="btn btn-on-dark btn-lg" type="submit">Search</button>
+      </form>
+      <div class="atlas-hero-actions">
+        <a href="{{ '/map/' | url }}" class="btn btn-on-dark btn-lg">Explore the map</a>
+        <a href="{{ '/radar/' | url }}" class="btn btn-outline-on-dark btn-lg">Regulatory radar</a>
+        <a href="{{ '/tests/' | url }}" class="btn btn-outline-on-dark btn-lg">Test coverage</a>
+      </div>
+    </div>
+
+    <div>
+      <ol class="stack-visual" aria-label="The EUDI rulebook stack, from executable evidence down to the legal foundation">
+        <li class="stack-plate stack-plate-evidence" style="--depth: 4">
+          <a href="{{ '/tests/' | url }}">
+            <span><span class="stack-plate-label">Executable evidence</span><span class="stack-plate-sub">Mapped conformance tests · Credimi</span></span>
+            <span class="stack-plate-count">{{ canonicalTests.totalCount }}</span>
+          </a>
+        </li>
+        {% for stack in documents.stacks | reverse %}
+        <li class="stack-plate" style="--depth: {{ 3 - loop.index0 }}">
+          <a href="{{ ('/reference/?stack=' + stack.key) | url }}">
+            <span><span class="stack-plate-label">{{ stack.label }}</span><span class="stack-plate-sub">{{ stack.description | truncate(64) }}</span></span>
+            <span class="stack-plate-count">{{ stack.count }}</span>
+          </a>
+        </li>
+        {% endfor %}
+      </ol>
+      <p class="stack-caption">Each layer builds on the one below it. Select a layer to browse it.</p>
     </div>
   </div>
 </section>
@@ -24,122 +51,149 @@ pageScript: search.js
 <div class="page-content">
   <div class="container">
 
-    <div class="disclaimer">
+
+    <section class="viz-section" aria-labelledby="home-radar-title">
+      <div class="viz-grid">
+        {{ radarChart(documents.radar) }}
+        <div>
+          <p class="viz-kicker">Regulatory radar</p>
+          <h2 class="viz-title" id="home-radar-title">Every rule, where it stands today</h2>
+          <p class="viz-lead">Each dot is one document. The four quarters are the layers of the rulebook. The closer a dot sits to the centre, the more settled the document is. Drafts sit in the middle ring and legislative proposals on the outer edge. Ringed dots are new in this edition. Select a dot to open the document.</p>
+          <ul class="viz-facts">
+            <li><strong>{{ documents.currentCount }}</strong><span>in force, published or final</span></li>
+            <li><strong>{{ documents.pipelineCount }}</strong><span>drafts and proposals still moving</span></li>
+            <li><strong>{{ (documents.latestRelease.added or []) | length }}</strong><span>new in this edition</span></li>
+            <li><strong>{{ documents.pinnedDocuments.length }}</strong><span>with test-version pins to watch</span></li>
+          </ul>
+          <div class="viz-actions">
+            <a href="{{ '/radar/' | url }}" class="btn btn-primary btn-lg">Open the full radar</a>
+            <a href="{{ '/reference/' | url }}" class="btn btn-outline btn-lg">Browse all documents</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="disclaimer home-section">
       <strong>Disclaimer:</strong> Unofficial navigation resource — not legal advice, not certification. Official sources always prevail. Maintained by <strong>ForkBomb BV / Credimi</strong>.
     </div>
 
-    <!-- Visual overview -->
-    <div class="chart-grid" style="margin-bottom: var(--space-10);">
-
-      <!-- Doc chart -->
-      <div class="card css-chart-card">
-        <h3 class="css-chart-title">{{ documents.totalCount }} documents collected</h3>
-        <p class="text-xs text-muted css-chart-sub">EU regulations, ETSI standards, OpenID specs and more</p>
-        <div class="css-chart-body">
-          <div class="css-donut" id="css-donut-docs" aria-hidden="true"></div>
-          <div class="css-legend">
-            <div class="css-legend-row"><span class="css-swatch" style="background:#2d3a8c"></span><span class="css-legend-label">EU Regulations &amp; Acts</span><span class="css-legend-val">{{ documents.chartBySource.values[0] }}</span></div>
-            <div class="css-legend-row"><span class="css-swatch" style="background:#7c3aed"></span><span class="css-legend-label">ETSI Standards</span><span class="css-legend-val">{{ documents.chartBySource.values[1] }}</span></div>
-            <div class="css-legend-row"><span class="css-swatch" style="background:#0891b2"></span><span class="css-legend-label">OpenID / OAuth</span><span class="css-legend-val">{{ documents.chartBySource.values[2] }}</span></div>
-            <div class="css-legend-row"><span class="css-swatch" style="background:#b45309"></span><span class="css-legend-label">ISO Standards</span><span class="css-legend-val">{{ documents.chartBySource.values[3] }}</span></div>
-            <div class="css-legend-row"><span class="css-swatch" style="background:#15803d"></span><span class="css-legend-label">Architecture / ARF</span><span class="css-legend-val">{{ documents.chartBySource.values[4] }}</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Test chart -->
-      <div class="card css-chart-card">
-        <h3 class="css-chart-title">{{ canonicalTests.totalCount }} mapped conformance tests</h3>
-        <p class="text-xs text-muted css-chart-sub">Grouped by actor — Wallet, Issuer, Verifier/RP, Trust Infrastructure</p>
-        <div class="css-chart-body">
-          <div class="css-donut" id="css-donut-tests" aria-hidden="true"></div>
-          <div class="css-legend">
-            <div class="css-legend-row"><span class="css-swatch" style="background:#7c3aed"></span><span class="css-legend-label">Wallet</span><span class="css-legend-val">{{ canonicalTests.chartByActor.values[0] }}</span></div>
-            <div class="css-legend-row"><span class="css-swatch" style="background:#b45309"></span><span class="css-legend-label">Issuer</span><span class="css-legend-val">{{ canonicalTests.chartByActor.values[1] }}</span></div>
-            <div class="css-legend-row"><span class="css-swatch" style="background:#15803d"></span><span class="css-legend-label">Verifier / RP</span><span class="css-legend-val">{{ canonicalTests.chartByActor.values[2] }}</span></div>
-            <div class="css-legend-row"><span class="css-swatch" style="background:#2d3a8c"></span><span class="css-legend-label">Trust Infra</span><span class="css-legend-val">{{ canonicalTests.chartByActor.values[3] }}</span></div>
-            <div class="css-legend-row"><span class="css-swatch" style="background:#9f1239"></span><span class="css-legend-label">External / CAB</span><span class="css-legend-val">{{ canonicalTests.chartByActor.values[4] }}</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Search -->
-    <div style="margin-bottom: var(--space-8);">
-      {{ sectionHeader("Search documents and references", documents.totalCount) }}
-      <div style="margin-top: var(--space-4);">
-        {{ searchBox("landing-search", "Find documents by name, ID, or summary…") }}
-      </div>
-    </div>
-
-    <div id="search-results" style="display:none;" class="card-grid card-grid-2"></div>
-
-    <div id="default-content">
-
-      <!-- Role cards -->
-      <div style="margin-bottom: var(--space-8);">
-        {{ sectionHeader("Start by role") }}
-        <p class="text-sm text-muted" style="margin-top: var(--space-2); margin-bottom: var(--space-4);">Select your role using the <strong>Role</strong> button (top-right) to highlight relevant documents and tests across all pages.</p>
-        <div class="card-grid card-grid-3">
-          {% for role in documents.roles %}
-          <div class="card" style="display:flex; flex-direction:column; gap: var(--space-2);">
-            <div style="font-size:22px;">{{ role.icon }}</div>
-            <h4 style="font-size:var(--fs-sm); font-weight:700;">{{ role.label }}</h4>
-            <p style="font-size:var(--fs-xs); color:var(--fg-muted); flex:1;">{{ role.description }}</p>
-            <a href="{{ '/reference/' | url }}" class="btn btn-outline btn-sm" style="align-self:flex-start; margin-top: var(--space-1);">See docs →</a>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-
-      <!-- Reading routes -->
-      <div style="margin-bottom: var(--space-8);">
-        {{ sectionHeader("Recommended reading routes", documents.routes.length) }}
-        <div class="card-grid card-grid-2" style="margin-top: var(--space-4);">
-          {% for route in documents.routes %}
-          <div class="card">
-            <h4 style="font-size:var(--fs-sm);font-weight:700;margin-bottom:var(--space-1);">{{ route.title }}</h4>
-            <p style="font-size:var(--fs-xs);color:var(--fg-muted);margin-bottom:var(--space-3);">{{ route.why_this_route }}</p>
-            <div style="display:flex;flex-wrap:wrap;gap:var(--space-1);">
-              {% for docId in route.documents %}
-              <a href="{{ ('/documents/' + docId + '/') | url }}" class="badge badge-neutral font-mono" style="text-decoration:none;font-size:10px;">{{ docId }}</a>
-              {% endfor %}
+    <section>
+      {{ sectionHeader("What moved recently", null, "/radar/") }}
+      <p class="section-intro">The latest status changes across EU law, EC specifications, standards and protocols, and what is still on its way.</p>
+      <div class="radar-grid">
+        <ol class="timeline">
+          {% for doc in documents.timeline | batch(8) | first %}
+          <li class="timeline-item">
+            <span class="timeline-date">{{ doc.status_date | statusDate }}</span>
+            <p class="timeline-title"><a href="{{ ('/documents/' + doc.id + '/') | url }}">{{ doc.name }}</a></p>
+            <div class="chip-row">
+              <span class="status-pill tone-{{ doc.statusTone }}">{{ doc.statusGlyph }} {{ doc.statusLabel }}</span>
+              <span class="badge {{ doc.typeBadge }}">{{ doc.typeLabel }}</span>
+              {% if doc.releaseChange %}<span class="change-tag change-{{ doc.releaseChange }}">{{ doc.releaseChange }}</span>{% endif %}
             </div>
-          </div>
+          </li>
           {% endfor %}
+        </ol>
+
+        <div class="detail-aside">
+          <div class="card">
+            <h3 class="detail-aside-title">Status at a glance</h3>
+            <div class="status-bar" role="img" aria-label="Document status distribution">
+              {% for s in documents.statusSummary %}<span class="status-bar-seg" data-tone="{{ s.tone }}" style="--share: {{ s.count }}"></span>{% endfor %}
+            </div>
+            <ul class="status-legend">
+              {% for s in documents.statusSummary %}
+              <li><span class="status-pill tone-{{ s.tone }}">{{ s.glyph }} {{ s.label }}</span><strong>{{ s.count }}</strong></li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="detail-aside-title">On the watchlist</h3>
+            <ul class="watch-list">
+              {% set watched = 0 %}
+              {% for doc in documents.timeline %}{% if doc.statusPhase == 'pipeline' and watched < 5 %}{% set watched = watched + 1 %}
+              <li class="watch-item">
+                <a href="{{ ('/documents/' + doc.id + '/') | url }}">
+                  <strong>{{ doc.name }}</strong>
+                  <span class="chip-row"><span class="status-pill tone-{{ doc.statusTone }}">{{ doc.statusGlyph }} {{ doc.statusLabel }}</span><span class="doc-date">{{ doc.status_date | statusDate }}</span></span>
+                </a>
+              </li>
+              {% endif %}{% endfor %}
+            </ul>
+            <a href="{{ '/radar/' | url }}" class="see-all">Full radar ↗</a>
+          </div>
         </div>
       </div>
+    </section>
 
+    <div class="home-section">
+      {{ credimiCta("Know which rules apply? Prove you meet them.", "Credimi runs your Wallet, Issuer or Verifier against the flows these documents define and keeps every run as shareable evidence.") }}
     </div>
 
-    <div style="margin-top: var(--space-4); text-align: center;">
+    <section class="viz-section" aria-labelledby="eco-section-title">
+      <div class="viz-grid">
+        <div>
+          <p class="viz-kicker">Why this is hard</p>
+          <h2 class="viz-title" id="eco-section-title">{{ documents.ecosystem.publishers.length }} bodies write the rules for 4 kinds of actor</h2>
+          <p class="viz-lead">Laws come from the EU, the architecture and specifications from the Commission, and the formats and protocols from ETSI, CEN, ISO, OpenID, IETF, W3C and others. Each actor answers to several of them at once, on different release cycles.</p>
+          <ul class="viz-facts">
+            <li><strong>{{ documents.totalCount }}</strong><span>documents to follow</span></li>
+            <li><strong>{{ documents.ecosystem.linkCount }}</strong><span>publisher-to-actor relationships</span></li>
+            <li><strong>{{ documents.pinnedDocuments.length }}</strong><span>where the test pin lags the latest version</span></li>
+            <li><strong>{{ canonicalTests.totalCount }}</strong><span>tests mapped across them</span></li>
+          </ul>
+        </div>
+        {{ ecosystemWeb(documents.ecosystem, documents.totalCount) }}
+      </div>
+    </section>
+
+    <section class="home-section role-section" aria-labelledby="roles-title">
+      <p class="viz-kicker">Start by role</p>
+      <h2 class="viz-title" id="roles-title">Same rulebook, five ways in</h2>
+      <p class="viz-lead">Pick the seat you sit in. The atlas highlights your documents and tests on every page.</p>
+      <ul class="role-row">
+        {% for role in documents.roles %}
+        <li class="role-panel">
+          <div class="role-panel-art">{{ roleArt(role.key) }}</div>
+          <div class="role-panel-body">
+            <h3><a class="role-panel-link" href="{{ ('/reference/?role=' + role.key) | url }}">{{ role.label }}</a></h3>
+            <p>{{ role.tagline }}</p>
+            <p class="role-panel-stats"><strong>{{ role.docCount }}</strong> key documents{% if role.movingCount %} · <strong>{{ role.movingCount }}</strong> still moving{% endif %}</p>
+            <ul class="role-panel-docs">
+              {% for d in role.keyDocs %}
+              <li><span class="legend-dot tone-dot-{{ d.statusTone }}" aria-hidden="true"></span><span>{{ d.id }}</span><span class="visually-hidden"> — {{ d.statusLabel }}</span></li>
+              {% endfor %}
+            </ul>
+            <span class="role-panel-more" aria-hidden="true">Open my view →</span>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="home-section">
+      {{ sectionHeader("Recommended reading routes", documents.routes.length) }}
+      <div class="card-grid card-grid-2">
+        {% for route in documents.routes %}
+        <div class="card route-card">
+          <h3>{{ route.title }}</h3>
+          <p>{{ route.why_this_route }}</p>
+          <div class="route-docs">
+            {% for docId in route.documents %}
+            <a href="{{ ('/documents/' + docId + '/') | url }}" class="badge badge-neutral font-mono">{{ docId }}</a>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <div class="home-section">
+      {{ credimiPromo(canonicalTests.totalCount) }}
+    </div>
+
+    <div class="page-end">
       <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/src/index.njk" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
     </div>
   </div>
 </div>
-
-<script>
-(function(){
-  function buildDonut(id, values, colors) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    var total = values.reduce(function(a,b){return a+b;},0);
-    var deg = 0;
-    var stops = [];
-    for (var i = 0; i < values.length; i++) {
-      var slice = (values[i]/total)*360;
-      stops.push(colors[i]+' '+deg+'deg '+(deg+slice)+'deg');
-      deg += slice;
-    }
-    el.style.background = 'conic-gradient('+stops.join(',')+')';
-  }
-  buildDonut('css-donut-docs',
-    [{{ documents.chartBySource.values | join(',') }}],
-    ['#2d3a8c','#7c3aed','#0891b2','#b45309','#15803d']
-  );
-  buildDonut('css-donut-tests',
-    [{{ canonicalTests.chartByActor.values | join(',') }}],
-    ['#7c3aed','#b45309','#15803d','#2d3a8c','#9f1239']
-  );
-})();
-</script>

@@ -10,11 +10,12 @@ eleventyComputed:
   title: "{{ claim.title }}"
   description: "{{ claim.description }}"
 ---
+{% from "components/credimi.njk" import credimiCta %}
 
-<section class="hero" style="padding: var(--space-8) 0;">
+<section class="hero page-hero">
   <div class="hero-inner">
     <p class="eyebrow">EVIDENCE CLAIM</p>
-    <h1 style="font-size: var(--fs-2xl);">{{ claim.title }}</h1>
+    <h1>{{ claim.title }}</h1>
     <div style="display: flex; gap: var(--space-3); align-items: center; margin-top: var(--space-3);">
       <span class="font-mono text-sm text-muted">{{ claim.slug }}</span>
       {% if claim.internal_id %}
@@ -167,6 +168,10 @@ eleventyComputed:
           {% endif %}
         </div>
         {% endif %}
+
+        <div class="mb-4">
+          {{ credimiCta("Collect this evidence automatically.", "Credimi pipelines gather evidence for claims like this one by running real implementations through the relevant flows.", true) }}
+        </div>
 
         <div style="text-align: right;">
           <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/source-of-truth/current.json" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>

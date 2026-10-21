@@ -1,0 +1,64 @@
+{#
+  Credimi promotion blocks. Every block is visibly labelled as coming from the
+  maintainers; link targets are the public credimi.io / docs.credimi.io routes.
+#}
+
+{% macro credimiCta(title, text, compact=false) %}
+<aside class="credimi-cta{% if compact %} credimi-cta-compact{% endif %}" aria-label="Credimi platform">
+  <div class="credimi-cta-body">
+    <p class="credimi-cta-eyebrow">From the maintainers · Credimi</p>
+    <p class="credimi-cta-title">{{ title }}</p>
+    <p class="credimi-cta-text">{{ text }}</p>
+  </div>
+  <div class="credimi-cta-actions">
+    <a class="btn btn-on-dark btn-md" href="https://credimi.io/login" target="_blank" rel="noopener">Start automated testing ↗</a>
+    <a class="btn btn-outline-on-dark btn-md" href="https://credimi.io/hub" target="_blank" rel="noopener">Explore the Hub ↗</a>
+  </div>
+</aside>
+{% endmacro %}
+
+{% macro credimiPromo(testCount) %}
+<section class="credimi-promo" aria-labelledby="credimi-promo-title">
+  <div>
+    <p class="promo-label"><img src="{{ '/assets/credimi_logo.svg' | url }}" alt="" aria-hidden="true">From the maintainers of this atlas</p>
+    <h2 id="credimi-promo-title">Turn the rulebook into executable evidence</h2>
+    <p class="credimi-promo-lead">This atlas tells you which rules apply. <strong>Credimi</strong> runs real Wallets, Issuers and Verifiers through them and keeps the results as reproducible conformance and interoperability evidence.</p>
+    <ul class="promo-points">
+      <li>{{ testCount }} conformance tests in this atlas are mapped for Credimi evidence</li>
+      <li>OpenID4VCI, OpenID4VP and HAIP flows against real Wallet apps</li>
+      <li>REST API and YAML workflows, cloud or on-premises deployment</li>
+      <li>Open source — <a href="https://github.com/forkbombeu/credimi" target="_blank" rel="noopener">github.com/forkbombeu/credimi</a></li>
+    </ul>
+    <div class="promo-actions">
+      <a class="btn btn-primary btn-lg" href="https://credimi.io/login" target="_blank" rel="noopener">Adopt Credimi ↗</a>
+      <a class="btn btn-outline btn-lg" href="mailto:info@forkbomb.eu?subject=Credimi%20platform%20demo">Talk to the team</a>
+    </div>
+  </div>
+  <div class="promo-grid">
+    <a class="promo-card" href="https://docs.credimi.io/manual/compliance-checks" target="_blank" rel="noopener">
+      <span class="promo-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+      <strong>Automated conformance</strong>
+      <p>Pipelines drive issuance and presentation end to end and record each step as evidence.</p>
+      <span class="promo-more">How it works ↗</span>
+    </a>
+    <a class="promo-card" href="https://credimi.io/hub" target="_blank" rel="noopener">
+      <span class="promo-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
+      <strong>Interoperability Hub</strong>
+      <p>Find and try Wallets, Issuers, Verifiers and credentials from across the ecosystem.</p>
+      <span class="promo-more">Explore the Hub ↗</span>
+    </a>
+    <a class="promo-card" href="https://credimi.io/scoreboard" target="_blank" rel="noopener">
+      <span class="promo-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16v-4"/><path d="M12 16V8"/><path d="M17 16v-7"/></svg></span>
+      <strong>Public scoreboard</strong>
+      <p>Compare implementations by their test results before you integrate with them.</p>
+      <span class="promo-more">View scoreboard ↗</span>
+    </a>
+    <a class="promo-card" href="https://trust-inspector.credimi.io/" target="_blank" rel="noopener">
+      <span class="promo-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+      <strong>Trust tooling</strong>
+      <p>Credimi Extras inspect Trusted Lists, LoTEs, token status lists and Wallet metadata.</p>
+      <span class="promo-more">Open Trust Inspector ↗</span>
+    </a>
+  </div>
+</section>
+{% endmacro %}

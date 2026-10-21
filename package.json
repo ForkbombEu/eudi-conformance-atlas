@@ -8,11 +8,14 @@
     "build": "eleventy",
     "start": "eleventy --serve",
     "test": "node scripts/validate-data.mjs && node scripts/validate-source-of-truth-evidence.mjs && node scripts/validate-design-assets.mjs",
-    "lint": "task lint:design"
+    "lint": "mise run lint:design"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.1.3",
     "js-yaml": "^4.1.1",
     "minisearch": "^7.2.0"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10"
   }
 }

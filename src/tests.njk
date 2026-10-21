@@ -3,12 +3,13 @@ layout: base.njk
 title: Test Coverage
 description: Community inventory of EUDI conformance tests across Wallet, Issuer, Verifier, and Trust Infrastructure.
 ---
+{% from "components/credimi.njk" import credimiCta, credimiPromo %}
 
-<section class="hero" style="padding: var(--space-8) 0;">
+<section class="hero page-hero">
   <div class="hero-inner">
     <p class="eyebrow">COMMUNITY CONFORMANCE INVENTORY</p>
-    <h1 style="font-size: var(--fs-2xl);">Test Coverage</h1>
-    <p style="font-size: var(--fs-base);">{{ canonicalTests.totalCount }} machine-tagged conformance tests for EUDI implementations — classified by evidence strength and organised by actor. Use the <strong>Role</strong> role filter to highlight tests relevant to you.</p>
+    <h1>Test Coverage</h1>
+    <p>{{ canonicalTests.totalCount }} machine-tagged conformance tests for EUDI implementations — classified by evidence strength and organised by actor. Use the <strong>Role</strong> role filter to highlight tests relevant to you.</p>
   </div>
 </section>
 
@@ -36,6 +37,10 @@ description: Community inventory of EUDI conformance tests across Wallet, Issuer
         <span class="stat-value">{{ canonicalTests.externalCount }}</span>
         <span class="stat-label">Requires external testing</span>
       </div>
+    </div>
+
+    <div class="mb-8">
+      {{ credimiCta("Run these tests instead of reading them.", "Credimi pipelines drive real Wallets, Issuers and Verifiers through issuance and presentation flows and record the results as evidence.") }}
     </div>
 
     <!-- Legend -->
@@ -123,7 +128,11 @@ description: Community inventory of EUDI conformance tests across Wallet, Issuer
       <a href="https://github.com/forkbombeu/eudi-conformance-atlas" target="_blank" rel="noopener">Contribute on GitHub →</a>
     </p>
 
-    <div style="margin-top: var(--space-8); text-align: center;">
+    <div class="home-section">
+      {{ credimiPromo(canonicalTests.totalCount) }}
+    </div>
+
+    <div class="page-end">
       <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/src/tests.njk" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
     </div>
   </div>

@@ -11,7 +11,6 @@
   var data = JSON.parse(dataScript.textContent);
   var pathPrefix = container.dataset.pathPrefix || "/eudi-conformance-atlas/";
 
-  var documents = data.documents;
   var groups = data.groups;
   var byId = data.byId;
 
@@ -22,41 +21,35 @@
     return div.innerHTML;
   }
 
+  var types = data.types || {};
+
   function getSourceClass(type) {
-    var map = {
-      regulation: "badge-legal", implementing_regulation: "badge-legal",
-      implementing_decision: "badge-legal", directive: "badge-legal",
-      consolidated_regulation: "badge-legal", recommendation: "badge-legal",
-      architecture_reference_framework: "badge-architecture",
-      project_working_documentation: "badge-architecture",
-      etsi_standard: "badge-etsi",
-      openid_spec: "badge-protocol",
-      iso_standard: "badge-iso",
-    };
-    return map[type] || "badge-neutral";
+    return types[type] ? types[type].badge : "badge-neutral";
   }
 
   function getSourceLabel(type) {
-    var map = {
-      regulation: "Regulation", implementing_regulation: "Implementing Regulation",
-      implementing_decision: "Implementing Decision", directive: "Directive",
-      consolidated_regulation: "Consolidated Regulation", recommendation: "Recommendation",
-      architecture_reference_framework: "ARF", project_working_documentation: "WE BUILD",
-      etsi_standard: "ETSI Standard", openid_spec: "OpenID/OAuth", iso_standard: "ISO Standard",
-    };
-    return map[type] || type;
+    return types[type] ? types[type].label : type;
   }
 
   function buildTree() {
     var tree = [];
     for (var i = 0; i < groups.length; i++) {
       var group = groups[i];
-      var groupNode = { type: "group", id: group.group_slug, title: group.title, explanation: group.explanation, children: [] };
+      var groupNode = {
+        type: "group",
+        id: group.group_slug,
+        title: group.title,
+        explanation: group.explanation,
+        children: [],
+      };
       for (var j = 0; j < (group.steps || []).length; j++) {
         var step = group.steps[j];
         var stepNode = {
           type: "step",
-          id: group.group_slug + "-" + step.step.replace(/\s+/g, "-").toLowerCase(),
+          id:
+            group.group_slug +
+            "-" +
+            step.step.replace(/\s+/g, "-").toLowerCase(),
           title: step.step,
           subSteps: step.sub_steps || [],
           children: [],
@@ -66,9 +59,16 @@
           var doc = byId[docId];
           if (doc) {
             stepNode.children.push({
-              type: "document", id: doc.id, title: doc.name, docType: doc.type,
-              summary: doc.summary, url: pathPrefix + "documents/" + doc.id + "/",
+              type: "document",
+              id: doc.id,
+              title: doc.name,
+              docType: doc.type,
+              summary: doc.summary,
+              url: pathPrefix + "documents/" + doc.id + "/",
               officialUrl: doc.url,
+              statusLabel: doc.statusLabel,
+              statusGlyph: doc.statusGlyph,
+              statusTone: doc.statusTone,
             });
           }
         }
@@ -94,6 +94,13 @@
     return svg;
   }
 
+  function statusPill(node) {
+    var pill = document.createElement("span");
+    pill.className = "status-pill tone-" + node.statusTone;
+    pill.textContent = node.statusGlyph + " " + node.statusLabel;
+    return pill;
+  }
+
   function renderNode(node) {
     var div = document.createElement("div");
     div.className = "tree-node";
@@ -114,6 +121,7 @@
       badge.style.cssText = "margin-left:8px";
       badge.textContent = getSourceLabel(node.docType);
       leaf.appendChild(badge);
+      leaf.appendChild(statusPill(node));
 
       if (node.officialUrl) {
         var extLink = document.createElement("a");
@@ -169,13 +177,15 @@
     var header = document.createElement("div");
     header.style.cssText = "margin-bottom:var(--space-4)";
     var h4 = document.createElement("h4");
-    h4.style.cssText = "font-size:var(--fs-md);font-weight:700;margin-bottom:var(--space-2)";
+    h4.style.cssText =
+      "font-size:var(--fs-md);font-weight:700;margin-bottom:var(--space-2)";
     h4.textContent = node.title;
     header.appendChild(h4);
     var typeBadge = document.createElement("span");
     typeBadge.className = "badge " + getSourceClass(node.docType);
     typeBadge.textContent = getSourceLabel(node.docType);
     header.appendChild(typeBadge);
+    header.appendChild(statusPill(node));
     var idSpan = document.createElement("span");
     idSpan.className = "font-mono text-xs text-muted";
     idSpan.style.cssText = "margin-left:var(--space-2)";
@@ -192,7 +202,8 @@
     }
 
     var actions = document.createElement("div");
-    actions.style.cssText = "display:flex;flex-direction:column;gap:var(--space-2)";
+    actions.style.cssText =
+      "display:flex;flex-direction:column;gap:var(--space-2)";
     var detailLink = document.createElement("a");
     detailLink.href = node.url;
     detailLink.className = "btn btn-outline btn-sm";
@@ -224,13 +235,17 @@
       var allNodes = container.querySelectorAll(".tree-node");
       for (var a = 0; a < allNodes.length; a++) {
         var node = allNodes[a];
-        if (!query) { node.style.display = ""; continue; }
+        if (!query) {
+          node.style.display = "";
+          continue;
+        }
         var text = node.dataset.searchText || "";
         if (text.indexOf(query) !== -1) {
           node.style.display = "";
           var parent = node.parentElement;
           while (parent && parent !== container) {
-            if (parent.classList.contains("tree-node")) parent.classList.add("expanded");
+            if (parent.classList.contains("tree-node"))
+              parent.classList.add("expanded");
             parent = parent.parentElement;
           }
         } else if (node.querySelector(".tree-leaf")) {

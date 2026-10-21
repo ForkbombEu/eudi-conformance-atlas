@@ -1,3 +1,4 @@
+{% from "components/role-art.njk" import roleIcon %}
 <aside class="role-sidebar" id="role-sidebar" aria-label="Filter by role">
   <div class="role-sidebar-header">
     <h6>Filter by role</h6>
@@ -10,7 +11,7 @@
   <div class="role-sidebar-body">
     <p style="font-size:11px;color:var(--fg-muted);margin-bottom:var(--space-3);line-height:1.4;">Select your role to highlight the most relevant documents and tests.</p>
     <button class="role-btn" data-role="all" data-highlight-docs="" data-highlight-layers="legal,architecture,protocol,credential_format,etsi">
-      <span class="role-btn-icon">🌐</span>
+      <span class="role-btn-icon">{{ roleIcon("all") }}</span>
       <span>
         <div class="role-btn-label">All roles</div>
         <div class="role-btn-desc">Highlight all documents</div>
@@ -18,7 +19,7 @@
     </button>
     {% for role in documents.roles %}
     <button class="role-btn" data-role="{{ role.key }}" data-highlight-docs="{{ role.highlightDocs | join(',') }}" data-highlight-layers="{{ role.highlightLayers | join(',') }}">
-      <span class="role-btn-icon">{{ role.icon }}</span>
+      <span class="role-btn-icon">{{ roleIcon(role.key) }}</span>
       <span>
         <div class="role-btn-label">{{ role.label }}</div>
         <div class="role-btn-desc">{{ role.description }}</div>

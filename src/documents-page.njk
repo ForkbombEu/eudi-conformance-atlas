@@ -10,44 +10,59 @@ eleventyComputed:
   title: "{{ doc.name }}"
   description: "{{ doc.summary }}"
 ---
-{% from "components/source-badge.njk" import sourceBadge %}
+{% from "components/credimi.njk" import credimiCta %}
 
-<section class="hero" style="padding: var(--space-8) 0;">
+<section class="hero page-hero">
   <div class="hero-inner">
-    <p class="eyebrow">DOCUMENT</p>
-    <div style="margin-bottom: var(--space-2);">
-      {{ sourceBadge(doc.type) }}
+    <p class="eyebrow">{{ doc.typeLabel }}</p>
+    <h1>{{ doc.name }}</h1>
+    <div class="page-hero-meta">
+      <span class="status-pill tone-{{ doc.statusTone }}">{{ doc.statusGlyph }} {{ doc.statusLabel }}{% if doc.status_date %} · {{ doc.status_date | statusDate }}{% endif %}</span>
+      <span class="badge {{ doc.typeBadge }}">{{ doc.typeLabel }}</span>
+      {% if doc.releaseChange %}<span class="change-tag change-{{ doc.releaseChange }}">{{ doc.releaseChange }} in this edition</span>{% endif %}
+      <span class="doc-id-display font-mono">ID: {{ doc.id }}</span>
     </div>
-    <h1 style="font-size: var(--fs-2xl);">{{ doc.name }}</h1>
-    <p class="doc-id-display">ID: {{ doc.id }}</p>
   </div>
 </section>
 
 <div class="page-content">
   <div class="container">
     <div class="disclaimer">
-      <strong>Disclaimer:</strong> Official sources always prevail. Always refer to EUR-Lex for authoritative texts.
+      <strong>Disclaimer:</strong> Official sources always prevail. Always refer to EUR-Lex and the publishing body for authoritative texts.
     </div>
 
     <div class="detail-layout">
       <div>
         <div class="detail-section">
           <h3>Summary</h3>
-          <p style="font-size: var(--fs-md); line-height: 1.6;">{{ doc.summary or 'No summary available.' }}</p>
+          <p class="doc-lead">{{ doc.summary or 'No summary available.' }}</p>
         </div>
 
         <div class="detail-section">
           <h3>Relevance for EUDI</h3>
-          <p style="font-size: var(--fs-base); line-height: 1.6;">{{ doc.relevance_for_eudi or 'Not specified.' }}</p>
+          <p class="doc-body">{{ doc.relevance_for_eudi or 'Not specified.' }}</p>
         </div>
 
-        {% if doc.tags and doc.tags.length > 0 %}
+        {% if doc.status_note %}
         <div class="detail-section">
-          <h3>Tags</h3>
-          <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
-            {% for tag in doc.tags %}
-            <span class="badge badge-neutral">{{ tag }}</span>
-            {% endfor %}
+          <h3>Latest change</h3>
+          <p class="doc-body">{{ doc.status_note }}</p>
+        </div>
+        {% endif %}
+
+        {% if doc.pinned_versions %}
+        <div class="detail-section">
+          <h3>Pinned versions</h3>
+          <p class="doc-body text-secondary">The version other frameworks test or reference may lag the latest one above. Conformance runs should follow the pin of the framework you are assessed against.</p>
+          <div class="test-table-wrap">
+            <table class="test-table">
+              <thead><tr><th scope="col">Pinned by</th><th scope="col">Version</th></tr></thead>
+              <tbody>
+                {% for pin in doc.pinned_versions %}
+                <tr><td><a href="{{ pin.source }}" target="_blank" rel="noopener">{{ pin.by }} ↗</a></td><td class="font-mono">{{ pin.version }}</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
         </div>
         {% endif %}
@@ -56,11 +71,11 @@ eleventyComputed:
         {% if docGroups and docGroups.length > 0 %}
         <div class="detail-section">
           <h3>Related logical groups</h3>
-          <div style="display: flex; flex-direction: column; gap: var(--space-2);">
+          <div class="related-list">
             {% for grp in docGroups %}
-            <div class="card" style="padding: var(--space-3);">
-              <span style="font-weight: 600; font-size: var(--fs-sm);">{{ grp.groupTitle }}</span>
-              <span style="font-size: var(--fs-xs); color: var(--fg-muted); display: block;">Step: {{ grp.stepTitle }}</span>
+            <div class="card">
+              <strong>{{ grp.groupTitle }}</strong>
+              <span>Step: {{ grp.stepTitle }}</span>
             </div>
             {% endfor %}
           </div>
@@ -71,7 +86,7 @@ eleventyComputed:
         {% if docRoutes and docRoutes.length > 0 %}
         <div class="detail-section">
           <h3>Reading routes</h3>
-          <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+          <div class="chip-row">
             {% for r in docRoutes %}
             <span class="badge badge-neutral">{{ r.routeTitle }}</span>
             {% endfor %}
@@ -80,33 +95,38 @@ eleventyComputed:
         {% endif %}
       </div>
 
-      <aside>
-        <div class="card" style="margin-bottom: var(--space-4);">
-          <h4 style="font-size: var(--fs-md); font-weight: 700; margin-bottom: var(--space-4);">Details</h4>
+      <aside class="detail-aside">
+        <div class="card">
+          <h2 class="detail-aside-title">Details</h2>
           <dl class="dl">
+            <dt>Status</dt>
+            <dd><span class="status-pill tone-{{ doc.statusTone }}">{{ doc.statusGlyph }} {{ doc.statusLabel }}</span></dd>
+            {% if doc.status_date %}
+            <dt>Status date</dt>
+            <dd class="font-mono">{{ doc.status_date | statusDate }}</dd>
+            {% endif %}
             <dt>Type</dt>
-            <dd>{{ sourceBadge(doc.type) }}</dd>
+            <dd><span class="badge {{ doc.typeBadge }}">{{ doc.typeLabel }}</span></dd>
             <dt>Audience</dt>
-            <dd>
-              {% if doc.audience and doc.audience.length > 0 %}
-              {% for aud in doc.audience %}<span class="badge badge-neutral">{{ aud }}</span> {% endfor %}
-              {% else %}<span class="text-muted">—</span>{% endif %}
-            </dd>
+            <dd>{% for aud in doc.audience %}<span class="badge badge-neutral">{{ aud }}</span> {% endfor %}</dd>
+            {% if doc.arf_essential_for %}
+            <dt>ARF essential for</dt>
+            <dd><span class="chip-row">{% for cat in doc.arf_essential_for %}<span class="badge badge-technical">★ {{ cat }}</span>{% endfor %}</span></dd>
+            {% endif %}
           </dl>
-
-          <div style="margin-top: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2);">
+          <div class="detail-actions">
             {% if doc.url %}
-            <a href="{{ doc.url }}" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Official source ↗</a>
+            <a href="{{ doc.url }}" class="btn btn-primary btn-md" target="_blank" rel="noopener">Official source ↗</a>
             {% endif %}
             {% if doc.pdf_url %}
-            <a href="{{ doc.pdf_url }}" class="btn btn-outline btn-sm" target="_blank" rel="noopener">PDF ↗</a>
+            <a href="{{ doc.pdf_url }}" class="btn btn-outline btn-md" target="_blank" rel="noopener">PDF ↗</a>
             {% endif %}
           </div>
         </div>
 
-        <div style="text-align: right;">
-          <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/eudi-documents-map.yaml" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
-        </div>
+        {{ credimiCta("Test your implementation against the EUDI rulebook.", "Credimi automates conformance and interoperability runs for Wallets, Issuers and Verifiers and keeps each run as evidence.", true) }}
+
+        <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/eudi-documents-map.yaml" class="edit-link" target="_blank" rel="noopener">Suggest a correction on GitHub</a>
       </aside>
     </div>
   </div>
