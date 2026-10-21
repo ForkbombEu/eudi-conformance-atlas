@@ -1,0 +1,135 @@
+---
+layout: base.njk
+title: Regulatory radar
+description: What changed in the EUDI Wallet rulebook — new and updated acts, specifications and standards, drafts and proposals to watch, and a dated timeline.
+---
+{% from "components/section-header.njk" import sectionHeader %}
+{% from "components/document-card.njk" import documentCard %}
+{% from "components/credimi.njk" import credimiCta, credimiPromo %}
+{% from "components/viz.njk" import radarChart, momentumChart %}
+
+{% macro timelineItem(doc) %}
+<li class="timeline-item">
+  <span class="timeline-date">{{ doc.status_date | statusDate }}</span>
+  <p class="timeline-title"><a href="{{ ('/documents/' + doc.id + '/') | url }}">{{ doc.name }}</a></p>
+  <div class="chip-row">
+    <span class="status-pill tone-{{ doc.statusTone }}">{{ doc.statusGlyph }} {{ doc.statusLabel }}</span>
+    <span class="badge {{ doc.typeBadge }}">{{ doc.typeLabel }}</span>
+    {% if doc.releaseChange %}<span class="change-tag change-{{ doc.releaseChange }}">{{ doc.releaseChange }}</span>{% endif %}
+  </div>
+  {% if doc.status_note %}<p class="timeline-note">{{ doc.status_note }}</p>{% endif %}
+</li>
+{% endmacro %}
+
+<section class="hero page-hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Regulatory radar</p>
+    <h1>What changed, and what is coming</h1>
+    <p>Adoption status for every document in the atlas: newly adopted acts, superseded versions, drafts in progress and legislative proposals.{% if documents.latestRelease %} Last reviewed {{ documents.latestRelease.date | statusDate }}.{% endif %}</p>
+    <div class="page-hero-meta">
+      {% for s in documents.statusSummary %}<span class="status-pill tone-{{ s.tone }}">{{ s.glyph }} {{ s.count }} {{ s.label | lower }}</span>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<div class="page-content">
+  <div class="container">
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> Status reflects the publishing body's own pages at the review date. Drafts and proposals are not binding. Official sources always prevail.
+    </div>
+
+    <section class="viz-section viz-section-first" aria-labelledby="radar-main-title">
+      <div class="viz-grid">
+        {{ radarChart(documents.radar) }}
+        <div>
+          <p class="viz-kicker">The radar</p>
+          <h2 class="viz-title" id="radar-main-title">{{ documents.radar.plotted }} documents, one picture</h2>
+          <p class="viz-lead">Quarters are the stack layers. The inner ring holds documents in force, published or final, the middle ring drafts and work in development, and the outer ring legislative proposals. Ringed dots are new in this edition. Hover a dot for its name; select it to open it.</p>
+          <ul class="viz-facts">
+            {% for s in documents.radar.sectors %}<li><strong>{{ s.count }}</strong><span>{{ s.label }}</span></li>{% endfor %}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="viz-section" aria-labelledby="momentum-title">
+      <p class="viz-kicker">Momentum</p>
+      <h2 class="viz-title" id="momentum-title">The rulebook is accelerating</h2>
+      <p class="viz-lead">Documents grouped by the date of their latest adoption, publication, final release or draft. Most of the rulebook changed status in 2025 and 2026; the latest half-year runs to the review date.</p>
+      <div class="home-section-tight">{{ momentumChart(documents.momentum, documents.stacks) }}</div>
+    </section>
+
+    {% if documents.latestRelease %}
+    <section>
+      {{ sectionHeader("In this edition", (documents.latestRelease.added or []).length + (documents.latestRelease.updated or []).length) }}
+      <p class="section-intro">{{ documents.latestRelease.summary }}</p>
+      <div class="radar-grid">
+        <div>
+          <h3 class="detail-aside-title">New documents · {{ (documents.latestRelease.added or []).length }}</h3>
+          <ol class="timeline">
+            {% for id in documents.latestRelease.added %}{{ timelineItem(documents.byId[id]) }}{% endfor %}
+          </ol>
+        </div>
+        <div>
+          <h3 class="detail-aside-title">Updated versions and statuses · {{ (documents.latestRelease.updated or []).length }}</h3>
+          <ol class="timeline">
+            {% for id in documents.latestRelease.updated %}{{ timelineItem(documents.byId[id]) }}{% endfor %}
+          </ol>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    <section class="home-section">
+      {{ sectionHeader("In the pipeline", documents.pipelineCount) }}
+      <p class="section-intro">Drafts, documents in development and legislative proposals. Track them now so your implementation is ready when they are adopted.</p>
+      <div class="card-grid card-grid-3">
+        {% for doc in documents.timeline %}{% if doc.statusPhase == 'pipeline' %}
+        {{ documentCard(doc) }}
+        {% endif %}{% endfor %}
+      </div>
+    </section>
+
+    <section class="home-section">
+      {{ sectionHeader("Version pins", documents.pinnedDocuments.length) }}
+      <p class="section-intro">Latest version in this atlas versus the versions pinned by the FCAF draft test suite, the ARF essential-standards list and HAIP 1.0. Where they differ, test against the pin you are assessed on and track the newer one.</p>
+      <div class="test-table-wrap">
+        <table class="test-table">
+          <thead><tr><th scope="col">Document (latest)</th><th scope="col">Status</th><th scope="col">Pinned versions</th></tr></thead>
+          <tbody>
+            {% for doc in documents.pinnedDocuments %}
+            <tr>
+              <td class="test-name"><a href="{{ ('/documents/' + doc.id + '/') | url }}">{{ doc.name }}</a></td>
+              <td><span class="status-pill tone-{{ doc.statusTone }}">{{ doc.statusGlyph }} {{ doc.statusLabel }}</span></td>
+              <td><span class="chip-row">{% for pin in doc.pinned_versions %}<span class="badge badge-neutral">{{ pin.by }}: <span class="font-mono">{{ pin.version }}</span></span>{% endfor %}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="home-section">
+      {{ credimiCta("Rules change. Re-run your evidence.", "When a draft becomes final or an act is amended, re-run your Credimi pipelines and keep conformance evidence in step with the rulebook.") }}
+    </div>
+
+    <section class="home-section">
+      {{ sectionHeader("Timeline", documents.timeline.length) }}
+      <p class="section-intro">Every dated document, newest first: publication, adoption, final release or latest draft.</p>
+      {% for year, docs in documents.timeline | groupby("statusYear") | dictsort | reverse %}
+      <h3 class="detail-aside-title timeline-year">{{ year }} · {{ docs.length }}</h3>
+      <ol class="timeline">
+        {% for doc in docs %}{{ timelineItem(doc) }}{% endfor %}
+      </ol>
+      {% endfor %}
+    </section>
+
+    <div class="home-section">
+      {{ credimiPromo(canonicalTests.totalCount) }}
+    </div>
+
+    <div class="page-end">
+      <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/src/radar.njk" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
+    </div>
+  </div>
+</div>

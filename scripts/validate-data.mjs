@@ -2,6 +2,7 @@ import yaml from "js-yaml";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -13,11 +14,14 @@ function fail(msg) {
 }
 
 function releaseFiles(directory) {
-  return fs.readdirSync(directory, { withFileTypes: true })
+  return fs
+    .readdirSync(directory, { withFileTypes: true })
     .flatMap((entry) => {
       const entryPath = path.join(directory, entry.name);
       if (entry.isDirectory()) {
-        return releaseFiles(entryPath).map((child) => path.join(entry.name, child));
+        return releaseFiles(entryPath).map((child) =>
+          path.join(entry.name, child),
+        );
       }
       return entry.isFile() ? [entry.name] : [];
     })
@@ -35,17 +39,26 @@ function validateCurrentSourceOfTruth() {
   }
 
   if (manifest.current_release !== "v1.1") {
-    fail(`Expected current_release v1.1, got ${JSON.stringify(manifest.current_release)}`);
+    fail(
+      `Expected current_release v1.1, got ${JSON.stringify(manifest.current_release)}`,
+    );
   }
 
   const releaseDirectory = path.resolve(root, manifest.release_directory || "");
   const releasesRoot = path.resolve(root, "data/source-of-truth/releases");
   if (!releaseDirectory.startsWith(`${releasesRoot}${path.sep}`)) {
-    fail("Manifest release_directory must be inside data/source-of-truth/releases");
+    fail(
+      "Manifest release_directory must be inside data/source-of-truth/releases",
+    );
     return;
   }
-  if (!fs.existsSync(releaseDirectory) || !fs.statSync(releaseDirectory).isDirectory()) {
-    fail(`Manifest release directory does not exist: ${manifest.release_directory}`);
+  if (
+    !fs.existsSync(releaseDirectory) ||
+    !fs.statSync(releaseDirectory).isDirectory()
+  ) {
+    fail(
+      `Manifest release directory does not exist: ${manifest.release_directory}`,
+    );
     return;
   }
   if (!Array.isArray(manifest.artifacts)) {
@@ -56,8 +69,13 @@ function validateCurrentSourceOfTruth() {
   const expectedPaths = new Set();
   for (const artifact of manifest.artifacts) {
     const artifactPath = path.resolve(root, artifact.path || "");
-    if (!artifact.path || !artifactPath.startsWith(`${releaseDirectory}${path.sep}`)) {
-      fail(`Manifest path must be inside declared release directory: ${artifact.path}`);
+    if (
+      !artifact.path ||
+      !artifactPath.startsWith(`${releaseDirectory}${path.sep}`)
+    ) {
+      fail(
+        `Manifest path must be inside declared release directory: ${artifact.path}`,
+      );
       continue;
     }
     if (expectedPaths.has(artifact.path)) {
@@ -83,8 +101,9 @@ function validateCurrentSourceOfTruth() {
     }
   }
 
-  const actualPaths = releaseFiles(releaseDirectory)
-    .map((file) => path.relative(root, path.join(releaseDirectory, file)));
+  const actualPaths = releaseFiles(releaseDirectory).map((file) =>
+    path.relative(root, path.join(releaseDirectory, file)),
+  );
   for (const actualPath of actualPaths) {
     if (!expectedPaths.has(actualPath)) {
       fail(`Undeclared release file: ${actualPath}`);
@@ -97,23 +116,78 @@ function validateCurrentSourceOfTruth() {
   }
 
   if (!process.exitCode) {
-    console.log(`Source-of-truth ${manifest.current_release}: ${actualPaths.length} artifacts verified.`);
+    console.log(
+      `Source-of-truth ${manifest.current_release}: ${actualPaths.length} artifacts verified.`,
+    );
   }
 }
 
 // Validate documents YAML
-const docsYaml = yaml.load(fs.readFileSync(path.join(root, "data/eudi-documents-map.yaml"), "utf8"));
+const require = createRequire(import.meta.url);
+const { types, statuses } = require("../src/_data/docTypes.js");
+const docsYaml = yaml.load(
+  fs.readFileSync(path.join(root, "data/eudi-documents-map.yaml"), "utf8"),
+);
 const docIds = new Set();
+// YYYY, YYYY-MM or YYYY-MM-DD, kept as a string (unquoted YAML dates become Date objects).
+const statusDatePattern = /^\d{4}(-(0[1-9]|1[0-2])(-(0[1-9]|[12]\d|3[01]))?)?$/;
 for (const doc of docsYaml.flat_documents) {
   if (docIds.has(doc.id)) {
     fail(`Duplicate document ID: ${doc.id}`);
   }
   docIds.add(doc.id);
 
-  const legalTypes = ["regulation", "implementing_regulation", "implementing_decision", "directive", "consolidated_regulation", "recommendation"];
-  if (legalTypes.includes(doc.type) && !doc.url) {
+  if (!types[doc.type]) {
+    fail(`Document ${doc.id} has unknown type ${JSON.stringify(doc.type)}`);
+  } else if (types[doc.type].stack === "legal" && !doc.url) {
     fail(`Legal document ${doc.id} missing official URL`);
   }
+  if (!statuses[doc.status]) {
+    fail(`Document ${doc.id} has unknown status ${JSON.stringify(doc.status)}`);
+  }
+  for (const pin of doc.pinned_versions || []) {
+    if (!pin.by || !pin.version || !/^https:\/\//.test(pin.source || "")) {
+      fail(
+        `Document ${doc.id} has a pinned version without by/version/https source`,
+      );
+    }
+  }
+  // status_date is optional (omitted when the publisher states no date) but must be well-formed.
+  if (
+    doc.status_date !== undefined &&
+    (typeof doc.status_date !== "string" ||
+      !statusDatePattern.test(doc.status_date))
+  ) {
+    fail(
+      `Document ${doc.id} status_date must be a quoted YYYY, YYYY-MM or YYYY-MM-DD string, got ${JSON.stringify(doc.status_date)}`,
+    );
+  }
+}
+
+function checkReferences(label, ids) {
+  for (const id of ids || []) {
+    if (!docIds.has(id)) fail(`${label} references unknown document ${id}`);
+  }
+}
+
+for (const group of docsYaml.logical_groups || []) {
+  for (const step of group.steps || [])
+    checkReferences(`Group ${group.group_slug}`, step.documents);
+}
+for (const route of docsYaml.recommended_reading_routes || []) {
+  checkReferences(`Route ${route.route_slug}`, route.documents);
+}
+for (const release of docsYaml.changelog || []) {
+  if (
+    typeof release.date !== "string" ||
+    !statusDatePattern.test(release.date)
+  ) {
+    fail(
+      `Changelog entry needs a quoted date, got ${JSON.stringify(release.date)}`,
+    );
+  }
+  checkReferences(`Changelog ${release.date} added`, release.added);
+  checkReferences(`Changelog ${release.date} updated`, release.updated);
 }
 
 validateCurrentSourceOfTruth();

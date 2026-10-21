@@ -1,0 +1,18 @@
+# Generated output and dependencies
+_site/
+node_modules/
+package-lock.json
+
+# Byte-pinned inputs: hashes are checked by tests, never reformat
+HITL/
+src/css/style.css
+src/assets/
+data/source-of-truth/
+
+# Governance files maintained by humans
+directives/
+HITL.md
+
+# Nunjucks templates: Prettier has no Nunjucks parser
+*.njk
+AGENTS.md

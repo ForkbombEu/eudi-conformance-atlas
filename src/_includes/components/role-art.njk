@@ -1,0 +1,95 @@
+{#
+  Role illustrations (large, home page) and line icons (small, role sidebar).
+  Decorative only: callers mark them aria-hidden and show the role name as text.
+  Colours come from theme tokens through classes in app.css.
+#}
+
+{% macro roleArt(key) %}
+<svg class="role-art" viewBox="0 0 240 150" aria-hidden="true" focusable="false">
+  <circle class="ra-blob" cx="120" cy="78" r="64"/>
+  {% if key == "wallet-builder" %}
+  <rect class="ra-card ra-card-back" x="132" y="34" width="70" height="44" rx="8" transform="rotate(14 167 56)"/>
+  <rect class="ra-card" x="124" y="48" width="70" height="44" rx="8" transform="rotate(6 159 70)"/>
+  <circle class="ra-accent-success" cx="140" cy="66" r="6"/>
+  <rect class="ra-line-fill" x="152" y="62" width="30" height="5" rx="2.5"/>
+  <rect class="ra-line-fill" x="152" y="72" width="20" height="5" rx="2.5"/>
+  <rect class="ra-device" x="78" y="22" width="62" height="112" rx="12"/>
+  <rect class="ra-screen" x="85" y="34" width="48" height="84" rx="5"/>
+  <rect class="ra-chip" x="92" y="44" width="34" height="22" rx="4"/>
+  <rect class="ra-line-fill" x="92" y="74" width="34" height="5" rx="2.5"/>
+  <rect class="ra-line-fill" x="92" y="84" width="24" height="5" rx="2.5"/>
+  <rect class="ra-button" x="92" y="98" width="34" height="11" rx="5.5"/>
+  <g class="ra-gear" transform="translate(62 108)">
+    <circle r="15"/>
+    <circle class="ra-gear-hole" r="5"/>
+  </g>
+  {% elif key == "issuer" %}
+  <path class="ra-roof" d="M44 58 L94 32 L144 58 Z"/>
+  <rect class="ra-device" x="50" y="58" width="88" height="8" rx="2"/>
+  <rect class="ra-column" x="58" y="70" width="12" height="44" rx="2"/>
+  <rect class="ra-column" x="88" y="70" width="12" height="44" rx="2"/>
+  <rect class="ra-column" x="118" y="70" width="12" height="44" rx="2"/>
+  <rect class="ra-device" x="44" y="114" width="100" height="10" rx="2"/>
+  <path class="ra-arrow" d="M148 80 C 164 70, 172 66, 184 62"/>
+  <path class="ra-arrow-head" d="M178 54 L188 61 L177 68"/>
+  <rect class="ra-card" x="160" y="84" width="58" height="38" rx="7" transform="rotate(-8 189 103)"/>
+  <circle class="ra-accent-warning" cx="174" cy="100" r="6"/>
+  <rect class="ra-line-fill" x="184" y="96" width="24" height="4" rx="2" transform="rotate(-8 196 98)"/>
+  <rect class="ra-line-fill" x="184" y="105" width="16" height="4" rx="2" transform="rotate(-8 192 107)"/>
+  {% elif key == "verifier" %}
+  <rect class="ra-device" x="52" y="30" width="112" height="76" rx="8"/>
+  <rect class="ra-screen" x="60" y="38" width="96" height="60" rx="4"/>
+  <path class="ra-device" d="M40 112 H176 L168 124 H48 Z"/>
+  <g class="ra-qr">
+    <rect x="72" y="46" width="14" height="14" rx="2"/><rect x="72" y="74" width="14" height="14" rx="2"/>
+    <rect x="98" y="46" width="14" height="14" rx="2"/><rect x="92" y="66" width="6" height="6"/>
+    <rect x="104" y="74" width="6" height="6"/><rect x="98" y="82" width="6" height="6"/>
+  </g>
+  <rect class="ra-line-fill" x="122" y="52" width="26" height="5" rx="2.5"/>
+  <rect class="ra-line-fill" x="122" y="62" width="18" height="5" rx="2.5"/>
+  <circle class="ra-badge-success" cx="172" cy="40" r="20"/>
+  <path class="ra-check" d="M162 40 L169 47 L182 33"/>
+  {% elif key == "member-state" %}
+  <circle class="ra-star" cx="174.0" cy="78.0" r="4.5"/>
+  <circle class="ra-star" cx="166.8" cy="105.0" r="4.5"/>
+  <circle class="ra-star" cx="147.0" cy="124.8" r="4.5"/>
+  <circle class="ra-star" cx="120.0" cy="132.0" r="4.5"/>
+  <circle class="ra-star" cx="93.0" cy="124.8" r="4.5"/>
+  <circle class="ra-star" cx="73.2" cy="105.0" r="4.5"/>
+  <circle class="ra-star" cx="66.0" cy="78.0" r="4.5"/>
+  <circle class="ra-star" cx="73.2" cy="51.0" r="4.5"/>
+  <circle class="ra-star" cx="93.0" cy="31.2" r="4.5"/>
+  <circle class="ra-star" cx="120.0" cy="24.0" r="4.5"/>
+  <circle class="ra-star" cx="147.0" cy="31.2" r="4.5"/>
+  <circle class="ra-star" cx="166.8" cy="51.0" r="4.5"/>
+  <rect class="ra-device" x="88" y="40" width="64" height="78" rx="6"/>
+  <rect class="ra-screen" x="94" y="48" width="52" height="62" rx="3"/>
+  <circle class="ra-accent-success" cx="102" cy="58" r="3.5"/><rect class="ra-line-fill" x="110" y="55.5" width="28" height="5" rx="2.5"/>
+  <circle class="ra-accent-success" cx="102" cy="72" r="3.5"/><rect class="ra-line-fill" x="110" y="69.5" width="22" height="5" rx="2.5"/>
+  <circle class="ra-accent-warning" cx="102" cy="86" r="3.5"/><rect class="ra-line-fill" x="110" y="83.5" width="26" height="5" rx="2.5"/>
+  <circle class="ra-accent-success" cx="102" cy="100" r="3.5"/><rect class="ra-line-fill" x="110" y="97.5" width="18" height="5" rx="2.5"/>
+  {% else %}
+  <rect class="ra-device" x="70" y="28" width="80" height="104" rx="8"/>
+  <rect class="ra-screen" x="78" y="40" width="64" height="84" rx="4"/>
+  <rect class="ra-clip" x="96" y="20" width="28" height="14" rx="4"/>
+  <path class="ra-check-small" d="M86 56 L90 60 L97 52"/><rect class="ra-line-fill" x="104" y="53" width="28" height="5" rx="2.5"/>
+  <path class="ra-check-small" d="M86 76 L90 80 L97 72"/><rect class="ra-line-fill" x="104" y="73" width="22" height="5" rx="2.5"/>
+  <path class="ra-check-small" d="M86 96 L90 100 L97 92"/><rect class="ra-line-fill" x="104" y="93" width="26" height="5" rx="2.5"/>
+  <circle class="ra-seal" cx="160" cy="104" r="22"/>
+  <circle class="ra-seal-inner" cx="160" cy="104" r="14"/>
+  <path class="ra-ribbon" d="M150 122 L146 140 L156 134 L160 142 L164 124"/>
+  {% endif %}
+</svg>
+{% endmacro %}
+
+{% macro roleIcon(key) %}
+<svg class="role-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  {% if key == "wallet-builder" %}<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M10 6h4"/><rect x="9" y="10" width="6" height="4" rx="1"/>
+  {% elif key == "issuer" %}<path d="M3 10 12 4l9 6"/><path d="M5 10v8M10 10v8M14 10v8M19 10v8"/><path d="M3 20h18"/>
+  {% elif key == "verifier" %}<path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2"/><path d="m8 12 3 3 5-6"/>
+  {% elif key == "member-state" %}<circle cx="12" cy="12" r="9"/><path d="M12 7v.01M17 12h.01M12 17v.01M7 12h.01M15.5 8.5h.01M15.5 15.5h.01M8.5 15.5h.01M8.5 8.5h.01"/>
+  {% elif key == "cab-nab" %}<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 2h6v4H9z"/><path d="m9 13 2 2 4-4"/>
+  {% else %}<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>
+  {% endif %}
+</svg>
+{% endmacro %}

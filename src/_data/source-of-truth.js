@@ -9,7 +9,12 @@ function manifestError(message) {
 }
 
 function loadCurrentManifest() {
-  const manifestPath = path.join(root, "data", "source-of-truth", "current.json");
+  const manifestPath = path.join(
+    root,
+    "data",
+    "source-of-truth",
+    "current.json",
+  );
   let manifest;
   try {
     manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
@@ -17,26 +22,40 @@ function loadCurrentManifest() {
     throw manifestError(`cannot parse current.json: ${error.message}`);
   }
 
-  if (!manifest.current_release || !manifest.release_directory || !Array.isArray(manifest.artifacts)) {
-    throw manifestError("current.json requires current_release, release_directory, and artifacts");
+  if (
+    !manifest.current_release ||
+    !manifest.release_directory ||
+    !Array.isArray(manifest.artifacts)
+  ) {
+    throw manifestError(
+      "current.json requires current_release, release_directory, and artifacts",
+    );
   }
 
   const releaseDirectory = path.resolve(root, manifest.release_directory);
   if (!releaseDirectory.startsWith(`${releasesRoot}${path.sep}`)) {
-    throw manifestError("release_directory must be inside data/source-of-truth/releases");
+    throw manifestError(
+      "release_directory must be inside data/source-of-truth/releases",
+    );
   }
-  if (!fs.existsSync(releaseDirectory) || !fs.statSync(releaseDirectory).isDirectory()) {
-    throw manifestError(`release directory is missing: ${manifest.release_directory}`);
+  if (
+    !fs.existsSync(releaseDirectory) ||
+    !fs.statSync(releaseDirectory).isDirectory()
+  ) {
+    throw manifestError(
+      `release directory is missing: ${manifest.release_directory}`,
+    );
   }
 
   return { manifest, manifestPath, releaseDirectory };
 }
 
 function resolveArtifact(loadedManifest, selector) {
-  const matches = loadedManifest.manifest.artifacts.filter((artifact) => (
-    (!selector.filename || artifact.filename === selector.filename)
-    && (!selector.media_type || artifact.media_type === selector.media_type)
-  ));
+  const matches = loadedManifest.manifest.artifacts.filter(
+    (artifact) =>
+      (!selector.filename || artifact.filename === selector.filename) &&
+      (!selector.media_type || artifact.media_type === selector.media_type),
+  );
   const description = selector.filename || selector.media_type || "requested";
   if (matches.length === 0) {
     throw manifestError(`missing ${description} artifact`);
@@ -47,8 +66,13 @@ function resolveArtifact(loadedManifest, selector) {
 
   const artifact = matches[0];
   const filePath = path.resolve(root, artifact.path || "");
-  if (!artifact.path || !filePath.startsWith(`${loadedManifest.releaseDirectory}${path.sep}`)) {
-    throw manifestError(`artifact path is outside current release: ${artifact.path}`);
+  if (
+    !artifact.path ||
+    !filePath.startsWith(`${loadedManifest.releaseDirectory}${path.sep}`)
+  ) {
+    throw manifestError(
+      `artifact path is outside current release: ${artifact.path}`,
+    );
   }
   if (!fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
     throw manifestError(`artifact is missing: ${artifact.path}`);

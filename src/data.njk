@@ -7,11 +7,11 @@ permalink: /data/
 {% from "components/section-header.njk" import sectionHeader %}
 {% from "components/source-badge.njk" import sourceBadge %}
 
-<section class="hero" style="padding: var(--space-8) 0;">
+<section class="hero page-hero">
   <div class="hero-inner">
     <p class="eyebrow">MACHINE-READABLE DATA</p>
-    <h1 style="font-size: var(--fs-2xl);">Data & Downloads</h1>
-    <p style="font-size: var(--fs-base);">Raw YAML and JSON files powering this site. Free to download, fork, and use under Apache-2.0.</p>
+    <h1>Data & Downloads</h1>
+    <p>Raw YAML and JSON files powering this site. Free to download, fork, and use under Apache-2.0.</p>
   </div>
 </section>
 
@@ -53,7 +53,7 @@ permalink: /data/
     <div class="card-grid card-grid-2 mb-8">
       <div class="card">
         <h4 style="font-size: var(--fs-md); font-weight: 700; margin-bottom: var(--space-2);">EUDI Documents Map</h4>
-        <p class="text-sm text-muted" style="margin-bottom: var(--space-3);">{{ documents.totalCount }} documents across {{ documents.layers | length }} layers. Version {{ documents.version }}.</p>
+        <p class="text-sm text-muted" style="margin-bottom: var(--space-3);">{{ documents.totalCount }} documents across {{ documents.stacks | length }} stack layers, each with adoption status. Version {{ documents.version }}{% if documents.latestRelease %}, reviewed {{ documents.latestRelease.date | statusDate }}{% endif %}.</p>
         <div style="display: flex; gap: var(--space-2);">
           <a href="{{ '/data/eudi-documents-map.yaml' | url }}" class="btn btn-outline btn-sm" download>Download YAML</a>
           <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/eudi-documents-map.yaml" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">View on GitHub</a>

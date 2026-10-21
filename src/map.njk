@@ -4,12 +4,13 @@ title: Map
 pageScript: tree.js
 ---
 {% from "components/search-box.njk" import searchBox %}
+{% from "components/credimi.njk" import credimiCta %}
 
-<section class="hero" style="padding: var(--space-8) 0;">
+<section class="hero page-hero">
   <div class="hero-inner">
-    <p class="eyebrow">INTERACTIVE MAP</p>
-    <h1 style="font-size: var(--fs-2xl);">EUDI Document Map</h1>
-    <p style="font-size: var(--fs-base);">Browse the full EUDI stack — from legal foundations to protocol specs. Use <strong>Role</strong> to highlight documents for your role.</p>
+    <p class="eyebrow">Interactive map</p>
+    <h1>EUDI Document Map</h1>
+    <p>Browse the full EUDI stack — from legal foundations to protocol specs — by task. Use <strong>Role</strong> to highlight documents for your role.</p>
   </div>
 </section>
 
@@ -19,86 +20,71 @@ pageScript: tree.js
       <strong>Disclaimer:</strong> Unofficial navigation resource. Official sources always prevail.
     </div>
 
-    <!-- Layer overview (collapsible) -->
-    <div style="margin-bottom: var(--space-6);">
-      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom: var(--space-3);">
-        <h2 style="font-size:var(--fs-lg); font-weight:700;">Stack layers</h2>
-        <button id="toggle-layers-btn" class="btn btn-outline btn-sm">Show layers ▾</button>
-      </div>
-      <div id="layer-panel" style="display:none;">
-        <div class="layer-stack" id="layer-stack">
-          {% for layer in documents.layers %}
-          {% set layerCount = 0 %}
-          {% for doc in documents.documents %}{% if doc.layer == layer.key %}{% set layerCount = layerCount + 1 %}{% endif %}{% endfor %}
-          <div class="layer-row" data-layer="{{ layer.key }}">
-            <div class="layer-row-header" role="button" tabindex="0">
-              <span class="layer-row-arrow">▶</span>
-              <span class="badge {{ layer.color }}">{{ layer.label }}</span>
-              <span class="layer-row-desc">{{ layer.description }}</span>
-              <span class="layer-row-count">{{ layerCount }}</span>
-            </div>
-            <div class="layer-row-body">
-              <div class="layer-doc-grid">
-                {% for doc in documents.documents %}
-                {% if doc.layer == layer.key %}
-                <a href="{{ ('/documents/' + doc.id + '/') | url }}"
-                   class="layer-doc-chip highlightable"
-                   data-doc-id="{{ doc.id }}"
-                   data-layer="{{ doc.layer }}"
-                   title="{{ doc.name }}">
-                  <span class="font-mono" style="font-size:10px;color:var(--fg-muted);">{{ doc.id }}</span>
-                  <span style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ doc.name | truncate(38) }}</span>
-                </a>
-                {% endif %}
-                {% endfor %}
-              </div>
+    <details class="map-layers">
+      <summary class="btn btn-outline btn-sm">Stack layers</summary>
+      <div class="layer-stack" id="layer-stack">
+        {% for stack in documents.stacks %}
+        <div class="layer-row" data-layer="{{ stack.key }}">
+          <div class="layer-row-header" role="button" tabindex="0" aria-expanded="false">
+            <span class="layer-row-arrow" aria-hidden="true">▶</span>
+            <span class="badge {{ stack.badge }}">{{ stack.label }}</span>
+            <span class="layer-row-desc">{{ stack.description }}</span>
+            <span class="layer-row-count">{{ stack.count }}</span>
+          </div>
+          <div class="layer-row-body">
+            <div class="layer-doc-grid">
+              {% for doc in stack.docs %}
+              <a href="{{ ('/documents/' + doc.id + '/') | url }}"
+                 class="layer-doc-chip highlightable"
+                 data-doc-id="{{ doc.id }}"
+                 data-layer="{{ doc.layer }}"
+                 title="{{ doc.name }} — {{ doc.statusLabel }}">
+                <span aria-hidden="true">{{ doc.statusGlyph }}</span>
+                <span class="font-mono">{{ doc.id }}</span>
+              </a>
+              {% endfor %}
             </div>
           </div>
-          {% if not loop.last %}<div class="layer-connector">↓</div>{% endif %}
-          {% endfor %}
         </div>
+        {% if not loop.last %}<div class="layer-connector" aria-hidden="true">↓</div>{% endif %}
+        {% endfor %}
       </div>
-    </div>
+    </details>
 
-    <!-- Document tree (primary view) -->
-    <div class ="tree-layout">
+    <div class="tree-layout">
       <div>
-        <div style="margin-bottom: var(--space-4);">
+        <div class="mb-4">
           {{ searchBox("tree-search", "Filter tree…") }}
         </div>
         <div class="tree-container" id="tree-container" data-path-prefix="{{ '/' | url }}"></div>
       </div>
-	  <div id="tree-side-panel" class="tree-side-panel" style="display:none;">
+      <div id="tree-side-panel" class="tree-side-panel" hidden>
         <button id="tree-panel-close" class="tree-panel-close" aria-label="Close">✕</button>
         <div class="card" id="tree-detail-card"></div>
       </div>
     </div>
 
-    <div style="margin-top: var(--space-4); text-align: center;">
+    <div class="home-section">
+      {{ credimiCta("From map to measurable conformance.", "Issuance, presentation and trust-check steps on this map can be exercised against real Wallets, Issuers and Verifiers with Credimi's automated pipelines.") }}
+    </div>
+
+    <div class="page-end">
       <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/src/map.njk" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
     </div>
   </div>
 </div>
 
 <script id="tree-data" type="application/json">
-{{ documents | toJson | safe }}
+{{ { groups: documents.groups, byId: documents.byId, types: documents.types } | toJson | safe }}
 </script>
 
 <script>
 (function() {
-  // Layer panel toggle
-  var toggleBtn = document.getElementById('toggle-layers-btn');
-  var panel = document.getElementById('layer-panel');
-  if (toggleBtn && panel) {
-    toggleBtn.addEventListener('click', function() {
-      var open = panel.style.display !== 'none';
-      panel.style.display = open ? 'none' : 'block';
-      toggleBtn.textContent = open ? 'Show layers ▾' : 'Hide layers ▴';
-    });
-  }
-  // Layer row expand/collapse
   document.querySelectorAll('.layer-row-header').forEach(function(h) {
-    function toggle() { h.closest('.layer-row').classList.toggle('expanded'); }
+    function toggle() {
+      var expanded = h.closest('.layer-row').classList.toggle('expanded');
+      h.setAttribute('aria-expanded', String(expanded));
+    }
     h.addEventListener('click', toggle);
     h.addEventListener('keydown', function(e) { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); toggle(); } });
   });

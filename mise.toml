@@ -1,3 +1,34 @@
 [tools]
 node = "latest"
-task = "latest"
+
+[tasks.install]
+description = "Install dependencies"
+run = "npm ci"
+
+[tasks.build]
+description = "Build the static site into _site/"
+run = "npm run build"
+
+[tasks.test]
+description = "Validate data, evidence and design assets"
+run = "npm test"
+
+[tasks.lint]
+description = "Run all linters, including the formatting check"
+depends = ["fmt:check", "lint:design"]
+
+[tasks."lint:design"]
+description = "Lint DESIGN.md when present"
+run = "if [ -f DESIGN.md ]; then npx --yes @google/design.md lint DESIGN.md; fi"
+
+[tasks.fmt]
+description = "Format sources with Prettier (see .prettierignore)"
+run = "npx prettier --write ."
+
+[tasks."fmt:check"]
+description = "Fail if any source is not Prettier-formatted"
+run = "npx prettier --check ."
+
+[tasks.dev]
+description = "Serve on http://localhost:8080 with live reload"
+run = "npx @11ty/eleventy --serve --port 8080"

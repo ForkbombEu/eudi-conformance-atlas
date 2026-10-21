@@ -1,0 +1,88 @@
+{#
+  Build-time SVG visuals. Each one has a text equivalent next to it (legend,
+  table or list) so nothing depends on the graphic or on colour alone.
+#}
+
+{% macro radarChart(radar, linkDots=true) %}
+<figure class="radar-figure">
+  <svg class="radar-svg" viewBox="0 0 {{ radar.size }} {{ radar.size }}" role="img" aria-labelledby="radar-svg-title radar-svg-desc">
+    <title id="radar-svg-title">EUDI rulebook radar</title>
+    <desc id="radar-svg-desc">{{ radar.plotted }} documents. Quarters are stack layers; the inner ring holds documents in force, published or final, the middle ring drafts and work in development, the outer ring legislative proposals.</desc>
+    {% for sector in radar.sectors %}
+    <path class="radar-sector radar-sector-{{ loop.index0 }}" d="{{ sector.path }}"/>
+    {% endfor %}
+    {% for ring in radar.rings | reverse %}
+    <circle class="radar-ring radar-ring-{{ ring.key }}" cx="{{ radar.c }}" cy="{{ radar.c }}" r="{{ ring.r1 }}"/>
+    {% endfor %}
+    <line class="radar-axis" x1="{{ radar.c - 306 }}" y1="{{ radar.c }}" x2="{{ radar.c + 306 }}" y2="{{ radar.c }}"/>
+    <line class="radar-axis" x1="{{ radar.c }}" y1="{{ radar.c - 306 }}" x2="{{ radar.c }}" y2="{{ radar.c + 306 }}"/>
+    {% for ring in radar.rings %}
+    <text class="radar-ring-label" x="{{ ring.labelX }}" y="{{ radar.c + 4 }}" text-anchor="middle">{{ ring.label | replace(" · published · final", "") | replace(" · in development", "") }}</text>
+    {% endfor %}
+    {% for sector in radar.sectors %}
+    <text class="radar-sector-label" x="{{ sector.labelX }}" y="{{ sector.labelY }}" text-anchor="{{ sector.anchor }}">{{ sector.label }}<tspan class="radar-sector-count" x="{{ sector.labelX }}" dy="22">{{ sector.count }} documents</tspan></text>
+    {% endfor %}
+    {% for dot in radar.dots %}
+    {% if linkDots %}<a href="{{ ('/documents/' + dot.id + '/') | url }}" class="radar-dot-link">{% endif %}
+      <circle class="radar-dot tone-dot-{{ dot.tone }}{% if dot.change %} radar-dot-{{ dot.change }}{% endif %}" cx="{{ dot.x }}" cy="{{ dot.y }}" r="{{ 8 if dot.change == 'new' else 6.5 }}">
+        <title>{{ dot.name }} — {{ dot.statusLabel }}{% if dot.date %}, {{ dot.date | statusDate }}{% endif %}{% if dot.change %} ({{ dot.change }} in this edition){% endif %}</title>
+      </circle>
+    {% if linkDots %}</a>{% endif %}
+    {% endfor %}
+  </svg>
+  <figcaption class="radar-legend">
+    <span><span class="legend-dot tone-dot-success" aria-hidden="true"></span>In force / published / final</span>
+    <span><span class="legend-dot tone-dot-info" aria-hidden="true"></span>Adopted</span>
+    <span><span class="legend-dot tone-dot-warning" aria-hidden="true"></span>Draft / in development</span>
+    <span><span class="legend-dot tone-dot-proposal" aria-hidden="true"></span>Proposal</span>
+    <span><span class="legend-dot legend-dot-new" aria-hidden="true"></span>Ringed = new in this edition</span>
+  </figcaption>
+</figure>
+{% endmacro %}
+
+{% macro ecosystemWeb(ecosystem, total) %}
+<figure class="eco-figure">
+  <svg class="eco-svg" viewBox="0 0 800 560" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="eco-title eco-desc">
+    <title id="eco-title">Who writes the EUDI rulebook</title>
+    <desc id="eco-desc">{{ ecosystem.publishers.length }} publishing bodies produce {{ total }} documents that apply to four ecosystem actors through {{ ecosystem.linkCount }} relationships.</desc>
+    <g class="eco-links">
+      {% for p in ecosystem.publishers %}{% for l in p.links %}
+      <path class="eco-link eco-link-{{ p.key }}" d="M{{ p.x }},{{ p.y }} Q{{ l.cx }},{{ l.cy }} {{ l.x }},{{ l.y }}"/>
+      {% endfor %}{% endfor %}
+    </g>
+    <path class="eco-core-link" d="M400,200 L545,280 L400,360 L255,280 Z"/>
+    {% for a in ecosystem.actors %}
+    <g class="eco-actor">
+      <rect x="{{ a.x - 92 }}" y="{{ a.y - 18 }}" width="184" height="36" rx="18"/>
+      <text x="{{ a.x }}" y="{{ a.y + 5 }}" text-anchor="middle">{{ a.label }}</text>
+    </g>
+    {% endfor %}
+    {% for p in ecosystem.publishers %}
+    <g class="eco-publisher">
+      <circle cx="{{ p.x }}" cy="{{ p.y }}" r="{{ p.r }}"/>
+      <text class="eco-count" x="{{ p.x }}" y="{{ p.y + 4 }}" text-anchor="middle">{{ p.count }}</text>
+      <text class="eco-label" x="{{ p.x + (p.r + 8 if p.anchor == 'start' else (-(p.r + 8) if p.anchor == 'end' else 0)) }}" y="{{ p.y + (5 if p.anchor != 'middle' else (-(p.r + 8) if p.y < 280 else p.r + 18)) }}" text-anchor="{{ p.anchor }}">{{ p.label }}</text>
+    </g>
+    {% endfor %}
+  </svg>
+</figure>
+{% endmacro %}
+
+{% macro momentumChart(momentum, stacks) %}
+<figure class="momentum-figure">
+  <div class="momentum-bars" role="img" aria-label="Documents by date of their latest status change, per half-year">
+    {% for bar in momentum.bars %}
+    <div class="momentum-col">
+      <span class="momentum-total">{{ bar.total }}</span>
+      <div class="momentum-stack" style="--h: {{ (bar.total / momentum.max * 100) | round(1) }}%">
+        {% for seg in bar.segments %}{% if seg.count %}<span class="momentum-seg momentum-seg-{{ seg.key }}" style="--share: {{ seg.count }}" title="{{ seg.label }}: {{ seg.count }}"></span>{% endif %}{% endfor %}
+      </div>
+      <span class="momentum-label">{{ bar.label }}</span>
+    </div>
+    {% endfor %}
+  </div>
+  <figcaption class="radar-legend">
+    {% for stack in stacks %}<span><span class="legend-swatch momentum-seg-{{ stack.key }}" aria-hidden="true"></span>{{ stack.label }}</span>{% endfor %}
+  </figcaption>
+</figure>
+{% endmacro %}

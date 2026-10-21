@@ -1,18 +1,21 @@
 ---
 layout: base.njk
 title: Reference
-description: Unified searchable catalogue of all EUDI documents — EU law, ETSI standards, OpenID specs.
+description: Unified searchable catalogue of all EUDI documents — EU law, EC specifications, ETSI/CEN/ISO standards and OpenID/IETF/W3C specs — with adoption status.
 pageScript: search.js
 ---
-{% from "components/section-header.njk" import sectionHeader %}
 {% from "components/search-box.njk" import searchBox %}
 {% from "components/document-card.njk" import documentCard %}
+{% from "components/credimi.njk" import credimiCta %}
 
-<section class="hero" style="padding: var(--space-8) 0;">
+<section class="hero page-hero">
   <div class="hero-inner">
-    <p class="eyebrow">UNIFIED CATALOGUE</p>
-    <h1 style="font-size: var(--fs-2xl);">Reference</h1>
-    <p style="font-size: var(--fs-base);">All {{ documents.totalCount }} documents — EU Regulations, Implementing Acts, ARF, ETSI standards, and OpenID/ISO specs. Filter by layer or download raw data.</p>
+    <p class="eyebrow">Unified catalogue</p>
+    <h1>Reference</h1>
+    <p>All {{ documents.totalCount }} documents — EU law, EC technical specifications, standards and protocols. Filter by layer, adoption status or type.</p>
+    <div class="page-hero-meta">
+      {% for s in documents.statusSummary %}<span class="status-pill tone-{{ s.tone }}">{{ s.glyph }} {{ s.count }} {{ s.label | lower }}</span>{% endfor %}
+    </div>
   </div>
 </section>
 
@@ -22,85 +25,66 @@ pageScript: search.js
       <strong>Disclaimer:</strong> Unofficial navigation resource. Always refer to EUR-Lex and official repositories for authoritative texts.
     </div>
 
-    <div style="margin-bottom: var(--space-6); display:flex; gap: var(--space-4); align-items: flex-start; flex-wrap: wrap;">
-      <div style="flex:1; min-width: 260px;">
-        {{ searchBox("doc-search", "Find documents by name, ID, or summary…") }}
-      </div>
-      <div style="display:flex; gap: var(--space-2); flex-shrink:0;">
+    <div class="ref-toolbar">
+      {{ searchBox("doc-search", "Find documents by name, ID, or summary…", "q") }}
+      <div class="ref-toolbar-actions">
         <a href="{{ '/data/eudi-documents-map.yaml' | url }}" class="btn btn-outline btn-sm" download>↓ YAML</a>
         <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/eudi-documents-map.yaml" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">GitHub →</a>
       </div>
     </div>
 
-    <!-- Layer tabs -->
-    <div class="ref-source-tabs" id="layer-tabs">
-      <button class="ref-source-tab active" data-layer="all">All <span class="count-chip">{{ documents.totalCount }}</span></button>
-      {% for layer in documents.layers %}
-      {% set layerCount = 0 %}
-      {% for doc in documents.documents %}{% if doc.layer == layer.key %}{% set layerCount = layerCount + 1 %}{% endif %}{% endfor %}
-      <button class="ref-source-tab" data-layer="{{ layer.key }}">{{ layer.label }} <span class="count-chip">{{ layerCount }}</span></button>
+    <div class="ref-source-tabs" id="stack-tabs" role="tablist" aria-label="Stack layer">
+      <button class="ref-source-tab active" data-stack="all" role="tab" aria-selected="true">All <span class="count-chip">{{ documents.totalCount }}</span></button>
+      {% for stack in documents.stacks %}
+      <button class="ref-source-tab" data-stack="{{ stack.key }}" role="tab" aria-selected="false">{{ stack.label }} <span class="count-chip">{{ stack.count }}</span></button>
       {% endfor %}
     </div>
 
-    <!-- Type filter bar -->
-    {% set docFilters = [
-      { key: "type", value: "regulation", label: "Regulation" },
-      { key: "type", value: "implementing_regulation", label: "Implementing Regulation" },
-      { key: "type", value: "implementing_decision", label: "Implementing Decision" },
-      { key: "type", value: "directive", label: "Directive" },
-      { key: "type", value: "architecture_reference_framework", label: "ARF" },
-      { key: "type", value: "project_working_documentation", label: "WE BUILD" },
-      { key: "type", value: "etsi_standard", label: "ETSI Standard" },
-      { key: "type", value: "openid_spec", label: "OpenID/OAuth" },
-      { key: "type", value: "iso_standard", label: "ISO Standard" }
-    ] %}
-    {% from "components/filter-bar.njk" import filterBar %}
-    {{ filterBar("type-filter", docFilters) }}
+    <div class="filter-group">
+      <span class="filter-group-label" id="status-filter-label">Status</span>
+      <div class="filter-bar" id="status-filter" role="group" aria-labelledby="status-filter-label">
+        {% for s in documents.statusSummary %}
+        <button class="filter-chip" data-filter="status" data-value="{{ s.key }}" aria-pressed="false">{{ s.glyph }} {{ s.label }}</button>
+        {% endfor %}
+        <button class="filter-chip" data-filter="change" data-value="changed" aria-pressed="false">✚ New or updated</button>
+        <button class="filter-chip" data-filter="essential" data-value="yes" aria-pressed="false">★ ARF essential</button>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-group-label" id="type-filter-label">Type</span>
+      <div class="filter-bar" id="type-filter" role="group" aria-labelledby="type-filter-label">
+        {% for typeKey, count in documents.typeCounts %}
+        <button class="filter-chip" data-filter="type" data-value="{{ typeKey }}" aria-pressed="false">{{ typeKey | sourceTypeLabel }} · {{ count }}</button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <p class="ref-results" id="ref-results" aria-live="polite">Showing {{ documents.totalCount }} documents</p>
 
     <div class="card-grid card-grid-2" id="doc-list">
       {% for doc in documents.documents %}
       <div class="doc-item highlightable"
            data-type="{{ doc.type }}"
+           data-stack="{{ doc.stack }}"
+           data-status="{{ doc.status }}"
+           data-change="{{ 'changed' if doc.releaseChange else '' }}"
+           data-essential="{{ 'yes' if doc.arf_essential_for else '' }}"
            data-layer="{{ doc.layer }}"
-           data-id="{{ doc.id }}"
            data-doc-id="{{ doc.id }}"
-           data-name="{{ doc.name }}"
-           data-summary="{{ doc.summary or '' }}">
+           data-search="{{ doc.id }} {{ doc.name }} {{ doc.summary or '' }} {{ doc.typeLabel }} {{ doc.statusLabel }}">
         {{ documentCard(doc) }}
       </div>
       {% endfor %}
     </div>
+    <p class="empty-state" id="doc-empty" hidden>No documents match these filters. Clear a filter or try another search term.</p>
 
-    <div style="margin-top: var(--space-4); text-align: center;">
+    <div class="home-section">
+      {{ credimiCta("Turn these references into a test plan.", "Credimi runs automated conformance and interoperability pipelines against real Wallets, Issuers and Verifiers, so the requirements you filter here can become evidence for your implementation.") }}
+    </div>
+
+    <div class="page-end">
       <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/src/reference.njk" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
     </div>
   </div>
 </div>
-
-<script>
-// Layer tab switching
-(function() {
-  var tabs = document.querySelectorAll('.ref-source-tab');
-  var items = document.querySelectorAll('.doc-item');
-  tabs.forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      tabs.forEach(function(t) { t.classList.remove('active'); });
-      tab.classList.add('active');
-      var layer = tab.dataset.layer;
-      items.forEach(function(item) {
-        item.style.display = (layer === 'all' || item.dataset.layer === layer) ? '' : 'none';
-      });
-    });
-  });
-
-  // Pre-select role from URL param
-  var params = new URLSearchParams(window.location.search);
-  var role = params.get('role');
-  if (role) {
-    setTimeout(function() {
-      var roleBtn = document.querySelector('.role-btn[data-role="' + role + '"]');
-      if (roleBtn) roleBtn.click();
-    }, 100);
-  }
-})();
-</script>

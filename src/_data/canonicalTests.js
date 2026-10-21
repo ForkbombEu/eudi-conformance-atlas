@@ -17,19 +17,26 @@ function strengthKey(strength) {
     "conditional evidence": "conditional",
     "requires external testing": "external",
   };
-  if (!keys[strength]) throw new Error(`Unknown test evidence strength: ${strength}`);
+  if (!keys[strength])
+    throw new Error(`Unknown test evidence strength: ${strength}`);
   return keys[strength];
 }
 
 function parseReferences(source) {
-  return [...source.matchAll(/\[([^\]]+)\]\([^)]*\)/g)].map((match) => match[1]);
+  return [...source.matchAll(/\[([^\]]+)\]\([^)]*\)/g)].map(
+    (match) => match[1],
+  );
 }
 
 function parseFlatTestList(markdown) {
-  const tests = markdown.split(/\r?\n/)
+  const tests = markdown
+    .split(/\r?\n/)
     .filter((line) => /^\| \d+ \|/.test(line))
     .map((line) => {
-      const cells = line.split("|").slice(1, -1).map((cell) => cell.trim());
+      const cells = line
+        .split("|")
+        .slice(1, -1)
+        .map((cell) => cell.trim());
       if (cells.length !== 7) {
         throw new Error(`Malformed canonical flat-test-list row: ${line}`);
       }
@@ -48,8 +55,15 @@ function parseFlatTestList(markdown) {
     });
 
   const ids = new Set(tests.map((test) => test.id));
-  if (tests.length !== 189 || ids.size !== 189 || ids.has(170) || !ids.has(190)) {
-    throw new Error("Canonical flat-test-list must contain 189 unique tests with ID 170 absent and ID 190 present");
+  if (
+    tests.length !== 189 ||
+    ids.size !== 189 ||
+    ids.has(170) ||
+    !ids.has(190)
+  ) {
+    throw new Error(
+      "Canonical flat-test-list must contain 189 unique tests with ID 170 absent and ID 190 present",
+    );
   }
   return tests;
 }
@@ -60,8 +74,10 @@ module.exports = function () {
     filename: "credimi-flat-conformance-test-list-v1.1.md",
   });
   const tests = parseFlatTestList(fs.readFileSync(artifact.filePath, "utf8"));
-  const count = (key) => tests.filter((test) => test.strengthKey === key).length;
-  const countActor = (key) => tests.filter((test) => test.actorKey === key).length;
+  const count = (key) =>
+    tests.filter((test) => test.strengthKey === key).length;
+  const countActor = (key) =>
+    tests.filter((test) => test.actorKey === key).length;
 
   return {
     tests,
@@ -71,8 +87,16 @@ module.exports = function () {
     externalCount: count("external"),
     sourcePath: artifact.path,
     chartByActor: {
-      labels: ["Wallet", "Issuer", "Verifier / RP", "Trust Infra", "External / CAB"],
-      values: ["wallet", "issuer", "verifier", "trust", "external"].map(countActor),
+      labels: [
+        "Wallet",
+        "Issuer",
+        "Verifier / RP",
+        "Trust Infra",
+        "External / CAB",
+      ],
+      values: ["wallet", "issuer", "verifier", "trust", "external"].map(
+        countActor,
+      ),
     },
   };
 };

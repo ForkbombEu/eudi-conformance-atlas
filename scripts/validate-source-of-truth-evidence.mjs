@@ -15,7 +15,9 @@ const loadedManifest = loadCurrentManifest();
 const registry = resolveArtifact(loadedManifest, {
   filename: "credimi-conformance-evidence-registry-v1.1.yaml",
 });
-if (!registry.filePath.startsWith(`${loadedManifest.releaseDirectory}${path.sep}`)) {
+if (
+  !registry.filePath.startsWith(`${loadedManifest.releaseDirectory}${path.sep}`)
+) {
   fail("resolved registry is outside current release directory");
 }
 
@@ -37,7 +39,9 @@ const addedSlugs = [
 ];
 
 if (evidence.registryVersion !== "1.1") {
-  fail(`expected registry version 1.1, got ${JSON.stringify(evidence.registryVersion)}`);
+  fail(
+    `expected registry version 1.1, got ${JSON.stringify(evidence.registryVersion)}`,
+  );
 }
 if (evidence.profiles.length !== 10) {
   fail(`expected 10 profiles, got ${evidence.profiles.length}`);
@@ -54,7 +58,10 @@ for (const slug of addedSlugs) {
   }
 }
 
-const withoutRegistry = { ...loadedManifest, manifest: { ...loadedManifest.manifest, artifacts: [] } };
+const withoutRegistry = {
+  ...loadedManifest,
+  manifest: { ...loadedManifest.manifest, artifacts: [] },
+};
 try {
   resolveArtifact(withoutRegistry, { filename: registry.filename });
   fail("missing artifact did not fail");
@@ -73,4 +80,6 @@ try {
   if (!error.message.includes("ambiguous")) throw error;
 }
 
-console.log(`Evidence registry ${evidence.registryVersion}: ${evidence.profiles.length} profiles, ${evidence.totalCount} claims verified.`);
+console.log(
+  `Evidence registry ${evidence.registryVersion}: ${evidence.profiles.length} profiles, ${evidence.totalCount} claims verified.`,
+);
