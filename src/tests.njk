@@ -4,6 +4,7 @@ title: Test Coverage
 description: Community inventory of EUDI conformance tests across Wallet, Issuer, Verifier, and Trust Infrastructure.
 ---
 {% from "components/credimi.njk" import credimiCta, credimiPromo %}
+{% from "components/breadcrumbs.njk" import breadcrumbs %}
 
 <section class="hero page-hero">
   <div class="hero-inner">
@@ -15,6 +16,7 @@ description: Community inventory of EUDI conformance tests across Wallet, Issuer
 
 <div class="page-content">
   <div class="container">
+    {{ breadcrumbs([{label:"Home", url:"/"}, {label:"Test Coverage", url:"/tests/"}]) }}
     <div class="disclaimer">
       <strong>Disclaimer:</strong> Tests are not official requirement identifiers. This inventory does not certify or prove compliance. Maintained by the community; evidence claims use language like "maps to" and "supports" — not "certifies". Original source data by <strong>Credimi</strong>.
     </div>

@@ -1,0 +1,15 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{% for item in collections.all %}
+{%- if item.data.page.outputPath and item.data.page.outputPath.endsWith('.html') and item.data.page.url and not (item.data.page.url.endsWith('/documents/') or item.data.page.url.endsWith('/evidence/')) %}
+  <url>
+    <loc>{{ site.url }}{{ item.data.page.url }}</loc>
+    {% if documents.latestRelease %}<lastmod>{{ documents.latestRelease.date }}</lastmod>{% endif %}
+  </url>
+{%- endif %}
+{% endfor %}
+</urlset>

@@ -11,6 +11,7 @@ eleventyComputed:
   description: "{{ doc.summary }}"
 ---
 {% from "components/credimi.njk" import credimiCta %}
+{% from "components/breadcrumbs.njk" import breadcrumbs %}
 
 <section class="hero page-hero">
   <div class="hero-inner">
@@ -27,6 +28,8 @@ eleventyComputed:
 
 <div class="page-content">
   <div class="container">
+    {{ breadcrumbs([{label:"Home", url:"/"}, {label:"Reference", url:"/reference/"}, {label: doc.name, url:"/documents/" + doc.id + "/"}]) }}
+
     <div class="disclaimer">
       <strong>Disclaimer:</strong> Official sources always prevail. Always refer to EUR-Lex and the publishing body for authoritative texts.
     </div>
@@ -93,6 +96,31 @@ eleventyComputed:
           </div>
         </div>
         {% endif %}
+
+        {% set docTopics = glossary.docTerms[doc.id] %}
+        {% if docTopics and docTopics.length > 0 %}
+        <div class="detail-section">
+          <h3>Glossary topics</h3>
+          <div class="chip-row">
+            {% for t in docTopics %}
+            <a href="{{ ('/glossary/' | url) }}#{{ t.slug }}" class="badge badge-neutral">{{ t.term }}</a>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="detail-section">
+          <h3>More {{ doc.typeLabel }} documents</h3>
+          <ul class="related-list">
+            {% set shown = 0 %}
+            {% for d in documents.documents %}
+            {% if d.type == doc.type and d.id != doc.id and shown < 5 %}
+            {% set shown = shown + 1 %}
+            <li><a href="{{ ('/documents/' + d.id + '/') | url }}">{{ d.name }}</a> <span class="status-pill tone-{{ d.statusTone }}">{{ d.statusGlyph }} {{ d.statusLabel }}</span></li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
       </div>
 
       <aside class="detail-aside">

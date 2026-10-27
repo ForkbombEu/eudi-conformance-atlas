@@ -4,6 +4,7 @@ title: Glossary
 description: EUDI Wallet glossary — every term counts how many atlas documents mention it, split by stack layer, and links to the documents themselves.
 ---
 {% from "components/credimi.njk" import credimiCta %}
+{% from "components/breadcrumbs.njk" import breadcrumbs %}
 
 <section class="hero page-hero">
   <div class="hero-inner">
@@ -20,6 +21,7 @@ description: EUDI Wallet glossary — every term counts how many atlas documents
 
 <div class="page-content">
   <div class="container">
+    {{ breadcrumbs([{label:"Home", url:"/"}, {label:"Glossary", url:"/glossary/"}]) }}
     <div class="disclaimer">
       <strong>Disclaimer:</strong> Glossary definitions are plain-language summaries for navigation, not legal text. Official sources always prevail.
     </div>
