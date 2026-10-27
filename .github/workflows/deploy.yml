@@ -38,6 +38,7 @@ jobs:
         run: npm run build
         env:
           PATH_PREFIX: ${{ steps.pages.outputs.base_path || '/' }}
+          SITE_URL: ${{ steps.pages.outputs.base_url || 'https://forkbombeu.github.io' }}
 
       - uses: actions/upload-pages-artifact@v3
         with:

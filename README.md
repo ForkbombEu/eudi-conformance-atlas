@@ -12,6 +12,7 @@ The site is built with Eleventy and Nunjucks. Its canonical data selection is ma
 
 - `data/eudi-documents-map.yaml`: documents with `status`, quoted `status_date`, optional `status_note`, `pinned_versions` and `arf_essential_for`. The top-level `changelog` lists the documents added and updated in each review.
 - `src/_data/docTypes.js`: the single list of document types, stack layers and statuses. It is used by templates, filters, the map tree and `scripts/validate-data.mjs`.
+- `src/feed.xml.njk`: an Atom feed at `/feed.xml` generated from `changelog`. Each review becomes one entry with its executive summary plus the linked new/updated documents; the site origin comes from `SITE_URL` (defaults to the GitHub Pages URL).
 
 ## HOW to run
 
