@@ -1,0 +1,46 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <title>EUDI Trust &amp; Conformance Atlas — rulebook updates</title>
+  <subtitle>New and updated EUDI Wallet law, implementing acts, specifications and standards, with executive summaries and links to the atlas and Credimi.</subtitle>
+  <id>tag:eudi-conformance-atlas,2026:feed</id>
+  <link rel="self" type="application/atom+xml" href="{{ '/feed.xml' | url }}"/>
+  <link rel="alternate" type="text/html" href="{{ '/' | url }}"/>
+  <updated>{% if documents.changelog.length %}{{ documents.changelog[0].date | atomDate }}{% endif %}</updated>
+  <author>
+    <name>ForkbombEu</name>
+  </author>
+  <generator uri="https://www.11ty.dev/">Eleventy</generator>
+{% for release in documents.changelog %}
+  <entry>
+    <title>Rulebook update — {{ release.date | statusDate }} ({{ (release.added or []) | length }} new, {{ (release.updated or []) | length }} updated)</title>
+    <id>tag:eudi-conformance-atlas,{{ release.date }}:rulebook</id>
+    <updated>{{ release.date | atomDate }}</updated>
+    <link rel="alternate" type="text/html" href="{{ '/radar/' | url }}"/>
+    <summary>{{ release.summary | xml }}</summary>
+    <content type="html"><![CDATA[
+<p><strong>{{ (release.added or []) | length }} new, {{ (release.updated or []) | length }} updated.</strong> {{ release.summary | xml }}</p>
+{% if release.added %}
+<h3>New documents</h3>
+<ul>
+{% for id in release.added %}{% set doc = documents.byId[id] %}
+  <li><a href="{{ ('/documents/' + doc.id + '/') | url }}">{{ doc.name | xml }}</a> — {{ doc.statusLabel | xml }}{% if doc.status_note %}. {{ doc.status_note | truncate(180) | xml }}{% endif %}</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% if release.updated %}
+<h3>Updated</h3>
+<ul>
+{% for id in release.updated %}{% set doc = documents.byId[id] %}
+  <li><a href="{{ ('/documents/' + doc.id + '/') | url }}">{{ doc.name | xml }}</a> — {{ doc.statusLabel | xml }}{% if doc.status_note %}. {{ doc.status_note | truncate(180) | xml }}{% endif %}</li>
+{% endfor %}
+</ul>
+{% endif %}
+<p><a href="{{ '/radar/' | url }}">View the full regulatory radar →</a> · <a href="https://credimi.io/login">Start automated conformance testing with Credimi →</a></p>
+]]></content>
+  </entry>
+{% endfor %}
+</feed>
