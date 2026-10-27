@@ -4,11 +4,61 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if title and title !== 'EUDI Trust & Conformance Atlas' %}{{ title }} — {% endif %}EUDI Trust & Conformance Atlas</title>
-  <meta name="description" content="{{ description or 'A community-maintained map of EUDI Wallet law, implementing acts, ARF requirements, WE BUILD trust work, and conformance evidence.' }}">
+  {% set metaDescription = description or 'The EUDI Wallet reference: law, implementing acts, ARF requirements, standards, protocols and conformance evidence — every document with its adoption status, cross-linked and searchable.' %}
+  <meta name="description" content="{{ metaDescription }}">
+  <meta name="keywords" content="EUDI Wallet, eIDAS, ARF, PID, EAA, QEAA, OpenID4VCI, OpenID4VP, SD-JWT, mdoc, conformance, interoperability, certification, relying party, verifiable credentials">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
   <link rel="stylesheet" href="{{ '/css/style.css' | url }}">
   <link rel="stylesheet" href="{{ '/css/app.css' | url }}">
   <link rel="icon" type="image/svg+xml" href="{{ '/assets/credimi_logo.svg' | url }}">
-  <link rel="alternate" type="application/atom+xml" title="EUDI Atlas — rulebook updates" href="{{ '/feed.xml' | url }}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:title" content="{{ title or site.name }}">
+  <meta property="og:description" content="{{ metaDescription }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ title or site.name }}">
+  <meta name="twitter:description" content="{{ metaDescription }}">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": {{ (site.url + '/') | toJson | safe }},
+        "url": {{ (site.url + '/') | toJson | safe }},
+        "name": {{ site.name | toJson | safe }},
+        "publisher": { "@id": {{ (site.url + '/#org') | toJson | safe }} },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": { "@type": "EntryPoint", "urlTemplate": {{ (site.url + '/reference/?q={search_term_string}') | toJson | safe }} },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": {{ (site.url + '/#org') | toJson | safe }},
+        "name": {{ site.org | toJson | safe }},
+        "url": {{ site.orgUrl | toJson | safe }},
+        "logo": {{ (site.url + '/assets/credimi_logo.svg') | toJson | safe }},
+        "sameAs": [
+          "https://github.com/ForkbombEu/credimi",
+          "https://docs.credimi.io",
+          "https://credimi.io"
+        ],
+        "parentOrganization": { "@type": "Organization", "name": "Forkbomb BV", "url": "https://forkbomb.eu" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": {{ (site.url + page.url) | toJson | safe }},
+        "url": {{ (site.url + page.url) | toJson | safe }},
+        "name": {{ (title or site.name) | toJson | safe }},
+        "isPartOf": { "@id": {{ (site.url + '/') | toJson | safe }} }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   {% include "credimi-extras-banner-top.njk" %}

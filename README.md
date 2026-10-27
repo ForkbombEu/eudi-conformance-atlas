@@ -12,6 +12,8 @@ The site is built with Eleventy and Nunjucks. Its canonical data selection is ma
 
 - `data/eudi-documents-map.yaml`: documents with `status`, quoted `status_date`, optional `status_note`, `pinned_versions` and `arf_essential_for`. The top-level `changelog` lists the documents added and updated in each review.
 - `src/_data/docTypes.js`: the single list of document types, stack layers and statuses. It is used by templates, filters, the map tree and `scripts/validate-data.mjs`.
+- `src/_data/site.js`: the site origin (default `https://atlas.credimi.io`, overridable via `SITE_URL`) used for canonical URLs, structured data, the sitemap and robots.txt.
+- `src/sitemap.xml.njk`, `src/robots.txt.njk`, `src/llms.txt.njk`: SEO surfaces generated at build time. Every page carries canonical/Open Graph/Twitter meta, JSON-LD (WebSite, Organization, WebPage, BreadcrumbList) and a breadcrumb, and cross-links to related documents, glossary topics and reading routes.
 - `src/feed.xml.njk`: an Atom feed at `/feed.xml` generated from `changelog`. Each review becomes one entry with its executive summary plus the linked new/updated documents; relative URLs and `tag:` URIs keep it host-agnostic.
 
 ## HOW to run

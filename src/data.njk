@@ -6,6 +6,8 @@ permalink: /data/
 ---
 {% from "components/section-header.njk" import sectionHeader %}
 {% from "components/source-badge.njk" import sourceBadge %}
+{% from "components/credimi.njk" import credimiCta %}
+{% from "components/breadcrumbs.njk" import breadcrumbs %}
 
 <section class="hero page-hero">
   <div class="hero-inner">
@@ -17,6 +19,7 @@ permalink: /data/
 
 <div class="page-content">
   <div class="container">
+    {{ breadcrumbs([{label:"Home", url:"/"}, {label:"Data & Downloads", url:"/data/"}]) }}
     <div class="disclaimer">
       <strong>Disclaimer:</strong> Not official EU publications. Official sources always prevail. Licensed Apache-2.0.
     </div>
@@ -81,6 +84,10 @@ permalink: /data/
           </tbody>
         </table>
       </div>
+    </div>
+
+    <div class="home-section">
+      {{ credimiCta("Turn this data into a test plan.", "Download the documents map and run it through Credimi's automated conformance pipelines, so the references here become evidence for your implementation.") }}
     </div>
   </div>
 </div>
