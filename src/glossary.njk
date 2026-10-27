@@ -1,0 +1,103 @@
+---
+layout: base.njk
+title: Glossary
+description: EUDI Wallet glossary — every term counts how many atlas documents mention it, split by stack layer, and links to the documents themselves.
+---
+{% from "components/credimi.njk" import credimiCta %}
+
+<section class="hero page-hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Glossary</p>
+    <h1>Read the rulebook by topic</h1>
+    <p>Each term counts how many of the {{ documents.totalCount }} documents mention it, split by stack layer. Pick a term to see every related document and where it sits in the stack.</p>
+    <div class="page-hero-meta">
+      <span class="status-pill tone-info">◈ {{ glossary.themes.length }} themes</span>
+      <span class="status-pill tone-info">◈ {{ glossary.terms.length }} terms</span>
+      <span class="status-pill tone-info">◈ {{ glossary.coveredCount }} of {{ documents.totalCount }} documents covered</span>
+    </div>
+  </div>
+</section>
+
+<div class="page-content">
+  <div class="container">
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> Glossary definitions are plain-language summaries for navigation, not legal text. Official sources always prevail.
+    </div>
+
+    <section class="viz-section viz-section-first" aria-labelledby="topic-index-title">
+      <p class="viz-kicker">Topic index</p>
+      <h2 class="viz-title" id="topic-index-title">How many documents, per topic</h2>
+      <p class="viz-lead">A term's bar is the number of documents that mention it, coloured by stack layer. Select a term to jump to its definition and document list.</p>
+
+      <div class="gloss-themes">
+        {% for theme in glossary.themes %}
+        <section class="gloss-theme" aria-labelledby="theme-{{ theme.key }}">
+          <header class="gloss-theme-head">
+            <h3 id="theme-{{ theme.key }}">{{ theme.label }} <span class="count-chip">{{ theme.count }}</span></h3>
+            <p class="gloss-theme-desc">{{ theme.description }}</p>
+          </header>
+          <div class="gloss-rows">
+            {% for entry in theme.terms %}
+            <a class="gloss-row" href="#{{ entry.slug }}">
+              <span class="gloss-row-name">{{ entry.term }}{% if entry.abbr %} <span class="gloss-abbr">{{ entry.abbr }}</span>{% endif %}</span>
+              <span class="gloss-bar" aria-hidden="true">
+                {% for seg in entry.segments %}<span class="gloss-bar-seg momentum-seg-{{ seg.key }}" style="--share: {{ seg.count }}" title="{{ seg.label }}: {{ seg.count }}"></span>{% endfor %}
+              </span>
+              <span class="gloss-row-count">{{ entry.count }}</span>
+            </a>
+            {% endfor %}
+          </div>
+        </section>
+        {% endfor %}
+      </div>
+
+      <div class="radar-legend gloss-legend" role="note">
+        {% for stack in documents.stacks %}<span><span class="legend-swatch momentum-seg-{{ stack.key }}" aria-hidden="true"></span>{{ stack.label }}</span>{% endfor %}
+      </div>
+    </section>
+
+    <nav class="gloss-alpha" aria-label="Jump to letter">
+      {% for group in glossary.letters %}<a href="#letter-{{ group.letter }}">{{ group.letter }}</a>{% endfor %}
+    </nav>
+
+    {% for group in glossary.letters %}
+    <section class="gloss-letter" aria-labelledby="letter-{{ group.letter }}">
+      <h2 class="gloss-letter-title" id="letter-{{ group.letter }}">{{ group.letter }}</h2>
+      <div class="gloss-entries">
+        {% for entry in group.terms %}
+        <article class="gloss-entry" id="{{ entry.slug }}">
+          <header class="gloss-entry-head">
+            <h3>{{ entry.term }}{% if entry.abbr %} <span class="gloss-abbr">{{ entry.abbr }}</span>{% endif %}</h3>
+            <div class="chip-row">
+              <span class="badge badge-neutral">{{ entry.themeLabel }}</span>
+              <span class="count-chip">{{ entry.count }} documents</span>
+            </div>
+          </header>
+          <p class="gloss-entry-def">{{ entry.definition }}</p>
+          {% if entry.segments.length > 1 %}
+          <p class="gloss-entry-split">{% for seg in entry.segments %}<span><span class="legend-swatch momentum-seg-{{ seg.key }}" aria-hidden="true"></span>{{ seg.label }}: {{ seg.count }}</span>{% endfor %}</p>
+          {% endif %}
+          <ul class="gloss-docs">
+            {% for id in entry.docIds %}{% set doc = documents.byId[id] %}
+            <li>
+              <span class="status-pill tone-{{ doc.statusTone }}">{{ doc.statusGlyph }} {{ doc.statusLabel }}</span>
+              <a href="{{ ('/documents/' + doc.id + '/') | url }}">{{ doc.name }}</a>
+              <span class="badge {{ doc.typeBadge }}">{{ doc.typeLabel }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+    {% endfor %}
+
+    <div class="home-section">
+      {{ credimiCta("From terms to tests.", "Each glossary term maps to the documents that define it. Credimi turns those documents into runnable conformance and interoperability tests, so the topic you are reading about becomes evidence you can re-run.") }}
+    </div>
+
+    <div class="page-end">
+      <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/src/glossary.njk" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
+    </div>
+  </div>
+</div>

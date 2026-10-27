@@ -41,6 +41,10 @@ Browse the EUDI ecosystem map by task and use role filters where available. Leav
 
 Use **Reference** to filter all documents by stack layer, status, type, new or updated in this edition, and ARF essential, or by free text (`?q=`, `?stack=` and `?role=` preselect filters). Use **Tests** to inspect the conformance inventory and related evidence.
 
+### Glossary
+
+Read the rulebook by topic. Each of the 69 terms counts how many documents mention it, split by stack layer, and links to every related document. Terms and definitions live in `data/eudi-glossary.yaml`; the term-to-document counts are computed at build time by `src/_data/glossary.js` and checked by `scripts/validate-glossary.mjs`.
+
 ### Radar
 
 Shows the radar, a momentum chart of status changes per half-year, what the latest review added and updated, drafts and proposals in the pipeline, latest versions against pinned versions, and a dated timeline.
