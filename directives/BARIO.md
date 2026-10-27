@@ -465,5 +465,5 @@ Every data refresh, crawl or source review MUST update the changelog so the feed
 
 YAML gotcha: `summary`, `name` and `status_note` values are plain scalars, so they MUST NOT contain `: ` (colon followed by a space) — use an em dash or parentheses instead. `scripts/validate-data.mjs` fails the build on malformed YAML.
 
-The feed links are derived automatically: every document links to its atlas `/documents/<id>/` page, every entry links to the Radar page, and the entry footer links to the Credimi platform. The site origin comes from `SITE_URL` (default `https://forkbombeu.github.io`), set from the GitHub Pages `base_url` in `.github/workflows/deploy.yml`.
+The feed links are derived automatically: every document links to its atlas `/documents/<id>/` page, every entry links to the Radar page, and the entry footer links to the Credimi platform. The feed uses relative URLs and `tag:` URIs, so it is host-agnostic — it works the same whether served from a custom domain, GitHub Pages or a local server; do NOT hardcode a site origin.
   
