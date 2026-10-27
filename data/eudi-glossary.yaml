@@ -1,0 +1,528 @@
+# Glossary of EUDI Wallet terms.
+# Each term is matched against every document in eudi-documents-map.yaml (id, name, summary,
+# relevance_for_eudi and status_note): the term, its abbreviation and every `match` phrase count
+# as whole words, case-insensitive, with an optional plural "s".
+themes:
+  - key: actors
+    label: Actors and roles
+    description: Who provides, uses, relies on and supervises the EUDI Wallet.
+  - key: credentials
+    label: Credentials and attestations
+    description: What a wallet holds, and the formats and rules that define it.
+  - key: protocols
+    label: Protocols
+    description: How credentials are issued, presented and secured on the wire.
+  - key: trust
+    label: Trust infrastructure
+    description: Lists, certificates and marks that let parties trust each other.
+  - key: signatures
+    label: Signatures and trust services
+    description: Qualified trust services and the signature formats behind them.
+  - key: security
+    label: Security, assurance and certification
+    description: How wallets and services are secured, assessed and certified.
+  - key: privacy
+    label: Privacy and user rights
+    description: Data minimisation, unlinkability and the user's control over their data.
+  - key: usecases
+    label: Use cases and sectors
+    description: Where the wallet is used beyond identification.
+  - key: governance
+    label: Law and governance
+    description: The legal framework, its implementing acts and the work that feeds them.
+
+terms:
+  # Actors and roles
+  - term: EUDI Wallet
+    theme: actors
+    match:
+      [European Digital Identity Wallet, EUDIW, wallet unit, wallet solution]
+    definition:
+      The European Digital Identity Wallet, an electronic identification means under Article 5a of eIDAS. It lets users
+      store and present person identification data and electronic attestations of attributes, and create qualified
+      electronic signatures and seals.
+  - term: Wallet Provider
+    theme: actors
+    match: [wallet providers]
+    definition:
+      The Member State, or the entity mandated or recognised by a Member State, that provides a wallet solution and is
+      responsible for its wallet units, their attestation and their revocation.
+  - term: Relying Party
+    abbr: RP
+    theme: actors
+    match:
+      [relying parties, wallet-relying party, wallet-relying parties, verifier]
+    definition:
+      A person or organisation that relies on electronic identification or a trust service. A wallet-relying party
+      requests attributes from EUDI Wallets and must first register in the Member State where it is established.
+  - term: Registrar
+    theme: actors
+    match:
+      [
+        register of wallet-relying parties,
+        registration of wallet-relying parties,
+        relying party registration,
+      ]
+    definition:
+      The body a Member State designates to register wallet-relying parties, record their intended use and entitlements,
+      and publish the register.
+  - term: PID Provider
+    theme: actors
+    match: [PID providers]
+    definition:
+      The person or body that issues and revokes person identification data and ensures the PID is bound to the user's
+      wallet unit.
+  - term: Issuer
+    theme: actors
+    match:
+      [
+        credential issuer,
+        attestation provider,
+        attestation providers,
+        EAA provider,
+        EAA providers,
+      ]
+    definition:
+      Any entity that issues PID or electronic attestations of attributes to a wallet unit. In OpenID4VCI terms, the
+      Credential Issuer.
+  - term: Qualified Trust Service Provider
+    abbr: QTSP
+    theme: actors
+    match: [qualified trust service providers]
+    definition:
+      A trust service provider granted qualified status by its supervisory body and listed in a national trusted list. Only
+      QTSPs may provide qualified trust services such as qualified signatures, seals and QEAAs.
+  - term: Conformity Assessment Body
+    abbr: CAB
+    theme: actors
+    match: [conformity assessment bodies]
+    definition:
+      A body accredited under Regulation (EC) No 765/2008 to assess whether QTSPs, qualified services or wallet solutions
+      meet their requirements. Its report underpins certification and qualified status.
+  - term: Supervisory body
+    theme: actors
+    match: [supervisory bodies, supervision]
+    definition:
+      The national authority that supervises trust service providers and, under eIDAS 2, wallet providers, and takes
+      action when they breach their obligations.
+
+  # Credentials and attestations
+  - term: Person Identification Data
+    abbr: PID
+    theme: credentials
+    definition:
+      The set of data, issued under Union or national law, that establishes the identity of a natural or legal person. The
+      PID is the core identity attestation held in an EUDI Wallet.
+  - term: Electronic Attestation of Attributes
+    abbr: EAA
+    theme: credentials
+    match:
+      [
+        electronic attestations of attributes,
+        attestation of attributes,
+        attestations of attributes,
+      ]
+    definition:
+      An attestation in electronic form that authenticates attributes of a person or object, such as a diploma, a licence
+      or a membership. EAAs may be non-qualified, qualified (QEAA) or issued by a public body (PuB-EAA).
+  - term: Qualified Electronic Attestation of Attributes
+    abbr: QEAA
+    theme: credentials
+    match: [qualified electronic attestations of attributes, QEEA]
+    definition:
+      An EAA issued by a qualified trust service provider that meets Annex V of eIDAS. It has the same legal effect as a
+      lawfully issued paper attestation.
+  - term: Public-body EAA
+    abbr: PuB-EAA
+    theme: credentials
+    match: [Pub-EAA, authentic source]
+    definition:
+      An EAA issued by, or on behalf of, a public sector body responsible for an authentic source. It meets Annex VII of
+      eIDAS and has the same legal effect as a lawfully issued paper attestation.
+  - term: Mobile driving licence
+    abbr: mDL
+    theme: credentials
+    match: [mobile driving license, mdoc, mso_mdoc]
+    definition:
+      A driving licence held on a mobile device and encoded as an ISO/IEC 18013-5 mdoc (CBOR, COSE). The mdoc encoding is
+      also one of the two PID formats.
+  - term: SD-JWT VC
+    theme: credentials
+    match: [SD-JWT, Selective Disclosure for JSON Web Tokens]
+    definition:
+      Selective Disclosure for JSON Web Tokens (RFC 9901) and its credential profile, SD-JWT VC. A JSON credential format
+      in which the holder discloses only the claims they choose, and one of the two PID formats.
+  - term: Verifiable Credential
+    theme: credentials
+    match: [VCDM, VC Data Model]
+    definition:
+      The W3C data model for cryptographically verifiable claims. Version 2.0 is a W3C Recommendation, secured with
+      JOSE/COSE or Data Integrity proofs.
+  - term: Attestation rulebook
+    theme: credentials
+    match: [rulebook]
+    definition:
+      The document that fixes the attributes, encodings, issuance and trust rules for one attestation type, such as the PID
+      or mDL rulebook in the ARF catalogue.
+  - term: Wallet Unit Attestation
+    abbr: WUA
+    theme: credentials
+    match: [wallet attestation, key attestation]
+    definition:
+      An attestation issued by the wallet provider about a wallet unit and its secure cryptographic device. Issuers check it
+      before issuing, to confirm the wallet is genuine and not revoked.
+  - term: Pseudonym
+    theme: credentials
+    match: [pseudonymous]
+    definition:
+      An identifier, unique per relying party, that does not reveal the user's identity. Wallets must let users
+      authenticate with a pseudonym where identification is not legally required.
+
+  # Protocols
+  - term: OpenID4VCI
+    theme: protocols
+    match: [OID4VCI, OpenID for Verifiable Credential Issuance]
+    definition:
+      OpenID for Verifiable Credential Issuance, the OAuth-based protocol through which a wallet obtains credentials from
+      an issuer. Version 1.0 is Final.
+  - term: OpenID4VP
+    theme: protocols
+    match: [OID4VP, OpenID for Verifiable Presentations]
+    definition:
+      OpenID for Verifiable Presentations, the protocol through which a verifier requests credentials and a wallet
+      presents them, including through the Digital Credentials API. Version 1.0 is Final.
+  - term: High Assurance Interoperability Profile
+    abbr: HAIP
+    theme: protocols
+    match: [OpenID4VC HAIP]
+    definition:
+      The OpenID profile that fixes the options of OpenID4VCI, OpenID4VP, SD-JWT VC and mdoc for high-assurance use, as
+      referenced by the ARF.
+  - term: Digital Credentials API
+    theme: protocols
+    match: [DC API]
+    definition:
+      A W3C browser API that lets a web page request a credential from a wallet on the same device, with the browser and
+      operating system mediating the choice.
+  - term: Proximity presentation
+    theme: protocols
+    match: [proximity, Bluetooth, NFC, in-person]
+    definition:
+      Presenting a credential to a verifier in the same place, over Bluetooth Low Energy, NFC or QR-code device engagement,
+      as defined by ISO/IEC 18013-5.
+  - term: OpenID Federation
+    theme: protocols
+    definition:
+      An OpenID specification for building trust chains between entities through signed entity statements. Discussed as a
+      trust mechanism alongside X.509 trusted lists.
+  - term: Revocation
+    theme: protocols
+    match:
+      [
+        revoked,
+        status list,
+        Token Status List,
+        Bitstring Status List,
+        validity status,
+      ]
+    definition:
+      Withdrawing a credential or certificate before it expires. EUDI attestations publish their validity through status
+      lists or short-lived credentials so verifiers can check it.
+  - term: OAuth 2.0
+    theme: protocols
+    match: [OAuth]
+    definition:
+      The authorisation framework that OpenID4VCI and HAIP build on, together with its extensions PAR, RAR, DPoP and
+      attestation-based client authentication.
+  - term: DPoP
+    theme: protocols
+    match: [Demonstrating Proof of Possession, proof of possession]
+    definition:
+      OAuth 2.0 Demonstrating Proof of Possession (RFC 9449). It binds access tokens to a key the client holds, so stolen
+      tokens cannot be replayed.
+
+  # Trust infrastructure
+  - term: Trusted List
+    abbr: TL
+    theme: trust
+    match: [LoTL, list of trusted lists, trusted lists]
+    definition:
+      The national list of qualified trust service providers and their services, published under eIDAS Article 22. The
+      Commission's List of Trusted Lists (LoTL) points to every national list.
+  - term: List of Trusted Entities
+    abbr: LoTE
+    theme: trust
+    match: [lists of trusted entities]
+    definition:
+      A list, in the trusted-list format, that publishes wallet providers, PID providers, access-certificate authorities
+      or other entities that verifiers must be able to trust.
+  - term: Access certificate
+    theme: trust
+    match: [WRPAC, relying party access certificate]
+    definition:
+      The certificate a wallet-relying party presents to authenticate itself to a wallet (WRPAC). It is issued after
+      registration by a certificate authority listed for that purpose.
+  - term: Registration certificate
+    theme: trust
+    match: [WRPRC]
+    definition:
+      A signed statement (WRPRC) of what a registered wallet-relying party is entitled to request, which the wallet can
+      show the user before they share data.
+  - term: Trust mark
+    theme: trust
+    definition:
+      The EU Digital Identity Wallet Trust Mark, a logo that certified wallet solutions may display so users can
+      recognise them.
+  - term: Trust anchor
+    theme: trust
+    match: [trust anchors]
+    definition:
+      A public key or certificate trusted by definition, from which other certificates or statements are validated. In
+      the EUDI ecosystem trust anchors are distributed through trusted lists and LoTEs.
+  - term: X.509 certificate
+    theme: trust
+    match: [X.509, certificate profile, PKI, public key infrastructure]
+    definition:
+      The certificate format used for access certificates, issuer signing keys and qualified certificates. ETSI and the
+      ARF define the profiles EUDI certificates must follow.
+  - term: Qualified certificate
+    theme: trust
+    match: [QWAC, website authentication]
+    definition: A certificate for signatures, seals or website authentication (QWAC) issued by a QTSP and meeting the eIDAS annexes.
+
+  # Signatures and trust services
+  - term: Qualified electronic signature
+    abbr: QES
+    theme: signatures
+    match: [qualified electronic signatures, qualified signature]
+    definition:
+      An advanced electronic signature created with a qualified signature creation device and based on a qualified
+      certificate. It has the legal effect of a handwritten signature, and every EUDI Wallet must let users create one.
+  - term: Signature creation device
+    abbr: QSCD
+    theme: signatures
+    match:
+      [
+        qualified signature creation device,
+        remote signing,
+        remote signature,
+        remote QSCD,
+      ]
+    definition:
+      The hardware or remote service that holds the signing key. A qualified signature creation device (QSCD) is certified
+      and can be operated remotely by a QTSP on the signer's behalf.
+  - term: Electronic seal
+    theme: signatures
+    match: [e-seal, eseal, qualified electronic seal]
+    definition:
+      The legal-person counterpart of an electronic signature. It guarantees the origin and integrity of data issued by an
+      organisation.
+  - term: Electronic timestamp
+    theme: signatures
+    match: [timestamp, time-stamp, time-stamping, timestamping]
+    definition: Data that binds other data to a point in time. A qualified electronic timestamp is presumed accurate across the EU.
+  - term: Electronic registered delivery
+    theme: signatures
+    match: [registered delivery, ERDS]
+    definition:
+      A service that transmits data between parties with evidence of sending and receipt, protecting it against loss,
+      theft and alteration.
+  - term: Electronic archiving
+    theme: signatures
+    match: [archiving, preservation]
+    definition:
+      A trust service, new in eIDAS 2, that keeps electronic data and documents usable and intact over time, with
+      qualified preservation of signatures and seals.
+  - term: Electronic ledger
+    theme: signatures
+    match: [electronic ledgers, ledger]
+    definition:
+      A tamper-evident, chronologically ordered record of data. eIDAS 2 adds qualified electronic ledgers as a trust
+      service.
+  - term: AdES signature formats
+    theme: signatures
+    match: [AdES, CAdES, XAdES, PAdES, JAdES]
+    definition:
+      ETSI's advanced electronic signature formats for CMS (CAdES), XML (XAdES), PDF (PAdES) and JSON (JAdES). Implementing
+      acts reference them for qualified signatures and seals.
+
+  # Security, assurance and certification
+  - term: Certification
+    theme: security
+    match: [certified, certification scheme, certification schemes]
+    definition:
+      Independent confirmation that a wallet solution or trust service meets its requirements. EUDI Wallets are certified
+      under national schemes and, in time, a European cybersecurity certification scheme.
+  - term: Level of assurance
+    abbr: LoA
+    theme: security
+    match: [levels of assurance, assurance level, assurance levels]
+    definition:
+      The confidence in a claimed identity (low, substantial or high), set by Implementing Regulation (EU) 2015/1502. EUDI
+      Wallets must reach level high.
+  - term: Wallet secure cryptographic device
+    abbr: WSCD
+    theme: security
+    match:
+      [
+        WSCA,
+        secure cryptographic device,
+        secure cryptographic application,
+        secure element,
+      ]
+    definition:
+      The tamper-resistant hardware (WSCD) and the application on it (WSCA) that protect the wallet's keys, for example a
+      secure element or a remote HSM.
+  - term: Cryptographic mechanisms
+    theme: security
+    match:
+      [
+        cryptographic mechanism,
+        Agreed Cryptographic Mechanisms,
+        cryptography,
+        post-quantum,
+      ]
+    definition:
+      The algorithms and key lengths that wallets and trust services may use. The ECCG's Agreed Cryptographic Mechanisms
+      list is the reference for EU certification.
+  - term: Identity proofing
+    theme: security
+    match: [identity verification, onboarding]
+    definition: Verifying a person's claimed identity before issuing an identity credential or certificate, in person or remotely.
+  - term: Protection profile
+    theme: security
+    match: [Common Criteria, EUCC]
+    definition:
+      A Common Criteria document that states the security requirements for a class of product, such as a WSCA or a QSCD,
+      against which products are evaluated.
+  - term: Cybersecurity
+    theme: security
+    match: [vulnerability, vulnerabilities, NIS2, NIS 2]
+    definition:
+      The protection of networks and systems against attack. Horizontal EU law (NIS2, the Cyber Resilience Act and the
+      Cybersecurity Act) applies alongside eIDAS.
+  - term: Conformance testing
+    theme: security
+    match: [conformance, test suite, test suites, interoperability testing]
+    definition:
+      Testing an implementation against a specification to show it behaves as required. FCAF and the OpenID conformance
+      suites provide test cases for EUDI components.
+
+  # Privacy and user rights
+  - term: Selective disclosure
+    theme: privacy
+    match: [selectively disclose]
+    definition:
+      Presenting only some attributes of a credential, for example an age-over-18 flag instead of a birth date. Supported
+      natively by SD-JWT VC and mdoc.
+  - term: Zero-knowledge proof
+    abbr: ZKP
+    theme: privacy
+    match: [zero knowledge, BBS]
+    definition:
+      A proof that a statement about a credential is true without revealing the credential itself. Studied for EUDI Wallets
+      to give unlinkable presentations and age proofs.
+  - term: Data protection
+    theme: privacy
+    match: [GDPR, personal data]
+    definition:
+      The rules on processing personal data, chiefly the GDPR, that apply to every wallet transaction alongside eIDAS's own
+      privacy requirements.
+  - term: Wallet dashboard
+    theme: privacy
+    match: [dashboard, transaction log, transaction history]
+    definition:
+      The wallet function that shows users their transactions and lets them request data erasure from relying parties or
+      report them to a data protection authority.
+  - term: Data portability
+    theme: privacy
+    match: [portability, data export]
+    definition: The user's ability to export their wallet data and move it to another wallet solution.
+  - term: Accessibility
+    theme: privacy
+    match: [accessible, European Accessibility Act]
+    definition:
+      Making wallets usable by people with disabilities. eIDAS 2 requires it, and the European Accessibility Act and the
+      Web Accessibility Directive set the rules.
+
+  # Use cases and sectors
+  - term: Age verification
+    theme: usecases
+    match: [proof of age, age assurance, age-verification]
+    definition:
+      Proving that a user is above an age threshold without revealing other data. The Commission's age verification
+      blueprint follows the EUDI technical specifications.
+  - term: Strong customer authentication
+    abbr: SCA
+    theme: usecases
+    match: [payment, PSD2, PSD3, Payment Services Regulation]
+    definition:
+      The two-factor authentication required for online payments under PSD2. The ARF and the payments proposals let EUDI
+      Wallets perform SCA.
+  - term: European Business Wallet
+    theme: usecases
+    match: [business wallet, business wallets]
+    definition:
+      The proposed wallet for companies and public bodies to hold and exchange verifiable attestations and documents,
+      built on the EUDI Wallet framework.
+  - term: Anti-money laundering
+    abbr: AML
+    theme: usecases
+    match: [AMLR, customer due diligence, KYC]
+    definition:
+      The EU rules that oblige banks and other entities to identify their customers. The AML Regulation accepts EUDI Wallets
+      for customer due diligence.
+  - term: Cross-border identification
+    theme: usecases
+    match:
+      [
+        cross-border,
+        eID scheme,
+        eID schemes,
+        electronic identification scheme,
+        notified,
+      ]
+    definition:
+      Using an identity issued in one Member State to access services in another. eIDAS requires mutual recognition of
+      notified eID schemes and EUDI Wallets.
+  - term: Wallet-to-wallet
+    theme: usecases
+    match: [wallet to wallet]
+    definition: Presenting attributes directly from one user's wallet to another's, for example between two private persons.
+
+  # Law and governance
+  - term: eIDAS
+    theme: governance
+    match: [910/2014, 2024/1183, eIDAS 2]
+    definition:
+      Regulation (EU) No 910/2014 on electronic identification and trust services. Regulation (EU) 2024/1183 amended it and
+      introduced the EUDI Wallet.
+  - term: Implementing act
+    theme: governance
+    match:
+      [
+        implementing regulation,
+        implementing regulations,
+        implementing decision,
+        implementing acts,
+      ]
+    definition:
+      A Commission regulation or decision that sets uniform conditions for applying eIDAS, such as the technical
+      specifications, standards and procedures that wallets and trust services must follow.
+  - term: Architecture and Reference Framework
+    abbr: ARF
+    theme: governance
+    definition:
+      The Commission's technical reference for EUDI Wallets. It turns the legal requirements into high-level requirements,
+      architecture and technical specifications, and is not legally binding by itself.
+  - term: Large-scale pilots
+    abbr: LSP
+    theme: governance
+    match: [large-scale pilot, WE BUILD, pilot]
+    definition:
+      EU-funded consortia, such as WE BUILD, that test EUDI Wallet use cases across Member States and feed findings back
+      into the ARF and standards.
+  - term: Legislative proposal
+    theme: governance
+    match: [Proposal for a, proposed regulation, Digital Omnibus]
+    definition: A Commission draft law under negotiation by the Parliament and Council. It binds no one until adopted and published.

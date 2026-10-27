@@ -4,6 +4,50 @@ description:
   A consolidated map of legal acts, implementing acts, ARF/WE BUILD documentation, cybersecurity and trust-service
   sources relevant to Credimi's EUDI conformance and interoperability evidence work.
 changelog:
+  - date: "2026-10-27"
+    summary:
+      October 2026 follow-up review — new mDL implementing regulation, the digital euro and digital-travel proposals, the
+      AMLA CDD RTS, the ISO/IEC 27566 age-assurance series and EN 18037, the SD-CWT / JSON Web Proof / BBS IETF drafts,
+      HAIP 1.1 and seven new ETSI EUDI work items, plus version and status bumps across ETSI drafts, WE BUILD conformance
+      specs and the ARF discussion topics.
+    added:
+      - EU-2026-2266
+      - COM-2023-369
+      - COM-2024-670
+      - COM-2024-671
+      - AMLA-RTS-CDD
+      - ISO-27566-1
+      - ISO-27566-2
+      - ISO-27566-3
+      - CEN-EN-18037
+      - IETF-SD-CWT
+      - IETF-JSON-WEB-PROOF
+      - IETF-BBS-SIGNATURES
+      - HAIP-1.1
+      - ETSI-TS-119-479-5
+      - ETSI-TS-119-479-4
+      - ETSI-TS-119-485
+      - ETSI-TS-119-474
+      - ETSI-TS-119-403-4
+      - ETSI-TR-119-060
+      - ETSI-TS-119-322
+    updated:
+      - SD-JWT-VC
+      - COM-2025-838
+      - COM-2025-837
+      - COM-2023-367
+      - COM-2026-11
+      - EU-2016-679
+      - EU-2002-58
+      - EU-2018-1725
+      - EU-2022-2555
+      - EU-2019-881
+      - EUDI-ARF-DISCUSSION-TOPICS
+      - WE-BUILD-WBCS
+      - ETSI-TS-119-476-2
+      - ETSI-EN-319-486
+      - ETSI-TS-119-602
+      - ETSI-TS-119-475
   - date: "2026-10-21"
     summary:
       October 2026 review against EUR-Lex, eudi.dev (ARF and essential STS list), the FCAF draft references, the EC technical
@@ -157,10 +201,12 @@ flat_documents:
     url: https://eudi.dev/latest/discussion-topics/
     type: project_working_documentation
     status: in_development
-    status_date: "2026-10-14"
+    status_date: "2026-10-21"
     status_note:
-      "No ARF release after 3.0.0, but discussion papers continued: Topic AB Digital Signature v1.1 (16 Sep 2026),
-      Topic E refinement round v1.3 (23 Sep 2026) and Topic AA SCA/payments v0.8 (27 Aug 2026)."
+      "No ARF release after 3.0.0, but discussion papers continued. The 2026 iteration lists 15 topics across 7
+      scheduled iterations: 11 reopened refinement rounds and 4 new topics (AB Digital Signature, AC Cryptographic binding,
+      AD User binding in proximity flows, AE Liveness tests in remote flows). Iteration 7 (21 Oct-16 Dec 2026) opened
+      Topic AA SCA refinement (paper v0.8 released 14 Oct 2026) plus new topics AD and AE."
     summary:
       Versioned index of the ARF discussion papers and refinement rounds, including WUA, relying-party registration,
       wallet-to-wallet interaction, pseudonyms, ZKP, data portability and related open topics.
@@ -717,6 +763,26 @@ flat_documents:
     relevance_for_eudi:
       Creates a distinct Wallet onboarding and PID-provider conformance surface covering identity evidence,
       remote proofing controls and the substantial-to-high assurance combination.
+  - id: EU-2026-2266
+    name: Commission Implementing Regulation (EU) 2026/2266 — Mobile driving licences (mDL)
+    url: https://data.europa.eu/eli/reg_impl/2026/2266/oj
+    pdf_url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32026R2266
+    type: implementing_regulation
+    status: in_force
+    status_date: "2026-10-14"
+    status_note:
+      Adopted 2026-10-13; published in the OJ on 2026-10-14; enters into force 2026-11-03. Based on
+      Article 5(7) of Directive (EU) 2025/2205; builds on Regulation (EU) 910/2014 and Implementing Regulation (EU) 2024/2982.
+    summary:
+      Lays down detailed provisions for mobile driving licences (mDL). Requires mDLs to be issued as qualified
+      electronic attestations of attributes (QEAA) or EAAs issued by/on behalf of public-sector bodies responsible for an
+      authentic source under Regulation (EU) 910/2014, using the protocols and interfaces of Implementing Regulation (EU)
+      2024/2982 and the ISO/IEC mdoc format of Annex II to Implementing Regulation (EU) 2024/2979, with the data model based
+      on ISO/IEC 18013-5:2021 (including the new org.iso.18013.5.1.EU driving-privileges namespace).
+    relevance_for_eudi:
+      Defines the mDL as a concrete EUDI Wallet credential type (QEAA/EAA issuance), with the ISO/IEC 18013-5 data model,
+      wallet-unit-attestation-driven revocation, and verifier-side technical verification. Directly relevant to mdoc/QEAA
+      issuance, revocation/status and presentation conformance evidence.
   - id: EU-2015-1502
     name: Commission Implementing Regulation (EU) 2015/1502 — Assurance levels for eID means
     url: https://data.europa.eu/eli/reg_impl/2015/1502/oj
@@ -776,7 +842,9 @@ flat_documents:
     type: regulation
     status: in_force
     status_date: "2016-05-04"
-    status_note: In force and unamended. Digital Omnibus proposal COM(2025) 837 would amend it; proposal only, not adopted.
+    status_note:
+      In force and unamended. Digital Omnibus proposal COM(2025) 837 would amend it; Council negotiating mandate
+      adopted 2026-10-21, not yet adopted.
     summary: General Data Protection Regulation.
     relevance_for_eudi:
       Applies to Wallet, Issuer, RP and trust-service personal data processing, especially user control, privacy,
@@ -788,7 +856,9 @@ flat_documents:
     type: directive
     status: in_force
     status_date: "2002-07-31"
-    status_note: In force, last amended by 2009/136/EC. Digital Omnibus proposal COM(2025) 837 would amend it; proposal only.
+    status_note:
+      In force, last amended by 2009/136/EC. Digital Omnibus proposal COM(2025) 837 would amend it; Council negotiating
+      mandate adopted 2026-10-21, not yet adopted.
     summary: Privacy and electronic communications directive.
     relevance_for_eudi:
       Referenced alongside GDPR in multiple implementing acts where relevant to personal data and communications
@@ -802,7 +872,7 @@ flat_documents:
     status_date: "2018-11-21"
     status_note:
       Corrigendum R(03) published 2026-04-28; in force and unamended. Targeted by Digital Omnibus proposal COM(2025)
-      837.
+      837; Council negotiating mandate adopted 2026-10-21.
     summary: Data protection rules for EU institutions, bodies, offices and agencies.
     relevance_for_eudi: Relevant to Commission and EU-level processing in notification, reporting and ecosystem-list publication.
   - id: EU-2022-2555
@@ -813,8 +883,8 @@ flat_documents:
     status: in_force
     status_date: "2022-12-27"
     status_note:
-      In force and unamended, with corrigenda up to R(09) 2025-11-06. Amendments proposed in COM(2025) 837 (single-entry
-      point incident reporting) and COM(2026) 13.
+      In force and unamended, with corrigenda up to R(09) 2025-11-06. Amendments proposed in COM(2025) 837 (Council
+      negotiating mandate adopted 2026-10-21) and COM(2026) 13 (no position yet as of 2026-10-08).
     summary: EU cybersecurity directive establishing a high common level of cybersecurity.
     relevance_for_eudi: Relevant to supervisory verification, trust-service provider security and operational assurance.
   - id: EU-2019-881
@@ -826,7 +896,7 @@ flat_documents:
     status_date: "2019-06-07"
     status_note:
       Amended by Regulation (EU) 2025/37 (managed security services). Proposal COM(2026) 11 (Cybersecurity Act 2)
-      would repeal it; proposal only.
+      would repeal it; ITRE draft report published 2026-09-24, not yet adopted.
     summary: Establishes ENISA and the EU cybersecurity certification framework.
     relevance_for_eudi:
       Legal basis for cybersecurity certification schemes such as EUCC that are referenced in EUDI and trust-service
@@ -1188,8 +1258,8 @@ flat_documents:
     status: published
     status_date: "2025-11-14"
     status_note:
-      V1.1.1 remains the latest published TS. Conversion to EN 319 602 is at stable draft v1.1.3 (2026-06-02); next
-      version planned for 2027-06-30.
+      V1.1.1 remains the latest published TS. Conversion to EN 319 602 reached final draft on 2026-10-27
+      (STF705 D6.13); publication planned 2027-02-28.
     summary: Data model and syntax bindings for lists of trusted EUDI ecosystem entities.
     relevance_for_eudi:
       Core source for resolving notified PID, Wallet and public-sector EAA Providers and RP access-certificate
@@ -1254,6 +1324,14 @@ flat_documents:
     relevance_for_eudi:
       Relevant to algorithm-policy checks across Wallet attestations, provider certificates, trust services
       and signed conformance evidence.
+  - id: ETSI-TS-119-322
+    name: ETSI TS 119 322 V1.3.1 — Schema for machine-readable cryptographic algorithms and cipher suites catalogues
+    url: https://www.etsi.org/deliver/etsi_ts/119300_119399/119322/01.03.01_60/ts_119322v010301p.pdf
+    type: etsi_standard
+    status: published
+    status_date: "2026-10-23"
+    summary: Machine-readable schema for cryptographic algorithm and cipher-suite catalogues (companion to TS 119 312).
+    relevance_for_eudi: Relevant to algorithm-policy checks and machine-readable crypto-suite selection in signing/validation.
   - id: ENISA-ECCG-ACM-V2
     name: ECCG Agreed Cryptographic Mechanisms — version 2
     url: https://certification.enisa.europa.eu/publications/eucc-guidelines-cryptography_en
@@ -1389,6 +1467,16 @@ flat_documents:
       - by: FCAF draft
         version: V1.1.1
         source: https://conformance.eudi.dev/draft/fcaf/references/
+  - id: ETSI-TS-119-474
+    name: ETSI TS 119 474-1/-2/-3/-4 (work items) — Profiles for EAA; Testing Conformance and Interoperability
+    url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=78825
+    type: etsi_standard
+    status: in_development
+    status_date: "2026-06-03"
+    summary:
+      Multi-part TS for conformance and interoperability testing of EAA profiles — Part 1 general requirements,
+      Part 2 EAA/PID presentations, Part 3 issuance, Part 4 interoperability testing (STF719 D2.1-D2.4).
+    relevance_for_eudi: Direct normative testing framework for EAA/PID conformance; complements FCAF functional testing.
   - id: ETSI-TS-119-475
     name: ETSI TS 119 475 V1.2.1 — Relying Party Attributes
     url: https://www.etsi.org/deliver/etsi_ts/119400_119499/119475/01.02.01_60/ts_119475v010201p.pdf
@@ -1396,7 +1484,7 @@ flat_documents:
     layer: etsi
     status: published
     status_date: "2026-03-06"
-    status_note: V1.2.1 remains the latest published version. Conversion to EN 319 475 is at early draft v1.2.2 (2026-05-04).
+    status_note: V1.2.1 remains the latest published version. Conversion to EN 319 475 reached stable draft 2026-10-27 (STF705 D2.13).
     summary: Relying-party attributes supporting Wallet user authorization decisions.
     relevance_for_eudi: Defines RP attribute framework; critical for entitlement checks.
     arf_essential_for:
@@ -1462,6 +1550,14 @@ flat_documents:
       following public draft v2.3.3 (2026-06).
     summary: Conformity assessment requirements for Trust Service Providers.
     relevance_for_eudi: Framework for CAB/NAB assessment of QTSPs; relevant for certification evidence.
+  - id: ETSI-TS-119-403-4
+    name: ETSI TS 119 403-4 (work item) — Trust Service Provider Conformity Assessment; Part 4 — Additional requirements for CABs assessing EUDI Wallet supporting service providers
+    url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=78814
+    type: etsi_standard
+    status: in_development
+    status_date: "2026-06-03"
+    summary: Planned additional conformity-assessment requirements for bodies auditing EUDI Wallet supporting service providers.
+    relevance_for_eudi: Relevant to certification/audit of Wallet, PID and registration-certificate providers.
   - id: ETSI-EN-319-411-1
     name: ETSI EN 319 411-1 V1.5.1 — Certificate-Issuing TSP Policy
     url: https://www.etsi.org/deliver/etsi_en/319400_319499/31941101/01.05.01_60/en_31941101v010501p.pdf
@@ -1575,6 +1671,20 @@ flat_documents:
       - by: FCAF draft
         version: "1.0"
         source: https://conformance.eudi.dev/draft/fcaf/references/
+  - id: HAIP-1.1
+    name: OpenID4VC High Assurance Interoperability Profile 1.1 — Editor's draft
+    url: https://openid.github.io/OpenID4VC-HAIP/openid4vc-high-assurance-interoperability-profile-1_1-wg-draft.html
+    type: openid_spec
+    layer: protocol
+    status: in_development
+    status_date: "2026-09-24"
+    summary:
+      Editor's draft (draft 01) of the next HAIP generation, built on top of HAIP 1.0 Final. Adds response encryption
+      via HPKE (JOSE HPKE integrated encryption) alongside ECDH-ES, and switches the presentation query to the
+      dcql_query parameter.
+    relevance_for_eudi:
+      Early signal of changes to the EUDI high-assurance profile; not yet an Implementer's Draft or Final, so
+      HAIP 1.0 Final remains the conformance baseline.
   - id: SD-JWT
     name: RFC 9901 — Selective Disclosure for JSON Web Tokens (SD-JWT)
     url: https://www.rfc-editor.org/rfc/rfc9901.html
@@ -1592,15 +1702,15 @@ flat_documents:
         version: RFC 9901
         source: https://eudi.dev/latest/technical-specifications/
   - id: SD-JWT-VC
-    name: SD-JWT-based Verifiable Digital Credentials (SD-JWT VC) — draft 19
-    url: https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-19
+    name: SD-JWT-based Verifiable Digital Credentials (SD-JWT VC) — draft 20
+    url: https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-20
     type: openid_spec
     layer: credential_format
     status: draft
-    status_date: "2026-08-31"
+    status_date: "2026-10-26"
     status_note:
-      Moved from draft-16 to draft-19 (2026-08-31) and renamed "Verifiable Digital Credentials". Submitted to IESG
-      for publication; no RFC number yet. HAIP 1.0 pins draft-13.
+      Moved from draft-19 to draft-20 (2026-10-26). In IESG Evaluation, on the 2026-11-05 IESG telechat agenda; no RFC
+      number yet. HAIP 1.0 pins draft-13.
     summary:
       IETF OAuth WG Internet-Draft defining SD-JWT-based Verifiable Digital Credentials (type metadata, issuer key resolution,
       holder binding) on top of SD-JWT (RFC 9901).
@@ -1773,14 +1883,16 @@ flat_documents:
     url: https://github.com/webuild-consortium/wp4-architecture/tree/main/conformance-specs
     type: conformance_framework
     status: in_development
-    status_date: "2026-10-20"
+    status_date: "2026-10-23"
     summary:
       WE BUILD LSP conformance specifications. They turn architecture decisions into precise implementation requirements
       for issuers, wallets and relying parties, and they configure the WE BUILD Interoperability Test Bed (ITB). The approved
-      index lists CS-001 Credential Issuance (file v1.3, 28 Aug 2026), CS-002 Credential Presentation (v1.2, 23 Sep 2026), CS-003
-      remote QES with Wallet Units, CS-004/CS-005 WUA/BWUA lifecycle, CS-007 DC API (v0.1 pre-flight draft), CS-010 Revocation
-      (v1.1 pre-flight draft), CS-012 SCA attestations / TS12 profile (v1.2, 1 Oct 2026), and CS-015/CS-016 QERDS. CS-006 WRPAC/WRPRC
-      issuance, CS-011, CS-013, CS-014 and CS-017 are in review or under investigation.
+      index lists CS-001 Credential Issuance (v1.4, 12 Oct 2026, aligned with TS-03 v1.5.2), CS-002 Credential Presentation
+      (v1.2, 23 Sep 2026), CS-003 remote QES with Wallet Units (v1.0), CS-004 WUA lifecycle (v1.2) / CS-005 BWUA lifecycle
+      (v1.1), CS-007 DC API, CS-010 Revocation (v1.1), CS-012 SCA attestations / TS12 profile (v1.2, 1 Oct 2026), CS-013
+      Relying Party Intermediaries (pre-flight v1.0, 22 Oct 2026), and CS-015/CS-016 QERDS. CS-006 WRPAC/WRPRC issuance,
+      CS-011 remote QESeal, CS-014 proximity/offline and CS-017 directory & discovery are in review or under investigation;
+      RP-QERDS and Data spaces are candidate topics.
     relevance_for_eudi:
       The most concrete public pilot conformance profile of OID4VCI/OID4VP/HAIP, WUA lifecycle, revocation
       and TS12 payments in use in 2026. The WE BUILD ITB test suites (83 onboarded participants, public conformance-report overview)
@@ -1855,7 +1967,10 @@ flat_documents:
     url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0838
     type: legislative_proposal
     status: proposal
-    status_date: "2025-11-19"
+    status_date: "2026-09-23"
+    status_note:
+      Council adopted its general approach on 2026-06-09; EP ITRE committee report (rapporteur Eero Heinäluoma) tabled
+      for plenary on 2026-09-23. Trilogue not yet opened.
     summary:
       Proposes European Business Wallets for economic operators and public sector bodies, with mandate/representation
       management and secure exchange of official documents and attestations.
@@ -1867,7 +1982,11 @@ flat_documents:
     url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0837
     type: legislative_proposal
     status: proposal
-    status_date: "2025-11-19"
+    status_date: "2026-10-21"
+    status_note:
+      Council adopted its negotiating mandate (general approach) on 2026-10-21 (COREPER II). Council text amends
+      Regulations 2016/679, 2018/1724, 2018/1725, 2023/2854, 2022/2554 and 910/2014 and Directives 2002/58, 2022/2555,
+      2022/2557; repeals 2018/1807, 2022/868, 2019/1024. Trilogue not yet opened.
     summary:
       Proposes amendments to Regulations (EU) 2016/679, 2018/1724, 2018/1725, 2023/2854 and Directives 2002/58/EC, 2022/2555,
       2022/2557, including a single-entry point for incident reporting; Article 7 amends Regulation (EU) No 910/2014 (Arts 19a,
@@ -1880,7 +1999,8 @@ flat_documents:
     url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52026PC0011
     type: legislative_proposal
     status: proposal
-    status_date: "2026-01-20"
+    status_date: "2026-09-24"
+    status_note: ITRE draft report (PE792.221) published 2026-09-24; committee stage, no Council or EP position yet.
     summary:
       Proposes a new regulation on ENISA, the European cybersecurity certification framework and ICT supply chain security,
       repealing Regulation (EU) 2019/881.
@@ -1910,18 +2030,75 @@ flat_documents:
     relevance_for_eudi:
       Legal basis for EUDI Wallet-based remote customer due diligence by obliged entities (banks, etc.), a
       key private RP use case.
+  - id: AMLA-RTS-CDD
+    name: AMLA draft Regulatory Technical Standards on customer due diligence under Article 28(1) AMLR
+    url: https://www.amla.europa.eu/document/download/e15ab2e5-4074-4de8-bb9d-613dd8b7fdd1_en?filename=Final+Report+-+draft+RTS+28%281%29+AMLR.pdf
+    type: delegated_regulation
+    status: in_development
+    status_date: "2026-09-30"
+    status_note:
+      Final report published 2026-09-30 (press release 2026-10-01); draft RTS submitted to the Commission for adoption
+      as a delegated regulation, not yet in the OJ. Two further RTS (Art 19(9) and Arts 16(4)/17(3) AMLR) finalised in parallel.
+    summary:
+      Specifies information and requirements for standard, simplified and enhanced customer due diligence, including the
+      minimum attributes electronic identification means and qualified trust services must carry.
+    relevance_for_eudi:
+      Recital 11 explicitly includes European Digital Identity Wallets among eIDAS electronic identification means
+      (substantial/high assurance) for remote CDD; key private RP (banks, obliged entities) use case.
   - id: COM-2023-367
     name: Proposal for a Payment Services Regulation (PSR) — COM(2023) 367
     url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52023PC0367
     type: legislative_proposal
     status: proposal
-    status_date: "2023-06-28"
-    summary:
-      Proposed regulation on payment services in the internal market, including strong customer authentication rules;
-      not adopted in OJ as of 2026-10-21.
+    status_date: "2026-10-21"
+    status_note:
+      Provisional agreement with Council 2025-11-27; ECON approved the agreed text 2026-05-05; Council first-reading
+      position published 2026-10-21 with a view to adoption. Not yet published in the OJ.
+    summary: Proposed regulation on payment services in the internal market, including strong customer authentication rules.
     relevance_for_eudi:
       Recital 111 and SCA RTS mandate reference EUDI Wallets as identification/authentication tools for financial
       services — payment SCA with wallet scenarios.
+  - id: COM-2023-369
+    name: Proposal for a Regulation on the establishment of the digital euro — COM(2023) 369, 2023/0212(COD)
+    url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52023PC0369
+    type: legislative_proposal
+    status: proposal
+    status_date: "2026-07-09"
+    status_note:
+      Council negotiating mandate adopted 2025-12-19; ECON position 2026-06-23, endorsed by EP plenary 2026-07-09;
+      trilogue ongoing (5th round 2026-10).
+    summary:
+      Proposed regulation establishing the digital euro as a complement to euro banknotes and coins, including offline
+      payments, holding limits and privacy provisions.
+    relevance_for_eudi:
+      Digital euro accounts/payments are envisaged to interoperate with the EUDI Wallet as an identification and
+      authentication means; future payment RP and identity scenarios.
+  - id: COM-2024-670
+    name: Proposal for a Regulation establishing the EU Digital Travel application — COM(2024) 670, 2024/0670(COD)
+    url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52024PC0670
+    type: legislative_proposal
+    status: proposal
+    status_date: "2025-11-19"
+    status_note: Council adopted its negotiating position 2025-11-19; EP position pending.
+    summary:
+      Proposes an EU Digital Travel application (mobile app, backend validation service, traveller router) enabling
+      travellers to create and store digital travel credentials.
+    relevance_for_eudi:
+      Digital travel credentials are designed to be issued to and stored in European Digital Identity Wallets; DTC
+      verifier and issuer scenarios for travel.
+  - id: COM-2024-671
+    name: Proposal for a Council Regulation on the issuance of and technical standards for digital travel credentials based on identity cards — COM(2024) 671, 2024/0248(CNS)
+    url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52024PC0671
+    type: legislative_proposal
+    status: proposal
+    status_date: "2024-10-08"
+    status_note: Consultation procedure (CNS); Council-only adoption. Presidency compromise text references issuance to European Digital Identity Wallets.
+    summary:
+      Proposes technical standards for issuing digital travel credentials based on identity cards, complementing
+      Regulation (EC) No 2252/2004.
+    relevance_for_eudi:
+      DTC data model and issuance may reuse EUDI Wallet components; relevant to travel credential issuer/verifier
+      conformance.
   - id: EU-2025-327
     name: Regulation (EU) 2025/327 — European Health Data Space (EHDS)
     url: https://data.europa.eu/eli/reg/2025/327/oj
@@ -2169,6 +2346,34 @@ flat_documents:
     status_date: "2025-05-15"
     summary: W3C Recommendation defining embedded Data Integrity proofs for verifiable credentials.
     relevance_for_eudi: Cited in ARF 3.0.0 references as a proof mechanism for W3C VCDM-based attestations.
+  - id: IETF-JSON-WEB-PROOF
+    name: JSON Web Proof (JWP) — draft 14
+    url: https://datatracker.ietf.org/doc/html/draft-ietf-jose-json-web-proof-14
+    type: ietf_spec
+    layer: credential_format
+    status: draft
+    status_date: "2026-07-20"
+    status_note: draft-14 (2026-07-20); JOSE WG document, still early/incomplete per editor's note.
+    summary:
+      IETF JOSE WG draft defining a JSON Web Proof container that can integrity-protect multiple payloads and support
+      selective disclosure, unlinkable presentations and zero-knowledge proofs (BBS, CL, etc.).
+    relevance_for_eudi:
+      Forward-looking ZKP/selective-disclosure credential container aligned with ARF discussion topics on pseudonyms
+      and zero-knowledge proofs; not yet adopted by HAIP or ARF.
+  - id: IETF-BBS-SIGNATURES
+    name: The BBS Signature Scheme — draft 13
+    url: https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-bbs-signatures-13
+    type: ietf_spec
+    layer: credential_format
+    status: draft
+    status_date: "2026-10-13"
+    status_note: draft-13 (2026-10-13); IRTF CFRG active research-group document, informational status, not IETF-endorsed.
+    summary:
+      IRTF CFRG draft describing the BBS signature scheme — a multi-message signature supporting zero-knowledge proofs
+      of possession with selective disclosure and unlinkable presentations.
+    relevance_for_eudi:
+      Candidate cryptographic primitive for ZKP-based, unlinkable selective-disclosure credentials; referenced by
+      JSON Web Proof; forward-looking relevance to EUDI privacy-preserving attestations.
   - id: IETF-CWT
     name: RFC 8392 — CBOR Web Token (CWT)
     url: https://www.rfc-editor.org/rfc/rfc8392.html
@@ -2177,6 +2382,20 @@ flat_documents:
     status_date: "2018-05"
     summary: CBOR/COSE-based compact token format for representing claims.
     relevance_for_eudi: Cited in ARF 3.0.0 references; CWT form is used by Token Status List for mdoc-oriented status lists.
+  - id: IETF-SD-CWT
+    name: Selective Disclosure CBOR Web Tokens (SD-CWT) — draft 08
+    url: https://datatracker.ietf.org/doc/html/draft-ietf-spice-sd-cwt-08
+    type: ietf_spec
+    layer: credential_format
+    status: draft
+    status_date: "2026-06-01"
+    status_note: draft-08 (2026-06-01); in IESG AD Evaluation (SPICE WG). No RFC number yet.
+    summary:
+      IETF SPICE WG draft defining selective disclosure for CBOR Web Tokens (CWT), inspired by SD-JWT (RFC 9901) but
+      aligned with COSE and CWT conventions; includes key binding tokens and encrypted disclosures.
+    relevance_for_eudi:
+      CBOR/COSE counterpart to SD-JWT for mdoc-oriented credential formats; referenced by Token Status List for
+      SD-CWT status handling; forward-looking relevance to CWT/mdoc-based EUDI attestations.
   - id: OAUTH-CROSS-DEVICE-BCP
     name: RFC 10027 — Best Current Practice for Security of Cross-Device Flows
     url: https://www.rfc-editor.org/rfc/rfc10027.html
@@ -2225,6 +2444,16 @@ flat_documents:
     relevance_for_eudi:
       Background for issuer/RP scenarios involving intermediaries and non-Wallet EAA delivery; feeds TS 119
       479-4 (Hybrid EAA, start of work 2026-03-04) and TS 119 479-5 (Wallet-independent EAA, adopted 2026-09-08).
+  - id: ETSI-TS-119-479-4
+    name: ETSI TS 119 479-4 (work item) — Technological Solutions for the EU Digital Identity Framework; Part 4 — Hybrid EAA
+    url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=74936
+    type: etsi_standard
+    status: in_development
+    status_date: "2026-03-04"
+    summary: Planned specification for hybrid Electronic Attestation of Attributes models beyond the EUDI Wallet.
+    relevance_for_eudi:
+      Extends EAA to hybrid delivery scenarios (Digital Product Passports, file-delivered attestations);
+      feeds issuer/RP scenarios involving intermediaries.
   - id: ETSI-TR-119-479-2
     name: ETSI TR 119 479-2 V1.1.1 — EAA extended validation services framework
     url: https://www.etsi.org/deliver/etsi_tr/119400_119499/11947902/01.01.01_60/tr_11947902v010101p.pdf
@@ -2237,6 +2466,18 @@ flat_documents:
     relevance_for_eudi:
       Relevant to embedded disclosure policy checks and verifier-side validation services. Being converted
       to TS 119 479-2 (final draft v1.1.3, 2026-10-14; public draft v1.1.2).
+  - id: ETSI-TS-119-479-5
+    name: ETSI TS 119 479-5 (work item) — Technological Solutions for the EU Digital Identity Framework; Part 5 — Wallet-Independent EAA Interfaces and Requirements
+    url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=79412
+    type: etsi_standard
+    status: in_development
+    status_date: "2026-09-08"
+    summary:
+      Specifies REST API endpoints and autodiscovery for Relying Parties and Signature Creation Applications consuming
+      EAA/QEAA, reusing OID4VCI metadata and .well-known locations.
+    relevance_for_eudi:
+      Closes the gap for standalone (non-Wallet) EAA provisioning/consumption; relevant to SCA/signing
+      integrations and Wallet-independent QEAA flows.
   - id: ETSI-TS-119-432
     name: ETSI TS 119 432 V1.3.1 — Protocols for remote digital signature creation
     url: https://www.etsi.org/deliver/etsi_ts/119400_119499/119432/01.03.01_60/ts_119432v010301p.pdf
@@ -2312,14 +2553,14 @@ flat_documents:
     name: ETSI TS 119 476-2 (draft) — SD and ZKP implementation in EUDI Wallet
     url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=74931
     type: etsi_standard
-    status: in_development
-    status_date: "2026-07-08"
+    status: draft
+    status_date: "2026-10-15"
     summary:
       Planned ETSI specification of mechanisms and protocols for selective disclosure and zero-knowledge proofs for EAA
       in the EUDI Wallet, taking EC TS13 and TS14 as input.
     relevance_for_eudi:
-      Future normative target for ZKP issuance/presentation tests that EC TS13/TS14 defer to; early draft
-      v0.0.4 only.
+      Future normative target for ZKP issuance/presentation tests that EC TS13/TS14 defer to; stable draft reached
+      2026-10-15 (STF705 D2.15); publication planned 2027-02-28.
   - id: ETSI-TS-119-605
     name: ETSI TS 119 605 (draft) — Procedures for using and interpreting lists of trusted entities
     url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=69599
@@ -2356,6 +2597,14 @@ flat_documents:
     relevance_for_eudi:
       Directly relevant to Credimi/FCAF positioning as the future ETSI view on EUDI Wallet test strategies,
       test systems and test specifications. Start of work only; EC tracker planned publication 2027-02-28.
+  - id: ETSI-TR-119-060
+    name: ETSI TR 119 060 (draft) — Standardization Gap Analysis for European Business Wallet (EBW) Ecosystem
+    url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=78177
+    type: etsi_standard
+    status: draft
+    status_date: "2026-10-14"
+    summary: Gap analysis for standardization of the European Business Wallet ecosystem.
+    relevance_for_eudi: Upstream analysis feeding future B2B wallet standardization adjacent to the EUDI consumer wallet.
   - id: ETSI-EN-319-487
     name: ETSI EN 319 487 (draft) — EUDI Wallet Trust Mark
     url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=74934
@@ -2373,12 +2622,12 @@ flat_documents:
     name: ETSI EN 319 486 (draft) — Common formats and API for Relying Party Registry information
     url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=74933
     type: etsi_standard
-    status: in_development
-    status_date: "2026-04-02"
+    status: draft
+    status_date: "2026-10-24"
     summary: Draft European Standard standardising EC TS05 common formats and API for relying-party registry information.
     relevance_for_eudi:
       Future normative target for RP register API tests currently based on EC TS05 and CIR (EU) 2026/1730.
-      Early draft v0.0.1; next stage stable draft planned 2026-10-15.
+      Stable draft reached 2026-10-24 (STF705 D2.14); final draft planned 2026-12-01.
   - id: ETSI-EN-319-482-1
     name: ETSI EN 319 482-1 (draft) — Additional wallet interfaces; Common interface for lodging complaints to DPAs
     url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=74938
@@ -2458,6 +2707,14 @@ flat_documents:
     relevance_for_eudi:
       Future auditable requirement set for conformity assessment of Wallet, PID and registration-certificate
       providers. Work items adopted 2026-06-03; start of work planned 2027-01-01.
+  - id: ETSI-TS-119-485
+    name: ETSI TS 119 485 (work item) — Technological Solutions for the EU Digital Identity Framework; Policy and Security Requirements for Relying Party Intermediaries
+    url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=78844
+    type: etsi_standard
+    status: in_development
+    status_date: "2026-09-24"
+    summary: Planned policy and security requirements for relying-party intermediaries in the EUDI ecosystem.
+    relevance_for_eudi: Relevant to RP-intermediary (broker/aggregator) scenarios in Wallet presentation and access flows.
   - id: CEN-TS-18098
     name: CEN/TS 18098:2026 — Guidelines for onboarding user PID within European Digital Identity Wallets
     url: https://standards.cencenelec.eu/ords/f?p=CEN:110:::::FSP_PROJECT,FSP_ORG_ID:77237,6205&cs=108DDF7D9D49309AAA4ED569EBC8C4849
@@ -2556,6 +2813,19 @@ flat_documents:
     relevance_for_eudi:
       Normative reference of CEN/TS 18098:2026; relevant to remote biometric identity proofing during Wallet/PID
       onboarding.
+  - id: CEN-EN-18037
+    name: EN 18037:2025 — Guidelines on a sectoral cybersecurity assessment
+    url: https://standards.cencenelec.eu/ords/f?p=205:110:::::FSP_PROJECT:75985
+    type: cen_standard
+    status: published
+    status_date: "2025-03-26"
+    status_note: Approved 2024-12-15; corrigendum EN 18037:2025+AC:2026 issued 2026-02-26.
+    summary:
+      Risk-based methodology to perform a sectoral cybersecurity assessment, standardising how a sector's cybersecurity
+      posture is analysed and documented.
+    relevance_for_eudi:
+      CEN/CLC/JTC 13 deliverable referenced by the CEN EUDI Wallet risk register as the assessment methodology, linking
+      wallet certification risk analysis to a sectoral cybersecurity assessment under the Cybersecurity Act.
   - id: ISO-18013-5-ED2
     name: ISO/IEC DIS 18013-5 (edition 2) — mDL/mdoc
     url: https://www.iso.org/standard/91081.html
@@ -2660,6 +2930,42 @@ flat_documents:
     relevance_for_eudi:
       Referenced by EC TS11 for mdoc doctype/namespace registration in the attestation catalogue. ISO stage
       40.60 (DIS close of voting 2026-07-29).
+  - id: ISO-27566-1
+    name: ISO/IEC 27566-1:2025 — Age assurance systems, Part 1 — Framework
+    url: https://www.iso.org/standard/88143.html
+    type: iso_standard
+    status: published
+    status_date: "2025-12-12"
+    summary:
+      Framework for age assurance systems and their core characteristics, including privacy and security, for enabling
+      age-related eligibility decisions.
+    relevance_for_eudi:
+      Basis for age-estimation and age-verification components of the EUDI Wallet (age gating under DSA Article 28 minor-protection
+      guidelines and eIDAS); SC 27 counterpart to the mdoc age-over-18 attestations carried in PID/EAA.
+  - id: ISO-27566-2
+    name: ISO/IEC WD 27566-2 — Age assurance systems, Part 2 — Technical approaches and guidance for implementation
+    url: https://www.iso.org/standard/90011.html
+    type: iso_standard
+    status: in_development
+    status_date: "2026-07-16"
+    summary:
+      Guidance on characteristics and trade-offs of various technical approaches for implementing age assurance systems or
+      components across ecosystems and actors.
+    relevance_for_eudi:
+      Will inform technical age-verification/estimation options interoperable with Wallet-based age attestations. ISO stage 20.60
+      (working draft close of comment period 2026-07-16).
+  - id: ISO-27566-3
+    name: ISO/IEC DIS 27566-3 — Age assurance systems, Part 3 — Approaches to analysis or comparison
+    url: https://www.iso.org/standard/88147.html
+    type: iso_standard
+    status: draft
+    status_date: "2026-09-11"
+    summary:
+      Considerations and metrics, elements and indicators of effectiveness for analysing, comparing or differentiating age
+      assurance systems or components.
+    relevance_for_eudi:
+      Enables comparing age-assurance approaches (incl. Wallet-carried age attestations) for assurance-level and effectiveness
+      mapping. ISO stage 40.20 (DIS ballot initiated 2026-09-11).
   - id: ETSI-EN-319-142-1
     name: ETSI EN 319 142-1 - AdES digital signatures; PAdES digital signatures; Part 1 Building blocks and PAdES baseline signatures
     url: https://www.etsi.org/deliver/etsi_en/319100_319199/31914201/01.02.01_60/

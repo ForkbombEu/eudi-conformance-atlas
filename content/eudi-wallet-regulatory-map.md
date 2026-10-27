@@ -40,6 +40,23 @@ A document can appear under more than one logical area, and the same document ca
 
 This review (21 October 2026) checked the EUR-Lex/Publications Office records, the ARF essential-standards list, the FCAF draft references, the EC technical specifications repository and the ETSI, CEN, ISO, OpenID, IETF, W3C and ENISA publication pages. The full status of every document is on the atlas Radar page.
 
+### Follow-up (27 October 2026)
+
+A second pass picked up new documents and status advances since the 21st. The full status of every document remains on the Radar page.
+
+**New in this edition**
+
+- Commission Implementing Regulation (EU) 2026/2266 makes the mobile driving licence (mDL) an EUDI Wallet credential, issued as a QEAA or public-sector EAA on the ISO/IEC 18013-5 mdoc data model.
+- Proposals: the digital euro (COM(2023) 369, in trilogue), the EU Digital Travel application and digital travel credentials (COM(2024) 670 / 671), and the AMLA draft RTS on customer due diligence under the AMLR.
+- Standards and specs: the ISO/IEC 27566 age-assurance series (parts 1–3) and EN 18037 on sectoral cybersecurity assessment; the IETF SD-CWT, JSON Web Proof and BBS drafts; OpenID4VC HAIP 1.1 (editor's draft); and seven new ETSI work items (TS 119 474, 119 479-4/-5, 119 485, 119 403-4, TS 119 322, TR 119 060).
+
+**Status advances**
+
+- SD-JWT VC moved to draft-20 (2026-10-26), now in IESG Evaluation.
+- ETSI drafts reached stable/final draft: TS 119 476-2 (SD/ZKP), EN 319 486 (RP registry), EN 319 602 and EN 319 475 conversions.
+- Proposals moved: European Business Wallets (Council general approach, EP report), Digital Omnibus (Council negotiating mandate 2026-10-21), PSR (Council first-reading position 2026-10-21), Cybersecurity Act 2 (ITRE draft report).
+- WE BUILD conformance specs advanced (CS-001 v1.4, CS-013 pre-flight v1.0) and the ARF discussion-topic index was restructured to 15 topics.
+
 ### Amended Wallet acts (July 2026 package)
 
 | Document                                                                                          | Link                                             | What changed                                                                                                                                  |
