@@ -450,4 +450,20 @@ After each development task and before each commit, the README.md should be upda
 - Quick GUI guide (if applicable): Organize this in subchapters. Describe what the GUI offers, what can be see on the homepage, how to perform actions that are related to the main functionalities of the app
 - CLI Examples (if applicable): a Table listing all the CLI functions, with one example per functionalities
 - API Examples (if applicable): a Table listing all the API functions, with one curl example per API
+
+## RSS / Atom feed (changelog)
+
+The site ships an Atom feed at `/feed.xml`, generated at build time from the top-level `changelog` in `data/eudi-documents-map.yaml`. One feed entry per changelog release, newest first.
+
+Every data refresh, crawl or source review MUST update the changelog so the feed stays useful:
+
+- prepend a NEW `changelog` entry (never edit an older entry);
+- `date` MUST be the review date as a quoted `"YYYY-MM-DD"` string;
+- `summary` MUST be an executive summary: the most important things that changed, in prose, neutral and factual, no marketing — the feed renders it verbatim as the entry lead;
+- `added` lists the IDs of new documents; `updated` lists the IDs of changed documents;
+- every ID in `added`/`updated` MUST exist in `flat_documents` (the data validator enforces this).
+
+YAML gotcha: `summary`, `name` and `status_note` values are plain scalars, so they MUST NOT contain `: ` (colon followed by a space) — use an em dash or parentheses instead. `scripts/validate-data.mjs` fails the build on malformed YAML.
+
+The feed links are derived automatically: every document links to its atlas `/documents/<id>/` page, every entry links to the Radar page, and the entry footer links to the Credimi platform. The feed uses relative URLs and `tag:` URIs, so it is host-agnostic — it works the same whether served from a custom domain, GitHub Pages or a local server; do NOT hardcode a site origin.
   

@@ -56,6 +56,22 @@ module.exports = function (eleventyConfig) {
     return day ? `${Number(day)} ${monthName} ${year}` : `${monthName} ${year}`;
   });
 
+  // Escape text for embedding in XML/HTML (used by the Atom feed).
+  eleventyConfig.addFilter("xml", (value) =>
+    String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;"),
+  );
+
+  // YYYY-MM-DD -> full RFC 3339 date-time for Atom <updated>.
+  eleventyConfig.addFilter("atomDate", (value) => {
+    const s = String(value ?? "").slice(0, 10);
+    return /^\d{4}-\d{2}-\d{2}$/.test(s) ? `${s}T00:00:00Z` : s;
+  });
+
   return {
     dir: {
       input: "src",
