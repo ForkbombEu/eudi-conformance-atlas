@@ -7,6 +7,7 @@
 */
 :root {
   --max-width: 90rem;
+  --topbar-height: 64px;
 }
 
 /*
@@ -31,7 +32,7 @@
   /* Generic `a` styling in style.css underlines the lockup like body copy. */
   text-decoration: none;
   /* style.css pins the lockup at 22px; the mark + name read too small there. */
-  height: 30px;
+  height: 38px;
 }
 
 /* --fg is the design system's foreground token; --text is not defined anywhere,
@@ -39,7 +40,7 @@
    colour from the enclosing anchor instead. */
 .atlas-product-name {
   color: var(--fg);
-  font-size: var(--fs-lg);
+  font-size: var(--fs-xl);
   font-weight: 800;
   letter-spacing: -0.01em;
   line-height: 1;
