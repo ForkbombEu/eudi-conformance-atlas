@@ -40,8 +40,8 @@ permalink: /data/
             {% for artifact in sourceOfTruth.artifacts %}
             <tr>
               <td style="padding:var(--space-2) var(--space-4);font-size:var(--fs-sm);">{{ artifact.filename }}</td>
-              <td style="padding:var(--space-2) var(--space-4);font-family:'JetBrains Mono',monospace;font-size:var(--fs-sm);">{{ artifact.media_type }}</td>
-              <td style="text-align:right;padding:var(--space-2) var(--space-4);font-family:'JetBrains Mono',monospace;font-size:var(--fs-sm);">{{ artifact.byte_size }}</td>
+              <td style="padding:var(--space-2) var(--space-4);font-family:'Source Code Pro Variable',monospace;font-size:var(--fs-sm);">{{ artifact.media_type }}</td>
+              <td style="text-align:right;padding:var(--space-2) var(--space-4);font-family:'Source Code Pro Variable',monospace;font-size:var(--fs-sm);">{{ artifact.byte_size }}</td>
               <td style="text-align:right;padding:var(--space-2) var(--space-4);"><a href="{{ ('/' + artifact.path) | url }}" class="btn btn-outline btn-sm" download>Download</a></td>
             </tr>
             {% endfor %}
@@ -75,7 +75,7 @@ permalink: /data/
             {% for typeName, typeCount in documents.typeCounts %}
             <tr>
               <td style="padding:var(--space-2) var(--space-4);font-size:var(--fs-sm);">{{ sourceBadge(typeName) }} {{ typeName }}</td>
-              <td style="text-align:right;padding:var(--space-2) var(--space-4);font-family:'JetBrains Mono',monospace;font-size:var(--fs-sm);">{{ typeCount }}</td>
+              <td style="text-align:right;padding:var(--space-2) var(--space-4);font-family:'Source Code Pro Variable',monospace;font-size:var(--fs-sm);">{{ typeCount }}</td>
             </tr>
             {% endfor %}
           </tbody>

@@ -156,3 +156,10 @@ _site/
 .task/
 .codex/
 .agents/
+
+# Agent tooling (installed by npx skills / npx impeccable)
+.claude/
+.github/agents/
+.github/hooks/
+.github/skills/
+skills-lock.json

@@ -88,3 +88,9 @@ If unsure:
 - location: mise.toml, package.json (prettier pinned exact), .prettierignore
 - evidence: byte-pinned inputs (HITL/, src/css/style.css, src/assets/, data/source-of-truth/) and governance files (directives/, AGENTS.md, HITL.md) are excluded; `.njk` is excluded because Prettier has no Nunjucks parser.
 - rationale: `BARIO.md` should name the formatter so the rule is documented, not just configured.
+
+- id: hitl-0007
+- observation: The site was redesigned from scratch at the user's request ("redo the design from scratch using impeccable and the taste skills"), which changed the byte-pinned `src/css/style.css` and its canonical copy `HITL/style.css`.
+- location: HITL/style.css, src/css/style.css, src/css/app.css, src/index.njk, src/fonts/
+- evidence: typography changed from Manrope/JetBrains Mono to Inter Variable/Source Code Pro Variable (woff2 bundled in src/fonts/); the home-page radar and ecosystem-web SVG diagrams were removed and replaced with a "Start here" navigation section.
+- rationale: `validate-design-assets.mjs` byte-pins `src/css/style.css` against `HITL/style.css`; a human should confirm the shared brand stylesheet is intentionally updated to the new design.

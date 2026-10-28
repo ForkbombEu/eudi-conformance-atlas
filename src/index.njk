@@ -6,7 +6,6 @@ description: A community-maintained map of EUDI Wallet law, implementing acts, A
 {% from "components/section-header.njk" import sectionHeader %}
 {% from "components/search-box.njk" import searchBox %}
 {% from "components/credimi.njk" import credimiCta, credimiPromo %}
-{% from "components/viz.njk" import radarChart, ecosystemWeb %}
 {% from "components/role-art.njk" import roleArt %}
 
 <section class="atlas-hero">
@@ -52,24 +51,40 @@ description: A community-maintained map of EUDI Wallet law, implementing acts, A
   <div class="container">
 
 
-    <section class="viz-section" aria-labelledby="home-radar-title">
-      <div class="viz-grid">
-        {{ radarChart(documents.radar) }}
-        <div>
-          <p class="viz-kicker">Regulatory radar</p>
-          <h2 class="viz-title" id="home-radar-title">Every rule, where it stands today</h2>
-          <p class="viz-lead">Each dot is one document. The four quarters are the layers of the rulebook. The closer a dot sits to the centre, the more settled the document is. Drafts sit in the middle ring and legislative proposals on the outer edge. Ringed dots are new in this edition. Select a dot to open the document.</p>
-          <ul class="viz-facts">
-            <li><strong>{{ documents.currentCount }}</strong><span>in force, published or final</span></li>
-            <li><strong>{{ documents.pipelineCount }}</strong><span>drafts and proposals still moving</span></li>
-            <li><strong>{{ (documents.latestRelease.added or []) | length }}</strong><span>new in this edition</span></li>
-            <li><strong>{{ documents.pinnedDocuments.length }}</strong><span>with test-version pins to watch</span></li>
-          </ul>
-          <div class="viz-actions">
-            <a href="{{ '/radar/' | url }}" class="btn btn-primary btn-lg">Open the full radar</a>
-            <a href="{{ '/reference/' | url }}" class="btn btn-outline btn-lg">Browse all documents</a>
-          </div>
-        </div>
+    <section class="home-section">
+      {{ sectionHeader("Start here") }}
+      <p class="section-intro">Six ways into the same rulebook — every document, standard and test cross-linked across all of them.</p>
+      <div class="card-grid card-grid-3">
+        <a class="card start-card" href="{{ '/radar/' | url }}">
+          <span class="start-card-label">Regulatory radar</span>
+          <strong>{{ documents.totalCount }} documents</strong>
+          <p>What is in force, what changed and what is still a draft or proposal.</p>
+        </a>
+        <a class="card start-card" href="{{ '/reference/' | url }}">
+          <span class="start-card-label">Reference</span>
+          <strong>Searchable catalogue</strong>
+          <p>Filter law, EC specs, standards and protocols by stack, status and type.</p>
+        </a>
+        <a class="card start-card" href="{{ '/glossary/' | url }}">
+          <span class="start-card-label">Glossary</span>
+          <strong>{{ glossary.terms.length }} terms</strong>
+          <p>Read the rulebook by topic, with document counts per stack layer.</p>
+        </a>
+        <a class="card start-card" href="{{ '/map/' | url }}">
+          <span class="start-card-label">Map</span>
+          <strong>By task</strong>
+          <p>The EUDI stack organised by what you are building, with role highlighting.</p>
+        </a>
+        <a class="card start-card" href="{{ '/tests/' | url }}">
+          <span class="start-card-label">Test coverage</span>
+          <strong>{{ canonicalTests.totalCount }} tests</strong>
+          <p>The conformance inventory by actor and evidence strength.</p>
+        </a>
+        <a class="card start-card" href="{{ '/data/' | url }}">
+          <span class="start-card-label">Data</span>
+          <strong>Machine-readable</strong>
+          <p>Download the YAML and JSON that power this atlas.</p>
+        </a>
       </div>
     </section>
 
@@ -129,23 +144,6 @@ description: A community-maintained map of EUDI Wallet law, implementing acts, A
     <div class="home-section">
       {{ credimiCta("Know which rules apply? Prove you meet them.", "Credimi runs your Wallet, Issuer or Verifier against the flows these documents define and keeps every run as shareable evidence.") }}
     </div>
-
-    <section class="viz-section" aria-labelledby="eco-section-title">
-      <div class="viz-grid">
-        <div>
-          <p class="viz-kicker">Why this is hard</p>
-          <h2 class="viz-title" id="eco-section-title">{{ documents.ecosystem.publishers.length }} bodies write the rules for 4 kinds of actor</h2>
-          <p class="viz-lead">Laws come from the EU, the architecture and specifications from the Commission, and the formats and protocols from ETSI, CEN, ISO, OpenID, IETF, W3C and others. Each actor answers to several of them at once, on different release cycles.</p>
-          <ul class="viz-facts">
-            <li><strong>{{ documents.totalCount }}</strong><span>documents to follow</span></li>
-            <li><strong>{{ documents.ecosystem.linkCount }}</strong><span>publisher-to-actor relationships</span></li>
-            <li><strong>{{ documents.pinnedDocuments.length }}</strong><span>where the test pin lags the latest version</span></li>
-            <li><strong>{{ canonicalTests.totalCount }}</strong><span>tests mapped across them</span></li>
-          </ul>
-        </div>
-        {{ ecosystemWeb(documents.ecosystem, documents.totalCount) }}
-      </div>
-    </section>
 
     <section class="home-section role-section" aria-labelledby="roles-title">
       <p class="viz-kicker">Start by role</p>

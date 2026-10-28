@@ -369,7 +369,7 @@
 }
 
 .stack-plate-count {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Source Code Pro Variable", ui-monospace, monospace;
   font-size: var(--fs-lg);
   font-weight: 700;
   white-space: nowrap;
@@ -510,7 +510,7 @@
   gap: var(--space-2);
 }
 .status-legend strong {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Source Code Pro Variable", ui-monospace, monospace;
 }
 
 /* Regulatory radar */
@@ -564,7 +564,7 @@
 }
 
 .timeline-date {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Source Code Pro Variable", ui-monospace, monospace;
   font-size: var(--fs-xs);
   font-weight: 600;
   color: var(--brand-primary-600);
@@ -743,7 +743,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Source Code Pro Variable", ui-monospace, monospace;
   font-size: 11px;
   color: var(--atlas-text-2);
 }
@@ -1226,7 +1226,7 @@
   flex: 1;
 }
 .doc-date {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Source Code Pro Variable", ui-monospace, monospace;
   font-size: 11px;
   color: var(--atlas-text-2);
 }
@@ -1366,7 +1366,7 @@
   display: block;
   width: 100%;
   height: auto;
-  font-family: "Manrope", system-ui, sans-serif;
+  font-family: "Inter Variable", system-ui, sans-serif;
 }
 .radar-sector {
   stroke: none;
@@ -1494,7 +1494,7 @@
   display: block;
   width: 100%;
   height: auto;
-  font-family: "Manrope", system-ui, sans-serif;
+  font-family: "Inter Variable", system-ui, sans-serif;
 }
 .eco-link {
   fill: none;
@@ -1524,7 +1524,7 @@
   stroke-width: 2.5;
 }
 .eco-count {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Source Code Pro Variable", ui-monospace, monospace;
   font-size: 14px;
   font-weight: 700;
   fill: var(--brand-primary);
@@ -1578,7 +1578,7 @@
   background: var(--success);
 }
 .momentum-total {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Source Code Pro Variable", ui-monospace, monospace;
   font-size: var(--fs-sm);
   font-weight: 700;
   color: var(--brand-primary);
@@ -1601,6 +1601,35 @@
   margin-top: var(--space-6);
 }
 
+/* --- Home "Start here" cards --- */
+.start-card {
+  display: block;
+  text-decoration: none;
+  color: var(--fg);
+  padding: var(--space-5);
+}
+.start-card:hover {
+  border-color: var(--brand-primary-600);
+}
+.start-card-label {
+  display: block;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-primary-600);
+  margin-bottom: var(--space-2);
+}
+.start-card strong {
+  display: block;
+  font-size: var(--fs-lg);
+  margin-bottom: var(--space-1);
+}
+.start-card p {
+  font-size: var(--fs-sm);
+  color: var(--fg-muted);
+  line-height: 1.5;
+}
 /*
   --- Glossary ---
   Topic index bars and the term entries. Bars reuse the momentum stack colours
@@ -1663,7 +1692,7 @@
   overflow-wrap: anywhere;
 }
 .gloss-abbr {
-  font-family: "JetBrains Mono", monospace;
+  font-family: "Source Code Pro Variable", monospace;
   font-size: var(--fs-xs);
   font-weight: 600;
   color: var(--fg-muted);
@@ -1681,7 +1710,7 @@
   min-width: 3px;
 }
 .gloss-row-count {
-  font-family: "JetBrains Mono", monospace;
+  font-family: "Source Code Pro Variable", monospace;
   font-size: var(--fs-sm);
   font-weight: 700;
   color: var(--brand-primary);
@@ -1708,7 +1737,7 @@
   padding: 0 var(--space-2);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  font-family: "JetBrains Mono", monospace;
+  font-family: "Source Code Pro Variable", monospace;
   font-size: var(--fs-sm);
   font-weight: 700;
   color: var(--brand-primary);
