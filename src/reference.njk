@@ -14,7 +14,7 @@ pageScript: search.js
     <h1>Reference</h1>
     <p>All {{ documents.totalCount }} documents — EU law, EC technical specifications, standards and protocols. Filter by layer, adoption status or type.</p>
     <div class="page-hero-meta">
-      {% for s in documents.statusSummary %}<span class="status-pill tone-{{ s.tone }}">{{ s.glyph }} {{ s.count }} {{ s.label | lower }}</span>{% endfor %}
+      {% for s in documents.statusSummary %}<span class="status-pill tone-{{ s.tone }}">{{ s.glyph }} {{ s.count }} {{ (s.plural or s.label) | lower }}</span>{% endfor %}
     </div>
   </div>
 </section>

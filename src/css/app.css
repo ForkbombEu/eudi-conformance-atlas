@@ -1424,7 +1424,7 @@
 }
 .radar-dot-new {
   stroke: var(--brand-primary);
-  stroke-width: 3;
+  stroke-width: 3.5;
 }
 .radar-dot-link:hover .radar-dot,
 .radar-dot-link:focus-visible .radar-dot {

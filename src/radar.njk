@@ -27,7 +27,7 @@ description: What changed in the EUDI Wallet rulebook — new and updated acts, 
     <h1>What changed, and what is coming</h1>
     <p>Adoption status for every document in the atlas: newly adopted acts, superseded versions, drafts in progress and legislative proposals.{% if documents.latestRelease %} Last reviewed {{ documents.latestRelease.date | statusDate }}.{% endif %}</p>
     <div class="page-hero-meta">
-      {% for s in documents.statusSummary %}<span class="status-pill tone-{{ s.tone }}">{{ s.glyph }} {{ s.count }} {{ s.label | lower }}</span>{% endfor %}
+      {% for s in documents.statusSummary %}<span class="status-pill tone-{{ s.tone }}">{{ s.glyph }} {{ s.count }} {{ (s.plural or s.label) | lower }}</span>{% endfor %}
     </div>
   </div>
 </section>

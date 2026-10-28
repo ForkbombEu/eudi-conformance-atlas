@@ -24,7 +24,7 @@
     {% endfor %}
     {% for dot in radar.dots %}
     {% if linkDots %}<a href="{{ ('/documents/' + dot.id + '/') | url }}" class="radar-dot-link">{% endif %}
-      <circle class="radar-dot tone-dot-{{ dot.tone }}{% if dot.change %} radar-dot-{{ dot.change }}{% endif %}" cx="{{ dot.x }}" cy="{{ dot.y }}" r="{{ 8 if dot.change == 'new' else 6.5 }}">
+      <circle class="radar-dot tone-dot-{{ dot.tone }}{% if dot.change %} radar-dot-{{ dot.change }}{% endif %}" cx="{{ dot.x }}" cy="{{ dot.y }}" r="{{ 10 if dot.change == 'new' else 7.5 }}">
         <title>{{ dot.name }} — {{ dot.statusLabel }}{% if dot.date %}, {{ dot.date | statusDate }}{% endif %}{% if dot.change %} ({{ dot.change }} in this edition){% endif %}</title>
       </circle>
     {% if linkDots %}</a>{% endif %}
