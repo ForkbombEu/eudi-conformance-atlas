@@ -1,6 +1,15 @@
 /* Atlas-specific layout only; shared components live in style.css. */
 
 /*
+  The shared shell pins --max-width at 1280px. On wide screens that leaves
+  oversized gutters; widen to Credimi's container-site (1440px) so the atlas
+  uses the screen, while text keeps its own ~70ch measure.
+*/
+:root {
+  --max-width: 90rem;
+}
+
+/*
   --- Topbar brand lockup ---
 
   style.css sizes .topbar-logo (height: 22px) but never makes it a flex
