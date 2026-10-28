@@ -128,3 +128,28 @@ description: What changed in the EUDI Wallet rulebook — new and updated acts, 
     </div>
   </div>
 </div>
+
+<script>
+(function () {
+  var svg = document.querySelector(".momentum-svg");
+  var tip = document.querySelector(".momentum-tooltip");
+  if (!svg || !tip) return;
+  svg.addEventListener("mousemove", function (e) {
+    var point = e.target.closest(".momentum-point");
+    if (!point) {
+      tip.hidden = true;
+      return;
+    }
+    var rect = svg.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var y = e.clientY - rect.top;
+    tip.textContent = point.dataset.tip;
+    tip.style.left = x + "px";
+    tip.style.top = y + "px";
+    tip.hidden = false;
+  });
+  svg.addEventListener("mouseleave", function () {
+    tip.hidden = true;
+  });
+})();
+</script>

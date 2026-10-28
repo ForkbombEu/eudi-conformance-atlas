@@ -417,11 +417,14 @@ module.exports = function () {
     for (let i = momentumBars.length - 1; i >= 0; i--)
       d += ` L ${xs[i]} ${yFor(bottom[i])}`;
     d += " Z";
+    const last = momentumBars.length - 1;
     return {
       key: stack.key,
       label: stack.label,
       short: stackShort[stack.key],
       path: d,
+      labelX: xs[last] - 8,
+      labelY: (yFor(top[last]) + yFor(bottom[last])) / 2,
     };
   });
 

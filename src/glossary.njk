@@ -73,7 +73,7 @@ description: EUDI Wallet glossary — every term counts how many atlas documents
             <li>
               <span class="status-pill tone-{{ doc.statusTone }}">{{ doc.statusGlyph }} {{ doc.statusLabel }}</span>
               <a href="{{ ('/documents/' + doc.id + '/') | url }}">{{ doc.name }}</a>
-              <span class="badge {{ doc.typeBadge }}">{{ doc.typeLabel }}</span>
+              <span class="badge badge-neutral">{{ doc.typeLabel }}</span>
             </li>
             {% endfor %}
           </ul>
