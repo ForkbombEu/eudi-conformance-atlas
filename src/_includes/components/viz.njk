@@ -24,7 +24,7 @@
     {% endfor %}
     {% for dot in radar.dots %}
     {% if linkDots %}<a href="{{ ('/documents/' + dot.id + '/') | url }}" class="radar-dot-link">{% endif %}
-      <circle class="radar-dot tone-dot-{{ dot.tone }}{% if dot.change %} radar-dot-{{ dot.change }}{% endif %}" cx="{{ dot.x }}" cy="{{ dot.y }}" r="{{ 8 if dot.change == 'new' else 6.5 }}">
+      <circle class="radar-dot tone-dot-{{ dot.tone }}{% if dot.change %} radar-dot-{{ dot.change }}{% endif %}" cx="{{ dot.x }}" cy="{{ dot.y }}" r="{{ 10 if dot.change == 'new' else 7.5 }}">
         <title>{{ dot.name }} — {{ dot.statusLabel }}{% if dot.date %}, {{ dot.date | statusDate }}{% endif %}{% if dot.change %} ({{ dot.change }} in this edition){% endif %}</title>
       </circle>
     {% if linkDots %}</a>{% endif %}
@@ -68,21 +68,25 @@
 </figure>
 {% endmacro %}
 
-{% macro momentumChart(momentum, stacks) %}
+{% macro momentumChart(momentum) %}
 <figure class="momentum-figure">
-  <div class="momentum-bars" role="img" aria-label="Documents by date of their latest status change, per half-year">
-    {% for bar in momentum.bars %}
-    <div class="momentum-col">
-      <span class="momentum-total">{{ bar.total }}</span>
-      <div class="momentum-stack" style="--h: {{ (bar.total / momentum.max * 100) | round(1) }}%">
-        {% for seg in bar.segments %}{% if seg.count %}<span class="momentum-seg momentum-seg-{{ seg.key }}" style="--share: {{ seg.count }}" title="{{ seg.label }}: {{ seg.count }}"></span>{% endif %}{% endfor %}
-      </div>
-      <span class="momentum-label">{{ bar.label }}</span>
-    </div>
+  <svg class="momentum-svg" viewBox="0 0 {{ momentum.width }} {{ momentum.height }}" role="img" aria-label="Documents by date of their latest status change, per half-year, stacked by stack layer">
+    <line class="momentum-axis" x1="{{ momentum.padX }}" y1="{{ momentum.height - momentum.padBottom }}" x2="{{ momentum.width - momentum.padX }}" y2="{{ momentum.height - momentum.padBottom }}"/>
+    {% for area in momentum.areas %}
+    <path class="momentum-area momentum-area-{{ area.key }}" d="{{ area.path }}"/>
     {% endfor %}
-  </div>
-  <figcaption class="radar-legend">
-    {% for stack in stacks %}<span><span class="legend-swatch momentum-seg-{{ stack.key }}" aria-hidden="true"></span>{{ stack.label }}</span>{% endfor %}
-  </figcaption>
+    {% for area in momentum.areas %}
+    <text class="momentum-area-label momentum-area-label-{{ area.key }}" x="{{ area.labelX }}" y="{{ area.labelY }}" text-anchor="end">{{ area.short }}</text>
+    {% endfor %}
+    <polyline class="momentum-line" points="{% for p in momentum.points %}{{ p.x }},{{ p.y }} {% endfor %}"/>
+    {% for p in momentum.points %}
+    <circle class="momentum-point" cx="{{ p.x }}" cy="{{ p.y }}" r="4" data-tip="{{ p.label }} — {{ p.total }} documents{% for s in p.segments %} · {{ s.label }}: {{ s.count }}{% endfor %}">
+      <title>{{ p.label }} — {{ p.total }} documents{% for s in p.segments %} · {{ s.label }}: {{ s.count }}{% endfor %}</title>
+    </circle>
+    <text class="momentum-val" x="{{ p.x }}" y="{{ p.y - 10 }}" text-anchor="middle">{{ p.total }}</text>
+    <text class="momentum-xlabel" x="{{ p.x }}" y="{{ momentum.height - 12 }}" text-anchor="{{ 'start' if loop.first else ('end' if loop.last else 'middle') }}">{{ p.label }}</text>
+    {% endfor %}
+  </svg>
+  <div class="momentum-tooltip" role="tooltip" hidden></div>
 </figure>
 {% endmacro %}

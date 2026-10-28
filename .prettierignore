@@ -16,3 +16,10 @@ HITL.md
 # Nunjucks templates: Prettier has no Nunjucks parser
 *.njk
 AGENTS.md
+
+# Agent tooling
+.claude/
+.github/agents/
+.github/hooks/
+.github/skills/
+skills-lock.json

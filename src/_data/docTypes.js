@@ -167,7 +167,13 @@ const statuses = {
     phase: "current",
   },
   final: { label: "Final", glyph: "●", tone: "success", phase: "current" },
-  draft: { label: "Draft", glyph: "◐", tone: "warning", phase: "pipeline" },
+  draft: {
+    label: "Draft",
+    plural: "Drafts",
+    glyph: "◐",
+    tone: "warning",
+    phase: "pipeline",
+  },
   in_development: {
     label: "In development",
     glyph: "◌",
@@ -176,6 +182,7 @@ const statuses = {
   },
   proposal: {
     label: "Proposal",
+    plural: "Proposals",
     glyph: "◇",
     tone: "proposal",
     phase: "pipeline",

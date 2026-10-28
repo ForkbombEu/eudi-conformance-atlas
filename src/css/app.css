@@ -1,6 +1,16 @@
 /* Atlas-specific layout only; shared components live in style.css. */
 
 /*
+  The shared shell pins --max-width at 1280px. On wide screens that leaves
+  oversized gutters; widen to Credimi's container-site (1440px) so the atlas
+  uses the screen, while text keeps its own ~70ch measure.
+*/
+:root {
+  --max-width: 90rem;
+  --topbar-height: 64px;
+}
+
+/*
   --- Topbar brand lockup ---
 
   style.css sizes .topbar-logo (height: 22px) but never makes it a flex
@@ -21,6 +31,8 @@
   gap: var(--space-2);
   /* Generic `a` styling in style.css underlines the lockup like body copy. */
   text-decoration: none;
+  /* style.css pins the lockup at 22px; the mark + name read too small there. */
+  height: 38px;
 }
 
 /* --fg is the design system's foreground token; --text is not defined anywhere,
@@ -28,8 +40,10 @@
    colour from the enclosing anchor instead. */
 .atlas-product-name {
   color: var(--fg);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-xl);
   font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1;
 }
 .atlas-footer-logo {
   display: block;
@@ -114,7 +128,7 @@
   background: var(--brand-secondary);
   color: var(--brand-primary);
   padding: 7px var(--space-4);
-  font-size: 12.5px;
+  font-size: var(--fs-sm);
   line-height: 1.45;
 }
 
@@ -369,7 +383,7 @@
 }
 
 .stack-plate-count {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Source Code Pro Variable", ui-monospace, monospace;
   font-size: var(--fs-lg);
   font-weight: 700;
   white-space: nowrap;
@@ -510,7 +524,7 @@
   gap: var(--space-2);
 }
 .status-legend strong {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Source Code Pro Variable", ui-monospace, monospace;
 }
 
 /* Regulatory radar */
@@ -564,7 +578,7 @@
 }
 
 .timeline-date {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Source Code Pro Variable", ui-monospace, monospace;
   font-size: var(--fs-xs);
   font-weight: 600;
   color: var(--brand-primary-600);
@@ -687,18 +701,6 @@
   padding: var(--space-4) var(--space-3) 0;
   background: var(--brand-secondary);
 }
-.role-panel:nth-child(2) .role-panel-art {
-  background: var(--credential-bg);
-}
-.role-panel:nth-child(3) .role-panel-art {
-  background: var(--success-bg);
-}
-.role-panel:nth-child(4) .role-panel-art {
-  background: var(--info-bg);
-}
-.role-panel:nth-child(5) .role-panel-art {
-  background: var(--wallet-bg);
-}
 
 .role-panel-body {
   display: flex;
@@ -743,7 +745,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Source Code Pro Variable", ui-monospace, monospace;
   font-size: 11px;
   color: var(--atlas-text-2);
 }
@@ -764,51 +766,49 @@
   color: var(--brand-primary);
 }
 
-/* Role illustration palette */
+/* Role illustration — flat line-art, Credimi guide style */
 .role-art {
   display: block;
   width: 100%;
   height: auto;
 }
-.ra-blob {
-  fill: var(--bg);
-  opacity: 0.7;
-}
 .ra-device,
 .ra-roof,
 .ra-column,
 .ra-clip {
-  fill: var(--brand-primary);
+  fill: var(--bg);
+  stroke: var(--brand-primary);
+  stroke-width: 2;
 }
 .ra-screen,
 .ra-card {
   fill: var(--bg);
-}
-.ra-card {
   stroke: var(--brand-primary);
-  stroke-width: 2.5;
+  stroke-width: 2;
 }
-.ra-card-back {
-  fill: var(--brand-secondary-strong);
-}
-.ra-chip,
 .ra-button {
-  fill: var(--brand-primary-600);
+  fill: var(--brand-secondary);
+  stroke: var(--brand-primary);
+  stroke-width: 1.5;
 }
 .ra-line-fill {
-  fill: var(--brand-secondary-strong);
+  fill: var(--border-strong);
 }
-.ra-accent-success,
-.ra-badge-success {
+.ra-accent-success {
   fill: var(--success);
+}
+.ra-badge-success {
+  fill: var(--bg);
+  stroke: var(--success);
+  stroke-width: 2.5;
 }
 .ra-accent-warning {
   fill: var(--warning);
 }
 .ra-check {
   fill: none;
-  stroke: white;
-  stroke-width: 5;
+  stroke: var(--success);
+  stroke-width: 3.5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -822,40 +822,36 @@
 .ra-qr rect {
   fill: var(--brand-primary);
 }
-.ra-gear circle {
-  fill: var(--warning);
-}
-.ra-gear .ra-gear-hole {
-  fill: var(--bg);
-}
 .ra-arrow {
   fill: none;
   stroke: var(--brand-primary);
-  stroke-width: 3;
+  stroke-width: 2.5;
   stroke-linecap: round;
   stroke-dasharray: 2 7;
 }
 .ra-arrow-head {
   fill: none;
   stroke: var(--brand-primary);
-  stroke-width: 3;
+  stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 .ra-star {
-  fill: var(--warning);
+  fill: var(--brand-primary);
 }
 .ra-seal {
-  fill: var(--wallet);
+  fill: none;
+  stroke: var(--brand-primary);
+  stroke-width: 2.5;
 }
 .ra-seal-inner {
   fill: none;
-  stroke: white;
-  stroke-width: 2.5;
+  stroke: var(--brand-primary);
+  stroke-width: 1.5;
   stroke-dasharray: 3 4;
 }
 .ra-ribbon {
-  fill: var(--wallet);
+  fill: var(--brand-primary);
 }
 
 /* Sidebar line icons */
@@ -1226,7 +1222,7 @@
   flex: 1;
 }
 .doc-date {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Source Code Pro Variable", ui-monospace, monospace;
   font-size: 11px;
   color: var(--atlas-text-2);
 }
@@ -1243,12 +1239,12 @@
 
 /* Document detail */
 .doc-lead {
-  font-size: var(--fs-md);
-  line-height: 1.6;
+  font-size: var(--fs-lg);
+  line-height: 1.55;
 }
 .doc-body {
-  font-size: var(--fs-base);
-  line-height: 1.6;
+  font-size: var(--fs-md);
+  line-height: 1.65;
 }
 .detail-aside {
   display: flex;
@@ -1268,6 +1264,78 @@
 }
 .detail-actions .btn {
   justify-content: center;
+}
+
+/* --- Prose & data tables (replace inline styles) --- */
+.card-title {
+  font-size: var(--fs-md);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+.mb-3 {
+  margin-bottom: var(--space-3);
+}
+.mt-2 {
+  margin-top: var(--space-2);
+}
+.dl-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-2) var(--space-4);
+  font-size: var(--fs-sm);
+}
+.dl-grid .use {
+  color: var(--success);
+}
+.dl-grid .avoid {
+  color: var(--destructive);
+}
+.prose {
+  font-size: var(--fs-md);
+  line-height: 1.7;
+  color: var(--fg);
+}
+.prose ul,
+.prose ol {
+  padding-left: var(--space-5);
+  line-height: 2;
+}
+.prose-sm {
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+}
+.prose-sm ul,
+.prose-sm ol {
+  padding-left: var(--space-5);
+  line-height: 2;
+}
+.measure {
+  max-width: 700px;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data-table th {
+  text-align: left;
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.data-table th.num,
+.data-table td.num {
+  text-align: right;
+}
+.data-table td {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--fs-sm);
+}
+.data-table td.num {
+  font-family: "Source Code Pro Variable", monospace;
 }
 .related-list {
   display: flex;
@@ -1366,7 +1434,7 @@
   display: block;
   width: 100%;
   height: auto;
-  font-family: "Manrope", system-ui, sans-serif;
+  font-family: "Inter Variable", system-ui, sans-serif;
 }
 .radar-sector {
   stroke: none;
@@ -1420,7 +1488,7 @@
 }
 .radar-dot-new {
   stroke: var(--brand-primary);
-  stroke-width: 3;
+  stroke-width: 3.5;
 }
 .radar-dot-link:hover .radar-dot,
 .radar-dot-link:focus-visible .radar-dot {
@@ -1483,18 +1551,13 @@
   border: 3px solid var(--brand-primary);
   background: var(--bg);
 }
-.legend-swatch {
-  width: 14px;
-  height: 10px;
-  border-radius: 2px;
-}
 
 /* Ecosystem web */
 .eco-svg {
   display: block;
   width: 100%;
   height: auto;
-  font-family: "Manrope", system-ui, sans-serif;
+  font-family: "Inter Variable", system-ui, sans-serif;
 }
 .eco-link {
   fill: none;
@@ -1524,7 +1587,7 @@
   stroke-width: 2.5;
 }
 .eco-count {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Source Code Pro Variable", ui-monospace, monospace;
   font-size: 14px;
   font-weight: 700;
   fill: var(--brand-primary);
@@ -1535,59 +1598,143 @@
   fill: var(--fg);
 }
 
-/* Momentum */
-.momentum-bars {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: var(--space-3);
-  align-items: end;
-  height: 240px;
+/* Momentum (stacked area, tone-sur-tone like the radar map) */
+.momentum-figure {
+  position: relative;
+  width: 100%;
 }
-.momentum-col {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-end;
-  height: 100%;
-  gap: var(--space-1);
-  text-align: center;
+.momentum-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: "Inter Variable", system-ui, sans-serif;
 }
-.momentum-stack {
-  display: flex;
-  flex-direction: column-reverse;
-  height: var(--h);
-  min-height: 4px;
-  overflow: hidden;
-  border-radius: var(--radius-md) var(--radius-md) 0 0;
-  gap: 2px;
+.momentum-axis {
+  stroke: var(--border);
+  stroke-width: 1;
 }
-.momentum-seg {
-  flex: var(--share) 1 0;
-  min-height: 3px;
+.momentum-area {
+  stroke: var(--bg);
+  stroke-width: 1.5;
 }
-.momentum-seg-legal {
-  background: var(--info);
+.momentum-area-legal {
+  fill: var(--info-bg);
 }
-.momentum-seg-architecture {
-  background: var(--credential);
+.momentum-area-architecture {
+  fill: var(--credential-bg);
 }
-.momentum-seg-standards {
-  background: var(--wallet);
+.momentum-area-standards {
+  fill: var(--wallet-bg);
 }
-.momentum-seg-protocols {
-  background: var(--success);
+.momentum-area-protocols {
+  fill: var(--success-bg);
 }
-.momentum-total {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: var(--fs-sm);
+.momentum-area-label {
+  font-size: 12px;
   font-weight: 700;
-  color: var(--brand-primary);
 }
-.momentum-label {
+.momentum-area-label-legal {
+  fill: var(--info);
+}
+.momentum-area-label-architecture {
+  fill: var(--credential);
+}
+.momentum-area-label-standards {
+  fill: var(--wallet);
+}
+.momentum-area-label-protocols {
+  fill: var(--success);
+}
+.momentum-line {
+  fill: none;
+  stroke: var(--brand-primary);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.momentum-point {
+  fill: var(--brand-primary);
+  stroke: var(--bg);
+  stroke-width: 2;
+}
+.momentum-val {
+  font-family: "Source Code Pro Variable", ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  fill: var(--brand-primary);
+}
+.momentum-xlabel {
   font-size: 11px;
   font-weight: 600;
+  fill: var(--atlas-text-2);
+}
+.momentum-crosshair {
+  stroke: var(--brand-primary);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+.momentum-tooltip {
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+  min-width: 192px;
+  background: var(--surface);
+  color: var(--fg);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  transform: translate(14px, -50%);
+  transition: opacity 120ms ease;
+  opacity: 0;
+}
+.momentum-tooltip.visible {
+  opacity: 1;
+}
+.m-tip-head {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--atlas-text-2);
-  white-space: nowrap;
+  margin-bottom: var(--space-2);
+}
+.m-tip-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 2px 0;
+}
+.m-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: none;
+}
+.m-dot-legal {
+  background: var(--info);
+}
+.m-dot-architecture {
+  background: var(--credential);
+}
+.m-dot-standards {
+  background: var(--wallet);
+}
+.m-dot-protocols {
+  background: var(--success);
+}
+.m-name {
+  flex: 1;
+  color: var(--atlas-text-2);
+}
+.m-count {
+  font-family: "Source Code Pro Variable", ui-monospace, monospace;
+  font-weight: 700;
+  color: var(--fg);
 }
 
 .viz-section-first {
@@ -1599,6 +1746,36 @@
 }
 .home-section-tight {
   margin-top: var(--space-6);
+}
+
+/* --- Home "Start here" cards --- */
+.start-card {
+  display: block;
+  text-decoration: none;
+  color: var(--fg);
+  padding: var(--space-5);
+}
+.start-card:hover {
+  border-color: var(--brand-primary-600);
+}
+.start-card-label {
+  display: block;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--brand-primary-600);
+  margin-bottom: var(--space-2);
+}
+.start-card strong {
+  display: block;
+  font-size: var(--fs-lg);
+  margin-bottom: var(--space-1);
+}
+.start-card p {
+  font-size: var(--fs-sm);
+  color: var(--fg-muted);
+  line-height: 1.5;
 }
 
 /* --- Breadcrumbs --- */
@@ -1638,13 +1815,9 @@
 
 /*
   --- Glossary ---
-  Topic index bars and the term entries. Bars reuse the momentum stack colours
-  (legal / architecture / standards / protocols) so the two charts share one key.
+  Topic index: one thin bar per term shows its document count, relative to the
+  largest term. A single accent colour keeps the index scannable.
 */
-.gloss-legend {
-  margin-top: var(--space-6);
-  justify-content: flex-start;
-}
 .gloss-themes {
   display: grid;
   gap: var(--space-6);
@@ -1698,25 +1871,42 @@
   overflow-wrap: anywhere;
 }
 .gloss-abbr {
-  font-family: "JetBrains Mono", monospace;
+  font-family: "Source Code Pro Variable", monospace;
   font-size: var(--fs-xs);
   font-weight: 600;
   color: var(--fg-muted);
 }
+.gloss-anchor {
+  color: var(--fg-muted);
+  text-decoration: none;
+  font-size: 0.85em;
+  margin-left: var(--space-1);
+  opacity: 0.55;
+}
+.gloss-anchor:hover,
+.gloss-anchor:focus-visible {
+  opacity: 1;
+  color: var(--brand-primary);
+}
+.gloss-anchor.copied {
+  color: var(--success);
+}
 .gloss-bar {
-  display: flex;
-  gap: 2px;
-  height: 14px;
+  height: 6px;
   min-width: 0;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-pill);
+  background: var(--brand-secondary);
   overflow: hidden;
 }
-.gloss-bar-seg {
-  flex: var(--share) 1 0;
-  min-width: 3px;
+.gloss-bar-fill {
+  display: block;
+  height: 100%;
+  width: calc(var(--w) / var(--max) * 100%);
+  background: var(--brand-primary);
+  border-radius: var(--radius-pill);
 }
 .gloss-row-count {
-  font-family: "JetBrains Mono", monospace;
+  font-family: "Source Code Pro Variable", monospace;
   font-size: var(--fs-sm);
   font-weight: 700;
   color: var(--brand-primary);
@@ -1743,7 +1933,7 @@
   padding: 0 var(--space-2);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  font-family: "JetBrains Mono", monospace;
+  font-family: "Source Code Pro Variable", monospace;
   font-size: var(--fs-sm);
   font-weight: 700;
   color: var(--brand-primary);
@@ -1793,19 +1983,6 @@
   font-size: var(--fs-md);
   line-height: 1.6;
   color: var(--fg);
-}
-.gloss-entry-split {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-top: var(--space-3);
-  font-size: var(--fs-sm);
-  color: var(--atlas-text-2);
-}
-.gloss-entry-split span {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
 }
 .gloss-docs {
   list-style: none;
@@ -1875,14 +2052,6 @@
 @media (max-width: 640px) {
   .viz-section {
     padding: var(--space-5);
-  }
-  .momentum-bars {
-    gap: var(--space-1);
-    height: 180px;
-  }
-  .momentum-label {
-    font-size: 9px;
-    white-space: normal;
   }
   .radar-sector-label {
     font-size: 22px;

@@ -2,6 +2,7 @@
 layout: base.njk
 title: Regulatory radar
 description: What changed in the EUDI Wallet rulebook — new and updated acts, specifications and standards, drafts and proposals to watch, and a dated timeline.
+pageScript: momentum.js
 ---
 {% from "components/section-header.njk" import sectionHeader %}
 {% from "components/document-card.njk" import documentCard %}
@@ -27,9 +28,6 @@ description: What changed in the EUDI Wallet rulebook — new and updated acts, 
     <p class="eyebrow">Regulatory radar</p>
     <h1>What changed, and what is coming</h1>
     <p>Adoption status for every document in the atlas: newly adopted acts, superseded versions, drafts in progress and legislative proposals.{% if documents.latestRelease %} Last reviewed {{ documents.latestRelease.date | statusDate }}.{% endif %}</p>
-    <div class="page-hero-meta">
-      {% for s in documents.statusSummary %}<span class="status-pill tone-{{ s.tone }}">{{ s.glyph }} {{ s.count }} {{ s.label | lower }}</span>{% endfor %}
-    </div>
   </div>
 </section>
 
@@ -44,7 +42,6 @@ description: What changed in the EUDI Wallet rulebook — new and updated acts, 
       <div class="viz-grid">
         {{ radarChart(documents.radar) }}
         <div>
-          <p class="viz-kicker">The radar</p>
           <h2 class="viz-title" id="radar-main-title">{{ documents.radar.plotted }} documents, one picture</h2>
           <p class="viz-lead">Quarters are the stack layers. The inner ring holds documents in force, published or final, the middle ring drafts and work in development, and the outer ring legislative proposals. Ringed dots are new in this edition. Hover a dot for its name; select it to open it.</p>
           <ul class="viz-facts">
@@ -55,10 +52,9 @@ description: What changed in the EUDI Wallet rulebook — new and updated acts, 
     </section>
 
     <section class="viz-section" aria-labelledby="momentum-title">
-      <p class="viz-kicker">Momentum</p>
       <h2 class="viz-title" id="momentum-title">The rulebook is accelerating</h2>
       <p class="viz-lead">Documents grouped by the date of their latest adoption, publication, final release or draft. Most of the rulebook changed status in 2025 and 2026; the latest half-year runs to the review date.</p>
-      <div class="home-section-tight">{{ momentumChart(documents.momentum, documents.stacks) }}</div>
+      <div class="home-section-tight">{{ momentumChart(documents.momentum) }}</div>
     </section>
 
     {% if documents.latestRelease %}
@@ -135,3 +131,28 @@ description: What changed in the EUDI Wallet rulebook — new and updated acts, 
     </div>
   </div>
 </div>
+
+<script>
+(function () {
+  var svg = document.querySelector(".momentum-svg");
+  var tip = document.querySelector(".momentum-tooltip");
+  if (!svg || !tip) return;
+  svg.addEventListener("mousemove", function (e) {
+    var point = e.target.closest(".momentum-point");
+    if (!point) {
+      tip.hidden = true;
+      return;
+    }
+    var rect = svg.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var y = e.clientY - rect.top;
+    tip.textContent = point.dataset.tip;
+    tip.style.left = x + "px";
+    tip.style.top = y + "px";
+    tip.hidden = false;
+  });
+  svg.addEventListener("mouseleave", function () {
+    tip.hidden = true;
+  });
+})();
+</script>

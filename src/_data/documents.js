@@ -348,20 +348,85 @@ module.exports = function () {
     const inBar = documents.filter(
       (doc) => doc.status_date && halfOf(doc.status_date) === label,
     );
-    return {
-      label,
-      total: inBar.length,
-      segments: stacks.map((stack) => ({
-        key: stack.key,
-        label: stack.label,
-        count: inBar.filter((doc) => doc.stack === stack.key).length,
-      })),
-    };
+    const segments = stacks.map((stack) => ({
+      key: stack.key,
+      label: stack.label,
+      count: inBar.filter((doc) => doc.stack === stack.key).length,
+    }));
+    return { label, total: inBar.length, segments };
   });
   const momentum = {
     bars: momentumBars,
     max: Math.max(...momentumBars.map((bar) => bar.total)),
+    width: 640,
+    height: 260,
+    padX: 30,
+    padTop: 44,
+    padBottom: 36,
   };
+  // Line-plot points: one per half-year, x evenly spaced, y scaled to max.
+  momentum.points = momentumBars.map((bar, i) => {
+    const x =
+      momentum.padX +
+      (i * (momentum.width - 2 * momentum.padX)) / (momentumBars.length - 1);
+    const y =
+      momentum.height -
+      momentum.padBottom -
+      (bar.total / momentum.max) *
+        (momentum.height - momentum.padTop - momentum.padBottom);
+    return {
+      x: Math.round(x * 10) / 10,
+      y: Math.round(y * 10) / 10,
+      label: bar.label,
+      total: bar.total,
+      segments: bar.segments.filter((s) => s.count > 0),
+    };
+  });
+
+  // Stacked areas: one filled path per stack layer, cumulative bottom-up so the
+  // top edge of the topmost area is the total line.
+  const yFor = (count) =>
+    momentum.height -
+    momentum.padBottom -
+    (count / momentum.max) *
+      (momentum.height - momentum.padTop - momentum.padBottom);
+  const xs = momentum.points.map((p) => p.x);
+  const cum = stacks.map((_, k) =>
+    momentumBars.map((bar) =>
+      stacks
+        .slice(0, k + 1)
+        .reduce(
+          (sum, stack) =>
+            sum + (bar.segments.find((s) => s.key === stack.key).count || 0),
+          0,
+        ),
+    ),
+  );
+  const stackShort = {
+    legal: "Law",
+    architecture: "Architecture",
+    standards: "Standards",
+    protocols: "Protocols",
+  };
+  momentum.areas = stacks.map((stack, k) => {
+    const top = cum[k];
+    const bottom = k === 0 ? momentumBars.map(() => 0) : cum[k - 1];
+    let d = `M ${xs[0]} ${yFor(top[0])}`;
+    for (let i = 1; i < momentumBars.length; i++)
+      d += ` L ${xs[i]} ${yFor(top[i])}`;
+    for (let i = momentumBars.length - 1; i >= 0; i--)
+      d += ` L ${xs[i]} ${yFor(bottom[i])}`;
+    d += " Z";
+    const last = momentumBars.length - 1;
+    return {
+      key: stack.key,
+      label: stack.label,
+      short: stackShort[stack.key],
+      path: d,
+      labelX: xs[last] - 8,
+      labelY: (yFor(top[last]) + yFor(bottom[last])) / 2,
+    };
+  });
 
   // Ecosystem web: who publishes the rules and which actors they address.
   // Publisher is derived from id/type; the actor links are a simplified reading aid.

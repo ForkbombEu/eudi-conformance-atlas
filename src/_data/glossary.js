@@ -1,7 +1,6 @@
 const yaml = require("js-yaml");
 const fs = require("node:fs");
 const path = require("node:path");
-const { stacks, types } = require("./docTypes");
 
 const load = (file) =>
   yaml.load(
@@ -19,7 +18,7 @@ function matcher(phrases) {
 }
 
 // Each glossary term lists the documents whose id, name, summary, relevance or
-// status note mention it, split by stack layer for the topic index bars.
+// status note mention it, and counts them.
 function glossary() {
   const { themes, terms } = load("eudi-glossary.yaml");
   const documents = load("eudi-documents-map.yaml").flat_documents;
@@ -44,16 +43,6 @@ function glossary() {
       const docs = texts
         .filter((entry) => pattern.test(entry.text))
         .map((entry) => entry.doc);
-      let x = 0;
-      const segments = [];
-      for (const stack of stacks) {
-        const count = docs.filter(
-          (doc) => types[doc.type].stack === stack.key,
-        ).length;
-        if (count)
-          segments.push({ key: stack.key, label: stack.label, count, x });
-        x += count;
-      }
       return {
         ...term,
         slug: term.term
@@ -63,7 +52,6 @@ function glossary() {
         letter: term.term[0].toUpperCase(),
         docIds: docs.map((doc) => doc.id),
         count: docs.length,
-        segments,
       };
     })
     .sort((a, b) => a.term.localeCompare(b.term, "en"));

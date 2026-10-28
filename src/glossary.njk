@@ -29,9 +29,9 @@ description: EUDI Wallet glossary — every term counts how many atlas documents
     <section class="viz-section viz-section-first" aria-labelledby="topic-index-title">
       <p class="viz-kicker">Topic index</p>
       <h2 class="viz-title" id="topic-index-title">How many documents, per topic</h2>
-      <p class="viz-lead">A term's bar is the number of documents that mention it, coloured by stack layer. Select a term to jump to its definition and document list.</p>
+      <p class="viz-lead">The bar shows how many documents mention each term. Select a term to jump to its definition and document list.</p>
 
-      <div class="gloss-themes">
+      <div class="gloss-themes" style="--max: {{ glossary.max }}">
         {% for theme in glossary.themes %}
         <section class="gloss-theme" aria-labelledby="theme-{{ theme.key }}">
           <header class="gloss-theme-head">
@@ -42,19 +42,13 @@ description: EUDI Wallet glossary — every term counts how many atlas documents
             {% for entry in theme.terms %}
             <a class="gloss-row" href="#{{ entry.slug }}">
               <span class="gloss-row-name">{{ entry.term }}{% if entry.abbr %} <span class="gloss-abbr">{{ entry.abbr }}</span>{% endif %}</span>
-              <span class="gloss-bar" aria-hidden="true">
-                {% for seg in entry.segments %}<span class="gloss-bar-seg momentum-seg-{{ seg.key }}" style="--share: {{ seg.count }}" title="{{ seg.label }}: {{ seg.count }}"></span>{% endfor %}
-              </span>
+              <span class="gloss-bar" aria-hidden="true"><span class="gloss-bar-fill" style="--w: {{ entry.count }}"></span></span>
               <span class="gloss-row-count">{{ entry.count }}</span>
             </a>
             {% endfor %}
           </div>
         </section>
         {% endfor %}
-      </div>
-
-      <div class="radar-legend gloss-legend" role="note">
-        {% for stack in documents.stacks %}<span><span class="legend-swatch momentum-seg-{{ stack.key }}" aria-hidden="true"></span>{{ stack.label }}</span>{% endfor %}
       </div>
     </section>
 
@@ -69,22 +63,19 @@ description: EUDI Wallet glossary — every term counts how many atlas documents
         {% for entry in group.terms %}
         <article class="gloss-entry" id="{{ entry.slug }}">
           <header class="gloss-entry-head">
-            <h3>{{ entry.term }}{% if entry.abbr %} <span class="gloss-abbr">{{ entry.abbr }}</span>{% endif %}</h3>
+            <h3>{{ entry.term }}{% if entry.abbr %} <span class="gloss-abbr">{{ entry.abbr }}</span>{% endif %} <a class="gloss-anchor" href="#{{ entry.slug }}" aria-label="Copy link to {{ entry.term }}">#</a></h3>
             <div class="chip-row">
               <span class="badge badge-neutral">{{ entry.themeLabel }}</span>
               <span class="count-chip">{{ entry.count }} documents</span>
             </div>
           </header>
           <p class="gloss-entry-def">{{ entry.definition }}</p>
-          {% if entry.segments.length > 1 %}
-          <p class="gloss-entry-split">{% for seg in entry.segments %}<span><span class="legend-swatch momentum-seg-{{ seg.key }}" aria-hidden="true"></span>{{ seg.label }}: {{ seg.count }}</span>{% endfor %}</p>
-          {% endif %}
           <ul class="gloss-docs">
             {% for id in entry.docIds %}{% set doc = documents.byId[id] %}
             <li>
               <span class="status-pill tone-{{ doc.statusTone }}">{{ doc.statusGlyph }} {{ doc.statusLabel }}</span>
               <a href="{{ ('/documents/' + doc.id + '/') | url }}">{{ doc.name }}</a>
-              <span class="badge {{ doc.typeBadge }}">{{ doc.typeLabel }}</span>
+              <span class="badge badge-neutral">{{ doc.typeLabel }}</span>
             </li>
             {% endfor %}
           </ul>
@@ -103,3 +94,31 @@ description: EUDI Wallet glossary — every term counts how many atlas documents
     </div>
   </div>
 </div>
+
+<script>
+(function () {
+  var anchors = document.querySelectorAll(".gloss-anchor");
+  anchors.forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      var slug = a.getAttribute("href").slice(1);
+      var url = location.origin + location.pathname + "#" + slug;
+      var done = function () {
+        a.textContent = "✓";
+        a.classList.add("copied");
+        setTimeout(function () {
+          a.textContent = "#";
+          a.classList.remove("copied");
+        }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(done, function () {
+          location.hash = slug;
+        });
+      } else {
+        location.hash = slug;
+      }
+    });
+  });
+})();
+</script>

@@ -6,78 +6,78 @@
 
 {% macro roleArt(key) %}
 <svg class="role-art" viewBox="0 0 240 150" aria-hidden="true" focusable="false">
-  <circle class="ra-blob" cx="120" cy="78" r="64"/>
   {% if key == "wallet-builder" %}
-  <rect class="ra-card ra-card-back" x="132" y="34" width="70" height="44" rx="8" transform="rotate(14 167 56)"/>
-  <rect class="ra-card" x="124" y="48" width="70" height="44" rx="8" transform="rotate(6 159 70)"/>
-  <circle class="ra-accent-success" cx="140" cy="66" r="6"/>
-  <rect class="ra-line-fill" x="152" y="62" width="30" height="5" rx="2.5"/>
-  <rect class="ra-line-fill" x="152" y="72" width="20" height="5" rx="2.5"/>
-  <rect class="ra-device" x="78" y="22" width="62" height="112" rx="12"/>
-  <rect class="ra-screen" x="85" y="34" width="48" height="84" rx="5"/>
-  <rect class="ra-chip" x="92" y="44" width="34" height="22" rx="4"/>
-  <rect class="ra-line-fill" x="92" y="74" width="34" height="5" rx="2.5"/>
-  <rect class="ra-line-fill" x="92" y="84" width="24" height="5" rx="2.5"/>
-  <rect class="ra-button" x="92" y="98" width="34" height="11" rx="5.5"/>
-  <g class="ra-gear" transform="translate(62 108)">
-    <circle r="15"/>
-    <circle class="ra-gear-hole" r="5"/>
-  </g>
+  <!-- Phone device + certified badge -->
+  <rect class="ra-device" x="85" y="18" width="70" height="114" rx="12"/>
+  <rect class="ra-screen" x="92" y="28" width="56" height="94" rx="6"/>
+  <rect class="ra-card" x="98" y="42" width="44" height="28" rx="4"/>
+  <circle class="ra-accent-success" cx="108" cy="56" r="4"/>
+  <rect class="ra-line-fill" x="116" y="52" width="18" height="4" rx="2"/>
+  <rect class="ra-line-fill" x="116" y="60" width="12" height="4" rx="2"/>
+  <rect class="ra-line-fill" x="102" y="80" width="36" height="4" rx="2"/>
+  <rect class="ra-line-fill" x="102" y="90" width="24" height="4" rx="2"/>
+  <rect class="ra-button" x="112" y="104" width="16" height="6" rx="3"/>
+  <circle class="ra-badge-success" cx="178" cy="38" r="18"/>
+  <path class="ra-check" d="M169 38 L175 44 L187 31"/>
+
   {% elif key == "issuer" %}
-  <path class="ra-roof" d="M44 58 L94 32 L144 58 Z"/>
-  <rect class="ra-device" x="50" y="58" width="88" height="8" rx="2"/>
-  <rect class="ra-column" x="58" y="70" width="12" height="44" rx="2"/>
-  <rect class="ra-column" x="88" y="70" width="12" height="44" rx="2"/>
-  <rect class="ra-column" x="118" y="70" width="12" height="44" rx="2"/>
-  <rect class="ra-device" x="44" y="114" width="100" height="10" rx="2"/>
-  <path class="ra-arrow" d="M148 80 C 164 70, 172 66, 184 62"/>
-  <path class="ra-arrow-head" d="M178 54 L188 61 L177 68"/>
-  <rect class="ra-card" x="160" y="84" width="58" height="38" rx="7" transform="rotate(-8 189 103)"/>
-  <circle class="ra-accent-warning" cx="174" cy="100" r="6"/>
-  <rect class="ra-line-fill" x="184" y="96" width="24" height="4" rx="2" transform="rotate(-8 196 98)"/>
-  <rect class="ra-line-fill" x="184" y="105" width="16" height="4" rx="2" transform="rotate(-8 192 107)"/>
+  <!-- Official institution + issued credential card -->
+  <path class="ra-roof" d="M45 58 L90 30 L135 58 Z"/>
+  <rect class="ra-device" x="52" y="58" width="76" height="8" rx="2"/>
+  <rect class="ra-column" x="60" y="70" width="10" height="38" rx="2"/>
+  <rect class="ra-column" x="85" y="70" width="10" height="38" rx="2"/>
+  <rect class="ra-column" x="110" y="70" width="10" height="38" rx="2"/>
+  <rect class="ra-device" x="45" y="112" width="90" height="8" rx="2"/>
+  <path class="ra-arrow" d="M138 82 C 146 80, 152 78, 158 76"/>
+  <path class="ra-arrow-head" d="M150 70 L160 75 L151 82"/>
+  <rect class="ra-card" x="162" y="58" width="48" height="34" rx="5"/>
+  <circle class="ra-accent-warning" cx="174" cy="72" r="4"/>
+  <rect class="ra-line-fill" x="182" y="68" width="20" height="4" rx="2"/>
+  <rect class="ra-line-fill" x="182" y="76" width="14" height="4" rx="2"/>
+
   {% elif key == "verifier" %}
-  <rect class="ra-device" x="52" y="30" width="112" height="76" rx="8"/>
-  <rect class="ra-screen" x="60" y="38" width="96" height="60" rx="4"/>
-  <path class="ra-device" d="M40 112 H176 L168 124 H48 Z"/>
+  <!-- Verification terminal screen + QR scan -->
+  <rect class="ra-device" x="58" y="24" width="112" height="76" rx="8"/>
+  <rect class="ra-screen" x="66" y="32" width="96" height="60" rx="4"/>
   <g class="ra-qr">
-    <rect x="72" y="46" width="14" height="14" rx="2"/><rect x="72" y="74" width="14" height="14" rx="2"/>
-    <rect x="98" y="46" width="14" height="14" rx="2"/><rect x="92" y="66" width="6" height="6"/>
-    <rect x="104" y="74" width="6" height="6"/><rect x="98" y="82" width="6" height="6"/>
+    <rect x="76" y="42" width="16" height="16" rx="2"/><rect x="76" y="68" width="16" height="16" rx="2"/>
+    <rect x="102" y="42" width="16" height="16" rx="2"/><rect x="100" y="62" width="7" height="7"/>
+    <rect x="110" y="68" width="7" height="7"/><rect x="102" y="77" width="7" height="7"/>
   </g>
-  <rect class="ra-line-fill" x="122" y="52" width="26" height="5" rx="2.5"/>
-  <rect class="ra-line-fill" x="122" y="62" width="18" height="5" rx="2.5"/>
-  <circle class="ra-badge-success" cx="172" cy="40" r="20"/>
-  <path class="ra-check" d="M162 40 L169 47 L182 33"/>
+  <rect class="ra-line-fill" x="128" y="48" width="24" height="4" rx="2"/>
+  <rect class="ra-line-fill" x="128" y="58" width="18" height="4" rx="2"/>
+  <rect class="ra-line-fill" x="128" y="68" width="22" height="4" rx="2"/>
+  <path class="ra-device" d="M46 112 H182 L172 124 H56 Z"/>
+  <circle class="ra-badge-success" cx="180" cy="38" r="18"/>
+  <path class="ra-check" d="M171 38 L177 44 L189 31"/>
+
   {% elif key == "member-state" %}
-  <circle class="ra-star" cx="174.0" cy="78.0" r="4.5"/>
-  <circle class="ra-star" cx="166.8" cy="105.0" r="4.5"/>
-  <circle class="ra-star" cx="147.0" cy="124.8" r="4.5"/>
-  <circle class="ra-star" cx="120.0" cy="132.0" r="4.5"/>
-  <circle class="ra-star" cx="93.0" cy="124.8" r="4.5"/>
-  <circle class="ra-star" cx="73.2" cy="105.0" r="4.5"/>
-  <circle class="ra-star" cx="66.0" cy="78.0" r="4.5"/>
-  <circle class="ra-star" cx="73.2" cy="51.0" r="4.5"/>
-  <circle class="ra-star" cx="93.0" cy="31.2" r="4.5"/>
-  <circle class="ra-star" cx="120.0" cy="24.0" r="4.5"/>
-  <circle class="ra-star" cx="147.0" cy="31.2" r="4.5"/>
-  <circle class="ra-star" cx="166.8" cy="51.0" r="4.5"/>
-  <rect class="ra-device" x="88" y="40" width="64" height="78" rx="6"/>
-  <rect class="ra-screen" x="94" y="48" width="52" height="62" rx="3"/>
-  <circle class="ra-accent-success" cx="102" cy="58" r="3.5"/><rect class="ra-line-fill" x="110" y="55.5" width="28" height="5" rx="2.5"/>
-  <circle class="ra-accent-success" cx="102" cy="72" r="3.5"/><rect class="ra-line-fill" x="110" y="69.5" width="22" height="5" rx="2.5"/>
-  <circle class="ra-accent-warning" cx="102" cy="86" r="3.5"/><rect class="ra-line-fill" x="110" y="83.5" width="26" height="5" rx="2.5"/>
-  <circle class="ra-accent-success" cx="102" cy="100" r="3.5"/><rect class="ra-line-fill" x="110" y="97.5" width="18" height="5" rx="2.5"/>
+  <!-- EU Star Ring (12 stars centered) -->
+  <circle class="ra-seal-inner" cx="120" cy="75" r="28"/>
+  <circle class="ra-star" cx="120" cy="29" r="5.5"/>
+  <circle class="ra-star" cx="143" cy="35" r="5.5"/>
+  <circle class="ra-star" cx="160" cy="52" r="5.5"/>
+  <circle class="ra-star" cx="166" cy="75" r="5.5"/>
+  <circle class="ra-star" cx="160" cy="98" r="5.5"/>
+  <circle class="ra-star" cx="143" cy="115" r="5.5"/>
+  <circle class="ra-star" cx="120" cy="121" r="5.5"/>
+  <circle class="ra-star" cx="97" cy="115" r="5.5"/>
+  <circle class="ra-star" cx="80" cy="98" r="5.5"/>
+  <circle class="ra-star" cx="74" cy="75" r="5.5"/>
+  <circle class="ra-star" cx="80" cy="52" r="5.5"/>
+  <circle class="ra-star" cx="97" cy="35" r="5.5"/>
+
   {% else %}
-  <rect class="ra-device" x="70" y="28" width="80" height="104" rx="8"/>
-  <rect class="ra-screen" x="78" y="40" width="64" height="84" rx="4"/>
-  <rect class="ra-clip" x="96" y="20" width="28" height="14" rx="4"/>
-  <path class="ra-check-small" d="M86 56 L90 60 L97 52"/><rect class="ra-line-fill" x="104" y="53" width="28" height="5" rx="2.5"/>
-  <path class="ra-check-small" d="M86 76 L90 80 L97 72"/><rect class="ra-line-fill" x="104" y="73" width="22" height="5" rx="2.5"/>
-  <path class="ra-check-small" d="M86 96 L90 100 L97 92"/><rect class="ra-line-fill" x="104" y="93" width="26" height="5" rx="2.5"/>
-  <circle class="ra-seal" cx="160" cy="104" r="22"/>
-  <circle class="ra-seal-inner" cx="160" cy="104" r="14"/>
-  <path class="ra-ribbon" d="M150 122 L146 140 L156 134 L160 142 L164 124"/>
+  <!-- Audit clipboard + official seal -->
+  <rect class="ra-device" x="68" y="18" width="74" height="112" rx="7"/>
+  <rect class="ra-screen" x="76" y="28" width="58" height="92" rx="4"/>
+  <rect class="ra-clip" x="90" y="12" width="30" height="14" rx="3"/>
+  <path class="ra-check-small" d="M84 46 L88 50 L96 41"/><rect class="ra-line-fill" x="102" y="44" width="24" height="4" rx="2"/>
+  <path class="ra-check-small" d="M84 66 L88 70 L96 61"/><rect class="ra-line-fill" x="102" y="64" width="20" height="4" rx="2"/>
+  <path class="ra-check-small" d="M84 86 L88 90 L96 81"/><rect class="ra-line-fill" x="102" y="84" width="22" height="4" rx="2"/>
+  <circle class="ra-seal" cx="166" cy="92" r="20"/>
+  <circle class="ra-seal-inner" cx="166" cy="92" r="12"/>
+  <path class="ra-ribbon" d="M156 108 L150 124 L160 118 L166 125 L172 118 L182 124 L176 108"/>
   {% endif %}
 </svg>
 {% endmacro %}
