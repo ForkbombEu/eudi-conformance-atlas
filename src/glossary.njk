@@ -61,7 +61,7 @@ description: EUDI Wallet glossary — every term counts how many atlas documents
         {% for entry in group.terms %}
         <article class="gloss-entry" id="{{ entry.slug }}">
           <header class="gloss-entry-head">
-            <h3>{{ entry.term }}{% if entry.abbr %} <span class="gloss-abbr">{{ entry.abbr }}</span>{% endif %}</h3>
+            <h3>{{ entry.term }}{% if entry.abbr %} <span class="gloss-abbr">{{ entry.abbr }}</span>{% endif %} <a class="gloss-anchor" href="#{{ entry.slug }}" aria-label="Copy link to {{ entry.term }}">#</a></h3>
             <div class="chip-row">
               <span class="badge badge-neutral">{{ entry.themeLabel }}</span>
               <span class="count-chip">{{ entry.count }} documents</span>
@@ -92,3 +92,31 @@ description: EUDI Wallet glossary — every term counts how many atlas documents
     </div>
   </div>
 </div>
+
+<script>
+(function () {
+  var anchors = document.querySelectorAll(".gloss-anchor");
+  anchors.forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      var slug = a.getAttribute("href").slice(1);
+      var url = location.origin + location.pathname + "#" + slug;
+      var done = function () {
+        a.textContent = "✓";
+        a.classList.add("copied");
+        setTimeout(function () {
+          a.textContent = "#";
+          a.classList.remove("copied");
+        }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(done, function () {
+          location.hash = slug;
+        });
+      } else {
+        location.hash = slug;
+      }
+    });
+  });
+})();
+</script>

@@ -1778,6 +1778,21 @@
   font-weight: 600;
   color: var(--fg-muted);
 }
+.gloss-anchor {
+  color: var(--fg-muted);
+  text-decoration: none;
+  font-size: 0.85em;
+  margin-left: var(--space-1);
+  opacity: 0.55;
+}
+.gloss-anchor:hover,
+.gloss-anchor:focus-visible {
+  opacity: 1;
+  color: var(--brand-primary);
+}
+.gloss-anchor.copied {
+  color: var(--success);
+}
 .gloss-bar {
   height: 6px;
   min-width: 0;
