@@ -356,7 +356,29 @@ module.exports = function () {
   const momentum = {
     bars: momentumBars,
     max: Math.max(...momentumBars.map((bar) => bar.total)),
+    width: 640,
+    height: 260,
+    padX: 30,
+    padTop: 30,
+    padBottom: 36,
   };
+  // Line-plot points: one per half-year, x evenly spaced, y scaled to max.
+  momentum.points = momentumBars.map((bar, i) => {
+    const x =
+      momentum.padX +
+      (i * (momentum.width - 2 * momentum.padX)) / (momentumBars.length - 1);
+    const y =
+      momentum.height -
+      momentum.padBottom -
+      (bar.total / momentum.max) *
+        (momentum.height - momentum.padTop - momentum.padBottom);
+    return {
+      x: Math.round(x * 10) / 10,
+      y: Math.round(y * 10) / 10,
+      label: bar.label,
+      total: bar.total,
+    };
+  });
 
   // Ecosystem web: who publishes the rules and which actors they address.
   // Publisher is derived from id/type; the actor links are a simplified reading aid.

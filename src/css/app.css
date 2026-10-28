@@ -1616,40 +1616,42 @@
   fill: var(--fg);
 }
 
-/* Momentum */
-.momentum-bars {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: var(--space-3);
-  align-items: end;
-  height: 240px;
+/* Momentum (line plot) */
+.momentum-figure {
+  width: 100%;
 }
-.momentum-col {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-end;
-  height: 100%;
-  gap: var(--space-1);
-  text-align: center;
+.momentum-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: "Inter Variable", system-ui, sans-serif;
 }
-.momentum-stack {
-  height: var(--h);
-  min-height: 4px;
-  border-radius: var(--radius-md) var(--radius-md) 0 0;
-  background: var(--brand-primary);
+.momentum-axis {
+  stroke: var(--border);
+  stroke-width: 1;
 }
-.momentum-total {
+.momentum-line {
+  fill: none;
+  stroke: var(--brand-primary);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.momentum-point {
+  fill: var(--brand-primary);
+  stroke: var(--bg);
+  stroke-width: 2;
+}
+.momentum-val {
   font-family: "Source Code Pro Variable", ui-monospace, monospace;
-  font-size: var(--fs-sm);
+  font-size: 12px;
   font-weight: 700;
-  color: var(--brand-primary);
+  fill: var(--brand-primary);
 }
-.momentum-label {
+.momentum-xlabel {
   font-size: 11px;
   font-weight: 600;
-  color: var(--atlas-text-2);
-  white-space: nowrap;
+  fill: var(--atlas-text-2);
 }
 
 .viz-section-first {
@@ -1916,14 +1918,6 @@
 @media (max-width: 640px) {
   .viz-section {
     padding: var(--space-5);
-  }
-  .momentum-bars {
-    gap: var(--space-1);
-    height: 180px;
-  }
-  .momentum-label {
-    font-size: 9px;
-    white-space: normal;
   }
   .radar-sector-label {
     font-size: 22px;
