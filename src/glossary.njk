@@ -27,9 +27,9 @@ description: EUDI Wallet glossary — every term counts how many atlas documents
     <section class="viz-section viz-section-first" aria-labelledby="topic-index-title">
       <p class="viz-kicker">Topic index</p>
       <h2 class="viz-title" id="topic-index-title">How many documents, per topic</h2>
-      <p class="viz-lead">A term's bar is the number of documents that mention it, coloured by stack layer. Select a term to jump to its definition and document list.</p>
+      <p class="viz-lead">The bar shows how many documents mention each term. Select a term to jump to its definition and document list.</p>
 
-      <div class="gloss-themes">
+      <div class="gloss-themes" style="--max: {{ glossary.max }}">
         {% for theme in glossary.themes %}
         <section class="gloss-theme" aria-labelledby="theme-{{ theme.key }}">
           <header class="gloss-theme-head">
@@ -40,19 +40,13 @@ description: EUDI Wallet glossary — every term counts how many atlas documents
             {% for entry in theme.terms %}
             <a class="gloss-row" href="#{{ entry.slug }}">
               <span class="gloss-row-name">{{ entry.term }}{% if entry.abbr %} <span class="gloss-abbr">{{ entry.abbr }}</span>{% endif %}</span>
-              <span class="gloss-bar" aria-hidden="true">
-                {% for seg in entry.segments %}<span class="gloss-bar-seg momentum-seg-{{ seg.key }}" style="--share: {{ seg.count }}" title="{{ seg.label }}: {{ seg.count }}"></span>{% endfor %}
-              </span>
+              <span class="gloss-bar" aria-hidden="true"><span class="gloss-bar-fill" style="--w: {{ entry.count }}"></span></span>
               <span class="gloss-row-count">{{ entry.count }}</span>
             </a>
             {% endfor %}
           </div>
         </section>
         {% endfor %}
-      </div>
-
-      <div class="radar-legend gloss-legend" role="note">
-        {% for stack in documents.stacks %}<span><span class="legend-swatch momentum-seg-{{ stack.key }}" aria-hidden="true"></span>{{ stack.label }}</span>{% endfor %}
       </div>
     </section>
 
@@ -74,9 +68,6 @@ description: EUDI Wallet glossary — every term counts how many atlas documents
             </div>
           </header>
           <p class="gloss-entry-def">{{ entry.definition }}</p>
-          {% if entry.segments.length > 1 %}
-          <p class="gloss-entry-split">{% for seg in entry.segments %}<span><span class="legend-swatch momentum-seg-{{ seg.key }}" aria-hidden="true"></span>{{ seg.label }}: {{ seg.count }}</span>{% endfor %}</p>
-          {% endif %}
           <ul class="gloss-docs">
             {% for id in entry.docIds %}{% set doc = documents.byId[id] %}
             <li>

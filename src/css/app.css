@@ -21,6 +21,8 @@
   gap: var(--space-2);
   /* Generic `a` styling in style.css underlines the lockup like body copy. */
   text-decoration: none;
+  /* style.css pins the lockup at 22px; the mark + name read too small there. */
+  height: 30px;
 }
 
 /* --fg is the design system's foreground token; --text is not defined anywhere,
@@ -28,8 +30,10 @@
    colour from the enclosing anchor instead. */
 .atlas-product-name {
   color: var(--fg);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-lg);
   font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1;
 }
 .atlas-footer-logo {
   display: block;
@@ -1632,13 +1636,9 @@
 }
 /*
   --- Glossary ---
-  Topic index bars and the term entries. Bars reuse the momentum stack colours
-  (legal / architecture / standards / protocols) so the two charts share one key.
+  Topic index: one thin bar per term shows its document count, relative to the
+  largest term. A single accent colour keeps the index scannable.
 */
-.gloss-legend {
-  margin-top: var(--space-6);
-  justify-content: flex-start;
-}
 .gloss-themes {
   display: grid;
   gap: var(--space-6);
@@ -1698,16 +1698,18 @@
   color: var(--fg-muted);
 }
 .gloss-bar {
-  display: flex;
-  gap: 2px;
-  height: 14px;
+  height: 6px;
   min-width: 0;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-pill);
+  background: var(--brand-secondary);
   overflow: hidden;
 }
-.gloss-bar-seg {
-  flex: var(--share) 1 0;
-  min-width: 3px;
+.gloss-bar-fill {
+  display: block;
+  height: 100%;
+  width: calc(var(--w) / var(--max) * 100%);
+  background: var(--brand-primary);
+  border-radius: var(--radius-pill);
 }
 .gloss-row-count {
   font-family: "Source Code Pro Variable", monospace;
@@ -1787,19 +1789,6 @@
   font-size: var(--fs-md);
   line-height: 1.6;
   color: var(--fg);
-}
-.gloss-entry-split {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-top: var(--space-3);
-  font-size: var(--fs-sm);
-  color: var(--atlas-text-2);
-}
-.gloss-entry-split span {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
 }
 .gloss-docs {
   list-style: none;

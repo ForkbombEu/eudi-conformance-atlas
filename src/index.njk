@@ -6,6 +6,7 @@ description: A community-maintained map of EUDI Wallet law, implementing acts, A
 {% from "components/section-header.njk" import sectionHeader %}
 {% from "components/search-box.njk" import searchBox %}
 {% from "components/credimi.njk" import credimiCta, credimiPromo %}
+{% from "components/viz.njk" import radarChart %}
 {% from "components/role-art.njk" import roleArt %}
 
 <section class="atlas-hero">
@@ -50,6 +51,25 @@ description: A community-maintained map of EUDI Wallet law, implementing acts, A
 <div class="page-content">
   <div class="container">
 
+    <section class="viz-section viz-section-first" aria-labelledby="home-radar-title">
+      <div class="viz-grid">
+        {{ radarChart(documents.radar) }}
+        <div>
+          <p class="viz-kicker">Regulatory radar</p>
+          <h2 class="viz-title" id="home-radar-title">Every rule, where it stands today</h2>
+          <p class="viz-lead">Each dot is one document, placed by stack layer and status. Select a dot to open the document. Ringed dots are new in this edition.</p>
+          <ul class="viz-facts">
+            <li><strong>{{ documents.currentCount }}</strong><span>in force, published or final</span></li>
+            <li><strong>{{ documents.pipelineCount }}</strong><span>drafts and proposals moving</span></li>
+            <li><strong>{{ documents.pinnedDocuments.length }}</strong><span>with test-version pins to watch</span></li>
+          </ul>
+          <div class="viz-actions">
+            <a href="{{ '/radar/' | url }}" class="btn btn-primary btn-lg">Open the full radar</a>
+            <a href="{{ '/reference/' | url }}" class="btn btn-outline btn-lg">Browse all documents</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section class="home-section">
       {{ sectionHeader("Start here") }}
