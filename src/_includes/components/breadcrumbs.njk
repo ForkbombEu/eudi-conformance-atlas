@@ -1,0 +1,23 @@
+{#
+  Breadcrumb nav + JSON-LD BreadcrumbList. `crumbs` is a list of
+  { label, url } where url is a site path (no leading host); the last crumb is
+  the current page and is rendered without a link.
+#}
+{% macro breadcrumbs(crumbs) %}
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    {% for crumb in crumbs %}
+    <li>{% if not loop.last %}<a href="{{ crumb.url | url }}">{{ crumb.label }}</a>{% else %}<span aria-current="page">{{ crumb.label }}</span>{% endif %}</li>
+    {% endfor %}
+  </ol>
+</nav>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+{% for crumb in crumbs %}    { "@type": "ListItem", "position": {{ loop.index }}, "name": {{ crumb.label | toJson | safe }}, "item": {{ (site.url ~ (crumb.url | url)) | toJson | safe }} }{% if not loop.last %},{% endif %}
+{% endfor %}  ]
+}
+</script>
+{% endmacro %}

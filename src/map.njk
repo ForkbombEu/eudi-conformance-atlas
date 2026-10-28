@@ -1,10 +1,12 @@
 ---
 layout: base.njk
 title: Map
+description: Browse the full EUDI Wallet stack — legal foundations, ARF, EC specifications, standards and protocols — organised by task and by role.
 pageScript: tree.js
 ---
 {% from "components/search-box.njk" import searchBox %}
 {% from "components/credimi.njk" import credimiCta %}
+{% from "components/breadcrumbs.njk" import breadcrumbs %}
 
 <section class="hero page-hero">
   <div class="hero-inner">
@@ -16,6 +18,7 @@ pageScript: tree.js
 
 <div class="page-content">
   <div class="container">
+    {{ breadcrumbs([{label:"Home", url:"/"}, {label:"Map", url:"/map/"}]) }}
     <div class="disclaimer">
       <strong>Disclaimer:</strong> Unofficial navigation resource. Official sources always prevail.
     </div>

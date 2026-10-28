@@ -1,8 +1,10 @@
 ---
 layout: base.njk
 title: Contribute
-description: How to contribute to the EUDI Trust & Conformance Atlas.
+description: How to contribute to the EUDI Trust & Conformance Atlas — corrections, new references, evidence mappings and glossary entries.
 ---
+{% from "components/credimi.njk" import credimiCta %}
+{% from "components/breadcrumbs.njk" import breadcrumbs %}
 
 <section class="hero page-hero">
   <div class="hero-inner">
@@ -14,6 +16,7 @@ description: How to contribute to the EUDI Trust & Conformance Atlas.
 
 <div class="page-content">
   <div class="container">
+    {{ breadcrumbs([{label:"Home", url:"/"}, {label:"Contribute", url:"/contribute/"}]) }}
     <div class="measure">
       <div class="detail-section">
         <h3>Rules</h3>
@@ -67,6 +70,10 @@ description: How to contribute to the EUDI Trust & Conformance Atlas.
           By contributing, you agree your contribution is licensed under <strong>Apache-2.0</strong>.
         </p>
       </div>
+    </div>
+
+    <div class="home-section">
+      {{ credimiCta("Ship a conformance check instead of a document.", "The references you contribute here become the rulebook Credimi turns into runnable conformance and interoperability tests.") }}
     </div>
 
     <div class="page-end">

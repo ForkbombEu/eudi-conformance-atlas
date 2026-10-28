@@ -7,6 +7,7 @@ pageScript: search.js
 {% from "components/search-box.njk" import searchBox %}
 {% from "components/document-card.njk" import documentCard %}
 {% from "components/credimi.njk" import credimiCta %}
+{% from "components/breadcrumbs.njk" import breadcrumbs %}
 
 <section class="hero page-hero">
   <div class="hero-inner">
@@ -21,6 +22,7 @@ pageScript: search.js
 
 <div class="page-content">
   <div class="container">
+    {{ breadcrumbs([{label:"Home", url:"/"}, {label:"Reference", url:"/reference/"}]) }}
     <div class="disclaimer">
       <strong>Disclaimer:</strong> Unofficial navigation resource. Always refer to EUR-Lex and official repositories for authoritative texts.
     </div>

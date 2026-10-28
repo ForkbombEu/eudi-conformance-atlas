@@ -8,6 +8,7 @@ pageScript: momentum.js
 {% from "components/document-card.njk" import documentCard %}
 {% from "components/credimi.njk" import credimiCta, credimiPromo %}
 {% from "components/viz.njk" import radarChart, momentumChart %}
+{% from "components/breadcrumbs.njk" import breadcrumbs %}
 
 {% macro timelineItem(doc) %}
 <li class="timeline-item">
@@ -32,6 +33,7 @@ pageScript: momentum.js
 
 <div class="page-content">
   <div class="container">
+    {{ breadcrumbs([{label:"Home", url:"/"}, {label:"Regulatory radar", url:"/radar/"}]) }}
     <div class="disclaimer">
       <strong>Disclaimer:</strong> Status reflects the publishing body's own pages at the review date. Drafts and proposals are not binding. Official sources always prevail.
     </div>

@@ -1777,6 +1777,42 @@
   color: var(--fg-muted);
   line-height: 1.5;
 }
+
+/* --- Breadcrumbs --- */
+.breadcrumbs {
+  margin-top: var(--space-4);
+}
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: var(--fs-sm);
+  color: var(--fg-muted);
+}
+.breadcrumbs li {
+  display: inline-flex;
+  align-items: center;
+}
+.breadcrumbs li + li::before {
+  content: "/";
+  margin-right: var(--space-2);
+  color: var(--border-strong);
+}
+.breadcrumbs a {
+  color: var(--brand-primary-600);
+  text-decoration: none;
+}
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+.breadcrumbs [aria-current="page"] {
+  color: var(--fg);
+  font-weight: 600;
+}
+
 /*
   --- Glossary ---
   Topic index: one thin bar per term shows its document count, relative to the

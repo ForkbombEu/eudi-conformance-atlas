@@ -78,10 +78,20 @@ function glossary() {
     }),
   );
 
+  // Reverse index: document id -> glossary terms that mention it, for
+  // cross-linking from document pages back to the glossary.
+  const docTerms = {};
+  for (const entry of entries) {
+    for (const docId of entry.docIds) {
+      (docTerms[docId] ||= []).push({ term: entry.term, slug: entry.slug });
+    }
+  }
+
   return {
     terms: entries,
     themes: themeList,
     letters,
+    docTerms,
     max: Math.max(...entries.map((entry) => entry.count)),
     coveredCount: new Set(entries.flatMap((entry) => entry.docIds)).size,
   };
