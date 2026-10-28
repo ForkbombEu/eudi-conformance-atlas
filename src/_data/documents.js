@@ -351,11 +351,6 @@ module.exports = function () {
     return {
       label,
       total: inBar.length,
-      segments: stacks.map((stack) => ({
-        key: stack.key,
-        label: stack.label,
-        count: inBar.filter((doc) => doc.stack === stack.key).length,
-      })),
     };
   });
   const momentum = {

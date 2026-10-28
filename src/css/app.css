@@ -1487,11 +1487,6 @@
   border: 3px solid var(--brand-primary);
   background: var(--bg);
 }
-.legend-swatch {
-  width: 14px;
-  height: 10px;
-  border-radius: 2px;
-}
 
 /* Ecosystem web */
 .eco-svg {
@@ -1557,29 +1552,10 @@
   text-align: center;
 }
 .momentum-stack {
-  display: flex;
-  flex-direction: column-reverse;
   height: var(--h);
   min-height: 4px;
-  overflow: hidden;
   border-radius: var(--radius-md) var(--radius-md) 0 0;
-  gap: 2px;
-}
-.momentum-seg {
-  flex: var(--share) 1 0;
-  min-height: 3px;
-}
-.momentum-seg-legal {
-  background: var(--info);
-}
-.momentum-seg-architecture {
-  background: var(--credential);
-}
-.momentum-seg-standards {
-  background: var(--wallet);
-}
-.momentum-seg-protocols {
-  background: var(--success);
+  background: var(--brand-primary);
 }
 .momentum-total {
   font-family: "Source Code Pro Variable", ui-monospace, monospace;

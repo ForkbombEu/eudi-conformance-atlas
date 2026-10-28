@@ -68,21 +68,16 @@
 </figure>
 {% endmacro %}
 
-{% macro momentumChart(momentum, stacks) %}
+{% macro momentumChart(momentum) %}
 <figure class="momentum-figure">
   <div class="momentum-bars" role="img" aria-label="Documents by date of their latest status change, per half-year">
     {% for bar in momentum.bars %}
     <div class="momentum-col">
       <span class="momentum-total">{{ bar.total }}</span>
-      <div class="momentum-stack" style="--h: {{ (bar.total / momentum.max * 100) | round(1) }}%">
-        {% for seg in bar.segments %}{% if seg.count %}<span class="momentum-seg momentum-seg-{{ seg.key }}" style="--share: {{ seg.count }}" title="{{ seg.label }}: {{ seg.count }}"></span>{% endif %}{% endfor %}
-      </div>
+      <div class="momentum-stack" style="--h: {{ (bar.total / momentum.max * 100) | round(1) }}%"></div>
       <span class="momentum-label">{{ bar.label }}</span>
     </div>
     {% endfor %}
   </div>
-  <figcaption class="radar-legend">
-    {% for stack in stacks %}<span><span class="legend-swatch momentum-seg-{{ stack.key }}" aria-hidden="true"></span>{{ stack.label }}</span>{% endfor %}
-  </figcaption>
 </figure>
 {% endmacro %}
