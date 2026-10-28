@@ -701,18 +701,6 @@
   padding: var(--space-4) var(--space-3) 0;
   background: var(--brand-secondary);
 }
-.role-panel:nth-child(2) .role-panel-art {
-  background: var(--credential-bg);
-}
-.role-panel:nth-child(3) .role-panel-art {
-  background: var(--success-bg);
-}
-.role-panel:nth-child(4) .role-panel-art {
-  background: var(--info-bg);
-}
-.role-panel:nth-child(5) .role-panel-art {
-  background: var(--wallet-bg);
-}
 
 .role-panel-body {
   display: flex;
@@ -778,51 +766,59 @@
   color: var(--brand-primary);
 }
 
-/* Role illustration palette */
+/* Role illustration — flat line-art, Credimi guide style */
 .role-art {
   display: block;
   width: 100%;
   height: auto;
 }
 .ra-blob {
-  fill: var(--bg);
-  opacity: 0.7;
+  fill: var(--brand-secondary-strong);
+  opacity: 0.6;
 }
 .ra-device,
 .ra-roof,
 .ra-column,
 .ra-clip {
-  fill: var(--brand-primary);
+  fill: var(--bg);
+  stroke: var(--brand-primary);
+  stroke-width: 2;
 }
 .ra-screen,
 .ra-card {
   fill: var(--bg);
-}
-.ra-card {
   stroke: var(--brand-primary);
-  stroke-width: 2.5;
+  stroke-width: 2;
 }
 .ra-card-back {
-  fill: var(--brand-secondary-strong);
+  fill: var(--brand-secondary);
+  stroke: var(--brand-primary);
+  stroke-width: 1.5;
 }
 .ra-chip,
 .ra-button {
-  fill: var(--brand-primary-600);
+  fill: var(--brand-secondary);
+  stroke: var(--brand-primary);
+  stroke-width: 1.5;
 }
 .ra-line-fill {
-  fill: var(--brand-secondary-strong);
+  fill: var(--border-strong);
 }
-.ra-accent-success,
-.ra-badge-success {
+.ra-accent-success {
   fill: var(--success);
+}
+.ra-badge-success {
+  fill: var(--bg);
+  stroke: var(--success);
+  stroke-width: 2.5;
 }
 .ra-accent-warning {
   fill: var(--warning);
 }
 .ra-check {
   fill: none;
-  stroke: white;
-  stroke-width: 5;
+  stroke: var(--success);
+  stroke-width: 3.5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -837,39 +833,45 @@
   fill: var(--brand-primary);
 }
 .ra-gear circle {
-  fill: var(--warning);
+  fill: none;
+  stroke: var(--brand-primary);
+  stroke-width: 2;
 }
 .ra-gear .ra-gear-hole {
   fill: var(--bg);
+  stroke: var(--brand-primary);
+  stroke-width: 1.5;
 }
 .ra-arrow {
   fill: none;
   stroke: var(--brand-primary);
-  stroke-width: 3;
+  stroke-width: 2.5;
   stroke-linecap: round;
   stroke-dasharray: 2 7;
 }
 .ra-arrow-head {
   fill: none;
   stroke: var(--brand-primary);
-  stroke-width: 3;
+  stroke-width: 2.5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 .ra-star {
-  fill: var(--warning);
+  fill: var(--brand-primary);
 }
 .ra-seal {
-  fill: var(--wallet);
+  fill: none;
+  stroke: var(--brand-primary);
+  stroke-width: 2.5;
 }
 .ra-seal-inner {
   fill: none;
-  stroke: white;
-  stroke-width: 2.5;
+  stroke: var(--brand-primary);
+  stroke-width: 1.5;
   stroke-dasharray: 3 4;
 }
 .ra-ribbon {
-  fill: var(--wallet);
+  fill: var(--brand-primary);
 }
 
 /* Sidebar line icons */
