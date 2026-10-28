@@ -1630,6 +1630,27 @@
   stroke: var(--border);
   stroke-width: 1;
 }
+.momentum-area {
+  stroke: none;
+  fill-opacity: 0.85;
+}
+.momentum-area-legal {
+  fill: var(--info);
+}
+.momentum-area-architecture {
+  fill: var(--credential);
+}
+.momentum-area-standards {
+  fill: var(--wallet);
+}
+.momentum-area-protocols {
+  fill: var(--success);
+}
+.momentum-legend-label {
+  font-size: 11px;
+  font-weight: 600;
+  fill: var(--fg-muted);
+}
 .momentum-line {
   fill: none;
   stroke: var(--brand-primary);

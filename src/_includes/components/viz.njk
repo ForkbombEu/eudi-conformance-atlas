@@ -70,14 +70,27 @@
 
 {% macro momentumChart(momentum) %}
 <figure class="momentum-figure">
-  <svg class="momentum-svg" viewBox="0 0 {{ momentum.width }} {{ momentum.height }}" role="img" aria-label="Documents by date of their latest status change, per half-year">
+  <svg class="momentum-svg" viewBox="0 0 {{ momentum.width }} {{ momentum.height }}" role="img" aria-label="Documents by date of their latest status change, per half-year, stacked by stack layer">
     <line class="momentum-axis" x1="{{ momentum.padX }}" y1="{{ momentum.height - momentum.padBottom }}" x2="{{ momentum.width - momentum.padX }}" y2="{{ momentum.height - momentum.padBottom }}"/>
+    {% for area in momentum.areas %}
+    <path class="momentum-area momentum-area-{{ area.key }}" d="{{ area.path }}"/>
+    {% endfor %}
     <polyline class="momentum-line" points="{% for p in momentum.points %}{{ p.x }},{{ p.y }} {% endfor %}"/>
     {% for p in momentum.points %}
-    <circle class="momentum-point" cx="{{ p.x }}" cy="{{ p.y }}" r="4"><title>{{ p.label }}: {{ p.total }} documents</title></circle>
+    <circle class="momentum-point" cx="{{ p.x }}" cy="{{ p.y }}" r="4">
+      <title>{{ p.label }} — {{ p.total }} documents{% for s in p.segments %} · {{ s.label }}: {{ s.count }}{% endfor %}</title>
+    </circle>
     <text class="momentum-val" x="{{ p.x }}" y="{{ p.y - 10 }}" text-anchor="middle">{{ p.total }}</text>
     <text class="momentum-xlabel" x="{{ p.x }}" y="{{ momentum.height - 12 }}" text-anchor="{{ 'start' if loop.first else ('end' if loop.last else 'middle') }}">{{ p.label }}</text>
     {% endfor %}
+    <g class="momentum-legend" transform="translate({{ momentum.padX }}, 16)">
+      {% for area in momentum.areas %}
+      <g transform="translate({{ loop.index0 * 118 }}, 0)">
+        <rect class="momentum-area-swatch momentum-area-{{ area.key }}" x="0" y="-8" width="10" height="10" rx="2"/>
+        <text class="momentum-legend-label" x="15">{{ area.short }}</text>
+      </g>
+      {% endfor %}
+    </g>
   </svg>
 </figure>
 {% endmacro %}
