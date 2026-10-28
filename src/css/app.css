@@ -772,10 +772,6 @@
   width: 100%;
   height: auto;
 }
-.ra-blob {
-  fill: var(--brand-secondary-strong);
-  opacity: 0.6;
-}
 .ra-device,
 .ra-roof,
 .ra-column,
@@ -790,12 +786,6 @@
   stroke: var(--brand-primary);
   stroke-width: 2;
 }
-.ra-card-back {
-  fill: var(--brand-secondary);
-  stroke: var(--brand-primary);
-  stroke-width: 1.5;
-}
-.ra-chip,
 .ra-button {
   fill: var(--brand-secondary);
   stroke: var(--brand-primary);
@@ -831,16 +821,6 @@
 }
 .ra-qr rect {
   fill: var(--brand-primary);
-}
-.ra-gear circle {
-  fill: none;
-  stroke: var(--brand-primary);
-  stroke-width: 2;
-}
-.ra-gear .ra-gear-hole {
-  fill: var(--bg);
-  stroke: var(--brand-primary);
-  stroke-width: 1.5;
 }
 .ra-arrow {
   fill: none;
