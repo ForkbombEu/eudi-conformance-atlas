@@ -1984,28 +1984,8 @@
   line-height: 1.6;
   color: var(--fg);
 }
-.gloss-docs {
-  list-style: none;
+.gloss-doc-groups {
   margin-top: var(--space-4);
-  display: grid;
-  gap: var(--space-2);
-}
-.gloss-docs li {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  font-size: var(--fs-base);
-}
-.gloss-docs li a {
-  font-weight: 600;
-  color: var(--fg);
-}
-.gloss-docs li a:hover {
-  color: var(--brand-primary-600);
 }
 
 @media (max-width: 640px) {
@@ -2273,4 +2253,264 @@ a.ref-id:hover {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-1);
   }
+}
+
+/*
+  --- Grouped lists ---
+
+  The same rail-and-rows rhythm as the evidence reference list, reused for
+  every long list whose items fall into buckets: glossary documents by
+  adoption status, map layers by document type, FCAF tests by section.
+  The rail carries the bucket label and count; rows are identifier, one
+  sentence, and a small meta chip.
+*/
+.grouped {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.grouped-block {
+  --group-bg: var(--bg-muted);
+  --group-fg: var(--fg);
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  border-top: 1px solid var(--border);
+}
+
+.grouped-block:first-child {
+  border-top: 0;
+}
+
+.grouped-block.tone-success {
+  --group-bg: var(--success-bg);
+  --group-fg: color-mix(in oklch, var(--success) 72%, black);
+}
+.grouped-block.tone-info {
+  --group-bg: var(--info-bg);
+  --group-fg: var(--info);
+}
+.grouped-block.tone-warning {
+  --group-bg: var(--warning-bg);
+  --group-fg: color-mix(in oklch, var(--warning) 58%, black);
+}
+.grouped-block.tone-proposal {
+  --group-bg: var(--wallet-bg);
+  --group-fg: var(--wallet);
+}
+.grouped-block.tone-muted {
+  --group-bg: var(--bg-muted);
+  --group-fg: var(--fg);
+}
+
+.grouped-rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  background: var(--group-bg);
+  border-right: 1px solid var(--border);
+}
+
+.grouped-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--group-fg);
+}
+
+.grouped-count {
+  font-size: var(--fs-xs);
+  color: var(--fg);
+}
+
+.grouped-list {
+  list-style: none;
+}
+
+.grouped-row {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--border);
+  align-items: start;
+}
+
+.grouped-list .grouped-row:first-child {
+  border-top: 0;
+}
+
+.grouped-row:hover {
+  background: var(--bg-muted);
+}
+
+.grouped-id {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--brand-primary);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+a.grouped-id:hover {
+  text-decoration: underline;
+}
+
+.grouped-text {
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+  color: var(--fg);
+}
+
+.grouped-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  justify-content: flex-end;
+}
+
+.grouped-refs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+@media (max-width: 900px) {
+  .grouped-block {
+    grid-template-columns: 1fr;
+  }
+  .grouped-rail {
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--space-3);
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-3) var(--space-4);
+  }
+  .grouped-row {
+    grid-template-columns: 190px minmax(0, 1fr) auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .grouped-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+  }
+  .grouped-meta {
+    justify-content: flex-start;
+  }
+}
+
+/*
+  --- Map tree: documents grouped by type ---
+
+  style.css renders `.tree-leaf` as a single inline line. Inside a step the
+  leaves are now grouped under a coloured type heading, and each leaf is an
+  identifier / one-sentence / status row, mirroring the reference list.
+*/
+.tree-type-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-3) 0 var(--space-1);
+  padding-bottom: var(--space-1);
+  border-bottom: 1px solid var(--border);
+}
+.tree-type-head:first-child {
+  margin-top: var(--space-1);
+}
+.tree-type-count {
+  font-size: var(--fs-xs);
+  color: var(--fg-muted);
+}
+.tree-leaf {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr) auto auto;
+  gap: var(--space-2);
+  align-items: baseline;
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--border);
+}
+.tree-leaf:first-of-type {
+  border-top: 0;
+}
+.tree-doc-id {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--brand-primary);
+  overflow-wrap: anywhere;
+}
+.tree-leaf .tree-doc-id {
+  color: var(--brand-primary);
+}
+.tree-doc-summary {
+  font-size: var(--fs-sm);
+  line-height: 1.4;
+  color: var(--fg);
+}
+.tree-doc-ext {
+  text-decoration: none;
+}
+
+@media (max-width: 900px) {
+  .tree-leaf {
+    grid-template-columns: 170px minmax(0, 1fr) auto;
+  }
+  .tree-doc-ext {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .tree-leaf {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+  }
+}
+
+/*
+  --- FCAF framework page ---
+*/
+.fcaf-role {
+  margin-bottom: var(--space-8);
+}
+
+.fcaf-role-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-3);
+}
+
+.fcaf-role-meta {
+  font-size: var(--fs-sm);
+  color: var(--fg-muted);
+}
+
+.fcaf-role .section-intro {
+  max-width: 860px;
+  margin: 0 0 var(--space-4);
+}
+
+.fcaf-source {
+  margin: var(--space-4) 0 var(--space-8);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+}
+
+.ref-chip {
+  font-size: 10px;
+  padding: 2px 6px;
+  font-weight: 500;
 }

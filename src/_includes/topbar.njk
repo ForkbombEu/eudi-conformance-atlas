@@ -9,10 +9,10 @@
       <li><a href="{{ '/map/' | url }}" {% if '/map/' in page.url %}class="nav-active"{% endif %}>Map</a></li>
       <li><a href="{{ '/reference/' | url }}" {% if '/reference/' in page.url or '/documents/' in page.url %}class="nav-active"{% endif %}>Reference</a></li>
       <li><a href="{{ '/glossary/' | url }}" {% if '/glossary/' in page.url %}class="nav-active"{% endif %}>Glossary</a></li>
-      <li><a href="{{ '/tests/' | url }}" {% if '/tests/' in page.url %}class="nav-active"{% endif %}>Tests</a></li>
+      <li><a href="{{ '/fcaf/' | url }}" {% if '/fcaf/' in page.url or '/evidence/' in page.url %}class="nav-active"{% endif %}>FCAF</a></li>
       <li><a href="{{ '/data/' | url }}" {% if '/data/' in page.url %}class="nav-active"{% endif %}>Data</a></li>
       <li><a href="https://github.com/ForkbombEu/eudi-conformance-atlas" target="_blank" rel="noopener">Repository</a></li>
-      {% set rolePages = ['/reference/', '/tests/', '/evidence/', '/documents/', '/map/'] %}
+      {% set rolePages = ['/reference/', '/fcaf/', '/evidence/', '/documents/', '/map/'] %}
       {% set showRoleBtn = false %}
       {% for p in rolePages %}{% if p in page.url %}{% set showRoleBtn = true %}{% endif %}{% endfor %}
       {% if showRoleBtn %}

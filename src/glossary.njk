@@ -70,15 +70,25 @@ description: EUDI Wallet glossary — every term counts how many atlas documents
             </div>
           </header>
           <p class="gloss-entry-def">{{ entry.definition }}</p>
-          <ul class="gloss-docs">
-            {% for id in entry.docIds %}{% set doc = documents.byId[id] %}
-            <li>
-              <span class="status-pill tone-{{ doc.statusTone }}">{{ doc.statusGlyph }} {{ doc.statusLabel }}</span>
-              <a href="{{ ('/documents/' + doc.id + '/') | url }}">{{ doc.name }}</a>
-              <span class="badge badge-neutral">{{ doc.typeLabel }}</span>
-            </li>
+          <div class="grouped gloss-doc-groups">
+            {% for statusGroup in entry.docGroups %}
+            <div class="grouped-block tone-{{ statusGroup.tone }}">
+              <div class="grouped-rail">
+                <span class="grouped-label">{{ statusGroup.glyph }} {{ statusGroup.label }}</span>
+                <span class="grouped-count">{{ statusGroup.count }} {{ 'document' if statusGroup.count === 1 else 'documents' }}</span>
+              </div>
+              <ul class="grouped-list">
+                {% for doc in statusGroup.docs %}
+                <li class="grouped-row">
+                  <a class="grouped-id mono" href="{{ ('/documents/' + doc.id + '/') | url }}" title="{{ doc.name }}">{{ doc.id }}</a>
+                  <span class="grouped-text">{{ (doc.summary or doc.name) | truncate(220) }}</span>
+                  <span class="grouped-meta"><span class="badge {{ doc.typeBadge }}">{{ doc.typeLabel }}</span></span>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
             {% endfor %}
-          </ul>
+          </div>
         </article>
         {% endfor %}
       </div>

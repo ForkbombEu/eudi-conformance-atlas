@@ -1,0 +1,126 @@
+---
+layout: base.njk
+title: FCAF Framework
+description: The EUDI Wallet Functional Conformance Assessment Framework — 676 wallet-solution test cases for the attestation-provider and relying-party roles, grouped by section.
+---
+{% from "components/credimi.njk" import credimiCta %}
+{% from "components/breadcrumbs.njk" import breadcrumbs %}
+
+<section class="hero page-hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Functional Conformance Assessment</p>
+    <h1>FCAF framework</h1>
+    <p>The EUDI Wallet <strong>FCAF</strong> defines the functional conformance test cases a wallet solution must pass in each role. This atlas tracks {{ fcaf.totalCount }} test cases across {{ fcaf.roles.length }} wallet-solution roles and {{ fcaf.sectionCount }} sections, each with its normative references.</p>
+    <div class="page-hero-meta">
+      <span class="status-pill tone-info">◈ {{ fcaf.totalCount }} test cases</span>
+      <span class="status-pill tone-info">◈ {{ fcaf.sectionCount }} sections</span>
+      <span class="status-pill tone-info">◈ {{ fcaf.referenceCount }} normative references</span>
+    </div>
+  </div>
+</section>
+
+<div class="page-content">
+  <div class="container">
+    {{ breadcrumbs([{label:"Home", url:"/"}, {label:"FCAF framework", url:"/fcaf/"}]) }}
+
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> This page mirrors the public FCAF test definitions maintained in the Credimi configuration templates. The upstream <a href="{{ fcaf.source.standard }}" target="_blank" rel="noopener">EU Digital Identity Wallet FCAF</a> is authoritative; test identifiers here are not certification claims.
+    </div>
+
+    <div class="stats-strip">
+      <div class="stat-item">
+        <span class="stat-value">{{ fcaf.totalCount }}</span>
+        <span class="stat-label">Test cases</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">{{ fcaf.roles.length }}</span>
+        <span class="stat-label">Wallet-solution roles</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">{{ fcaf.sectionCount }}</span>
+        <span class="stat-label">Sections</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">{{ fcaf.referenceCount }}</span>
+        <span class="stat-label">Normative references</span>
+      </div>
+    </div>
+
+    <div class="fcaf-source">
+      <p><strong>Source.</strong> Test definitions imported from <a href="{{ fcaf.source.config_repository }}" target="_blank" rel="noopener">Credimi config_templates/fcaf</a> (commit <span class="mono">{{ fcaf.source.upstream_commit | truncate(12) }}</span>), which implements the <a href="{{ fcaf.source.standard }}" target="_blank" rel="noopener">EUDI Wallet FCAF</a>. Upstream specification repository: <a href="{{ fcaf.source.standard_repository }}" target="_blank" rel="noopener">eudi-doc-functional-conformance-assessment</a>.</p>
+    </div>
+
+    {% for role in fcaf.roles %}
+    <section class="fcaf-role" id="role-{{ role.key }}" aria-labelledby="role-{{ role.key }}-title">
+      <header class="fcaf-role-head">
+        <h2 id="role-{{ role.key }}-title">{{ role.label }}</h2>
+        <span class="fcaf-role-meta">{{ role.count }} test cases · {{ role.sections.length }} sections</span>
+      </header>
+      <p class="section-intro">{{ role.description }}</p>
+
+      <div class="grouped">
+        {% for section in role.sections %}
+        <div class="grouped-block {% if role.key == 'attestation_provider' %}tone-proposal{% else %}tone-info{% endif %}">
+          <div class="grouped-rail">
+            <span class="grouped-label">{{ section.label }}</span>
+            <span class="grouped-count">{{ section.count }} {{ 'test case' if section.count === 1 else 'test cases' }}</span>
+          </div>
+          <ul class="grouped-list">
+            {% for test in section.tests %}
+            <li class="grouped-row">
+              <a class="grouped-id mono" href="https://github.com/ForkbombEu/credimi/blob/main/config_templates/fcaf/{{ test.file }}" target="_blank" rel="noopener" title="{{ test.title }}">{{ test.id }}</a>
+              <span class="grouped-text">
+                {{ test.title | truncate(220) }}
+                {% if test.references.length > 0 %}
+                <span class="grouped-refs">
+                  {% for ref in test.references | batch(2) | first %}<span class="badge badge-neutral mono ref-chip">{{ ref }}</span>{% endfor %}
+                  {% if test.references.length > 2 %}<span class="badge badge-neutral mono ref-chip">+{{ test.references.length - 2 }}</span>{% endif %}
+                </span>
+                {% endif %}
+              </span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endfor %}
+
+    <section class="fcaf-role" aria-labelledby="claims-title">
+      <header class="fcaf-role-head">
+        <h2 id="claims-title">Credimi evidence claims</h2>
+        <span class="fcaf-role-meta">{{ evidence.totalCount }} claims</span>
+      </header>
+      <p class="section-intro">Each claim states what an implementation must demonstrate, with its official references grouped by source family. Claims map to FCAF tests and documents; they do not certify compliance.</p>
+
+      <div class="grouped">
+        {% for actor, claims in evidence.byActor %}
+        <div class="grouped-block">
+          <div class="grouped-rail">
+            <span class="grouped-label">{{ actor }}</span>
+            <span class="grouped-count">{{ claims.length }} {{ 'claim' if claims.length === 1 else 'claims' }}</span>
+          </div>
+          <ul class="grouped-list">
+            {% for claim in claims %}
+            <li class="grouped-row">
+              <a class="grouped-id mono" href="{{ ('/evidence/' + claim.slug + '/') | url }}">{{ claim.slug }}</a>
+              <span class="grouped-text">{{ claim.title }} — {{ (claim.description or '') | truncate(150) }}</span>
+              <span class="grouped-meta"><span class="badge badge-neutral">{{ claim.domain or 'general' }}</span></span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <div class="home-section">
+      {{ credimiCta("Run the FCAF suite, not a spreadsheet.", "Credimi executes the FCAF wallet-solution pipelines against real Wallets, Issuers and Verifiers and keeps every run as reproducible evidence.") }}
+    </div>
+
+    <div class="page-end">
+      <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/src/fcaf.njk" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
+    </div>
+  </div>
+</div>

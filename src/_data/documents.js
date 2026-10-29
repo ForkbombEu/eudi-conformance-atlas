@@ -206,10 +206,38 @@ module.exports = function () {
       });
     }
   }
+  const groupByType = (docs) => {
+    const groups = new Map();
+    for (const doc of docs) {
+      if (!groups.has(doc.type)) {
+        groups.set(doc.type, {
+          key: doc.type,
+          label: doc.typeLabel,
+          badge: doc.typeBadge,
+          count: 0,
+          docs: [],
+        });
+      }
+      const group = groups.get(doc.type);
+      group.count += 1;
+      group.docs.push(doc);
+    }
+    return [...groups.values()]
+      .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, "en"))
+      .map((group) => ({
+        ...group,
+        docs: group.docs.slice().sort((a, b) => a.id.localeCompare(b.id)),
+      }));
+  };
 
   const stackSummary = stacks.map((stack) => {
     const docs = documents.filter((doc) => doc.stack === stack.key);
-    return { ...stack, count: docs.length, docs };
+    return {
+      ...stack,
+      count: docs.length,
+      docs,
+      typeGroups: groupByType(docs),
+    };
   });
 
   const statusSummary = Object.entries(statuses)

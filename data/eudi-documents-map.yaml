@@ -4,6 +4,26 @@ description:
   A consolidated map of legal acts, implementing acts, ARF/WE BUILD documentation, cybersecurity and trust-service
   sources relevant to Credimi's EUDI conformance and interoperability evidence work.
 changelog:
+  - date: "2026-10-29"
+    summary:
+      October 2026 source review — added the thirteen approved EWC EUDI Wallet RFCs covering credential issuance,
+      presentation, PID and LPID, wallet attestations, payments, trust mechanism, PhotoID and the ITB interoperability
+      profile. Also replaced the test-coverage inventory with the FCAF wallet-solution catalogue.
+    added:
+      - EWC-RFC-001
+      - EWC-RFC-002
+      - EWC-RFC-003
+      - EWC-RFC-004
+      - EWC-RFC-005
+      - EWC-RFC-006
+      - EWC-RFC-007
+      - EWC-RFC-008
+      - EWC-RFC-010
+      - EWC-RFC-011
+      - EWC-RFC-012
+      - EWC-RFC-013
+      - EWC-RFC-100
+    updated: []
   - date: "2026-10-27"
     summary:
       October 2026 follow-up review — new mDL implementing regulation, the digital euro and digital-travel proposals, the
@@ -3057,6 +3077,110 @@ flat_documents:
       - by: ARF essential STS
         version: Level 2 (April 2021)
         source: https://eudi.dev/latest/technical-specifications/
+  - id: EWC-RFC-001
+    name: "EWC RFC-001: Issue Verifiable Credential (v3.0)"
+    url: https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc001-issue-verifiable-credential.md
+    type: protocol_spec_industry
+    status: published
+    status_note: Approved EWC RFC (v3.0) for wallet interoperability in the European Wallet Consortium.
+    summary: "Credential issuance profile for EWC wallets, covering offer, authorization, token and credential endpoints plus holder binding."
+    relevance_for_eudi: Defines the interoperable issuance flow EWC wallet providers must implement and test against the ITB.
+  - id: EWC-RFC-002
+    name: "EWC RFC-002: Present Verifiable Credentials Workflow (v3.0)"
+    url: https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc002-present-verifiable-credentials.md
+    type: protocol_spec_industry
+    status: published
+    status_note: Approved EWC RFC (v3.0) for wallet interoperability in the European Wallet Consortium.
+    summary: "Presentation profile for EWC wallets, covering request objects, consent, selective disclosure and verifier responses."
+    relevance_for_eudi: Defines the interoperable presentation flow EWC wallet providers must implement and test against the ITB.
+  - id: EWC-RFC-003
+    name: "EWC RFC-003: Issue Person Identification Data (v2.1)"
+    url: https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc003-issue-person-identification-data.md
+    type: protocol_spec_industry
+    status: published
+    status_note: Approved EWC RFC (v2.1) for wallet interoperability in the European Wallet Consortium.
+    summary: "PID issuance profile for EWC wallets, with the credential format, claims and issuer metadata expected by pilot participants."
+    relevance_for_eudi: Pilot-level PID issuance requirements that can become executable conformance evidence.
+  - id: EWC-RFC-004
+    name: "EWC RFC-004: Individual Wallet Unit Attestation (v1.0)"
+    url: https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc004-individual-wallet-attestation.md
+    type: protocol_spec_industry
+    status: published
+    status_note: Approved EWC RFC (v1.0) for wallet interoperability in the European Wallet Consortium.
+    summary: "Individual Wallet Unit Attestation profile describing how a wallet proves its integrity and keys to issuers and verifiers."
+    relevance_for_eudi: Wallet attestation is a prerequisite for issuance and presentation trust decisions in the EUDI ecosystem.
+  - id: EWC-RFC-005
+    name: "EWC RFC-005: Issue Legal Person Identification Data (v1.0)"
+    url: https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc005-issue-legal-person-identification-data.md
+    type: protocol_spec_industry
+    status: published
+    status_note: Approved EWC RFC (v1.0) for wallet interoperability in the European Wallet Consortium.
+    summary: "LPID issuance profile for wallets acting on behalf of legal persons, including representation and entitlement claims."
+    relevance_for_eudi: Covers the legal-person branch of PID issuance used by organisational wallets.
+  - id: EWC-RFC-006
+    name: "EWC RFC-006: Organisational Wallet Unit Attestation (v1.0)"
+    url: https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc006-organisational-wallet-unit-attestation.md
+    type: protocol_spec_industry
+    status: published
+    status_note: Approved EWC RFC (v1.0) for wallet interoperability in the European Wallet Consortium.
+    summary: "Organisational Wallet Unit Attestation profile for wallets that issue or verify on behalf of an organisation."
+    relevance_for_eudi: Complements individual wallet attestation for organisational wallet deployments.
+  - id: EWC-RFC-007
+    name: "EWC RFC-007: Payment Wallet Attestation (v1.1)"
+    url: https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/payment-rfcs/ewc-rfc007-payment-wallet-attestation.md
+    type: protocol_spec_industry
+    status: published
+    status_note: Approved EWC RFC (v1.1) for wallet interoperability in the European Wallet Consortium.
+    summary: "Payment-specific wallet attestation profile used when a wallet participates in payment flows with verifiable credentials."
+    relevance_for_eudi: Extends wallet attestation to the payment use case covered by EWC pilot work.
+  - id: EWC-RFC-008
+    name: "EWC RFC-008: Payment Data Confirmation (v1.0)"
+    url: https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/payment-rfcs/ewc-rfc008-payment-data-confirmation.md
+    type: protocol_spec_industry
+    status: published
+    status_note: Approved EWC RFC (v1.0) for wallet interoperability in the European Wallet Consortium.
+    summary: "Payment data confirmation profile describing how payer, payee and credential data are bound and confirmed."
+    relevance_for_eudi: Defines the payment confirmation flow and its trust checks for wallet implementations.
+  - id: EWC-RFC-010
+    name: "EWC RFC-010: Document Signing using Long-Term Certificates (v1.1)"
+    url: https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc010-long-term-certifice-qes-creation.md
+    type: protocol_spec_industry
+    status: published
+    status_note: Approved EWC RFC (v1.1) for wallet interoperability in the European Wallet Consortium.
+    summary: "Long-term certificate profile for document signing, including QES creation over wallet-held material."
+    relevance_for_eudi: Links wallet capabilities to qualified signature and sealing requirements.
+  - id: EWC-RFC-011
+    name: "EWC RFC-011: Payments with Verifiable Receipts (v1.0)"
+    url: https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc011-payments-with-verifiable-receipts.md
+    type: protocol_spec_industry
+    status: published
+    status_note: Approved EWC RFC (v1.0) for wallet interoperability in the European Wallet Consortium.
+    summary: "Payment profile that issues verifiable receipts bound to a transaction and the participating parties."
+    relevance_for_eudi: Defines verifiable receipt semantics that conformance evidence must observe.
+  - id: EWC-RFC-012
+    name: "EWC RFC-012: Trust Mechanism (v1.0)"
+    url: https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc012-trust-mechanism.md
+    type: protocol_spec_industry
+    status: published
+    status_note: Approved EWC RFC (v1.0) for wallet interoperability in the European Wallet Consortium.
+    summary: "EWC trust mechanism profile describing participant registration, trust anchors and certificate validation."
+    relevance_for_eudi: Pilot trust framework that complements the ARF and ETSI trust infrastructure requirements.
+  - id: EWC-RFC-013
+    name: "EWC RFC-013: Issue PhotoID (v2.0)"
+    url: https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc013-issue-photoid.md
+    type: protocol_spec_industry
+    status: published
+    status_note: Approved EWC RFC (v2.0) for wallet interoperability in the European Wallet Consortium.
+    summary: "PhotoID credential issuance profile for wallets, including evidence and portrait binding requirements."
+    relevance_for_eudi: Covers a concrete EAA use case beyond PID, with claims and format requirements.
+  - id: EWC-RFC-100
+    name: "EWC RFC-100: EWC Interoperability Profile Towards ITB (v2.0)"
+    url: https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc100-interoperability-profile-towards-itb.md
+    type: protocol_spec_industry
+    status: published
+    status_note: Approved EWC RFC (v2.0) for wallet interoperability in the European Wallet Consortium.
+    summary: "Interoperability profile that maps EWC wallet requirements to the EWC Interoperability Test Bed."
+    relevance_for_eudi: Defines the test-bed baseline against which EWC wallet providers claim interoperability.
 logical_groups:
   - group_slug: wallet-core-and-certification
     title: Wallet core functionality, certification and assurance

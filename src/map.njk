@@ -35,16 +35,23 @@ pageScript: tree.js
             <span class="layer-row-count">{{ stack.count }}</span>
           </div>
           <div class="layer-row-body">
-            <div class="layer-doc-grid">
-              {% for doc in stack.docs %}
-              <a href="{{ ('/documents/' + doc.id + '/') | url }}"
-                 class="layer-doc-chip highlightable"
-                 data-doc-id="{{ doc.id }}"
-                 data-layer="{{ doc.layer }}"
-                 title="{{ doc.name }} — {{ doc.statusLabel }}">
-                <span aria-hidden="true">{{ doc.statusGlyph }}</span>
-                <span class="font-mono">{{ doc.id }}</span>
-              </a>
+            <div class="grouped layer-doc-groups">
+              {% for typeGroup in stack.typeGroups %}
+              <div class="grouped-block">
+                <div class="grouped-rail">
+                  <span class="badge {{ typeGroup.badge }}">{{ typeGroup.label }}</span>
+                  <span class="grouped-count">{{ typeGroup.count }} {{ 'document' if typeGroup.count === 1 else 'documents' }}</span>
+                </div>
+                <ul class="grouped-list">
+                  {% for doc in typeGroup.docs %}
+                  <li class="grouped-row highlightable" data-doc-id="{{ doc.id }}" data-layer="{{ doc.layer }}">
+                    <a class="grouped-id mono" href="{{ ('/documents/' + doc.id + '/') | url }}" title="{{ doc.name }}">{{ doc.id }}</a>
+                    <span class="grouped-text">{{ (doc.summary or doc.name) | truncate(200) }}</span>
+                    <span class="grouped-meta"><span class="status-pill tone-{{ doc.statusTone }}">{{ doc.statusGlyph }} {{ doc.statusLabel }}</span></span>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
               {% endfor %}
             </div>
           </div>

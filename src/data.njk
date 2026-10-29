@@ -62,6 +62,14 @@ permalink: /data/
           <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/eudi-documents-map.yaml" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">View on GitHub</a>
         </div>
       </div>
+      <div class="card">
+        <h4 class="card-title">FCAF Test Catalogue</h4>
+        <p class="text-sm text-muted mb-3">{{ fcaf.totalCount }} wallet-solution test cases across {{ fcaf.roles.length }} roles and {{ fcaf.sectionCount }} sections, with normative references. Imported from <span class="mono">{{ fcaf.source.upstream_commit | truncate(12) }}</span>.</p>
+        <div class="flex gap-2">
+          <a href="{{ '/data/fcaf.yaml' | url }}" class="btn btn-outline btn-sm" download>Download YAML</a>
+          <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/fcaf.yaml" class="btn btn-ghost btn-sm" target="_blank" rel="noopener">View on GitHub</a>
+        </div>
+      </div>
     </div>
 
     {{ sectionHeader("Document counts by type") }}

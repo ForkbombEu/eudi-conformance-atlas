@@ -63,6 +63,8 @@
               id: doc.id,
               title: doc.name,
               docType: doc.type,
+              docTypeLabel: getSourceLabel(doc.type),
+              docTypeBadge: getSourceClass(doc.type),
               summary: doc.summary,
               url: pathPrefix + "documents/" + doc.id + "/",
               officialUrl: doc.url,
@@ -72,6 +74,15 @@
             });
           }
         }
+        // Group a step's documents by type so each subsection reads as
+        // coloured type rails, with the regulation number in mono and one
+        // sentence of what it does.
+        stepNode.children.sort(function (a, b) {
+          return (
+            a.docTypeLabel.localeCompare(b.docTypeLabel) ||
+            a.id.localeCompare(b.id)
+          );
+        });
         groupNode.children.push(stepNode);
       }
       tree.push(groupNode);
@@ -111,16 +122,18 @@
       leaf.className = "tree-leaf";
       leaf.dataset.docId = node.id;
 
-      var link = document.createElement("a");
-      link.href = node.url;
-      link.textContent = node.title;
-      leaf.appendChild(link);
+      var docLink = document.createElement("a");
+      docLink.className = "tree-doc-id mono";
+      docLink.href = node.url;
+      docLink.textContent = node.id;
+      docLink.title = node.title;
+      leaf.appendChild(docLink);
 
-      var badge = document.createElement("span");
-      badge.className = "badge " + getSourceClass(node.docType);
-      badge.style.cssText = "margin-left:8px";
-      badge.textContent = getSourceLabel(node.docType);
-      leaf.appendChild(badge);
+      var summaryText = document.createElement("span");
+      summaryText.className = "tree-doc-summary";
+      summaryText.textContent = node.summary || node.title;
+      leaf.appendChild(summaryText);
+
       leaf.appendChild(statusPill(node));
 
       if (node.officialUrl) {
@@ -128,13 +141,12 @@
         extLink.href = node.officialUrl;
         extLink.target = "_blank";
         extLink.rel = "noopener";
-        extLink.className = "text-xs text-muted";
-        extLink.style.cssText = "margin-left:4px";
+        extLink.className = "tree-doc-ext text-xs text-muted";
         extLink.textContent = "↗";
         leaf.appendChild(extLink);
       }
 
-      link.addEventListener("click", function (e) {
+      docLink.addEventListener("click", function (e) {
         e.preventDefault();
         showDetail(node);
       });
@@ -156,8 +168,28 @@
 
       var childrenContainer = document.createElement("div");
       childrenContainer.className = "tree-children";
+      var lastType = null;
       for (var i = 0; i < (node.children || []).length; i++) {
-        childrenContainer.appendChild(renderNode(node.children[i]));
+        var child = node.children[i];
+        if (node.type === "step" && child.docTypeLabel !== lastType) {
+          var typeHead = document.createElement("div");
+          typeHead.className = "tree-type-head";
+          var typeBadge = document.createElement("span");
+          typeBadge.className = "badge " + child.docTypeBadge;
+          typeBadge.textContent = child.docTypeLabel;
+          typeHead.appendChild(typeBadge);
+          var typeCount = document.createElement("span");
+          typeCount.className = "tree-type-count";
+          typeCount.textContent = String(
+            node.children.filter(function (c) {
+              return c.docTypeLabel === child.docTypeLabel;
+            }).length,
+          );
+          typeHead.appendChild(typeCount);
+          childrenContainer.appendChild(typeHead);
+          lastType = child.docTypeLabel;
+        }
+        childrenContainer.appendChild(renderNode(child));
       }
       div.appendChild(childrenContainer);
 

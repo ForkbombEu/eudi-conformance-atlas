@@ -14,7 +14,7 @@ description: A community-maintained map of EUDI Wallet law, implementing acts, A
     <div>
       <p class="eyebrow">Community-maintained · {% if documents.latestRelease %}updated {{ documents.latestRelease.date | statusDate }}{% endif %}</p>
       <h1>The EUDI Wallet rulebook, <em>mapped</em>.</h1>
-      <p class="atlas-hero-lead">{{ documents.totalCount }} laws, implementing acts, EC specifications, standards and protocols — each with its adoption status, linked to {{ canonicalTests.totalCount }} conformance tests.</p>
+      <p class="atlas-hero-lead">{{ documents.totalCount }} laws, implementing acts, EC specifications, standards and protocols — each with its adoption status, plus {{ fcaf.totalCount }} FCAF test cases for wallet solutions.</p>
       <form class="atlas-hero-search" action="{{ '/reference/' | url }}" method="get" role="search">
         {{ searchBox("landing-search", "Search e.g. HAIP, 2024/2982, Trusted Lists…", "q") }}
         <button class="btn btn-on-dark btn-lg" type="submit">Search</button>
@@ -22,16 +22,16 @@ description: A community-maintained map of EUDI Wallet law, implementing acts, A
       <div class="atlas-hero-actions">
         <a href="{{ '/map/' | url }}" class="btn btn-on-dark btn-lg">Explore the map</a>
         <a href="{{ '/radar/' | url }}" class="btn btn-outline-on-dark btn-lg">Regulatory radar</a>
-        <a href="{{ '/tests/' | url }}" class="btn btn-outline-on-dark btn-lg">Test coverage</a>
+        <a href="{{ '/fcaf/' | url }}" class="btn btn-outline-on-dark btn-lg">FCAF framework</a>
       </div>
     </div>
 
     <div>
       <ol class="stack-visual" aria-label="The EUDI rulebook stack, from executable evidence down to the legal foundation">
         <li class="stack-plate stack-plate-evidence" style="--depth: 4">
-          <a href="{{ '/tests/' | url }}">
-            <span><span class="stack-plate-label">Executable evidence</span><span class="stack-plate-sub">Mapped conformance tests · Credimi</span></span>
-            <span class="stack-plate-count">{{ canonicalTests.totalCount }}</span>
+          <a href="{{ '/fcaf/' | url }}">
+            <span><span class="stack-plate-label">Executable evidence</span><span class="stack-plate-sub">FCAF test cases · wallet solutions</span></span>
+            <span class="stack-plate-count">{{ fcaf.totalCount }}</span>
           </a>
         </li>
         {% for stack in documents.stacks | reverse %}
@@ -95,10 +95,10 @@ description: A community-maintained map of EUDI Wallet law, implementing acts, A
           <strong>By task</strong>
           <p>The EUDI stack organised by what you are building, with role highlighting.</p>
         </a>
-        <a class="card start-card" href="{{ '/tests/' | url }}">
-          <span class="start-card-label">Test coverage</span>
-          <strong>{{ canonicalTests.totalCount }} tests</strong>
-          <p>The conformance inventory by actor and evidence strength.</p>
+        <a class="card start-card" href="{{ '/fcaf/' | url }}">
+          <span class="start-card-label">FCAF framework</span>
+          <strong>{{ fcaf.totalCount }} test cases</strong>
+          <p>The wallet-solution conformance suite by role and section.</p>
         </a>
         <a class="card start-card" href="{{ '/data/' | url }}">
           <span class="start-card-label">Data</span>
@@ -168,7 +168,7 @@ description: A community-maintained map of EUDI Wallet law, implementing acts, A
     <section class="home-section role-section" aria-labelledby="roles-title">
       <p class="viz-kicker">Start by role</p>
       <h2 class="viz-title" id="roles-title">Same rulebook, five ways in</h2>
-      <p class="viz-lead">Pick the seat you sit in. The atlas highlights your documents and tests on every page.</p>
+      <p class="viz-lead">Pick the seat you sit in. The atlas highlights your documents and map entries on every page.</p>
       <ul class="role-row">
         {% for role in documents.roles %}
         <li class="role-panel">
@@ -207,7 +207,7 @@ description: A community-maintained map of EUDI Wallet law, implementing acts, A
     </section>
 
     <div class="home-section">
-      {{ credimiPromo(canonicalTests.totalCount) }}
+      {{ credimiPromo(fcaf.totalCount) }}
     </div>
 
     <div class="page-end">

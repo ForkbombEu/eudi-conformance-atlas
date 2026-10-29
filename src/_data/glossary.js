@@ -1,6 +1,7 @@
 const yaml = require("js-yaml");
 const fs = require("node:fs");
 const path = require("node:path");
+const { statuses, types } = require("./docTypes");
 
 const load = (file) =>
   yaml.load(
@@ -15,6 +16,33 @@ function matcher(phrases) {
     `(?<![\\p{L}\\p{N}])(?:${phrases.map(escapeRegExp).join("|")})s?(?![\\p{L}\\p{N}])`,
     "iu",
   );
+}
+// Documents in a glossary term, grouped by adoption status in the canonical
+// status order (in force → adopted → published → final → draft → in
+// development → proposal → superseded). The glossary page shows one rail per
+// status so long document lists stay scannable.
+function groupByStatus(docs) {
+  const byStatus = new Map();
+  for (const doc of docs) {
+    if (!byStatus.has(doc.status)) byStatus.set(doc.status, []);
+    byStatus.get(doc.status).push(doc);
+  }
+  return Object.keys(statuses)
+    .filter((key) => byStatus.has(key))
+    .map((key) => ({
+      key,
+      ...statuses[key],
+      count: byStatus.get(key).length,
+      docs: byStatus
+        .get(key)
+        .slice()
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((doc) => ({
+          ...doc,
+          typeLabel: types[doc.type] ? types[doc.type].label : doc.type,
+          typeBadge: types[doc.type] ? types[doc.type].badge : "badge-neutral",
+        })),
+    }));
 }
 
 // Each glossary term lists the documents whose id, name, summary, relevance or
@@ -51,6 +79,7 @@ function glossary() {
           .replace(/^-|-$/g, ""),
         letter: term.term[0].toUpperCase(),
         docIds: docs.map((doc) => doc.id),
+        docGroups: groupByStatus(docs),
         count: docs.length,
       };
     })
