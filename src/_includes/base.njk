@@ -17,9 +17,15 @@
   <meta property="og:title" content="{{ title or site.name }}">
   <meta property="og:description" content="{{ metaDescription }}">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="{{ title or site.name }}">
-  <meta name="twitter:description" content="{{ metaDescription }}">
+  <meta property="og:image" content="{{ site.url }}/assets/og-cover.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="EUDI Trust & Conformance Atlas — law, ARF requirements, standards and conformance evidence in one cross-linked, searchable map">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{ site.url }}/assets/og-cover.png">
+  <meta name="twitter:image:alt" content="EUDI Trust & Conformance Atlas — law, ARF requirements, standards and conformance evidence in one cross-linked, searchable map">
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

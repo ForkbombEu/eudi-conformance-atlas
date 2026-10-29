@@ -1,7 +1,7 @@
 {
   "name": "eudi-conformance-atlas",
   "version": "0.1.0",
-  "description": "A community-maintained map of EUDI Wallet law, implementing acts, ARF requirements, WE BUILD trust work, and conformance evidence.",
+  "description": "The open, always-current map of the EUDI Wallet rulebook — EU law, implementing acts, the ARF, ETSI, OpenID4VC, ISO/IEC 18013 and conformance evidence, cross-linked and searchable.",
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
@@ -17,5 +17,27 @@
   },
   "devDependencies": {
     "prettier": "3.9.10"
-  }
+  },
+  "keywords": [
+    "eudi-wallet",
+    "eidas",
+    "digital-identity",
+    "eidas-2",
+    "european-digital-identity-wallet",
+    "arf",
+    "pid",
+    "eaa",
+    "qeea",
+    "openid4vci",
+    "openid4vp",
+    "sd-jwt-vc",
+    "mdoc",
+    "iso-18013-5",
+    "etsi",
+    "conformance",
+    "interoperability",
+    "certification",
+    "eleventy",
+    "static-site"
+  ]
 }
