@@ -32,21 +32,21 @@ Tracking them by hand means reading PDFs, diffing EUR-Lex pages and hoping nothi
 
 ## What's inside
 
-|         |                                                     |
-| ------: | --------------------------------------------------- |
-| **225** | documents mapped across the whole rulebook stack    |
-| **291** | official references, grouped by 7 source families   |
-|  **50** | evidence claims across 10 conformance profiles      |
-|  **69** | glossary terms covering 222 documents               |
-|   **0** | databases, build-time APIs or JavaScript frameworks |
+|          |                                                     |
+| -------: | --------------------------------------------------- |
+| **200+** | documents mapped across the whole rulebook stack    |
+| **~300** | official references, grouped by 7 source families   |
+|  **~50** | evidence claims across 10 conformance profiles      |
+|  **~70** | glossary terms covering 200+ documents              |
+|    **0** | databases, build-time APIs or JavaScript frameworks |
 
-Covers eIDAS Regulation (EU) 2024/1183, Implementing Regulations (EU) 2024/2977, 2024/2980, 2024/2981, 2024/2982, the EUDI ARF, ETSI TS 119 472, OpenID4VCI, OpenID4VP, SD-JWT VC, ISO/IEC 18013-5/-7 mdoc, the WE BUILD WP4 pilot work and the thirteen approved EWC EUDI Wallet RFCs and the IETF Agent-to-Wallet Protocol draft.
+Covers eIDAS Regulation (EU) 2024/1183, Implementing Regulations (EU) 2024/2977, 2024/2980, 2024/2981, 2024/2982, the EUDI ARF, ETSI TS 119 472, OpenID4VCI, OpenID4VP, SD-JWT VC, ISO/IEC 18013-5/-7 mdoc, the WE BUILD WP4 pilot work, the thirteen approved EWC EUDI Wallet RFCs and the IETF Agent-to-Wallet Protocol draft.
 
 ## Highlights
 
 - **Regulatory radar** — every document as a dot placed by stack layer and status, plus a momentum chart of status changes per half-year and a dated timeline.
-- **Search-first reference** — filter all 225 documents by stack layer, status, type, ARF essential, or free text with shareable URL state (`?q=`, `?stack=`, `?role=`).
-- **FCAF catalogue** — 676 wallet-solution test cases grouped by role and section, each with its normative references and a link to the upstream test definition.
+- **Search-first reference** — filter all 200+ documents by stack layer, status, type, ARF essential, or free text with shareable URL state (`?q=`, `?stack=`, `?role=`).
+- **FCAF catalogue** — about 700 wallet-solution test cases grouped by role and section, each with its normative references and a link to the upstream test definition.
 - **Evidence registry** — each claim page shows actor under test, domain, status and its full reference list, normalized and counted per family.
 - **Machine-readable data** — download the document map as YAML, subscribe to the Atom feed of rulebook updates, or read `llms.txt`.
 - **SEO done properly** — canonical URLs, Open Graph and Twitter cards with a generated cover, JSON-LD (WebSite, Organization, WebPage, BreadcrumbList), sitemap and robots.txt on every page.
@@ -87,7 +87,7 @@ Browse the EUDI ecosystem map by task and use role filters where available. Leav
 
 ### Reference and FCAF
 
-Use **Reference** to filter all documents by stack layer, status, type, new or updated in this edition, and ARF essential, or by free text (`?q=`, `?stack=` and `?role=` preselect filters). Use **FCAF** to inspect the EUDI Wallet functional conformance catalogue — 676 wallet-solution test cases for the attestation-provider and relying-party roles, grouped by section with their normative references — and the Credimi evidence claims; each evidence claim page lists every official reference grouped by source family (EU legal act, EUDI ARF, ETSI ESI, OpenID4VC, IETF, ISO, WE BUILD WP4) with per-family counts and one row per reference (document ID, clause, purpose). `src/_data/evidence.js` normalizes those rows and fails the build on an unknown family, and `scripts/validate-source-of-truth-evidence.mjs` checks that no reference is dropped.
+Use **Reference** to filter all documents by stack layer, status, type, new or updated in this edition, and ARF essential, or by free text (`?q=`, `?stack=` and `?role=` preselect filters). Use **FCAF** to inspect the EUDI Wallet functional conformance catalogue — about 700 wallet-solution test cases for the attestation-provider and relying-party roles, grouped by section with their normative references — and the Credimi evidence claims; each evidence claim page lists every official reference grouped by source family (EU legal act, EUDI ARF, ETSI ESI, OpenID4VC, IETF, ISO, WE BUILD WP4) with per-family counts and one row per reference (document ID, clause, purpose). `src/_data/evidence.js` normalizes those rows and fails the build on an unknown family, and `scripts/validate-source-of-truth-evidence.mjs` checks that no reference is dropped.
 
 ### Glossary
 

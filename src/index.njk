@@ -14,7 +14,7 @@ description: A community-maintained map of EUDI Wallet law, implementing acts, A
     <div>
       <p class="eyebrow">Community-maintained · {% if documents.latestRelease %}updated {{ documents.latestRelease.date | statusDate }}{% endif %}</p>
       <h1>The EUDI Wallet rulebook, <em>mapped</em>.</h1>
-      <p class="atlas-hero-lead">{{ documents.totalCount }} laws, implementing acts, EC specifications, standards and protocols — each with its adoption status, plus {{ fcaf.totalCount }} FCAF test cases for wallet solutions.</p>
+      <p class="atlas-hero-lead">{{ site.documentsLabel }} laws, implementing acts, EC specifications, standards and protocols — each with its adoption status, plus {{ site.fcafLabel }} FCAF test cases for wallet solutions.</p>
       <form class="atlas-hero-search" action="{{ '/reference/' | url }}" method="get" role="search">
         {{ searchBox("landing-search", "Search e.g. HAIP, 2024/2982, Trusted Lists…", "q") }}
         <button class="btn btn-on-dark btn-lg" type="submit">Search</button>
@@ -77,7 +77,7 @@ description: A community-maintained map of EUDI Wallet law, implementing acts, A
       <div class="card-grid card-grid-3">
         <a class="card start-card" href="{{ '/radar/' | url }}">
           <span class="start-card-label">Regulatory radar</span>
-          <strong>{{ documents.totalCount }} documents</strong>
+          <strong>{{ site.documentsLabel }} documents</strong>
           <p>What is in force, what changed and what is still a draft or proposal.</p>
         </a>
         <a class="card start-card" href="{{ '/reference/' | url }}">
@@ -87,7 +87,7 @@ description: A community-maintained map of EUDI Wallet law, implementing acts, A
         </a>
         <a class="card start-card" href="{{ '/glossary/' | url }}">
           <span class="start-card-label">Glossary</span>
-          <strong>{{ glossary.terms.length }} terms</strong>
+          <strong>{{ site.glossaryLabel }} terms</strong>
           <p>Read the rulebook by topic, with document counts per stack layer.</p>
         </a>
         <a class="card start-card" href="{{ '/map/' | url }}">
@@ -97,7 +97,7 @@ description: A community-maintained map of EUDI Wallet law, implementing acts, A
         </a>
         <a class="card start-card" href="{{ '/fcaf/' | url }}">
           <span class="start-card-label">FCAF framework</span>
-          <strong>{{ fcaf.totalCount }} test cases</strong>
+          <strong>{{ site.fcafLabel }} test cases</strong>
           <p>The wallet-solution conformance suite by role and section.</p>
         </a>
         <a class="card start-card" href="{{ '/data/' | url }}">
