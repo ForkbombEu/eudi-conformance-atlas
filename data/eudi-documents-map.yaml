@@ -6,6 +6,18 @@ description:
 changelog:
   - date: "2026-10-29"
     summary:
+      Late October 2026 scouting pass — refreshed the W3C Digital Credentials API, OID4VCI 1.1 and OpenID Federation
+      for Wallet Architectures to their latest October drafts, and added the IETF Agent-to-Wallet Protocol draft for
+      agent-mediated credential operations. The EPC SCARLET payments framework and the ETSI CEN workshop material were
+      reviewed but are not catalogued because no stable specification document is public yet.
+    added:
+      - IETF-A2WP
+    updated:
+      - W3C-DIGITAL-CREDENTIALS-API
+      - OID4VCI-1.1
+      - OPENID-FEDERATION-WALLET
+  - date: "2026-10-29"
+    summary:
       October 2026 source review — added the thirteen approved EWC EUDI Wallet RFCs covering credential issuance,
       presentation, PID and LPID, wallet attestations, payments, trust mechanism, PhotoID and the ITB interoperability
       profile. Also replaced the test-coverage inventory with the FCAF wallet-solution catalogue.
@@ -1401,10 +1413,10 @@ flat_documents:
     type: w3c_spec
     layer: platform
     status: draft
-    status_date: "2026-10-20"
+    status_date: "2026-10-29"
     status_note:
       Now a W3C Working Draft (Federated Identity WG); First Public Working Draft 1 July 2025, latest Working Draft
-      20 October 2026. Not yet a Candidate Recommendation.
+      29 October 2026. Not yet a Candidate Recommendation.
     summary: Browser API for requesting and presenting digital credentials through user agents and credential providers.
     relevance_for_eudi:
       Relevant to browser-mediated Wallet presentation and platform interoperability for remote credential
@@ -2163,7 +2175,7 @@ flat_documents:
     url: https://openid.github.io/OpenID4VCI/openid-4-verifiable-credential-issuance-1_1-wg-draft.html
     type: openid_spec
     status: in_development
-    status_date: "2026-10-15"
+    status_date: "2026-10-27"
     summary:
       Working-group editor's draft of the next OID4VCI version, developed by the OpenID Digital Credentials Protocols
       WG on top of the 1.0 Final.
@@ -2219,11 +2231,14 @@ flat_documents:
       Current Final generation of the federation trust layer that wallet-specific federation profiles build
       on; relevant to federation-based trust for Wallet Providers, Issuers and Relying Parties.
   - id: OPENID-FEDERATION-WALLET
-    name: OpenID Federation for Wallet Architectures 1.0 — draft 05
-    url: https://openid.net/specs/openid-federation-wallet-1_0.html
+    name: OpenID Federation for Wallet Architectures 1.0 — draft 06
+    url: https://openid.github.io/federation-wallet/main.html
     type: openid_spec
     status: draft
-    status_date: "2026-02-15"
+    status_date: "2026-10-27"
+    status_note:
+      Draft 06 published 27 October 2026 on the working-group draft site; the openid.net/specs page still serves
+      draft 05 from 15 February 2026.
     summary:
       Defines OpenID Federation entity types and trust establishment for digital wallet architectures in the four-party
       model (Wallet Providers, Credential Issuers, Relying Parties).
@@ -3181,6 +3196,17 @@ flat_documents:
     status_note: Approved EWC RFC (v2.0) for wallet interoperability in the European Wallet Consortium.
     summary: "Interoperability profile that maps EWC wallet requirements to the EWC Interoperability Test Bed."
     relevance_for_eudi: Defines the test-bed baseline against which EWC wallet providers claim interoperability.
+  - id: IETF-A2WP
+    name: "Agent-to-Wallet Protocol for Digital Credentials (A2WP) — draft-senarath-a2wp-01"
+    url: https://datatracker.ietf.org/doc/html/draft-senarath-a2wp-01
+    type: ietf_spec
+    status: draft
+    status_date: "2026-10-17"
+    summary:
+      Defines how an AI agent passes a credential offer or presentation request to a wallet unchanged, with the wallet
+      performing OpenID4VCI or OpenID4VP, obtaining user approval and returning only the operation status and a
+      continuation; credentials, presentations and keys never reach the agent.
+    relevance_for_eudi: Early signal for agent-mediated wallet flows and delegation of credential operations; not a conformance baseline.
 logical_groups:
   - group_slug: wallet-core-and-certification
     title: Wallet core functionality, certification and assurance

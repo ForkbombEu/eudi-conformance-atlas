@@ -34,18 +34,18 @@ Tracking them by hand means reading PDFs, diffing EUR-Lex pages and hoping nothi
 
 |         |                                                     |
 | ------: | --------------------------------------------------- |
-| **224** | documents mapped across the whole rulebook stack    |
+| **225** | documents mapped across the whole rulebook stack    |
 | **291** | official references, grouped by 7 source families   |
 |  **50** | evidence claims across 10 conformance profiles      |
-|  **69** | glossary terms covering 221 documents               |
+|  **69** | glossary terms covering 222 documents               |
 |   **0** | databases, build-time APIs or JavaScript frameworks |
 
-Covers eIDAS Regulation (EU) 2024/1183, Implementing Regulations (EU) 2024/2977, 2024/2980, 2024/2981, 2024/2982, the EUDI ARF, ETSI TS 119 472, OpenID4VCI, OpenID4VP, SD-JWT VC, ISO/IEC 18013-5/-7 mdoc, the WE BUILD WP4 pilot work and the thirteen approved EWC EUDI Wallet RFCs.
+Covers eIDAS Regulation (EU) 2024/1183, Implementing Regulations (EU) 2024/2977, 2024/2980, 2024/2981, 2024/2982, the EUDI ARF, ETSI TS 119 472, OpenID4VCI, OpenID4VP, SD-JWT VC, ISO/IEC 18013-5/-7 mdoc, the WE BUILD WP4 pilot work and the thirteen approved EWC EUDI Wallet RFCs and the IETF Agent-to-Wallet Protocol draft.
 
 ## Highlights
 
 - **Regulatory radar** — every document as a dot placed by stack layer and status, plus a momentum chart of status changes per half-year and a dated timeline.
-- **Search-first reference** — filter all 224 documents by stack layer, status, type, ARF essential, or free text with shareable URL state (`?q=`, `?stack=`, `?role=`).
+- **Search-first reference** — filter all 225 documents by stack layer, status, type, ARF essential, or free text with shareable URL state (`?q=`, `?stack=`, `?role=`).
 - **FCAF catalogue** — 676 wallet-solution test cases grouped by role and section, each with its normative references and a link to the upstream test definition.
 - **Evidence registry** — each claim page shows actor under test, domain, status and its full reference list, normalized and counted per family.
 - **Machine-readable data** — download the document map as YAML, subscribe to the Atom feed of rulebook updates, or read `llms.txt`.
