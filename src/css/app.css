@@ -2514,3 +2514,30 @@ a.grouped-id:hover {
   padding: 2px 6px;
   font-weight: 500;
 }
+
+/*
+  --- Page footnote ---
+
+  style.css renders .disclaimer as a warning card with a rounded border and a
+  left accent bar, pinned above the content. A disclaimer is a legal footnote,
+  not an alert, so this layer overrides the shared component: a hairline rule,
+  small secondary text and no box. Every page now ends with it, just before the
+  edit link; the source stylesheet is byte-pinned to HITL/style.css.
+*/
+.disclaimer,
+.disclaimer.home-section {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  padding: var(--space-4) 0 0;
+  margin: var(--space-8) 0 0;
+  max-width: 80ch;
+  font-size: var(--fs-xs);
+  line-height: 1.6;
+  color: var(--atlas-text-2);
+}
+
+.disclaimer strong {
+  color: var(--fg);
+}

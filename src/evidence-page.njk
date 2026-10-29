@@ -30,9 +30,6 @@ eleventyComputed:
   <div class="container">
     {{ breadcrumbs([{label:"Home", url:"/"}, {label:"FCAF framework", url:"/fcaf/"}, {label: claim.title, url:"/evidence/" + claim.slug + "/"}]) }}
 
-    <div class="disclaimer">
-      <strong>Disclaimer:</strong> This is an evidence claim, not an official requirement. It "maps to", "supports", and "relates to" official references. It does not "certify" or "prove compliance."
-    </div>
 
     <div class="detail-layout">
       <div>
@@ -165,6 +162,10 @@ eleventyComputed:
           <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/source-of-truth/current.json" class="edit-link" target="_blank" rel="noopener">Edit this page on GitHub</a>
         </div>
       </aside>
+    </div>
+
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> This is an evidence claim, not an official requirement. It "maps to", "supports", and "relates to" official references. It does not "certify" or "prove compliance."
     </div>
 
   </div>

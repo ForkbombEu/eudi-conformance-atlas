@@ -23,9 +23,6 @@ pageScript: search.js
 <div class="page-content">
   <div class="container">
     {{ breadcrumbs([{label:"Home", url:"/"}, {label:"Reference", url:"/reference/"}]) }}
-    <div class="disclaimer">
-      <strong>Disclaimer:</strong> Unofficial navigation resource. Always refer to EUR-Lex and official repositories for authoritative texts.
-    </div>
 
     <div class="ref-toolbar">
       {{ searchBox("doc-search", "Find documents by name, ID, or summary…", "q") }}
@@ -83,6 +80,10 @@ pageScript: search.js
 
     <div class="home-section">
       {{ credimiCta("Turn these references into a test plan.", "Credimi runs automated conformance and interoperability pipelines against real Wallets, Issuers and Verifiers, so the requirements you filter here can become evidence for your implementation.") }}
+    </div>
+
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> Unofficial navigation resource. Always refer to EUR-Lex and official repositories for authoritative texts.
     </div>
 
     <div class="page-end">

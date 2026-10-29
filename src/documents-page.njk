@@ -30,9 +30,6 @@ eleventyComputed:
   <div class="container">
     {{ breadcrumbs([{label:"Home", url:"/"}, {label:"Reference", url:"/reference/"}, {label: doc.name, url:"/documents/" + doc.id + "/"}]) }}
 
-    <div class="disclaimer">
-      <strong>Disclaimer:</strong> Official sources always prevail. Always refer to EUR-Lex and the publishing body for authoritative texts.
-    </div>
 
     <div class="detail-layout">
       <div>
@@ -157,5 +154,9 @@ eleventyComputed:
         <a href="https://github.com/forkbombeu/eudi-conformance-atlas/blob/main/data/eudi-documents-map.yaml" class="edit-link" target="_blank" rel="noopener">Suggest a correction on GitHub</a>
       </aside>
     </div>
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> Official sources always prevail. Always refer to EUR-Lex and the publishing body for authoritative texts.
+    </div>
+
   </div>
 </div>
