@@ -2115,3 +2115,162 @@
     transform: none;
   }
 }
+
+/*
+  --- Evidence claim references ---
+
+  A claim page lists every official reference, grouped by source family in
+  authority order (law → ARF → ETSI → OpenID4VC → IETF → ISO → WE BUILD).
+  The family rail carries the label and count; each row is ID / locator /
+  purpose, so clauses line up vertically and provenance stays scannable.
+
+  Family hues are deliberately disjoint from the status palette (success,
+  warning, danger): a red ISO chip must not read as a failure. Colors are
+  declared once per family and drive the rail and the ID link.
+*/
+.ref-summary {
+  margin: 0 0 var(--space-3);
+  font-size: var(--fs-sm);
+  color: var(--fg);
+}
+
+.ref-families {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.ref-family {
+  --fam-bg: var(--bg-muted);
+  --fam-fg: var(--brand-primary);
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  border-top: 1px solid var(--border);
+}
+
+.ref-family:first-child {
+  border-top: 0;
+}
+
+.ref-family[data-family="legal"] {
+  --fam-bg: oklch(0.965 0.022 262);
+  --fam-fg: oklch(0.4 0.13 262);
+}
+.ref-family[data-family="arf"] {
+  --fam-bg: oklch(0.965 0.025 292);
+  --fam-fg: oklch(0.4 0.14 292);
+}
+.ref-family[data-family="etsi"] {
+  --fam-bg: oklch(0.965 0.028 196);
+  --fam-fg: oklch(0.38 0.1 196);
+}
+.ref-family[data-family="openid"] {
+  --fam-bg: oklch(0.965 0.026 330);
+  --fam-fg: oklch(0.42 0.14 330);
+}
+.ref-family[data-family="ietf"] {
+  --fam-bg: oklch(0.965 0.032 62);
+  --fam-fg: oklch(0.42 0.11 62);
+}
+.ref-family[data-family="iso"] {
+  --fam-bg: oklch(0.965 0.02 236);
+  --fam-fg: oklch(0.4 0.09 236);
+}
+.ref-family[data-family="webuild"] {
+  --fam-bg: oklch(0.965 0.024 166);
+  --fam-fg: oklch(0.38 0.08 166);
+}
+
+.ref-family-rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  background: var(--fam-bg);
+  border-right: 1px solid var(--border);
+}
+
+.ref-family-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fam-fg);
+}
+
+.ref-family-count {
+  font-size: var(--fs-xs);
+  color: var(--fg);
+}
+
+.ref-family-list {
+  list-style: none;
+}
+
+.ref-row {
+  display: grid;
+  grid-template-columns: 190px 150px minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+.ref-family-list .ref-row:first-child {
+  border-top: 0;
+}
+
+.ref-row:hover {
+  background: var(--bg-muted);
+}
+
+.ref-id {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--fam-fg);
+  overflow-wrap: anywhere;
+}
+
+a.ref-id {
+  text-decoration: none;
+}
+
+a.ref-id:hover {
+  text-decoration: underline;
+}
+
+.ref-locator {
+  font-size: var(--fs-xs);
+  color: var(--fg);
+  overflow-wrap: anywhere;
+}
+
+.ref-description {
+  font-size: var(--fs-sm);
+  color: var(--fg);
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .ref-family {
+    grid-template-columns: 1fr;
+  }
+  .ref-family-rail {
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--space-3);
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-3) var(--space-4);
+  }
+  .ref-row {
+    grid-template-columns: 160px 130px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .ref-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+  }
+}

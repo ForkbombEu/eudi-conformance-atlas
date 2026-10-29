@@ -41,48 +41,34 @@ eleventyComputed:
           <p style="font-size: var(--fs-md); line-height: 1.6;">{{ claim.description or 'No description available.' }}</p>
         </div>
 
-        {% if claim.official_references %}
+        {% if claim.references and claim.references.families.length > 0 %}
         <div class="detail-section">
           <h3>Official references</h3>
+          <p class="ref-summary">{{ claim.references.total }} references across {{ claim.references.families.length }} source {{ 'family' if claim.references.families.length === 1 else 'families' }}</p>
 
-          {% if claim.official_references.legal and claim.official_references.legal.length > 0 %}
-          <h4 style="font-size: var(--fs-sm); font-weight: 600; margin-bottom: var(--space-2);">Legal references</h4>
-          <ul class="ref-list" style="margin-bottom: var(--space-4);">
-            {% for ref in claim.official_references.legal %}
-            <li class="ref-item">
-              <div class="ref-source">{{ ref.source }}</div>
-              {% if ref.article %}<div class="ref-detail"><strong>Article:</strong> {{ ref.article }}</div>{% endif %}
-              {% if ref.recital_or_article %}<div class="ref-detail"><strong>Recital/Article:</strong> {{ ref.recital_or_article }}</div>{% endif %}
-              {% if ref.short %}<div class="ref-detail">{{ ref.short }}</div>{% endif %}
-              {% if ref.url %}<div class="ref-detail"><a href="{{ ref.url }}" target="_blank" rel="noopener">View source ↗</a></div>{% endif %}
-            </li>
+          <div class="ref-families">
+            {% for family in claim.references.families %}
+            <div class="ref-family" data-family="{{ family.key }}">
+              <div class="ref-family-rail">
+                <span class="ref-family-label">{{ family.label }}</span>
+                <span class="ref-family-count">{{ family.count }} {{ 'reference' if family.count === 1 else 'references' }}</span>
+              </div>
+              <ul class="ref-family-list">
+                {% for ref in family.items %}
+                <li class="ref-row">
+                  {% if ref.url %}
+                  <a class="ref-id mono" href="{{ ref.url }}" target="_blank" rel="noopener">{{ ref.id }}</a>
+                  {% else %}
+                  <span class="ref-id mono">{{ ref.id }}</span>
+                  {% endif %}
+                  <span class="ref-locator mono">{{ ref.locator or '—' }}</span>
+                  {% if ref.description %}<span class="ref-description">{{ ref.description }}</span>{% endif %}
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
             {% endfor %}
-          </ul>
-          {% endif %}
-
-          {% if claim.official_references.arf and claim.official_references.arf.length > 0 %}
-          <h4 style="font-size: var(--fs-sm); font-weight: 600; margin-bottom: var(--space-2);">ARF references</h4>
-          <ul class="ref-list" style="margin-bottom: var(--space-4);">
-            {% for ref in claim.official_references.arf %}
-            <li class="ref-item">
-              <div class="ref-source">{{ ref.harmonized_id or ref.index }}</div>
-              {% if ref.short %}<div class="ref-detail">{{ ref.short }}</div>{% endif %}
-            </li>
-            {% endfor %}
-          </ul>
-          {% endif %}
-
-          {% if claim.official_references.webuild and claim.official_references.webuild.length > 0 %}
-          <h4 style="font-size: var(--fs-sm); font-weight: 600; margin-bottom: var(--space-2);">WE BUILD references</h4>
-          <ul class="ref-list">
-            {% for ref in claim.official_references.webuild %}
-            <li class="ref-item">
-              <div class="ref-source">{{ ref.use_case_id }}: {{ ref.name }}</div>
-              {% if ref.path %}<div class="ref-detail">{{ ref.path }}</div>{% endif %}
-            </li>
-            {% endfor %}
-          </ul>
-          {% endif %}
+          </div>
         </div>
         {% endif %}
 

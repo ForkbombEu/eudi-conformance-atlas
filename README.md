@@ -42,7 +42,7 @@ Browse the EUDI ecosystem map by task and use role filters where available. Leav
 
 ### Reference and Tests
 
-Use **Reference** to filter all documents by stack layer, status, type, new or updated in this edition, and ARF essential, or by free text (`?q=`, `?stack=` and `?role=` preselect filters). Use **Tests** to inspect the conformance inventory and related evidence.
+Use **Reference** to filter all documents by stack layer, status, type, new or updated in this edition, and ARF essential, or by free text (`?q=`, `?stack=` and `?role=` preselect filters). Use **Tests** to inspect the conformance inventory and related evidence; each evidence claim page lists every official reference grouped by source family (EU legal act, EUDI ARF, ETSI ESI, OpenID4VC, IETF, ISO, WE BUILD WP4) with per-family counts and one row per reference (document ID, clause, purpose). `src/_data/evidence.js` normalizes those rows and fails the build on an unknown family, and `scripts/validate-source-of-truth-evidence.mjs` checks that no reference is dropped.
 
 ### Glossary
 

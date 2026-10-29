@@ -58,6 +58,34 @@ for (const slug of addedSlugs) {
   }
 }
 
+// The claim page renders only groupReferences(); a family missing from the
+// renderer used to disappear silently. Every raw reference must survive.
+let rawReferences = 0;
+let groupedReferences = 0;
+for (const claim of evidence.claims) {
+  const raw = Object.values(claim.official_references || {});
+  const rawCount = raw.reduce((total, list) => total + list.length, 0);
+  rawReferences += rawCount;
+  groupedReferences += claim.references.total;
+  if (claim.references.total !== rawCount) {
+    fail(
+      `claim ${claim.slug} groups ${claim.references.total} of ${rawCount} references`,
+    );
+  }
+  for (const family of claim.references.families) {
+    for (const ref of family.items) {
+      if (!ref.id) {
+        fail(`claim ${claim.slug} has a ${family.key} reference without an id`);
+      }
+    }
+  }
+}
+if (groupedReferences !== rawReferences) {
+  fail(
+    `grouped ${groupedReferences} references, registry has ${rawReferences}`,
+  );
+}
+
 const withoutRegistry = {
   ...loadedManifest,
   manifest: { ...loadedManifest.manifest, artifacts: [] },
