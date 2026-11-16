@@ -86,7 +86,7 @@ Shows the rulebook stack, followed by the regulatory radar, the latest news stor
 
 ### News
 
-Browse all briefings at `/news/`. Each story has its own shareable page, with context, document links and invitations to subscribe and join Credimi. RSS readers' **original article** links open that same page.
+Browse `/news/` as a two-column editorial front page — an illustrated lead story, two compact “Also in focus” briefings and a “More briefings” section. Short previews keep the archive scannable; each headline opens the full reporting. Each changelog entry's `image` points to its original topic illustration under `src/assets/news/`. RSS readers' **original article** links still open the same shareable story pages.
 
 ### Map
 

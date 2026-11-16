@@ -461,6 +461,7 @@ Every data refresh, crawl or source review MUST update the changelog so the feed
 - `date` MUST be the review date as a quoted `"YYYY-MM-DD"` string;
 - `title` MUST be a specific journalistic headline about the development, not "Rulebook update", a date or a count of standards;
 - `slug` MUST be unique, lowercase and hyphen-separated. It determines the permanent `/news/<slug>/` URL and MUST NOT change after publication, even when a headline is corrected. The homepage features the latest story and three previous headlines; `/news/` lists the full archive;
+- `image` MUST point to an existing local topic illustration under `/assets/news/`. The news archive uses a prominent illustrated lead story, two compact "Also in focus" briefings and a "More briefings" section; keep previews short without truncating the full article or feed;
 - `summary` MUST be a short, factual news lead explaining why the development matters to implementers, not a catalogue inventory;
 - `story` MUST contain sections with `title`, `text` and `documents` (existing document IDs). Explain what changed, why it matters, practical questions or checks, and what remains a proposal or draft. Attribute proposals and distinguish them from adopted requirements. No sensationalism or unsupported benefit claims;
 - lead with the story, not document counts. Use the existing Atlas cover as the feed logo, entry image enclosure and visible HTML image, with absolute URLs and descriptive alt text;

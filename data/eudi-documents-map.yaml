@@ -6,6 +6,7 @@ description:
 changelog:
   - date: "2026-11-16"
     slug: credential-oidc-bridge
+    image: /assets/news/credential-oidc-bridge.svg
     title: A proposed bridge brings wallet credentials closer to existing logins
     summary:
       Could a service accept wallet credentials without building its own wallet integration? A proposal introduced
@@ -72,6 +73,7 @@ changelog:
       - ETSI-EN-319-482-3
   - date: "2026-10-29"
     slug: agents-without-wallet-custody
+    image: /assets/news/agents-without-wallet-custody.svg
     title: AI agents can help with credentials without holding the keys
     summary:
       As AI agents begin to coordinate more online tasks, wallet control is becoming an integration question.
@@ -96,6 +98,7 @@ changelog:
       - OPENID-FEDERATION-WALLET
   - date: "2026-10-29"
     slug: ewc-wallet-interoperability
+    image: /assets/news/ewc-wallet-interoperability.svg
     title: From issuance to payments, EWC profiles connect the wallet journey
     summary:
       Interoperability depends on more than choosing the same protocol. Thirteen approved EWC wallet RFCs
@@ -129,6 +132,7 @@ changelog:
     updated: []
   - date: "2026-10-27"
     slug: driving-licences-and-age-assurance
+    image: /assets/news/driving-licences-and-age-assurance.svg
     title: Driving licences and age assurance broaden the wallet agenda
     summary:
       Digital identity work is extending into everyday proofs — driving entitlement, age and travel documents.
@@ -185,6 +189,7 @@ changelog:
       - ETSI-TS-119-475
   - date: "2026-10-21"
     slug: wallet-rules-and-version-pins
+    image: /assets/news/wallet-rules-and-version-pins.svg
     title: Which wallet rules apply now, and which are still taking shape?
     summary:
       A wallet project can follow the latest document and still test against the wrong version.

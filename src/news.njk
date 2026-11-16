@@ -5,24 +5,76 @@ description: Briefings on the developments shaping digital wallets, why they mat
 permalink: /news/
 ---
 {% from "components/breadcrumbs.njk" import breadcrumbs %}
-<section class="hero page-hero">
-  <div class="hero-inner">
-    <h1>News from the Atlas</h1>
-    <p>What is changing in digital wallets, why it matters, and what to check next.</p>
-    <a href="{{ '/feed.xml' | url }}" class="btn btn-outline btn-lg">Subscribe via RSS</a>
-  </div>
-</section>
 <div class="page-content">
-  <div class="container">
+  <div class="container news-desk">
     {{ breadcrumbs([{label:"Home", url:"/"}, {label:"News", url:"/news/"}]) }}
-    <ol class="news-list measure" aria-label="All briefings, newest first">
-      {% for release in documents.changelog %}
-      <li>
-        <time datetime="{{ release.date }}">{{ release.date | statusDate }}</time>
-        <h2><a href="{{ ('/news/' + release.slug + '/') | url }}">{{ release.title }}</a></h2>
-        <p>{{ release.summary }}</p>
-      </li>
-      {% endfor %}
-    </ol>
+    <header class="news-masthead">
+      <div>
+        <h1>The wallet briefing</h1>
+        <p>Digital identity is moving. Here is what matters.</p>
+      </div>
+      <a href="{{ '/feed.xml' | url }}" class="btn btn-primary btn-lg">Subscribe via RSS</a>
+    </header>
+    {% if documents.latestRelease %}
+    {% set lead = documents.latestRelease %}
+    <div class="news-front">
+      <article class="news-lead">
+        <a href="{{ ('/news/' + lead.slug + '/') | url }}" tabindex="-1" aria-hidden="true">
+          <img src="{{ lead.image | url }}" alt="" width="800" height="450">
+        </a>
+        <div class="news-lead-copy">
+          <time datetime="{{ lead.date }}">{{ lead.date | statusDate }}</time>
+          <h2><a href="{{ ('/news/' + lead.slug + '/') | url }}">{{ lead.title }}</a></h2>
+          <p class="news-preview">{{ lead.summary }}</p>
+          <a class="btn btn-primary btn-lg" href="{{ ('/news/' + lead.slug + '/') | url }}">Read the lead story</a>
+        </div>
+      </article>
+      <div class="news-sidebar">
+      {% if documents.changelog.length > 1 %}
+      <section class="news-focus" aria-labelledby="news-focus-title">
+        <h2 id="news-focus-title">Also in focus</h2>
+        {% for release in documents.changelog %}
+        {% if loop.index0 > 0 and loop.index0 < 3 %}
+        <article>
+          <img src="{{ release.image | url }}" alt="" width="800" height="450" loading="lazy">
+          <div>
+            <time datetime="{{ release.date }}">{{ release.date | statusDate }}</time>
+            <h3><a href="{{ ('/news/' + release.slug + '/') | url }}">{{ release.title }}</a></h3>
+            <p class="news-preview">{{ release.summary }}</p>
+          </div>
+        </article>
+        {% endif %}
+        {% endfor %}
+      </section>
+      {% endif %}
+    <aside class="news-subscribe" aria-labelledby="news-subscribe-title">
+      <div>
+        <h2 id="news-subscribe-title">Keep up without keeping every tab open.</h2>
+        <p>Follow the reporting, then trace the sources in the Atlas. No account needed.</p>
+      </div>
+      <a class="btn btn-on-dark btn-lg" href="{{ '/feed.xml' | url }}">Get the next briefing</a>
+    </aside>
+      </div>
+    </div>
+    {% endif %}
+    {% if documents.changelog.length > 3 %}
+    <section class="news-more" aria-labelledby="news-more-title">
+      <h2 id="news-more-title">More briefings</h2>
+      <div class="news-editions">
+        {% for release in documents.changelog %}
+        {% if loop.index0 > 2 %}
+        <article>
+          <img src="{{ release.image | url }}" alt="" width="800" height="450" loading="lazy">
+          <div>
+            <time datetime="{{ release.date }}">{{ release.date | statusDate }}</time>
+            <h3><a href="{{ ('/news/' + release.slug + '/') | url }}">{{ release.title }}</a></h3>
+            <p class="news-preview">{{ release.summary }}</p>
+          </div>
+        </article>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
   </div>
 </div>

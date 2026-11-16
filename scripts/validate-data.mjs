@@ -195,6 +195,13 @@ for (const release of docsYaml.changelog || []) {
     fail(`Changelog ${release.date} needs a unique URL-safe slug`);
   }
   newsSlugs.add(release.slug);
+  if (
+    typeof release.image !== "string" ||
+    !/^\/assets\/news\/[a-z0-9-]+\.svg$/.test(release.image) ||
+    !fs.existsSync(path.join(root, "src", release.image))
+  ) {
+    fail(`Changelog ${release.date} needs an existing local news illustration`);
+  }
   for (const field of ["title", "summary"]) {
     if (typeof release[field] !== "string" || !release[field].trim()) {
       fail(`Changelog ${release.date} needs a non-empty ${field}`);
