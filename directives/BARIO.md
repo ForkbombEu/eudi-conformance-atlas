@@ -465,5 +465,5 @@ Every data refresh, crawl or source review MUST update the changelog so the feed
 
 YAML gotcha: `summary`, `name` and `status_note` values are plain scalars, so they MUST NOT contain `: ` (colon followed by a space) — use an em dash or parentheses instead. `scripts/validate-data.mjs` fails the build on malformed YAML.
 
-The feed links are derived automatically: every document links to its atlas `/documents/<id>/` page, every entry links to the Radar page, and the entry footer links to the Credimi platform. The feed uses relative URLs and `tag:` URIs, so it is host-agnostic — it works the same whether served from a custom domain, GitHub Pages or a local server; do NOT hardcode a site origin.
+The feed links are derived automatically: every document links to its atlas `/documents/<id>/` page, every entry links to the Radar page, and the entry footer links to the Credimi platform. All feed and embedded HTML links MUST be absolute so email clients and external feed readers can open them without a base URL. Derive Atlas links from `site.url` (overridable via `SITE_URL`) and the `url` filter to preserve `PATH_PREFIX`; do NOT hardcode a site origin in the feed template. Keep existing `tag:` entry IDs stable.
   
