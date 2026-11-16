@@ -219,6 +219,15 @@ for (const release of docsYaml.changelog || []) {
       ) {
         fail(`Changelog ${release.date} story section needs title and text`);
       }
+      if (
+        section?.source !== undefined &&
+        (typeof section.source !== "string" ||
+          !/^https:\/\/[^\s]+$/.test(section.source))
+      ) {
+        fail(
+          `Changelog ${release.date} story source needs an absolute HTTPS URL`,
+        );
+      }
       if (!Array.isArray(section?.documents) || !section.documents.length) {
         fail(`Changelog ${release.date} story section needs document links`);
       } else {

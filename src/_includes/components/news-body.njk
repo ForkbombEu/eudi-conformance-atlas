@@ -4,6 +4,7 @@
 <h2>{{ section.title }}</h2>
 <p>{{ section.text }}</p>
 <p>Read in the Atlas: {% for id in section.documents %}{% set doc = documents.byId[id] %}<a href="{{ site.url }}{{ ('/documents/' + doc.id + '/') | url }}">{{ doc.name }}</a>{% if not loop.last %} · {% endif %}{% endfor %}.</p>
+{% if section.source %}<p><a href="{{ section.source }}">Read the original discussion</a></p>{% endif %}
 {% endfor %}
 <h2>Keep the context, not just the headlines</h2>
 <p>Which changes affect your project? <a href="{{ site.url }}{{ '/radar/' | url }}">Explore this edition in the regulatory radar</a>, or <a href="{{ site.url }}{{ '/reference/' | url }}">consult the Atlas</a> to trace a document's status, related sources and assessment-version pins.</p>

@@ -10,20 +10,36 @@ changelog:
     title: A proposed bridge brings wallet credentials closer to existing logins
     summary:
       Could a service accept wallet credentials without building its own wallet integration? A proposal introduced
-      to the OpenID community offers one route through the OpenID Connect systems many services already use.
-      Alongside new secure-element evaluation guidance and changes to relying-party checks, it raises a practical
-      question for implementers — what can be reused, and where does trust need to be tested again?
+      to the OpenID community offers one route through existing login systems. A reply from an eKYC & IDA
+      working-group participant puts another question on the table — how should that bridge relate to the Identity
+      Assurance standards already available, and to emerging work on the proofing behind a credential?
     story:
       - title: Let the OpenID Provider handle the wallet conversation
         text:
-          Magnus Svensson of SUNET, with Leif Johansson and Joel Rangsmo of the Siros Foundation, proposes a bridge
-          in which an OpenID Provider collects and verifies wallet credentials, then passes their claims to a service
+          Contributors from SUNET and the Siros Foundation propose a bridge in which an OpenID Provider collects
+          and verifies wallet credentials, then passes their claims to a service
           in familiar ID Token and UserInfo responses. The editor's draft calls the claim presented_credential_sets.
           For teams already using OIDC, the attraction is a different integration boundary, not the disappearance
           of verification work. The service must still decide whether it trusts the bridge and which claims it will
           accept. This remains an individual proposal, not an adopted OpenID specification.
         documents:
           - IETF-CREDENTIAL-OIDC-BRIDGE
+      - title: The conversation now includes existing Identity Assurance standards
+        source: https://lists.openid.net/pipermail/openid-specs-digital-credentials-protocols/Week-of-Mon-20261116/001394.html
+        text:
+          In a 16 November reply, an eKYC & IDA working-group participant flagged potentially significant overlap
+          with the group's existing work and suggested combining efforts. Its Final Identity Assurance Schema defines
+          verified_claims and metadata about how identity evidence was checked; the Final OpenID Connect binding
+          specifies how relying parties request and receive that information. The reply also pointed to identity
+          proofing work emerging from NIST's NCCoE mDL project for banks. A public draft of the Identity Proofing
+          Extension separates issuer-side proofing assurance from presentation and cryptographic-security metadata.
+          For implementers, the useful next step is to compare that assurance vocabulary with the bridge's proposed
+          presented_credential_sets, not assume the two claims are interchangeable. This is a suggestion to collaborate,
+          not evidence of a merger, working-group adoption of the bridge, or a decision about its standards venue.
+        documents:
+          - OIDC4IDA-SCHEMA
+          - OIDC4IDA
+          - OIDC4IDA-IDENTITY-PROOFING
       - title: Watch the trust checks, not just the protocol names
         text:
           WE BUILD's latest presentation profile replaces registrar_dataset with registration_cert in verifier_info.
@@ -56,6 +72,7 @@ changelog:
       - OAUTH-CLIENT-ID-METADATA
       - ETSI-TS-119-411-9
       - ENISA-EUCC-CSP-SECURE-ELEMENTS
+      - OIDC4IDA-IDENTITY-PROOFING
     updated:
       - WE-BUILD-WBCS
       - CEN-TS-18297
@@ -71,6 +88,8 @@ changelog:
       - ETSI-TS-119-605
       - ETSI-TS-119-479-3
       - ETSI-EN-319-482-3
+      - OIDC4IDA
+      - OIDC4IDA-SCHEMA
   - date: "2026-10-29"
     slug: agents-without-wallet-custody
     image: /assets/news/agents-without-wallet-custody.svg
@@ -2452,14 +2471,19 @@ flat_documents:
       profiling it further (DPoP mandatory).
   - id: OIDC4IDA
     name: OpenID Connect for Identity Assurance 1.0 (incorporating errata set 1)
-    url: https://openid.net/specs/openid-connect-4-identity-assurance-1_0.html
+    url: https://openid.net/specs/openid-connect-4-identity-assurance-1_0-errata1.html
     type: openid_spec
     status: final
     status_date: "2026-07-01"
+    status_note:
+      Final specification incorporating errata set 1, dated 1 July 2026. In the 16 November bridge discussion,
+      an eKYC & IDA working-group participant identified potential overlap with this existing work; that is not adoption of the bridge.
     summary: OpenID Connect extension for conveying verified claims and identity assurance metadata about end-users.
     relevance_for_eudi:
       HAIP 1.0 says its syntax SHOULD be used when a credential needs to carry verification status and identity
       assurance data of subject claims.
+      Existing OP-to-RP mechanism to compare with the credential-to-OIDC bridge proposal, particularly its
+      verified_claims assurance semantics; do not assume equivalence to presented_credential_sets.
   - id: OIDC4IDA-CLAIMS
     name: OpenID Connect for Identity Assurance Claims Registration 1.0
     url: https://openid.net/specs/openid-connect-4-ida-claims-1_0.html
@@ -2475,9 +2499,27 @@ flat_documents:
     status: final
     status_date: "2026-07-01"
     summary:
-      Payload schema for describing identity assurance metadata (verification evidence, trust framework, assurance level)
-      about claims.
+      Protocol-independent schema defining verified_claims, including verification evidence, trust frameworks
+      and assurance metadata about identity claims. The verification element can also be used independently.
     relevance_for_eudi: Cited in ARF 3.0.0 references (EKYC Schema) for expressing assurance metadata in PIDs and attestations.
+  - id: OIDC4IDA-IDENTITY-PROOFING
+    name: "Format-Agnostic Digital Identity Claims and Values — Identity Proofing Extension 1.0, draft 00"
+    url: https://openid.net/specs/openid-ida-identity-proofing-extension-1_0.html
+    type: openid_spec
+    status: draft
+    status_date: "2026-06-10"
+    status_note:
+      Listed under Drafts by the OpenID eKYC & IDA WG, not a Final specification. OIDF's 9 April 2026 announcement
+      connects the work item to NIST NCCoE's mDL project; its 5 November follow-up describes financial account-opening
+      use cases — https://openid.net/closing-the-assurance-gap/. An eKYC & IDA working-group participant referred
+      to this work in a 16 November reply about the credential-to-OIDC bridge.
+    summary:
+      Draft profile separating issuer-asserted identity proofing assurance from cryptographic-security and
+      presentation metadata, with claims and values intended to work across credential formats and translation layers.
+    relevance_for_eudi:
+      Emerging assurance vocabulary for comparing mDL and other wallet credentials consumed by relying parties,
+      including banks. Relevant to preserving proofing context across verifier or OIDC bridge boundaries; not an
+      adopted EUDI requirement, a certification result or proof of regulatory compliance.
   - id: SIOPV2
     name: Self-Issued OpenID Provider v2 — draft 13
     url: https://openid.net/specs/openid-connect-self-issued-v2-1_0.html
@@ -3358,10 +3400,13 @@ flat_documents:
     status: draft
     status_date: "2026-08-28"
     status_note:
-      Individual proposal by Magnus Svensson (SUNET), Leif Johansson and Joel Rangsmo (Siros Foundation), introduced
+      Individual proposal from SUNET and Siros Foundation contributors, introduced
       to the OpenID DCP mailing list on 16 November 2026. No OpenID working-group adoption is established.
       The editor's copy uses presented_credential_sets; submitted revision 02 (24 August 2026) uses
       presented_credentials — https://datatracker.ietf.org/doc/draft-svensson-credential-oidc-bridge/02/.
+      In a 16 November reply, an eKYC & IDA working-group participant identified potential overlap with Final
+      eKYC & IDA specifications and proposed combining efforts with that WG's identity proofing work. No merger, WG adoption of the bridge or
+      venue decision is established by that correspondence.
     summary:
       Defines an OpenID Provider bridge that collects and verifies wallet credentials through OpenID4VP or another
       presentation protocol, then exposes their claims to existing OIDC Relying Parties in ID Tokens and UserInfo
