@@ -5,6 +5,7 @@
       <span class="atlas-product-name">EUDI Atlas</span>
     </a>
     <ul class="topbar-nav">
+      <li><a href="{{ '/news/' | url }}" {% if '/news/' in page.url %}class="nav-active"{% endif %}>News</a></li>
       <li><a href="{{ '/radar/' | url }}" {% if '/radar/' in page.url %}class="nav-active"{% endif %}>Radar</a></li>
       <li><a href="{{ '/map/' | url }}" {% if '/map/' in page.url %}class="nav-active"{% endif %}>Map</a></li>
       <li><a href="{{ '/reference/' | url }}" {% if '/reference/' in page.url or '/documents/' in page.url %}class="nav-active"{% endif %}>Reference</a></li>

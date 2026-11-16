@@ -1,0 +1,12 @@
+{% macro newsBody(release, documents, site) %}
+<p>{{ release.summary }}</p>
+{% for section in release.story %}
+<h2>{{ section.title }}</h2>
+<p>{{ section.text }}</p>
+<p>Read in the Atlas: {% for id in section.documents %}{% set doc = documents.byId[id] %}<a href="{{ site.url }}{{ ('/documents/' + doc.id + '/') | url }}">{{ doc.name }}</a>{% if not loop.last %} · {% endif %}{% endfor %}.</p>
+{% endfor %}
+<h2>Keep the context, not just the headlines</h2>
+<p>Which changes affect your project? <a href="{{ site.url }}{{ '/radar/' | url }}">Explore this edition in the regulatory radar</a>, or <a href="{{ site.url }}{{ '/reference/' | url }}">consult the Atlas</a> to trace a document's status, related sources and assessment-version pins.</p>
+<p><a href="{{ site.url }}{{ '/feed.xml' | url }}">Subscribe to the EUDI Atlas RSS feed</a> — add this feed to your reader for the next briefing on what changed and why it matters.</p>
+<p><strong>From the maintainers — Credimi.</strong> Turning these requirements into testable flows? <a href="https://credimi.io/login">Join Credimi</a> to automate Wallet, Issuer and Verifier conformance and interoperability runs and keep the results as shareable evidence. Testing evidence supports assurance work; it is not certification.</p>
+{% endmacro %}

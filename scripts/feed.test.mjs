@@ -36,7 +36,7 @@ for (const [origin, prefix] of [
             : relative;
         assert.ok(existsSync(path.join(output, target)), link);
       }
-      for (const suffix of ["", "feed.xml", "radar/", "reference/"]) {
+      for (const suffix of ["news/", "feed.xml", "radar/", "reference/"]) {
         assert.ok(links.includes(`${origin}${prefix}${suffix}`));
       }
       assert.ok(
@@ -46,10 +46,37 @@ for (const [origin, prefix] of [
       assert.ok(
         feed.includes(`<logo>${origin}${prefix}assets/og-cover.png</logo>`),
       );
+      const originals = new Set();
+      const home = readFileSync(path.join(output, "index.html"), "utf8");
+      const archive = readFileSync(
+        path.join(output, "news/index.html"),
+        "utf8",
+      );
+      const sitemap = readFileSync(path.join(output, "sitemap.xml"), "utf8");
       for (const entry of feed.matchAll(/<entry>([\s\S]*?)<\/entry>/g)) {
         const title = entry[1].match(/<title>([\s\S]*?)<\/title>/)?.[1];
         assert.ok(title?.trim());
         assert.doesNotMatch(title, /^Rulebook update/);
+        const original = entry[1].match(
+          /<link rel="alternate" type="text\/html" href="([^"]+)"/,
+        )?.[1];
+        assert.ok(original?.startsWith(`${origin}${prefix}news/`));
+        assert.ok(!originals.has(original), "Each briefing needs its own page");
+        originals.add(original);
+        const articlePath = new URL(original).pathname;
+        const article = readFileSync(
+          path.join(output, articlePath.slice(prefix.length), "index.html"),
+          "utf8",
+        );
+        assert.ok(
+          article.includes(`<link rel="canonical" href="${original}">`),
+        );
+        assert.ok(article.includes(`<h1>${title}</h1>`));
+        assert.ok(archive.includes(`href="${articlePath}"`));
+        assert.ok(sitemap.includes(`<loc>${original}</loc>`));
+        if (originals.size <= 4) {
+          assert.ok(home.includes(`href="${articlePath}"`));
+        }
         assert.ok(
           entry[1].includes(
             `<link rel="enclosure" type="image/png" href="${origin}${prefix}assets/og-cover.png"/>`,
@@ -62,6 +89,8 @@ for (const [origin, prefix] of [
         assert.ok(content.includes(`href="${origin}${prefix}reference/"`));
         assert.ok(content.includes('href="https://credimi.io/login"'));
       }
+      const latestPath = new URL([...originals][0]).pathname;
+      assert.ok(home.includes(`href="${latestPath}">Read the story</a>`));
     } finally {
       rmSync(output, { recursive: true, force: true });
     }

@@ -1,0 +1,31 @@
+---
+layout: base.njk
+pagination:
+  data: documents.changelog
+  size: 1
+  alias: release
+  addAllPagesToCollections: true
+permalink: "/news/{{ release.slug }}/index.html"
+eleventyComputed:
+  title: "{{ release.title }}"
+  description: "{{ release.summary }}"
+---
+{% from "components/breadcrumbs.njk" import breadcrumbs %}
+{% from "components/news-body.njk" import newsBody %}
+<div class="page-content">
+  <div class="container">
+    {{ breadcrumbs([{label:"Home", url:"/"}, {label:"News", url:"/news/"}, {label:release.title, url:"/news/" + release.slug + "/"}]) }}
+    <article class="news-article">
+      <header>
+        <h1>{{ release.title }}</h1>
+        <p class="news-date"><time datetime="{{ release.date }}">{{ release.date | statusDate }}</time> · ForkBomb BV / Credimi</p>
+        <img class="news-cover" src="{{ '/assets/og-cover.png' | url }}" alt="EUDI Trust &amp; Conformance Atlas — the open EUDI Wallet reference" width="1280" height="640">
+      </header>
+      <div class="news-body prose">{{ newsBody(release, documents, site) }}</div>
+      <nav class="viz-actions" aria-label="News navigation">
+        <a class="btn btn-outline btn-lg" href="{{ '/news/' | url }}">All news</a>
+        <a class="btn btn-outline btn-lg" href="{{ '/' | url }}">Back to the Atlas</a>
+      </nav>
+    </article>
+  </div>
+</div>

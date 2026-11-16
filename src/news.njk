@@ -1,0 +1,28 @@
+---
+layout: base.njk
+title: News from the Atlas
+description: Briefings on the developments shaping digital wallets, why they matter, and what to check next.
+permalink: /news/
+---
+{% from "components/breadcrumbs.njk" import breadcrumbs %}
+<section class="hero page-hero">
+  <div class="hero-inner">
+    <h1>News from the Atlas</h1>
+    <p>What is changing in digital wallets, why it matters, and what to check next.</p>
+    <a href="{{ '/feed.xml' | url }}" class="btn btn-outline btn-lg">Subscribe via RSS</a>
+  </div>
+</section>
+<div class="page-content">
+  <div class="container">
+    {{ breadcrumbs([{label:"Home", url:"/"}, {label:"News", url:"/news/"}]) }}
+    <ol class="news-list measure" aria-label="All briefings, newest first">
+      {% for release in documents.changelog %}
+      <li>
+        <time datetime="{{ release.date }}">{{ release.date | statusDate }}</time>
+        <h2><a href="{{ ('/news/' + release.slug + '/') | url }}">{{ release.title }}</a></h2>
+        <p>{{ release.summary }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>

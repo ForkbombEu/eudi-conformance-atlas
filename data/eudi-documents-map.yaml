@@ -5,6 +5,7 @@ description:
   sources relevant to Credimi's EUDI conformance and interoperability evidence work.
 changelog:
   - date: "2026-11-16"
+    slug: credential-oidc-bridge
     title: A proposed bridge brings wallet credentials closer to existing logins
     summary:
       Could a service accept wallet credentials without building its own wallet integration? A proposal introduced
@@ -70,6 +71,7 @@ changelog:
       - ETSI-TS-119-479-3
       - ETSI-EN-319-482-3
   - date: "2026-10-29"
+    slug: agents-without-wallet-custody
     title: AI agents can help with credentials without holding the keys
     summary:
       As AI agents begin to coordinate more online tasks, wallet control is becoming an integration question.
@@ -93,6 +95,7 @@ changelog:
       - OID4VCI-1.1
       - OPENID-FEDERATION-WALLET
   - date: "2026-10-29"
+    slug: ewc-wallet-interoperability
     title: From issuance to payments, EWC profiles connect the wallet journey
     summary:
       Interoperability depends on more than choosing the same protocol. Thirteen approved EWC wallet RFCs
@@ -125,6 +128,7 @@ changelog:
       - EWC-RFC-100
     updated: []
   - date: "2026-10-27"
+    slug: driving-licences-and-age-assurance
     title: Driving licences and age assurance broaden the wallet agenda
     summary:
       Digital identity work is extending into everyday proofs — driving entitlement, age and travel documents.
@@ -180,6 +184,7 @@ changelog:
       - ETSI-TS-119-602
       - ETSI-TS-119-475
   - date: "2026-10-21"
+    slug: wallet-rules-and-version-pins
     title: Which wallet rules apply now, and which are still taking shape?
     summary:
       A wallet project can follow the latest document and still test against the wrong version.

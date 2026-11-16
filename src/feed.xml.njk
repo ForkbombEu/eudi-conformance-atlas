@@ -2,13 +2,14 @@
 permalink: /feed.xml
 eleventyExcludeFromCollections: true
 ---
+{% from "components/news-body.njk" import newsBody -%}
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
   <title>EUDI Atlas — wallet ecosystem briefing</title>
   <subtitle>The developments shaping digital wallets, why they matter, and what to check next — from the maintainers of the EUDI Trust &amp; Conformance Atlas.</subtitle>
   <id>tag:eudi-conformance-atlas,2026:feed</id>
   <link rel="self" type="application/atom+xml" href="{{ site.url | xml }}{{ '/feed.xml' | url }}"/>
-  <link rel="alternate" type="text/html" href="{{ site.url | xml }}{{ '/' | url }}"/>
+  <link rel="alternate" type="text/html" href="{{ site.url | xml }}{{ '/news/' | url }}"/>
   <logo>{{ site.url | xml }}{{ '/assets/og-cover.png' | url }}</logo>
   <updated>{% if documents.changelog.length %}{{ documents.changelog[0].date | atomDate }}{% endif %}</updated>
   <author>
@@ -20,21 +21,12 @@ eleventyExcludeFromCollections: true
     <title>{{ release.title | xml | safe }}</title>
     <id>tag:eudi-conformance-atlas,{{ release.date }}:rulebook</id>
     <updated>{{ release.date | atomDate }}</updated>
-    <link rel="alternate" type="text/html" href="{{ site.url | xml }}{{ '/radar/' | url }}"/>
+    <link rel="alternate" type="text/html" href="{{ site.url | xml }}{{ ('/news/' + release.slug + '/') | url }}"/>
     <link rel="enclosure" type="image/png" href="{{ site.url | xml }}{{ '/assets/og-cover.png' | url }}"/>
     <summary>{{ release.summary | xml | safe }}</summary>
     <content type="html"><![CDATA[
-<p><a href="{{ site.url | xml }}{{ '/radar/' | url }}"><img src="{{ site.url | xml }}{{ '/assets/og-cover.png' | url }}" alt="EUDI Trust &amp; Conformance Atlas — the open EUDI Wallet reference" width="100%"></a></p>
-<p>{{ release.summary | xml | safe }}</p>
-{% for section in release.story %}
-<h2>{{ section.title | xml | safe }}</h2>
-<p>{{ section.text | xml | safe }}</p>
-<p>Read in the Atlas: {% for id in section.documents %}{% set doc = documents.byId[id] %}<a href="{{ site.url | xml }}{{ ('/documents/' + doc.id + '/') | url }}">{{ doc.name | xml | safe }}</a>{% if not loop.last %} · {% endif %}{% endfor %}.</p>
-{% endfor %}
-<h2>Keep the context, not just the headlines</h2>
-<p>Which changes affect your project? <a href="{{ site.url | xml }}{{ '/radar/' | url }}">Explore this edition in the regulatory radar</a>, or <a href="{{ site.url | xml }}{{ '/reference/' | url }}">consult the Atlas</a> to trace a document's status, related sources and assessment-version pins.</p>
-<p><a href="{{ site.url | xml }}{{ '/feed.xml' | url }}">Subscribe to the EUDI Atlas RSS feed</a> — add this feed to your reader for the next briefing on what changed and why it matters.</p>
-<p><strong>From the maintainers — Credimi.</strong> Turning these requirements into testable flows? <a href="https://credimi.io/login">Join Credimi</a> to automate Wallet, Issuer and Verifier conformance and interoperability runs and keep the results as shareable evidence. Testing evidence supports assurance work; it is not certification.</p>
+<p><a href="{{ site.url | xml }}{{ ('/news/' + release.slug + '/') | url }}"><img src="{{ site.url | xml }}{{ '/assets/og-cover.png' | url }}" alt="EUDI Trust &amp; Conformance Atlas — the open EUDI Wallet reference" width="100%"></a></p>
+{{ newsBody(release, documents, site) }}
 ]]></content>
   </entry>
 {% endfor %}

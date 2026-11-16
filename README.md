@@ -76,12 +76,17 @@ The site is built with Eleventy and Nunjucks. Its canonical data selection is ma
 - `src/_data/site.js`: the site origin (default `https://atlas.credimi.io`, overridable via `SITE_URL`) used for canonical URLs, structured data, the sitemap and robots.txt.
 - `src/sitemap.xml.njk`, `src/robots.txt.njk`, `src/llms.txt.njk`: SEO surfaces generated at build time. Every page carries canonical/Open Graph/Twitter meta, JSON-LD (WebSite, Organization, WebPage, BreadcrumbList) and a breadcrumb, and cross-links to related documents, glossary topics and reading routes.
 - `src/feed.xml.njk`: an Atom news feed at `/feed.xml` generated from `changelog`. Each briefing has a journalistic `title`, a factual `summary` and `story` sections explaining why developments matter, with curated document links and practical takeaways. The Atlas cover appears as the feed logo, entry image enclosure and visible article image. Invitations to subscribe, consult the Atlas and join Credimi follow the story; the Credimi invitation is labelled "From the maintainers". All links and images use absolute URLs for Gmail and external readers, respecting `SITE_URL` and `PATH_PREFIX`. Existing `tag:` entry IDs stay stable.
+- `src/news-page.njk` renders each briefing at `/news/<slug>/`; `src/news.njk` lists the archive. The homepage features the latest briefing and three previous headlines. Feed entries link to their rendered article as the original; both formats use `src/_includes/components/news-body.njk`. Each changelog entry needs a unique, permanent `slug`, so headline edits do not change shared URLs.
 
 ## Quick GUI guide
 
 ### Home
 
-Shows the rulebook stack, key figures, the regulatory radar (every document as a dot placed by stack layer and status), a diagram of who publishes the rules for which actors, the latest status changes and the Credimi platform offer. The visuals are SVG generated at build time from `src/_data/documents.js`; no client-side charting.
+Shows the rulebook stack, the latest news story with its image and reading link, three previous headlines, the regulatory radar, status changes and role-based reading routes. **All news** opens the archive; **Subscribe via RSS** opens the feed.
+
+### News
+
+Browse all briefings at `/news/`. Each story has its own shareable page, with context, document links and invitations to subscribe and join Credimi. RSS readers' **original article** links open that same page.
 
 ### Map
 

@@ -8,7 +8,8 @@
   <meta name="description" content="{{ metaDescription }}">
   <meta name="keywords" content="EUDI Wallet, eIDAS, ARF, PID, EAA, QEAA, OpenID4VCI, OpenID4VP, SD-JWT, mdoc, conformance, interoperability, certification, relying party, verifiable credentials">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url | url }}">
+  <link rel="alternate" type="application/atom+xml" title="EUDI Atlas news" href="{{ site.url }}{{ '/feed.xml' | url }}">
   <link rel="stylesheet" href="{{ '/css/style.css' | url }}?v={{ assets.style }}">
   <link rel="stylesheet" href="{{ '/css/app.css' | url }}?v={{ assets.app }}">
   <link rel="icon" type="image/svg+xml" href="{{ '/assets/credimi_logo.svg' | url }}">
@@ -16,14 +17,14 @@
   <meta property="og:site_name" content="{{ site.name }}">
   <meta property="og:title" content="{{ title or site.name }}">
   <meta property="og:description" content="{{ metaDescription }}">
-  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-  <meta property="og:image" content="{{ site.url }}/assets/og-cover.png">
+  <meta property="og:url" content="{{ site.url }}{{ page.url | url }}">
+  <meta property="og:image" content="{{ site.url }}{{ '/assets/og-cover.png' | url }}">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="640">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:alt" content="EUDI Trust & Conformance Atlas — law, ARF requirements, standards and conformance evidence in one cross-linked, searchable map">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="{{ site.url }}/assets/og-cover.png">
+  <meta name="twitter:image" content="{{ site.url }}{{ '/assets/og-cover.png' | url }}">
   <meta name="twitter:image:alt" content="EUDI Trust & Conformance Atlas — law, ARF requirements, standards and conformance evidence in one cross-linked, searchable map">
 
   <script type="application/ld+json">
@@ -57,8 +58,8 @@
       },
       {
         "@type": "WebPage",
-        "@id": {{ (site.url + page.url) | toJson | safe }},
-        "url": {{ (site.url + page.url) | toJson | safe }},
+        "@id": {{ (site.url + (page.url | url)) | toJson | safe }},
+        "url": {{ (site.url + (page.url | url)) | toJson | safe }},
         "name": {{ (title or site.name) | toJson | safe }},
         "isPartOf": { "@id": {{ (site.url + '/') | toJson | safe }} }
       }

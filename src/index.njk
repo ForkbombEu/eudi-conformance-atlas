@@ -51,6 +51,41 @@ description: A community-maintained map of EUDI Wallet law, implementing acts, A
 <div class="page-content">
   <div class="container">
 
+    {% if documents.latestRelease %}
+    {% set latest = documents.latestRelease %}
+    <section class="news-home" aria-labelledby="home-news-title">
+      <div class="section-header">
+        <h2 id="home-news-title">Latest from the Atlas</h2>
+        <a href="{{ '/news/' | url }}" class="see-all">All news</a>
+      </div>
+      <article class="news-feature">
+        <div>
+          <h3><a href="{{ ('/news/' + latest.slug + '/') | url }}">{{ latest.title }}</a></h3>
+          <p class="news-date"><time datetime="{{ latest.date }}">{{ latest.date | statusDate }}</time></p>
+          <p>{{ latest.summary }}</p>
+          <div class="viz-actions">
+            <a class="btn btn-primary btn-lg" href="{{ ('/news/' + latest.slug + '/') | url }}">Read the story</a>
+            <a class="btn btn-outline btn-lg" href="{{ '/feed.xml' | url }}">Subscribe via RSS</a>
+          </div>
+        </div>
+        <img class="news-cover" src="{{ '/assets/og-cover.png' | url }}" alt="EUDI Trust &amp; Conformance Atlas — the open EUDI Wallet reference" width="1280" height="640" loading="lazy">
+      </article>
+      {% if documents.changelog.length > 1 %}
+      <h3 class="detail-aside-title">Previous briefings</h3>
+      <ol class="news-list news-previous" aria-label="Previous briefings">
+        {% for release in documents.changelog %}
+        {% if loop.index0 > 0 and loop.index0 < 4 %}
+        <li>
+          <time datetime="{{ release.date }}">{{ release.date | statusDate }}</time>
+          <a href="{{ ('/news/' + release.slug + '/') | url }}">{{ release.title }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+      </ol>
+      {% endif %}
+    </section>
+    {% endif %}
+
     <section class="viz-section viz-section-first" aria-labelledby="home-radar-title">
       <div class="viz-grid">
         {{ radarChart(documents.radar) }}

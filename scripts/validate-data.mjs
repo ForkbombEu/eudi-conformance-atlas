@@ -177,6 +177,7 @@ for (const group of docsYaml.logical_groups || []) {
 for (const route of docsYaml.recommended_reading_routes || []) {
   checkReferences(`Route ${route.route_slug}`, route.documents);
 }
+const newsSlugs = new Set();
 for (const release of docsYaml.changelog || []) {
   if (
     typeof release.date !== "string" ||
@@ -186,6 +187,14 @@ for (const release of docsYaml.changelog || []) {
       `Changelog entry needs a quoted date, got ${JSON.stringify(release.date)}`,
     );
   }
+  if (
+    typeof release.slug !== "string" ||
+    !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(release.slug) ||
+    newsSlugs.has(release.slug)
+  ) {
+    fail(`Changelog ${release.date} needs a unique URL-safe slug`);
+  }
+  newsSlugs.add(release.slug);
   for (const field of ["title", "summary"]) {
     if (typeof release[field] !== "string" || !release[field].trim()) {
       fail(`Changelog ${release.date} needs a non-empty ${field}`);
