@@ -75,7 +75,7 @@ The site is built with Eleventy and Nunjucks. Its canonical data selection is ma
 - `src/_data/docTypes.js`: the single list of document types, stack layers and statuses. It is used by templates, filters, the map tree and `scripts/validate-data.mjs`.
 - `src/_data/site.js`: the site origin (default `https://atlas.credimi.io`, overridable via `SITE_URL`) used for canonical URLs, structured data, the sitemap and robots.txt.
 - `src/sitemap.xml.njk`, `src/robots.txt.njk`, `src/llms.txt.njk`: SEO surfaces generated at build time. Every page carries canonical/Open Graph/Twitter meta, JSON-LD (WebSite, Organization, WebPage, BreadcrumbList) and a breadcrumb, and cross-links to related documents, glossary topics and reading routes.
-- `src/feed.xml.njk`: an Atom feed at `/feed.xml` generated from `changelog`. Each review becomes one entry with its executive summary plus the linked new/updated documents. All links are absolute so Gmail and external RSS readers can open them; Atlas links use the configured `SITE_URL` and `PATH_PREFIX`. Existing `tag:` entry IDs stay stable.
+- `src/feed.xml.njk`: an Atom news feed at `/feed.xml` generated from `changelog`. Each briefing has a journalistic `title`, a factual `summary` and `story` sections explaining why developments matter, with curated document links and practical takeaways. The Atlas cover appears as the feed logo, entry image enclosure and visible article image. Invitations to subscribe, consult the Atlas and join Credimi follow the story; the Credimi invitation is labelled "From the maintainers". All links and images use absolute URLs for Gmail and external readers, respecting `SITE_URL` and `PATH_PREFIX`. Existing `tag:` entry IDs stay stable.
 
 ## Quick GUI guide
 

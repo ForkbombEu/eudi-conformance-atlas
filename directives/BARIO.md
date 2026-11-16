@@ -453,13 +453,17 @@ After each development task and before each commit, the README.md should be upda
 
 ## RSS / Atom feed (changelog)
 
-The site ships an Atom feed at `/feed.xml`, generated at build time from the top-level `changelog` in `data/eudi-documents-map.yaml`. One feed entry per changelog release, newest first.
+The site ships an Atom news feed at `/feed.xml`, generated at build time from the top-level `changelog` in `data/eudi-documents-map.yaml`. One news briefing per release, newest first.
 
 Every data refresh, crawl or source review MUST update the changelog so the feed stays useful:
 
-- prepend a NEW `changelog` entry (never edit an older entry);
+- prepend a NEW `changelog` entry for a source review; published entries may receive editorial corrections requested by the maintainer, without changing their IDs, dates or historical facts;
 - `date` MUST be the review date as a quoted `"YYYY-MM-DD"` string;
-- `summary` MUST be an executive summary: the most important things that changed, in prose, neutral and factual, no marketing — the feed renders it verbatim as the entry lead;
+- `title` MUST be a specific journalistic headline about the development, not "Rulebook update", a date or a count of standards;
+- `summary` MUST be a short, factual news lead explaining why the development matters to implementers, not a catalogue inventory;
+- `story` MUST contain sections with `title`, `text` and `documents` (existing document IDs). Explain what changed, why it matters, practical questions or checks, and what remains a proposal or draft. Attribute proposals and distinguish them from adopted requirements. No sensationalism or unsupported benefit claims;
+- lead with the story, not document counts. Use the existing Atlas cover as the feed logo, entry image enclosure and visible HTML image, with absolute URLs and descriptive alt text;
+- close with invitations to subscribe to the feed, consult the Atlas and join Credimi. Keep the Credimi invitation separate and labelled "From the maintainers"; never present testing evidence as certification;
 - `added` lists the IDs of new documents; `updated` lists the IDs of changed documents;
 - every ID in `added`/`updated` MUST exist in `flat_documents` (the data validator enforces this).
 

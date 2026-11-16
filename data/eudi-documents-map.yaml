@@ -5,15 +5,47 @@ description:
   sources relevant to Credimi's EUDI conformance and interoperability evidence work.
 changelog:
   - date: "2026-11-16"
+    title: A proposed bridge brings wallet credentials closer to existing logins
     summary:
-      A new proposal would connect wallet credentials to existing OpenID Connect services without requiring each
-      relying party to implement a wallet-facing protocol. November updates also bring SD-JWT VC draft 26,
-      refreshed OpenID4VCI and OpenID4VP 1.1 drafts, a wallet-federation draft and revised WE BUILD presentation
-      requirements. ENISA has published EUCC guidance for evaluating secure-element applications. ETSI work has
-      advanced on wallet attestations, trusted-entity validation, attribute-backed signatures and Certificate
-      Transparency. The Atlas also adds HPKE encryption, OAuth client-metadata and secure-element cybersecurity
-      drafts. These developments have different maturity levels — published guidance, pilot profiles and working
-      drafts are not interchangeable with adopted EUDI requirements, and existing conformance version pins remain unchanged.
+      Could a service accept wallet credentials without building its own wallet integration? A proposal introduced
+      to the OpenID community offers one route through the OpenID Connect systems many services already use.
+      Alongside new secure-element evaluation guidance and changes to relying-party checks, it raises a practical
+      question for implementers — what can be reused, and where does trust need to be tested again?
+    story:
+      - title: Let the OpenID Provider handle the wallet conversation
+        text:
+          Magnus Svensson of SUNET, with Leif Johansson and Joel Rangsmo of the Siros Foundation, proposes a bridge
+          in which an OpenID Provider collects and verifies wallet credentials, then passes their claims to a service
+          in familiar ID Token and UserInfo responses. The editor's draft calls the claim presented_credential_sets.
+          For teams already using OIDC, the attraction is a different integration boundary, not the disappearance
+          of verification work. The service must still decide whether it trusts the bridge and which claims it will
+          accept. This remains an individual proposal, not an adopted OpenID specification.
+        documents:
+          - IETF-CREDENTIAL-OIDC-BRIDGE
+      - title: Watch the trust checks, not just the protocol names
+        text:
+          WE BUILD's latest presentation profile replaces registrar_dataset with registration_cert in verifier_info.
+          That is a concrete detail to check in presentation requests and test fixtures. Meanwhile, SD-JWT VC has
+          reached draft 26, but existing HAIP and FCAF version pins have not moved with it. Before changing a deployed
+          implementation, ask which version your assessment targets, how the relying party's registration is verified,
+          and which failure cases your evidence actually covers. The Atlas keeps the latest drafts and assessment
+          pins side by side so those are separate decisions.
+        documents:
+          - WE-BUILD-WBCS
+          - SD-JWT-VC
+          - OID4VP-1.1
+      - title: Secure-element assurance gets a more reusable evaluation route
+        text:
+          ENISA has published EUCC guidance for evaluating applications that use harmonised Cryptographic Service
+          Providers on secure elements. Its composition approach can avoid a separate composite evaluation for every
+          chip-platform configuration. For teams planning wallet hardware and application assurance, that is worth
+          discussing with their evaluation partners. It is applicable EUCC guidance, not adoption of the separate
+          EUDIW certification scheme. Emerging ETSI work on wallet attestations and Certificate Transparency remains
+          another part of the picture to watch, rather than a reason to claim certification today.
+        documents:
+          - ENISA-EUCC-CSP-SECURE-ELEMENTS
+          - ETSI-TS-119-476-3
+          - ETSI-TS-119-411-9
     added:
       - IETF-CREDENTIAL-OIDC-BRIDGE
       - CEN-PREN-50764
@@ -38,11 +70,22 @@ changelog:
       - ETSI-TS-119-479-3
       - ETSI-EN-319-482-3
   - date: "2026-10-29"
+    title: AI agents can help with credentials without holding the keys
     summary:
-      Late October 2026 scouting pass — refreshed the W3C Digital Credentials API, OID4VCI 1.1 and OpenID Federation
-      for Wallet Architectures to their latest October drafts, and added the IETF Agent-to-Wallet Protocol draft for
-      agent-mediated credential operations. The EPC SCARLET payments framework and the ETSI CEN workshop material were
-      reviewed but are not catalogued because no stable specification document is public yet.
+      As AI agents begin to coordinate more online tasks, wallet control is becoming an integration question.
+      An individual Agent-to-Wallet Protocol draft proposes handing credential requests to the wallet while
+      keeping credentials, presentations and keys away from the agent. The wallet still obtains user approval.
+    story:
+      - title: A hand-off, not custody
+        text:
+          The draft gives the agent an operation status and continuation rather than the credential itself.
+          That distinction is worth following when designing delegated journeys. Browser credential APIs,
+          issuance and wallet-federation drafts are developing alongside it, but none makes this individual
+          proposal an adopted EUDI baseline.
+        documents:
+          - IETF-A2WP
+          - W3C-DIGITAL-CREDENTIALS-API
+          - OID4VCI-1.1
     added:
       - IETF-A2WP
     updated:
@@ -50,10 +93,22 @@ changelog:
       - OID4VCI-1.1
       - OPENID-FEDERATION-WALLET
   - date: "2026-10-29"
+    title: From issuance to payments, EWC profiles connect the wallet journey
     summary:
-      October 2026 source review — added the thirteen approved EWC EUDI Wallet RFCs covering credential issuance,
-      presentation, PID and LPID, wallet attestations, payments, trust mechanism, PhotoID and the ITB interoperability
-      profile. Also replaced the test-coverage inventory with the FCAF wallet-solution catalogue.
+      Interoperability depends on more than choosing the same protocol. Thirteen approved EWC wallet RFCs
+      connect issuance, presentation, identity, payments and trust mechanisms with a shared test-bed profile,
+      offering implementers a concrete pilot reference for how the pieces fit together.
+    story:
+      - title: Read the journey alongside the tests
+        text:
+          The EWC profiles span PID and legal-person identity, wallet attestations, PhotoID and payments.
+          Read them alongside the ITB interoperability profile and the FCAF wallet-solution catalogue to
+          distinguish a pilot's shared implementation choices from the wider conformance work. Pilot approval
+          is not the same thing as an EU legal requirement.
+        documents:
+          - EWC-RFC-001
+          - EWC-RFC-100
+          - EUDI-FCAF
     added:
       - EWC-RFC-001
       - EWC-RFC-002
@@ -70,11 +125,22 @@ changelog:
       - EWC-RFC-100
     updated: []
   - date: "2026-10-27"
+    title: Driving licences and age assurance broaden the wallet agenda
     summary:
-      October 2026 follow-up review — new mDL implementing regulation, the digital euro and digital-travel proposals, the
-      AMLA CDD RTS, the ISO/IEC 27566 age-assurance series and EN 18037, the SD-CWT / JSON Web Proof / BBS IETF drafts,
-      HAIP 1.1 and seven new ETSI EUDI work items, plus version and status bumps across ETSI drafts, WE BUILD conformance
-      specs and the ARF discussion topics.
+      Digital identity work is extending into everyday proofs — driving entitlement, age and travel documents.
+      A new mobile-driving-licence implementing regulation sits alongside age-assurance standards and
+      legislative proposals, with different implications depending on what has actually been adopted.
+    story:
+      - title: Separate today's obligations from tomorrow's use cases
+        text:
+          The Atlas brings the mDL regulation, age-assurance series and digital-travel proposals into one
+          reading path. Privacy-preserving credential formats and proof systems are evolving too.
+          For product teams, the useful starting point is the use case and its legal status, then the
+          credential format and protocol version needed to support it — not every new draft at once.
+        documents:
+          - EU-2026-2266
+          - ISO-27566-1
+          - COM-2024-670
     added:
       - EU-2026-2266
       - COM-2023-369
@@ -114,10 +180,22 @@ changelog:
       - ETSI-TS-119-602
       - ETSI-TS-119-475
   - date: "2026-10-21"
+    title: Which wallet rules apply now, and which are still taking shape?
     summary:
-      October 2026 review against EUR-Lex, eudi.dev (ARF and essential STS list), the FCAF draft references, the EC technical
-      specifications repository, ETSI, CEN, ISO, OpenID, IETF, W3C and ENISA publication pages. Every document now carries an
-      adoption status; drafts and pinned versions are tracked separately.
+      A wallet project can follow the latest document and still test against the wrong version.
+      The Atlas now separates adoption status from the versions pinned by architecture and conformance
+      frameworks, helping teams see which requirements are current and which changes remain on the horizon.
+    story:
+      - title: Follow the source, then check the pin
+        text:
+          Legal acts, architecture requirements, protocol drafts and candidate certification schemes serve
+          different purposes. Start with the official source and its status, then check the version your
+          assessment actually references. The Atlas cross-links those layers so implementation planning and
+          evidence collection can start from the same reading of the rulebook.
+        documents:
+          - EUDI-ARF
+          - EUDI-FCAF
+          - ENISA-EUDIW-CANDIDATE-SCHEME
     added:
       - ENISA-EUDIW-CANDIDATE-SCHEME
       - ENISA-EUDIW-SECURITY-REQUIREMENTS

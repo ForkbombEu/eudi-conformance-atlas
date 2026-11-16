@@ -186,6 +186,30 @@ for (const release of docsYaml.changelog || []) {
       `Changelog entry needs a quoted date, got ${JSON.stringify(release.date)}`,
     );
   }
+  for (const field of ["title", "summary"]) {
+    if (typeof release[field] !== "string" || !release[field].trim()) {
+      fail(`Changelog ${release.date} needs a non-empty ${field}`);
+    }
+  }
+  if (!Array.isArray(release.story) || !release.story.length) {
+    fail(`Changelog ${release.date} needs an editorial story`);
+  } else {
+    for (const section of release.story) {
+      if (
+        typeof section?.title !== "string" ||
+        !section.title.trim() ||
+        typeof section?.text !== "string" ||
+        !section.text.trim()
+      ) {
+        fail(`Changelog ${release.date} story section needs title and text`);
+      }
+      if (!Array.isArray(section?.documents) || !section.documents.length) {
+        fail(`Changelog ${release.date} story section needs document links`);
+      } else {
+        checkReferences(`Changelog ${release.date} story`, section.documents);
+      }
+    }
+  }
   checkReferences(`Changelog ${release.date} added`, release.added);
   checkReferences(`Changelog ${release.date} updated`, release.updated);
 }
