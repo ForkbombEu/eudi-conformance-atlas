@@ -82,7 +82,7 @@ The site is built with Eleventy and Nunjucks. Its canonical data selection is ma
 
 ### Home
 
-Shows the rulebook stack, the latest news story with its image and reading link, three previous headlines, the regulatory radar, status changes and role-based reading routes. **All news** opens the archive; **Subscribe via RSS** opens the feed.
+Shows the rulebook stack, followed by the regulatory radar, the latest news story with its image and reading link, three previous headlines, status changes and role-based reading routes. **All news** opens the archive; **Subscribe via RSS** opens the feed.
 
 ### News
 
