@@ -42,6 +42,8 @@ Tracking them by hand means reading PDFs, diffing EUR-Lex pages and hoping nothi
 
 Covers eIDAS Regulation (EU) 2024/1183, Implementing Regulations (EU) 2024/2977, 2024/2980, 2024/2981, 2024/2982, the EUDI ARF, ETSI TS 119 472, OpenID4VCI, OpenID4VP, SD-JWT VC, ISO/IEC 18013-5/-7 mdoc, the WE BUILD WP4 pilot work, the thirteen approved EWC EUDI Wallet RFCs and the IETF Agent-to-Wallet Protocol draft.
 
+Latest source review (16 November 2026) adds 7 documents and updates 14 records, including SD-JWT VC draft 26, the OpenID4VC 1.1 drafts, ETSI wallet and trust-service work, and ENISA's published secure-element evaluation guidance. The new [Credential Presentation to OIDC Claims Bridge](https://masv3971.github.io/rfc_credential_oidc_bridge/draft-svensson-credential-oidc-bridge.html) is an individual proposal for existing OIDC Relying Parties. Its editor's copy uses `presented_credential_sets`; submitted revision 02 uses `presented_credentials`. Neither is an adopted OpenID specification. The [radar](https://atlas.credimi.io/radar/) and [Atom feed](https://atlas.credimi.io/feed.xml) carry a neutral, shareable executive summary and document links.
+
 ## Highlights
 
 - **Regulatory radar** — every document as a dot placed by stack layer and status, plus a momentum chart of status changes per half-year and a dated timeline.

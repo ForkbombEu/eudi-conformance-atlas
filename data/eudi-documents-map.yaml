@@ -4,6 +4,39 @@ description:
   A consolidated map of legal acts, implementing acts, ARF/WE BUILD documentation, cybersecurity and trust-service
   sources relevant to Credimi's EUDI conformance and interoperability evidence work.
 changelog:
+  - date: "2026-11-16"
+    summary:
+      A new proposal would connect wallet credentials to existing OpenID Connect services without requiring each
+      relying party to implement a wallet-facing protocol. November updates also bring SD-JWT VC draft 26,
+      refreshed OpenID4VCI and OpenID4VP 1.1 drafts, a wallet-federation draft and revised WE BUILD presentation
+      requirements. ENISA has published EUCC guidance for evaluating secure-element applications. ETSI work has
+      advanced on wallet attestations, trusted-entity validation, attribute-backed signatures and Certificate
+      Transparency. The Atlas also adds HPKE encryption, OAuth client-metadata and secure-element cybersecurity
+      drafts. These developments have different maturity levels — published guidance, pilot profiles and working
+      drafts are not interchangeable with adopted EUDI requirements, and existing conformance version pins remain unchanged.
+    added:
+      - IETF-CREDENTIAL-OIDC-BRIDGE
+      - CEN-PREN-50764
+      - CEN-PREN-18330
+      - IETF-JOSE-HPKE-ENCRYPT
+      - OAUTH-CLIENT-ID-METADATA
+      - ETSI-TS-119-411-9
+      - ENISA-EUCC-CSP-SECURE-ELEMENTS
+    updated:
+      - WE-BUILD-WBCS
+      - CEN-TS-18297
+      - SD-JWT-VC
+      - OID4VCI-1.1
+      - OID4VP-1.1
+      - OPENID-FEDERATION-WALLET
+      - ETSI-TS-119-476-3
+      - ETSI-TS-119-602
+      - ETSI-TS-119-312
+      - W3C-DIGITAL-CREDENTIALS-API
+      - ETSI-TR-119-479-2
+      - ETSI-TS-119-605
+      - ETSI-TS-119-479-3
+      - ETSI-EN-319-482-3
   - date: "2026-10-29"
     summary:
       Late October 2026 scouting pass — refreshed the W3C Digital Credentials API, OID4VCI 1.1 and OpenID Federation
@@ -1271,10 +1304,10 @@ flat_documents:
     type: standards_roadmap
     layer: etsi
     status: draft
-    status_date: "2026-09-25"
+    status_date: "2026-11-04"
     status_note:
-      Not yet published. Final draft v0.0.11 reached on 2026-09-25, following public draft v0.0.9 (2026-06). Publication
-      planned for 2027-02-28.
+      Not yet published. The latest version is stable draft v0.0.12 (4 November 2026), following final draft
+      v0.0.11. The linked public PDF is the older v0.0.9 snapshot; transfer protocols belong to TS 119 472-3.
     summary:
       Draft ETSI specification of the Wallet Unit Attestation, logically comprising Wallet Instance Attestations and
       Wallet Key Attestations (OID4VCI Appendix D), covering format, content, lifecycle, revocation information, signature algorithms
@@ -1290,8 +1323,8 @@ flat_documents:
     status: published
     status_date: "2025-11-14"
     status_note:
-      V1.1.1 remains the latest published TS. Conversion to EN 319 602 reached final draft on 2026-10-27
-      (STF705 D6.13); publication planned 2027-02-28.
+      V1.1.1 remains the latest published TS. The EN 319 602 successor is at final draft v1.1.8
+      (9 November 2026), not a published EN — https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=75479.
     summary: Data model and syntax bindings for lists of trusted EUDI ecosystem entities.
     relevance_for_eudi:
       Core source for resolving notified PID, Wallet and public-sector EAA Providers and RP access-certificate
@@ -1351,7 +1384,9 @@ flat_documents:
     layer: etsi
     status: published
     status_date: "2026-06-15"
-    status_note: V2.1.1 remains the latest published version. A revision is at stable draft v2.1.3 (2026-10-19).
+    status_note:
+      V2.1.1 remains the latest published version. The successor is at final draft v2.1.5 (11 November 2026),
+      not a published revision — https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=74909.
     summary: Cryptographic suites for creation and validation of digital signatures, time stamps and related certificates.
     relevance_for_eudi:
       Relevant to algorithm-policy checks across Wallet attestations, provider certificates, trust services
@@ -1413,14 +1448,14 @@ flat_documents:
     type: w3c_spec
     layer: platform
     status: draft
-    status_date: "2026-10-29"
+    status_date: "2026-11-05"
     status_note:
-      Now a W3C Working Draft (Federated Identity WG); First Public Working Draft 1 July 2025, latest Working Draft
-      29 October 2026. Not yet a Candidate Recommendation.
-    summary: Browser API for requesting and presenting digital credentials through user agents and credential providers.
+      W3C Working Draft (Federated Identity WG), dated 5 November 2026. The November publication follows
+      non-substantive HTML cleanup, not a new API milestone. Not yet a Candidate Recommendation.
+    summary: Browser API for presenting and issuing digital credentials through user agents and credential providers.
     relevance_for_eudi:
-      Relevant to browser-mediated Wallet presentation and platform interoperability for remote credential
-      flows.
+      Relevant to browser-mediated Wallet issuance and presentation and platform interoperability for remote
+      credential flows.
   - id: W3C-WEBAUTHN-3
     name: W3C Web Authentication Level 3 (Recommendation)
     url: https://www.w3.org/TR/webauthn-3/
@@ -1734,15 +1769,16 @@ flat_documents:
         version: RFC 9901
         source: https://eudi.dev/latest/technical-specifications/
   - id: SD-JWT-VC
-    name: SD-JWT-based Verifiable Digital Credentials (SD-JWT VC) — draft 20
-    url: https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-20
-    type: openid_spec
+    name: SD-JWT-based Verifiable Digital Credentials (SD-JWT VC) — draft 26
+    url: https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-26
+    type: ietf_spec
     layer: credential_format
     status: draft
-    status_date: "2026-10-26"
+    status_date: "2026-11-06"
     status_note:
-      Moved from draft-19 to draft-20 (2026-10-26). In IESG Evaluation, on the 2026-11-05 IESG telechat agenda; no RFC
-      number yet. HAIP 1.0 pins draft-13.
+      Draft 26 (6 November 2026) remains in IESG Evaluation (AD Followup) with an unresolved DISCUSS; no RFC yet.
+      Clarifies issuer-key discovery and certificate-chain validation, and updates RFC 7800 to allow cnf without
+      iss or sub. HAIP 1.0 and ARF pins remain draft-13; the FCAF pin remains draft-16.
     summary:
       IETF OAuth WG Internet-Draft defining SD-JWT-based Verifiable Digital Credentials (type metadata, issuer key resolution,
       holder binding) on top of SD-JWT (RFC 9901).
@@ -1915,16 +1951,20 @@ flat_documents:
     url: https://github.com/webuild-consortium/wp4-architecture/tree/main/conformance-specs
     type: conformance_framework
     status: in_development
-    status_date: "2026-10-23"
+    status_date: "2026-11-05"
+    status_note:
+      CS-002 v1.3 (5 November 2026) aligns verifier_info with Annex XII of Regulation (EU) 2026/1731,
+      replacing registrar_dataset with registration_cert. CS-018 Baseline Trust Validation is a pre-flight draft
+      under review in PR 363, not an approved profile — https://github.com/webuild-consortium/wp4-architecture/pull/363.
     summary:
       WE BUILD LSP conformance specifications. They turn architecture decisions into precise implementation requirements
       for issuers, wallets and relying parties, and they configure the WE BUILD Interoperability Test Bed (ITB). The approved
       index lists CS-001 Credential Issuance (v1.4, 12 Oct 2026, aligned with TS-03 v1.5.2), CS-002 Credential Presentation
-      (v1.2, 23 Sep 2026), CS-003 remote QES with Wallet Units (v1.0), CS-004 WUA lifecycle (v1.2) / CS-005 BWUA lifecycle
+      (v1.3, 5 Nov 2026), CS-003 remote QES with Wallet Units (v1.0), CS-004 WUA lifecycle (v1.2) / CS-005 BWUA lifecycle
       (v1.1), CS-007 DC API, CS-010 Revocation (v1.1), CS-012 SCA attestations / TS12 profile (v1.2, 1 Oct 2026), CS-013
       Relying Party Intermediaries (pre-flight v1.0, 22 Oct 2026), and CS-015/CS-016 QERDS. CS-006 WRPAC/WRPRC issuance,
-      CS-011 remote QESeal, CS-014 proximity/offline and CS-017 directory & discovery are in review or under investigation;
-      RP-QERDS and Data spaces are candidate topics.
+      CS-011 remote QESeal, CS-014 proximity/offline, CS-017 directory & discovery and CS-018 baseline trust validation
+      are in review or under investigation; RP-QERDS and Data spaces are candidate topics.
     relevance_for_eudi:
       The most concrete public pilot conformance profile of OID4VCI/OID4VP/HAIP, WUA lifecycle, revocation
       and TS12 payments in use in 2026. The WE BUILD ITB test suites (83 onboarded participants, public conformance-report overview)
@@ -2175,10 +2215,12 @@ flat_documents:
     url: https://openid.github.io/OpenID4VCI/openid-4-verifiable-credential-issuance-1_1-wg-draft.html
     type: openid_spec
     status: in_development
-    status_date: "2026-10-27"
+    status_date: "2026-11-10"
     summary:
       Working-group editor's draft of the next OID4VCI version, developed by the OpenID Digital Credentials Protocols
       WG on top of the 1.0 Final.
+      The current draft includes interactive authorization, credential-response metadata, credential dataset
+      identifiers and tags, and revised issuer-metadata URL normalization.
     relevance_for_eudi:
       Early signal of changes to the EUDI issuance protocol; not yet an Implementer's Draft or Final, so 1.0
       Final remains the conformance baseline.
@@ -2187,10 +2229,12 @@ flat_documents:
     url: https://openid.github.io/OpenID4VP/openid-4-verifiable-presentations-1_1-wg-draft.html
     type: openid_spec
     status: in_development
-    status_date: "2026-10-12"
+    status_date: "2026-11-11"
     summary:
       Working-group editor's draft of the next OID4VP version, developed by the OpenID Digital Credentials Protocols
       WG on top of the 1.0 Final.
+      The current draft refines HPKE session binding, origin comparison, credential-type-specific claim matching
+      (including age_over_NN), and error handling without empty VP Tokens.
     relevance_for_eudi:
       Early signal of changes to the EUDI presentation protocol (DCQL, transaction data, DC API binding);
       1.0 Final remains the certification and conformance baseline.
@@ -2232,13 +2276,14 @@ flat_documents:
       on; relevant to federation-based trust for Wallet Providers, Issuers and Relying Parties.
   - id: OPENID-FEDERATION-WALLET
     name: OpenID Federation for Wallet Architectures 1.0 — draft 06
-    url: https://openid.github.io/federation-wallet/main.html
+    url: https://openid.net/specs/openid-federation-wallet-1_0.html
     type: openid_spec
     status: draft
-    status_date: "2026-10-27"
+    status_date: "2026-11-12"
     status_note:
-      Draft 06 published 27 October 2026 on the working-group draft site; the openid.net/specs page still serves
-      draft 05 from 15 February 2026.
+      Draft 06 is now served on the official OpenID specifications site, dated 12 November 2026.
+      Covers verifier-provider entities, verifier-instance attestations and optional Token Status List revocation;
+      attestation entitlements may narrow but must not expand verifier permissions.
     summary:
       Defines OpenID Federation entity types and trust establishment for digital wallet architectures in the four-party
       model (Wallet Providers, Credential Issuers, Relying Parties).
@@ -2500,7 +2545,8 @@ flat_documents:
       embedded disclosure policies, pricing policies and policy-related attestation metadata.
     relevance_for_eudi:
       Relevant to embedded disclosure policy checks and verifier-side validation services. Being converted
-      to TS 119 479-2 (final draft v1.1.3, 2026-10-14; public draft v1.1.2).
+      to TS 119 479-2 (final draft v1.1.5, 12 November 2026; public draft v1.1.2) —
+      https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=74946.
   - id: ETSI-TS-119-479-5
     name: ETSI TS 119 479-5 (work item) — Technological Solutions for the EU Digital Identity Framework; Part 5 — Wallet-Independent EAA Interfaces and Requirements
     url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=79412
@@ -2602,24 +2648,30 @@ flat_documents:
     pdf_url: https://docbox.etsi.org/ESI/Open/Latest_Drafts/ETSI%20DRAFT%20TS_119_605v0.0.3-public.pdf
     type: etsi_standard
     status: draft
-    status_date: "2026-06-30"
+    status_date: "2026-10-30"
+    status_note:
+      Final draft for approval v0.0.4 (30 October 2026), not yet approved or published.
+      The linked public PDF remains the older stable draft v0.0.3.
     summary:
       Procedures for deciding whether a signed data object is in scope of a trusted entity listed in a TS 119 602 list
       of trusted entities, with annexes for EU lists of PID providers and Wallet providers.
     relevance_for_eudi:
       Future deterministic LoTE validation algorithm for verifying PID, WUA/WIA and provider signatures against
-      EUDI trusted lists; complements TS 119 602 the way TS 119 615 complements TS 119 612. Stable draft v0.0.3.
+      EUDI trusted lists; complements TS 119 602 the way TS 119 615 complements TS 119 612.
   - id: ETSI-TS-119-479-3
     name: ETSI TS 119 479-3 (draft) — Support for EAA within AdES signatures
     url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=74947
     pdf_url: https://docbox.etsi.org/ESI/Open/Latest_Drafts/ETSI%20DRAFT%20TS_119_479-3v0.0.2-public.pdf
     type: etsi_standard
     status: draft
-    status_date: "2026-10-12"
+    status_date: "2026-11-09"
+    status_note:
+      Draft v0.0.7 uploaded 5 November 2026, accepted by ESI on 6 November and registered by the ETSI Secretariat
+      on 9 November. Not yet published; the linked public PDF is the older v0.0.2 snapshot.
     summary:
       Embedding of EAAs and EAA verifiable presentations (TS 119 472-1/-2 formats) in CAdES, PAdES, XAdES, JAdES, CB-AdES
       and ASiC signatures to bind roles, mandates or authorisations to signatures.
-    relevance_for_eudi: Relevant to Wallet-assisted signing with attribute evidence; final draft v0.0.6 (2026-10-12).
+    relevance_for_eudi: Relevant to Wallet-assisted signing with attribute evidence for roles, mandates and authorisations.
   - id: ETSI-TR-119-704
     name: ETSI TR 119 704 (draft) — Requirements for conformance and interoperability testing of EUDI Wallet
     url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=75486
@@ -2686,13 +2738,13 @@ flat_documents:
     url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=74940
     type: etsi_standard
     status: draft
-    status_date: "2026-09-02"
+    status_date: "2026-11-05"
     summary:
       Draft European Standard standardising EC TS11 interfaces and formats for the catalogue of attestation rulebooks
       and attributes.
     relevance_for_eudi:
-      Future normative successor of EC TS11 for schema/rulebook discovery and validation. Stable draft v0.0.5;
-      final draft planned 2026-12-01.
+      Future normative successor of EC TS11 for schema/rulebook discovery and validation. Stable draft v0.0.7
+      (5 November 2026) is an editorial increment; final draft planned 2026-12-01.
   - id: ETSI-EN-319-482-4
     name: ETSI EN 319 482-4 (draft) — Additional wallet interfaces; Wallet-to-Wallet interactions
     url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=74941
@@ -2780,7 +2832,11 @@ flat_documents:
     url: https://standards.cencenelec.eu/ords/f?p=205:110:::::FSP_PROJECT,FSP_LANG_ID:79593,25&cs=19D6A62876BBB3EF3131C65E6B9A88CF9
     type: cen_standard
     status: draft
-    status_date: "2026-10-08"
+    status_date: "2026-11-01"
+    status_note:
+      Austrian Standards lists ONR CEN/TS 18297 with issue date 1 November 2026 as TECHNISCHE REGEL ENTWURF
+      (draft technical rule), not evidence of final CEN publication —
+      https://www.austrian-standards.at/en/shop/onr-cen-ts-18297-2026-11-01~p5211284.
     summary:
       Specifies Wallet Unit access control to Wallet Held Assets, defining an access control model, data/metadata classification
       and a Wallet Access Control decision Engine (WACE) producing recommendations to the user.
@@ -3207,6 +3263,114 @@ flat_documents:
       performing OpenID4VCI or OpenID4VP, obtaining user approval and returning only the operation status and a
       continuation; credentials, presentations and keys never reach the agent.
     relevance_for_eudi: Early signal for agent-mediated wallet flows and delegation of credential operations; not a conformance baseline.
+  - id: IETF-CREDENTIAL-OIDC-BRIDGE
+    name: Credential Presentation to OIDC Claims Bridge (individual editor's draft)
+    url: https://masv3971.github.io/rfc_credential_oidc_bridge/draft-svensson-credential-oidc-bridge.html
+    type: ietf_spec
+    status: draft
+    status_date: "2026-08-28"
+    status_note:
+      Individual proposal by Magnus Svensson (SUNET), Leif Johansson and Joel Rangsmo (Siros Foundation), introduced
+      to the OpenID DCP mailing list on 16 November 2026. No OpenID working-group adoption is established.
+      The editor's copy uses presented_credential_sets; submitted revision 02 (24 August 2026) uses
+      presented_credentials — https://datatracker.ietf.org/doc/draft-svensson-credential-oidc-bridge/02/.
+    summary:
+      Defines an OpenID Provider bridge that collects and verifies wallet credentials through OpenID4VP or another
+      presentation protocol, then exposes their claims to existing OIDC Relying Parties in ID Tokens and UserInfo
+      responses through presented_credential_sets. The Relying Party does not implement a wallet-facing protocol.
+    relevance_for_eudi:
+      Emerging integration path for existing OIDC services consuming PID or attestations. Separates wallet-facing
+      verification from OP-to-RP claim delivery; assess bridge trust, disclosure policy and query restrictions.
+      Work in progress, not an adopted EUDI requirement or conformance baseline.
+  - id: CEN-PREN-50764
+    name: prEN 50764 — Cybersecurity requirements for platforms of smartcards or similar devices, including secure elements
+    url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues/514
+    type: cen_standard
+    status: in_development
+    status_date: "2026-09-30"
+    status_note:
+      The EC standards tracker reports an unpublished draft with a tentative 30 November 2026 target, still
+      awaiting confirmation with CEN. A target date is not publication or adoption.
+    summary:
+      Defines generic threats and technical requirements for smartcard and secure-element platforms in response
+      to the Cyber Resilience Act essential cybersecurity requirements for this product category.
+    relevance_for_eudi:
+      Emerging cybersecurity baseline for platforms that may underpin Wallet Secure Cryptographic Devices.
+      Track alongside wallet certification requirements; not yet a published or mandatory EUDI conformance baseline.
+  - id: CEN-PREN-18330
+    name: prEN 18330 — Cybersecurity requirements for smartcards or similar devices, including secure elements — Application layer
+    url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues/515
+    type: cen_standard
+    status: in_development
+    status_date: "2026-09-30"
+    status_note:
+      The EC standards tracker reports an unpublished draft with a tentative 30 November 2026 target, still
+      awaiting confirmation with CEN. A target date is not publication or adoption.
+    summary:
+      Defines cybersecurity requirements for applications on smartcards, secure elements and similar devices,
+      extending the platform requirements of prEN 50764.
+    relevance_for_eudi:
+      Complements platform-level cybersecurity work for secure applications potentially used by EUDI Wallets.
+      Keep application and platform requirements separate when planning WSCA/WSCD assurance evidence.
+  - id: IETF-JOSE-HPKE-ENCRYPT
+    name: Use of Hybrid Public Key Encryption (HPKE) with JSON Web Encryption (JWE) — draft 22
+    url: https://datatracker.ietf.org/doc/html/draft-ietf-jose-hpke-encrypt-22
+    type: ietf_spec
+    status: draft
+    status_date: "2026-07-06"
+    status_note:
+      JOSE working-group draft in the RFC Editor queue; no RFC number assigned at the review date.
+      Defines integrated encryption for JWE, updating RFC 7516 when published.
+    summary:
+      Specifies how Hybrid Public Key Encryption is used with JSON Web Encryption, selecting HPKE modes and
+      algorithms and adding integrated encryption as a JWE key-management mode.
+    relevance_for_eudi:
+      Dependency of the emerging HAIP 1.1 and OpenID4VP 1.1 presentation-response encryption profiles.
+      Track for future interoperability; not a requirement of the HAIP 1.0 conformance baseline.
+  - id: OAUTH-CLIENT-ID-METADATA
+    name: OAuth Client ID Metadata Document — draft 03
+    url: https://datatracker.ietf.org/doc/html/draft-ietf-oauth-client-id-metadata-document-03
+    type: ietf_spec
+    status: draft
+    status_date: "2026-11-02"
+    status_note: OAuth working-group draft; not an approved RFC or a replacement for EUDI relying-party registration.
+    summary:
+      Defines HTTPS URL client identifiers that resolve to client metadata documents, allowing authorization
+      servers to retrieve metadata without prior client registration.
+    relevance_for_eudi:
+      Referenced by OpenID Federation for Wallet Architectures for client discovery and interoperability.
+      Discovery of metadata does not itself establish trust or replace registration and entitlement checks.
+  - id: ETSI-TS-119-411-9
+    name: ETSI TS 119 411-9 (draft) — Requirements on a Certificate Transparency ecosystem
+    url: https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=75481
+    type: etsi_standard
+    status: draft
+    status_date: "2026-11-02"
+    status_note:
+      Final draft v1.1.7 (2 November 2026), converting the published TR 119 411-9 into a Technical Specification.
+      Not yet published as a TS; the predecessor TR V1.1.1 was published in March 2026.
+    summary:
+      Specifies policy and security requirements for a Certificate Transparency ecosystem that makes certificate
+      issuance transparent and verifiable through logs, monitors, auditors, and inclusion and consistency proofs.
+    relevance_for_eudi:
+      Emerging requirements for transparency of relying-party access-certificate issuance and related trust-service
+      evidence. Keep the TS draft distinct from its published informative TR predecessor.
+  - id: ENISA-EUCC-CSP-SECURE-ELEMENTS
+    name: EUCC Guidelines on CSP-based evaluation in the context of Secure Elements — version 1
+    url: https://certification.enisa.europa.eu/publications/eucc-guidelines-csp-based-evaluation-context-secure-elements_en
+    type: cybersecurity_guidance
+    status: published
+    status_date: "2026-11-04"
+    status_note:
+      ENISA marks version 1 as the applicable version. This is EUCC evaluation guidance, not adoption of the
+      separate EUDIW certification scheme.
+    summary:
+      Defines a methodology for evaluating applications using harmonised Cryptographic Service Providers on
+      secure elements. CSP implementations require EAL4 augmented with AVA_VAN.5; representative composition
+      certification can avoid a separate composite evaluation for every chip-platform configuration.
+    relevance_for_eudi:
+      Relevant to secure-element application and WSCD assurance evidence, including reusable security services
+      and composition across chip platforms. Does not itself certify a Wallet or establish EUDIW scheme adoption.
 logical_groups:
   - group_slug: wallet-core-and-certification
     title: Wallet core functionality, certification and assurance
