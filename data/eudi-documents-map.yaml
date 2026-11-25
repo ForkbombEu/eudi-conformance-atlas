@@ -4,6 +4,100 @@ description:
   A consolidated map of legal acts, implementing acts, ARF/WE BUILD documentation, cybersecurity and trust-service
   sources relevant to Credimi's EUDI conformance and interoperability evidence work.
 changelog:
+  - date: "2026-11-25"
+    slug: wallet-interop-errata
+    image: /assets/news/wallet-interop-errata.svg
+    title: Commission guidance clarifies how EUDI wallets match credentials
+    summary:
+      Interim European Commission guidance explains how a wallet should match a national digital ID against
+      a request for the common EU credential type. It also clarifies which versions to test and how to read
+      relying-party registration certificates. The guidance is not a new ETSI edition or a change in law.
+    story:
+      - title: A national credential can match a common EU request
+        source: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues/681
+        text:
+          On 23 November, the Commission explained how wallets and verifiers should match personal identification
+          data (PID) and attestations in SD-JWT VC format. Match the requested type against the credential’s
+          vct or an explicit alias in aka_vcts, not against a string prefix. For derived types, the companion
+          issuance guidance tells providers to include those aliases without selective disclosure. Test both
+          a domestic PID that declares the common EU type and one that only resembles it. A type match does not
+          establish that the issuer is authorised, and the guidance does not apply to mdoc.
+        documents:
+          - EC-STS-ERRATA
+          - ETSI-TS-119-472-1
+          - ETSI-TS-119-472-2
+          - ETSI-TS-119-472-3
+      - title: Record which version the test uses
+        source: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues/682
+        text:
+          The Commission’s interim reading fixes two undated mdoc references at ISO/IEC 18013-5:2021.
+          Separate guidance reads the base SD-JWT reference in ETSI TS 119 472-1 as RFC 9901.
+          Do not confuse that RFC with the SD-JWT VC profile. The IETF posted SD-JWT VC draft 27 and the
+          last blocking ballot objection was cleared, but it is not an RFC. The draft Functional Conformance
+          Assessment Framework still lists SD-JWT VC draft 16 and ETSI TS 119 472-2 V1.2.1, even though ETSI
+          has published V1.3.1. Record the assessment pin and the interim interpretation separately.
+        documents:
+          - EUDI-FCAF
+          - ISO-18013-5
+          - SD-JWT
+          - SD-JWT-VC
+      - title: Check registration certificates and trust lists as encoded
+        source: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues/679
+        text:
+          The Commission’s interim reading of ETSI TS 119 475 treats selected registration-certificate
+          fields as JSON strings, not arrays, and places the intermediary’s name and identifier under
+          intermediary. The trust-list guidance has a different lesson. It leaves a misspelling in one
+          registered status URI intact until ETSI publishes a correction. Check the wire values rather than
+          normalising them by appearance. Neither note replaces the published ETSI text.
+        documents:
+          - ETSI-TS-119-475
+          - ETSI-TS-119-602
+      - title: National rollouts move at different speeds
+        source: https://www.bundesrat.de/drs.html?id=618-26%28B%29
+        text:
+          Germany’s Bundesrat approved the Digital Identity Act on 20 November and reports a planned
+          wallet launch on 2 January 2027. The Polish cabinet approved a draft on 17 November that envisages
+          a separate wallet app reachable from mObywatel before later integration. Neither milestone is
+          a launch. The Dutch certification release candidate is also open for feedback, not final.
+          For cross-border testing, check whether a foreign wallet’s identity data can be matched to a
+          national service record, not only whether the credential can be presented.
+        documents:
+          - DE-DIDG
+          - PL-EPTC-BILL
+          - NL-SYS-01
+      - title: New drafts offer comparisons for browser and bank integrations
+        text:
+          W3C’s 23 November Digital Credentials Working Draft tracks browser-mediated wallet flows.
+          Its separate Recognized Entities draft explores how to express which issuers or verifiers are
+          recognised for particular actions. In the US, NIST split its mobile driving licence guidance
+          into a cross-sector draft covering revocation and a bank-focused draft covering same-device
+          onboarding and fraud controls. Both NIST drafts are open for comment through 20 December.
+          These are useful comparisons for designing tests, not EUDI requirements.
+        documents:
+          - W3C-DIGITAL-CREDENTIALS-API
+          - W3C-VC-RECOGNIZED-ENTITIES
+          - NIST-SP-1800-42
+          - NIST-SP-1800-42A
+    added:
+      - EC-STS-ERRATA
+      - DE-DIDG
+      - PL-EPTC-BILL
+      - NL-SYS-01
+      - NIST-SP-1800-42
+      - NIST-SP-1800-42A
+      - W3C-VC-RECOGNIZED-ENTITIES
+      - IETF-SPICE-VDCARCH
+    updated:
+      - ETSI-TS-119-472-1
+      - ETSI-TS-119-472-2
+      - ETSI-TS-119-472-3
+      - ETSI-TS-119-475
+      - ETSI-TS-119-602
+      - ETSI-TS-119-476-3
+      - SD-JWT-VC
+      - OAUTH-STATUS-LIST
+      - W3C-DIGITAL-CREDENTIALS-API
+      - COM-2025-838
   - date: "2026-11-16"
     slug: credential-oidc-bridge
     image: /assets/news/credential-oidc-bridge.svg
@@ -1415,6 +1509,7 @@ flat_documents:
     status_note:
       Not yet published. The latest version is stable draft v0.0.12 (4 November 2026), following final draft
       v0.0.11. The linked public PDF is the older v0.0.9 snapshot; transfer protocols belong to TS 119 472-3.
+      ETSI ESI noted the stable draft proposal on 19 November 2026; that is not approval or publication.
     summary:
       Draft ETSI specification of the Wallet Unit Attestation, logically comprising Wallet Instance Attestations and
       Wallet Key Attestations (OID4VCI Appendix D), covering format, content, lifecycle, revocation information, signature algorithms
@@ -1432,6 +1527,8 @@ flat_documents:
     status_note:
       V1.1.1 remains the latest published TS. The EN 319 602 successor is at final draft v1.1.8
       (9 November 2026), not a published EN — https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=75479.
+      Commission interim erratum 683 (23 November 2026) clarifies the EU list profiles. The registered
+      WRPRCrovidersList status URI retains its published spelling until ETSI corrects it.
     summary: Data model and syntax bindings for lists of trusted EUDI ecosystem entities.
     relevance_for_eudi:
       Core source for resolving notified PID, Wallet and public-sector EAA Providers and RP access-certificate
@@ -1555,10 +1652,11 @@ flat_documents:
     type: w3c_spec
     layer: platform
     status: draft
-    status_date: "2026-11-05"
+    status_date: "2026-11-23"
     status_note:
-      W3C Working Draft (Federated Identity WG), dated 5 November 2026. The November publication follows
-      non-substantive HTML cleanup, not a new API milestone. Not yet a Candidate Recommendation.
+      Working Draft from the W3C Federated Identity Working Group, dated 23 November 2026. November work includes
+      document-origin request context and resetting the virtual-wallet test coordinator after a response
+      or decline. Still a Working Draft, not a Candidate Recommendation.
     summary: Browser API for presenting and issuing digital credentials through user agents and credential providers.
     relevance_for_eudi:
       Relevant to browser-mediated Wallet issuance and presentation and platform interoperability for remote
@@ -1594,7 +1692,10 @@ flat_documents:
     layer: etsi
     status: published
     status_date: "2026-02-18"
-    status_note: V1.2.1 remains the latest published version. Conversion to EN 319 472-1 is at early draft v1.2.2 (2026-07-09).
+    status_note:
+      V1.2.1 remains the latest published version. Conversion to EN 319 472-1 is at early draft v1.2.2 (9 July 2026).
+      Commission interim errata 680, 682 and 684 point testing to RFC 9901, fix the referenced mdoc
+      edition at ISO/IEC 18013-5:2021, and specify aka_vcts for derived SD-JWT VC types. No ETSI correction published.
     summary: General profile requirements for EAA and PID.
     relevance_for_eudi: Foundation profile spec for all EAA/PID issuance.
     arf_essential_for:
@@ -1614,6 +1715,8 @@ flat_documents:
     status_note:
       V1.3.1 (2026-07) supersedes V1.2.1 (2026-03). Conversion to EN 319 472-2 is in progress (early draft v1.3.2,
       2026-09-02).
+      Commission interim errata 681 and 682 address SD-JWT VC type matching and the mdoc edition for
+      V1.2.1. V1.3.1 still does not profile vct_values. The FCAF draft reference remains V1.2.1.
     summary: Profiles for presentation of EAA or PID to Relying Parties.
     relevance_for_eudi: Defines how credentials are presented; relevant for Verifier/RP conformance.
     arf_essential_for:
@@ -1630,7 +1733,10 @@ flat_documents:
     layer: etsi
     status: published
     status_date: "2026-03-02"
-    status_note: V1.1.1 remains the latest published version. Conversion to EN 319 472-3 is at early draft v1.1.2 (2026-07-09).
+    status_note:
+      V1.1.1 remains the latest published version. Conversion to EN 319 472-3 is at early draft v1.1.2 (9 July 2026).
+      Commission interim erratum 681 specifies matching requested SD-JWT VC types against vct or aka_vcts
+      at issuance; it is not an ETSI correction.
     summary: Profiles for issuance of EAA or PID.
     relevance_for_eudi: Concrete issuance profile spec for Issuers.
     arf_essential_for:
@@ -1658,7 +1764,11 @@ flat_documents:
     layer: etsi
     status: published
     status_date: "2026-03-06"
-    status_note: V1.2.1 remains the latest published version. Conversion to EN 319 475 reached stable draft 2026-10-27 (STF705 D2.13).
+    status_note:
+      V1.2.1 remains the latest published version. Conversion to EN 319 475 reached stable draft on
+      27 October 2026. Commission interim erratum 679 clarifies selected registration certificate fields
+      as JSON strings and uses intermediary.name and intermediary.sub. The separate policyURI issue 685
+      remains a discussion, not interim guidance.
     summary: Relying-party attributes supporting Wallet user authorization decisions.
     relevance_for_eudi: Defines RP attribute framework; critical for entitlement checks.
     arf_essential_for:
@@ -1876,16 +1986,16 @@ flat_documents:
         version: RFC 9901
         source: https://eudi.dev/latest/technical-specifications/
   - id: SD-JWT-VC
-    name: SD-JWT-based Verifiable Digital Credentials (SD-JWT VC) — draft 26
-    url: https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-26
+    name: SD-JWT-based Verifiable Digital Credentials (SD-JWT VC) — draft 27
+    url: https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-27
     type: ietf_spec
     layer: credential_format
     status: draft
-    status_date: "2026-11-06"
+    status_date: "2026-11-16"
     status_note:
-      Draft 26 (6 November 2026) remains in IESG Evaluation (AD Followup) with an unresolved DISCUSS; no RFC yet.
-      Clarifies issuer-key discovery and certificate-chain validation, and updates RFC 7800 to allow cnf without
-      iss or sub. HAIP 1.0 and ARF pins remain draft-13; the FCAF pin remains draft-16.
+      Draft 27 was posted on 16 November 2026 and the remaining DISCUSS ballot was cleared on 17 November.
+      The document remains in IESG Evaluation (AD Followup), not an RFC. Commission interim guidance cites
+      draft 27 for type matching; HAIP 1.0 and ARF still pin draft-13 and the FCAF draft still pins draft-16.
     summary:
       IETF OAuth WG Internet-Draft defining SD-JWT-based Verifiable Digital Credentials (type metadata, issuer key resolution,
       holder binding) on top of SD-JWT (RFC 9901).
@@ -1913,8 +2023,8 @@ flat_documents:
     status: draft
     status_date: "2026-06-21"
     status_note:
-      draft-21 (2026-06-21) remains the latest; approved by IESG and in the RFC Editor queue, no RFC number yet.
-      HAIP 1.0 pins draft-14.
+      Draft 21 (21 June 2026) remains the latest; the RFC Editor queue moved it to second edit on
+      18 November. No RFC number yet. HAIP 1.0 pins draft-14.
     summary: Mechanism for representing the status of tokens and credentials using status lists.
     relevance_for_eudi: Credential revocation and status checking mechanism for EUDI credentials.
     arf_essential_for:
@@ -2146,10 +2256,11 @@ flat_documents:
     url: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52025PC0838
     type: legislative_proposal
     status: proposal
-    status_date: "2026-09-23"
+    status_date: "2026-10-07"
     status_note:
-      Council adopted its general approach on 2026-06-09; EP ITRE committee report (rapporteur Eero Heinäluoma) tabled
-      for plenary on 2026-09-23. Trilogue not yet opened.
+      Parliament confirmed its decision to enter negotiations on 7 October 2026. The Council working party
+      scheduled trilogue preparation for 24 November. The file still awaits Parliament's first-reading
+      position; the proposal has not been adopted.
     summary:
       Proposes European Business Wallets for economic operators and public sector bodies, with mandate/representation
       management and secure exchange of official documents and attestations.
@@ -3504,6 +3615,104 @@ flat_documents:
     relevance_for_eudi:
       Relevant to secure-element application and WSCD assurance evidence, including reusable security services
       and composition across chip platforms. Does not itself certify a Wallet or establish EUDIW scheme adoption.
+  - id: EC-STS-ERRATA
+    name: European Commission EUDI Wallet standards tracker — interim errata
+    url: https://github.com/eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications/issues?q=is%3Aissue+label%3Aerrata
+    type: commission_guidance
+    status: published
+    status_date: "2026-11-23"
+    status_note:
+      The 23 November batch covers ETSI TS 119 472-1, -2 and -3, TS 119 475 and TS 119 602.
+      The Commission describes these readings as interim guidance with no legal effect, not official ETSI corrections.
+    summary: Public tracker for interim readings and planned fixes to standards used by the EUDI Wallet.
+    relevance_for_eudi:
+      Helps issuers, verifiers and registrars reconcile test fixtures with published standards without
+      confusing interim testing guidance with a new normative edition.
+  - id: DE-DIDG
+    name: Germany — Digitale Identitätengesetz (DIdG), Bundesrat decision 618/26
+    url: https://www.bundesrat.de/DE/plenum/bundesrat-kompakt/26/1070/03.html
+    pdf_url: https://www.bundesrat.de/drs.html?id=618-26%28B%29
+    type: legislative_proposal
+    status: adopted
+    status_date: "2026-11-20"
+    status_note:
+      The Bundesrat consented to the bill passed by the Bundestag on 15 October. This records parliamentary
+      approval, not entry into force. The Bundesrat reports a planned wallet launch on 2 January 2027.
+    summary: German legislation implementing EU wallet provisions and amending related national laws.
+    relevance_for_eudi:
+      Tracks the legal basis for Germany's wallet rollout and the Bundesrat's separate request for
+      a transitional high-assurance identification route for organisations.
+  - id: PL-EPTC-BILL
+    name: Poland — draft amendments to the Act on trust services and electronic identification
+    url: https://www.gov.pl/web/premier/projekt-ustawy-o-zmianie-ustawy-o-uslugach-zaufania-oraz-identyfikacji-elektronicznej-oraz-niektorych-innych-ustaw3
+    type: legislative_proposal
+    status: proposal
+    status_date: "2026-11-17"
+    status_note: Approved by the Polish cabinet as a draft bill, not enacted.
+    summary:
+      Establishes a proposed basis for the Polish EUDI Wallet, initially a separate app accessible from
+      mObywatel, with plans for later integration and cross-border identity matching.
+    relevance_for_eudi:
+      Tracks national wallet rollout and the proposed matching of foreign wallet identities to records
+      used by Polish public services.
+  - id: NL-SYS-01
+    name: NL-SYS-01 — NL EUDI Wallet Certification System (RC1.1)
+    url: https://edi.pleio.nl/page/view/5a7f97e2-5f44-4eca-bf6c-1f1a79b479bc/dutch-certification-schemes-for-eudi-wallets
+    pdf_url: https://docs.yivi.app/files/edi-stelsel/2026-11-06/NL-SYS-01_EUDI_Wallet_System_RC1.1_EUDIW-NL-CS_-_for_publication.pdf
+    type: certification_scheme
+    status: draft
+    status_date: "2026-10-31"
+    status_note: Date on the RC1.1 document. Public feedback release in November; not version 1 or a final scheme.
+    summary:
+      Dutch national framework draft combining functional, cybersecurity and provider certification
+      for the Wallet and the electronic identification scheme under which it is provided.
+    relevance_for_eudi:
+      Example of how a Member State proposes to separate assessment of wallet functionality, components
+      and providers under Implementing Regulation (EU) 2024/2981.
+  - id: NIST-SP-1800-42
+    name: NIST SP 1800-42 — Digital Identities — Mobile Driver’s License (mDL), second public draft
+    url: https://csrc.nist.gov/pubs/sp/1800/42/2pd
+    pdf_url: https://www.nccoe.nist.gov/sites/default/files/2026-11/nist-sp-1800-42-2pd.pdf
+    type: cybersecurity_guidance
+    status: draft
+    status_date: "2026-11-19"
+    status_note: NIST NCCoE practice guide draft. Public comments due 20 December 2026.
+    summary: Enabling Secure and Interoperable Online Use — cross-sector deployment guidance, including credential revocation.
+    relevance_for_eudi:
+      Comparison material for online mdoc verification, privacy and revocation; neither an EU requirement
+      nor evidence of regulatory compliance.
+  - id: NIST-SP-1800-42A
+    name: NIST SP 1800-42A — Accelerating Development and Adoption of mDLs for Financial Institutions, second public draft
+    url: https://www.nccoe.nist.gov/sites/default/files/2026-11/nist-sp-1800-42a-2pd.pdf
+    type: cybersecurity_guidance
+    status: draft
+    status_date: "2026-11-19"
+    status_note: NIST NCCoE companion draft for financial institutions. Public comments due 20 December 2026.
+    summary: Online mDL customer-identification guidance with same-device implementation and complementary fraud controls.
+    relevance_for_eudi:
+      Comparative implementation evidence for bank onboarding and same-device presentation, not a test
+      of compliance with European financial-sector or wallet requirements.
+  - id: W3C-VC-RECOGNIZED-ENTITIES
+    name: W3C Recognized Entities v1.0 (Working Draft)
+    url: https://www.w3.org/TR/2026/WD-vc-recognized-entities-1.0-20261125/
+    type: w3c_spec
+    status: draft
+    status_date: "2026-11-25"
+    summary: Verifiable credential data model for expressing which entities are recognised to perform specific actions.
+    relevance_for_eudi:
+      Adjacent work on expressing issuer or verifier recognition alongside existing trust infrastructure.
+      Tracked by the EUDI standards roadmap; not a replacement for an EUDI trusted list or register.
+  - id: IETF-SPICE-VDCARCH
+    name: A Reference Architecture for Verifiable Digital Credentials in the Issuer, Holder, Verifier Model — draft 02
+    url: https://datatracker.ietf.org/doc/html/draft-ietf-spice-vdcarch-02
+    type: ietf_spec
+    status: draft
+    status_date: "2026-11-02"
+    status_note: IETF SPICE working-group Internet-Draft intended as Informational, not an RFC.
+    summary:
+      Architecture for direct presentation with a presentation mediator responsible for managing,
+      presenting and selectively disclosing credentials.
+    relevance_for_eudi: A comparative architecture for wallet and browser mediation, not the EUDI ARF or a conformance baseline.
 logical_groups:
   - group_slug: wallet-core-and-certification
     title: Wallet core functionality, certification and assurance
@@ -3548,6 +3757,7 @@ logical_groups:
           - Treat Credimi evidence as assurance material, not certification itself.
         documents:
           - EU-2024-2981
+          - NL-SYS-01
           - EU-2025-849
           - EU-2024-482
           - EU-2024-3144

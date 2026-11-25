@@ -462,19 +462,36 @@ module.exports = function () {
     I = "issuer",
     R = "rp",
     T = "trust";
+  const isNational = (d) => /^(DE|NL|PL)-/.test(d.id);
   const publishers = [
     {
       key: "eu-law",
       label: "EU legislator",
-      match: (d) => d.stack === "legal",
+      match: (d) =>
+        d.stack === "legal" &&
+        d.type !== "commission_guidance" &&
+        !isNational(d),
       actors: [W, I, R, T],
     },
     {
       key: "ec",
       label: "European Commission",
       match: (d) =>
-        d.stack === "architecture" && !/^(WE-BUILD|OIDF)/.test(d.id),
+        d.type === "commission_guidance" ||
+        (d.stack === "architecture" && !/^(WE-BUILD|OIDF)/.test(d.id)),
       actors: [W, I, R, T],
+    },
+    {
+      key: "member-states",
+      label: "Member States",
+      match: isNational,
+      actors: [W, I, R, T],
+    },
+    {
+      key: "nist",
+      label: "NIST NCCoE",
+      match: (d) => /^NIST-/.test(d.id),
+      actors: [I, R],
     },
     {
       key: "webuild",

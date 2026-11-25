@@ -8,7 +8,7 @@ It is a controlled buffer between:
 
 - agent discovery
 - human decision
-- doctrine (`BARIO.md`)
+- doctrine (`ATLAS.md`)
 
 ---
 
@@ -17,7 +17,7 @@ It is a controlled buffer between:
 - entries are NOT authoritative
 - entries MUST NOT influence agent decisions
 - this file is **write-only for agents**
-- only humans may promote entries into `BARIO.md`
+- only humans may promote entries into `ATLAS.md`
 
 Agents MUST:
 

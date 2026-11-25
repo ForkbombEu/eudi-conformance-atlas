@@ -1,6 +1,6 @@
-# BARIO.md
+# ATLAS.md
 
-This file defines how work is done in this repository. As per BARIO wishes.
+This file defines how work is done in this repository.
 
 It is the canonical source of truth for agents, assistants, humans, automation, and future maintainers.
 
@@ -48,12 +48,12 @@ Prefer:
 
 Before modifying anything:
 
-1. Read `BARIO.md`
+1. Read `ATLAS.md`
 2. Inspect repository structure
 3. Do NOT infer or adopt undocumented conventions
-4. If a convention is observed but not defined in BARIO.md:
+4. If a convention is observed but not defined in ATLAS.md:
    → record it in `HITL.md`
-5. Proceed using ONLY known rules from BARIO.md
+5. Proceed using ONLY known rules from ATLAS.md
 6. Make the smallest safe change
 7. Validate the change
 
@@ -67,9 +67,7 @@ Unless explicitly forbidden, every task MUST:
 
 - produce a complete, runnable project
 - include tests for core behavior
-- include `mise.toml` with pinned Go version
-- include `task = "latest"` in `mise.toml`
-- include `Taskfile.yml`
+- declare required tools and project tasks in `mise.toml`, pinning Go for Go projects
 - initialize git when creating projects
 - create at least one valid commit
 - leave the repository in a clean state
@@ -93,7 +91,7 @@ Before every commit, agents MUST run formatting and linting.
 Required pre-commit validation:
 
 ```sh
-task lint
+mise run lint
 ```
 
 Formatting MUST also be run through the repository-defined formatter before committing.
@@ -246,7 +244,6 @@ Every Go project MUST include:
 ```text
 go.mod
 mise.toml
-Taskfile.yml
 main.go
 main_test.go
 ```
@@ -259,48 +256,19 @@ Absence of any:
 
 ## Go Toolchain
 
-`mise.toml` MUST define Go version and Task:
+`mise.toml` MUST pin the Go version under `[tools]`.
 
 ```toml
 [tools]
 go = "1.26.2"
-task = "latest"
 ```
-
-If `task lint:design` cannot run because `task` is not installed:
-
-→ mise is not being used yet
-
-→ `mise.toml` MUST include `task = "latest"`
-
-→ the task remains incomplete until corrected
 
 ---
 
-## Taskfile
+## mise Tasks
 
-`Taskfile.yml` MUST include:
-
-```yaml
-version: "3"
-
-tasks:
-  test:
-    cmds:
-      - go test ./...
-
-  lint:
-    cmds:
-      - task lint:design
-
-  run:
-    cmds:
-      - go run .
-
-  build:
-    cmds:
-      - go build -o bin/starter .
-```
+Define project commands in `mise.toml` under `[tasks]`, including `fmt`, `lint`, `test`, and `build`.
+Run them with `mise run <task>`; list them with `mise tasks`. Do not introduce a separate task runner or task file.
 
 ---
 
@@ -316,11 +284,11 @@ If `DESIGN.md` is present:
 
 → `mise.toml` MUST include `node = "latest"`
 
-→ agents MUST validate it through `task lint`
+→ agents MUST validate it through `mise run lint`
 
-→ `task lint` MUST run `task lint:design`
+→ `mise run lint` MUST include `lint:design`
 
-→ `task lint:design` MUST run `npx --yes @google/design.md lint DESIGN.md`
+→ `lint:design` MUST run `npx --yes @google/design.md lint DESIGN.md`
 
 
 ---
@@ -408,7 +376,7 @@ If a repository requires a command to operate, that command MUST be declared in 
 
 A tool is required if it is used by:
 
-- `Taskfile.yml`
+- mise tasks
 - tests
 - build commands
 - lint commands
@@ -420,26 +388,6 @@ Missing required tools in `mise.toml`:
 → FAILURE
 
 ---
-
-## Standard Go mise.toml
-
-Every Go project using `Taskfile.yml` MUST declare both Go and Task:
-
-```toml
-[tools]
-go = "1.26.2"
-task = "latest"
-```
-
-Agents MUST NOT create Taskfile.yml without also declaring task in mise.toml.
-
-Then your `mise install` should actually install Task, and:
-
-```sh
-mise exec -- task -a
-```
-
-should work even if your shell PATH is not reloaded.
 
 ## README.md updates 
 

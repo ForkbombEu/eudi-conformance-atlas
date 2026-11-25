@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" color="#261854">
+  <rect width="800" height="450" fill="#eeebfc"/>
+  <path d="M235 247H565" fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="8 10"/>
+  <g stroke="currentColor" stroke-width="4" stroke-linejoin="round">
+    <rect x="84" y="156" width="161" height="182" rx="21" fill="#fff"/>
+    <rect x="108" y="206" width="113" height="77" rx="10" fill="#dcd5ff"/>
+    <path d="M123 232h27m-27 18h68m-40-77h27m-25 146h23" stroke-linecap="round"/>
+    <rect x="555" y="178" width="161" height="138" rx="15" fill="#fff"/>
+    <path d="M555 209h161m-130-15h1m16 0h1m16 0h1" stroke-linecap="round"/>
+    <path d="m607 259 18 18 38-38" fill="none" stroke-linecap="round"/>
+  </g>
+  <rect x="341" y="194" width="118" height="106" rx="12" fill="currentColor"/>
+  <path d="M369 224h62m-62 23h44m-44 23h56" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5"/>
+  <g fill="currentColor" font-family="Arial, sans-serif">
+    <text x="64" y="100" font-size="49" font-weight="700">Wallet interoperability</text>
+    <text x="64" y="395" font-size="24">Interim guidance for credentials and trust checks</text>
+  </g>
+</svg>
