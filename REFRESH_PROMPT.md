@@ -10,7 +10,7 @@ Refresh the EUDI Trust & Conformance Atlas with verified developments since the 
 
 ## Read first
 
-Follow the repository's agent instructions, `directives/BARIO.md`, human-input rules, current data schema, publishing templates and validation commands. Inspect current changes and preserve work you did not create. Use the runner's current UTC date; never infer today's date from a fetched page or stale prompt. Start from the latest successful review and include a short overlapping lookback so delayed announcements are not missed.
+Follow the repository's agent instructions, `directives/ATLAS.md`, human-input rules, current data schema, publishing templates and validation commands. Inspect current changes and preserve work you did not create. Use the runner's current UTC date; never infer today's date from a fetched page or stale prompt. Start from the latest successful review and include a short overlapping lookback so delayed announcements are not missed.
 
 ## Research and verify
 
